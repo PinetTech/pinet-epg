@@ -1,0 +1,20 @@
+{
+    "name": "pinet/epg",
+    "description": "The Pinet EPG.",
+    "authors": [
+        {
+            "name": "Jake",
+            "email": "jake.xu@pinet.co"
+        }
+    ],
+    "minimum-stability": "dev",
+	"autoload": {
+		"psr-4": {
+			"Pinet\\EPG\\": "application/"
+		}
+	},
+	"require": {
+		"php": ">=5.3.0",
+        "guitarpoet/clips-tool": "dev-master"
+	}
+}

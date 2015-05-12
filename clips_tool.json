@@ -1,0 +1,28 @@
+{
+	"table_prefix":"",
+	"namespace": ["Pinet\\EPG\\"],
+	"route_rules": ["/application/rules/route.rules", "/rules/route.rules"],
+	"filters": ["Rules", "Form", "Scss", "Css", "SmartyView", "MustacheView", "JsonView", "DirectView"],
+	"helpers":["web", "html"],
+	"default_view": "Smarty",
+	"debug_sass": true,
+	"resolutions": ["320", "480", "640", {"pad":"720"}, {"pc":"1280"}, "1440", "1920", "2880"],
+    "sass_preload": ["variables"],
+	"models": {
+	},
+	"logger": {
+		"handlers": {
+			"Stream" : ["php://stdin", "debug"],
+			"FirePHP" : ["debug"],
+			"ChromePHP": ["debug"]
+		},
+		"processors": ["Git", "PsrLogMessage", "Introspection", "Tag"]
+	},
+	"datasources": {
+		"mysql": {
+			"table_prefix":"",
+			"type": "MySQLi",
+			"database": "pinet_cms_dev"
+		}
+	}
+}
