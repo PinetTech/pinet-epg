@@ -8,7 +8,6 @@
 					{/column}
 					{column class="navbar-section"}
 						{block name="navbar"}
-							{navigationtoolbar class="navbar-nav" json="application/config/navigation"}{/navigationtoolbar}
 						{/block}
 					{/column}
 				{/column}
@@ -22,7 +21,6 @@
 											{h3}{context key="html_title"}{/h3}
 										{/column}
 										{column class="navbar-section"}
-											{userinfocard class="userinfo" json="application/config/user"}{/userinfocard}
 										{/column}
 									{/row}
 								{/column}
@@ -43,7 +41,6 @@
 								{row}
 									{column}
 										{row id="subnavi"}
-											{navigationtoolbar class="navbar-nav" subnavi="true" json="application/config/navigation"}{/navigationtoolbar}
 										{/row}
 									{/column}
 								{/row}
