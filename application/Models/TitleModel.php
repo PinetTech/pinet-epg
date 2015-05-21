@@ -16,10 +16,9 @@ class TitleModel extends DBModel {
 		return $this->one('asset_name',$name);
 	}
 
-	public function getTitlesByColumn($column_name){
-		$column = $this->column->getColumnByName($column_name);
-		$result = $this->assetcolumnref->getByColumnID($column->id);
-		$titles = $this->get('asset_id',$result->title_asset_id);
+	public function getTitlesByColumn($column_id,$offset=0){
+		$result = $this->assetcolumnref->getByColumnID($column_id);
+		$titles = $this->get(array('id'=>$result->title_asset_id),$offset);
 		return $titles;
 	}
 

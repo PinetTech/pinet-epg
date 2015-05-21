@@ -18,6 +18,24 @@ class TitleApplicationModel extends DBModel {
 		return $all;
 	}
 
+	public function getTitleappsByDirector($name){
+		$all = $this->get('director',$name);
+		return $all;
+	}
+
+	public function getTitleappsByActors($name){
+		$all = $this->get();
+		$result = array();
+		foreach ($all as $item) {
+			$arr = explode(',',$item->actors);
+			if(in_array($name,$arr)) {
+				$result[] = $item;
+			}
+		}
+
+		return $result;
+	}
+
 	public function getTitleappsByYear($year){
 		$all = $this->get();
 		$result = array();

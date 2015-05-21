@@ -7,7 +7,7 @@ use Clips\Object;
 /**
  * Class ColumnModel
  * @package Pinet\EPG\Models
- * @Clips\Model(table="Column")
+ * @Clips\Model(table="Columns")
  */
 class ColumnModel extends DBModel {
 

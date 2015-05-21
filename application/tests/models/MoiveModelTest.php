@@ -3,9 +3,10 @@
 /**
  * @Clips\Model({"config","configChange"})
  */
-class ColumnModelTest extends Clips\TestCase {
+class MovieModelTest extends Clips\TestCase {
 
-	public function testGetColumnByName(){
+	public function testGetMovieByName(){
 		$this->assertEquals('ab', 'ab');
 	}
+
 }
