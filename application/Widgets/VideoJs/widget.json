@@ -1,0 +1,32 @@
+{
+	"author": "Rex",
+	"date": "Mon May 18 15:05:10 2015",
+	"version": "1.0",
+	"name": "VideoJs",
+	"doc":"The video js widget.",
+	"js": {
+		"files": [
+			"video.js",
+			"videojs-media-sources.js",
+			"videojs-hls.js",
+			"xhr.js",
+			"flv-tag.js",
+			"stream.js",
+			"exp-golomb.js",
+			"h264-stream.js",
+			"aac-stream.js",
+			"metadata-stream.js",
+			"segment-parser.js",
+			"m3u8-parser.js",
+			"playlist-loader.js",
+			"pkcs7.unpad.js",
+			"decrypter.js",
+			"bin-utils.js"
+		]
+	},
+	"css": {
+		"files": [
+			"video-js.css"
+		]
+	}
+}
