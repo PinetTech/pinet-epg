@@ -15,7 +15,8 @@ $slide-sel: get-module("slide", "selector");
 	                left: 0;
 	                bottom: 0;
 	                z-index: 2;
-	                background-color: rgba(#000, 0.5);                          
+	                background-color: #282828;
+	                padding-left: 15px;
 	            }
 	        }
 	        .swiper-pagination {
@@ -23,18 +24,21 @@ $slide-sel: get-module("slide", "selector");
 	            justify-content: flex-end;
 	            height: 43px !important;
 	            align-items: center;
+	            padding-right: 15px;
 	        }
 	        .swiper-pagination-bullet {
 	            width: 10px;
 	            height: 10px !important;
+	            border-radius: 50%;
 	        }
 	        .swiper-pagination-bullet:nth-child(n+1) {
 	            background-image: none !important;
-	            background-color: #990092;
+	            background-color: #6e6e6e;	      
 	        }
 	        .swiper-pagination-bullet-active {
 	            width: 10px;
 	            height: 10px !important;
+	            background-color: #f01111 !important;
 	        }        
 	    }
 	    #{$movielist-sel} {

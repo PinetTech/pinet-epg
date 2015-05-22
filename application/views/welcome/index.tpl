@@ -1,5 +1,9 @@
 {extends file="base-layout.tpl"}
-	{block name="main"}			
+	{block name="main"}	
+        {nav}
+            {navigation actions=$actions}{/navigation}
+        {/nav}
+
 		{swiper class="slide"}
 			{swiper__wrapper items=$items}
 				{literal}
