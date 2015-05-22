@@ -1,0 +1,40 @@
+$movielist__title---border-left-color: #ac12ac;
+
+@mixin movielist__head() {
+    &__head {
+        @extend %hflexbox;
+        justify-content: space-between;
+        align-items: stretch;
+        @content; 
+    }
+    &__title {
+        border-left: 5px solid $movielist__title---border-left-color;
+        margin: 0;
+        padding-left: 20px;
+    }
+    &__viewall {
+        @extend %hflexbox;
+        align-items: center;
+    }   
+}
+
+@mixin movielist__body() {
+    &__body {
+        @extend %hflexbox;
+        @content;
+    }       
+}
+
+
+// movielist common style
+.movielist {
+    @include movielist__head() {
+    } 
+    @include movielist__body() {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        background-color: #124124;
+    }
+}
+
+@include module-exports("movielist", ("selector": unquote(".movielist")));

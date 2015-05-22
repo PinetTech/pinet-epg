@@ -1,0 +1,6 @@
+figure.movie {
+    margin: 0;
+    background-color: #dddddd;
+}
+
+@include module-exports("movie", ("selector": unquote("figure.movie")));

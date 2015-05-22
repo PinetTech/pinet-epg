@@ -1,0 +1,50 @@
+$movie-sel: get-module("movie", "selector");
+$movielist-sel: get-module("movielist", "selector");
+
+$height: 320px;  
+
+.swiper-thumbs {
+    width: 100%;
+    height: $height / 5;
+    box-sizing: border-box;
+    margin: 10px 0;
+    .swiper-wrapper {
+        display: flex;
+        overflow: visible;
+    }
+    .swiper-slide {
+        width: 40%;
+        margin: 0 {
+            right: 10px;
+        }
+        height: 100%;
+        opacity: 0.4;
+        overflow: hidden;
+        > img {
+            width: 100%;
+        }
+        @include fx-center-img();          
+        -webkit-transition: all 0.65s ease;          
+                transition: all 0.65s ease;                
+    }
+    .swiper-slide:last-child {
+        margin-right: 0;
+    }
+    .swiper-slide-active {
+        opacity: 1;
+    }
+}
+
+.slidecator {
+    .swiper-slide {
+        width: 10%;
+    }
+}
+
+#{$movielist-sel}{
+    #{$movie-sel} {
+        width: 14%;
+    }
+}
+
+

@@ -1,0 +1,53 @@
+$movie-sel: get-module("movie", "selector");
+$movielist-sel: get-module("movielist", "selector");
+$slide-sel: get-module("slide", "selector");
+
+@mixin section_epg_mobile($args...) {
+	@include device-mobile() {
+	    #{$slide_sel}{
+	        .swiper-slide {
+	            .slide__title {
+	                width: 100%;
+	                height: 41px;
+	                line-height: 41px;
+	                margin: 0;
+	                position: absolute;
+	                left: 0;
+	                bottom: 0;
+	                z-index: 2;
+	                background-color: rgba(#000, 0.5);                          
+	            }
+	        }
+	        .swiper-pagination {
+	            background-color: transparent;
+	            justify-content: flex-end;
+	            height: 43px !important;
+	            align-items: center;
+	        }
+	        .swiper-pagination-bullet {
+	            width: 10px;
+	            height: 10px !important;
+	        }
+	        .swiper-pagination-bullet:nth-child(n+1) {
+	            background-image: none !important;
+	            background-color: #990092;
+	        }
+	        .swiper-pagination-bullet-active {
+	            width: 10px;
+	            height: 10px !important;
+	        }        
+	    }
+	    #{$movielist-sel} {
+	        #{$movie-sel} {
+	            width: 48%;
+	            margin-top: 10px;
+	        }
+	        #{$movie-sel}:nth-child(1) {
+	            margin-top: 0;
+	        }
+	        #{$movie-sel}:nth-child(2) {
+	            margin-top: 0;
+	        }
+	    }		
+	}
+}
