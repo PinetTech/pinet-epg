@@ -12,7 +12,7 @@ use Clips\Object;
 class AssetcolumnrefModel extends DBModel {
 
 	public function getByColumnID($id){
-		return $this->one('column_id',$id);
+		return $this->get('column_id',$id);
 	}
 
 }
