@@ -8,11 +8,22 @@ use Pinet\EPG\Core\BaseController;
  */
 class MovieController extends BaseController
 {
+	/**
+	 * @Clips\Model({"column","titleapplication"})
+	 */
+	public function index(){
+		$this->title('Pinet Home Page',true);
+		$columns = $this->column->get();
+		$titleApps = $this->titleapplication->get();
+
+		return $this->render('movie/index');
+	}
+
     /**
      * @Clips\Scss({"movie/index"})
      * @Clips\Widget("videoJs")
      */
-    public function index() {
+    public function detail() {
 	    \Clips\context('jquery_init', <<<VIDEOJS_SWF
 
 	videojs.options.flash.swf = Clips.staticUrl('application/Widgets/VideoJs/js/video-js.swf');
@@ -22,6 +33,8 @@ VIDEOJS_SWF
 	    );
 	    
         $this->title('Pinet Home Page',true);
-        return $this->render('movie/index');
+        return $this->render('movie/detail');
     }
+
+
 }
