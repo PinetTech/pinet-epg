@@ -22,6 +22,8 @@ $nav-sel: get-module("nav", "selector");
 	            }
 	        }
 	        .swiper-pagination {
+	        	display: flex;
+	        	align-items: center;
 	            background-color: transparent;
 	            -webkit-justify-content: flex-end;
 	                -ms-flex-pack: end;
@@ -31,20 +33,21 @@ $nav-sel: get-module("nav", "selector");
 	                -ms-flex-align: center;
 	                    align-items: center;
 	            padding-right: 15px;
+	            bottom: 0 !important;
 	        }
 	        .swiper-pagination-bullet {
-	            width: 10px;
+	            width: 10px !important;
 	            height: 10px !important;
 	            border-radius: 50%;
+	            position: static;
 	        }
 	        .swiper-pagination-bullet:nth-child(n+1) {
 	            background-image: none !important;
 	            background-color: #6e6e6e;	      
 	        }
 	        .swiper-pagination-bullet-active {
-	            width: 10px;
-	            height: 10px !important;
 	            background-color: #f01111 !important;
+	            top: 0 !important;
 	        }        
 	    }
 	    #{$movielist-sel} {
@@ -79,10 +82,10 @@ $nav-sel: get-module("nav", "selector");
 	    	// z-index: 1000;
 	    	// margin-left: 10px;
 	    	// margin-right: 10px;
-	    	padding-left: 10px;
-	    	padding-right: 10px;
+	    	position: absolute;
 	    	// display: flex;
 	    	display: none;
+	    	z-index: 1000;
 	    	> li {
 	    		-webkit-flex: none;
 	    		    -ms-flex: none;
@@ -112,11 +115,8 @@ $nav-sel: get-module("nav", "selector");
 	    	}
 			
 			> li {
-				margin-bottom: 20px;
 				> a {
 					display: block;
-					width: 140px;
-					height: 140px;
 					margin: 0 auto;
 					background-color: #021302;
 				}
@@ -129,16 +129,12 @@ $nav-sel: get-module("nav", "selector");
 			}
 
 			&.open {
-				display: inline-flex;
-				-webkit-flex: 1;
-				    -ms-flex: 1;
-				        flex: 1;
-				overflow: auto;
+				display: flex;
+				height: auto;
+				background-color: #ffffff;
 			}
 	    }
 	    #{$nav-sel} {
-			position: fixed;
-			z-index: 1000;
 			display: -webkit-flex;
 			display: -ms-flexbox;
 			display: flex;

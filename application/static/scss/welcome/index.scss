@@ -1,46 +1,8 @@
 $movie-sel: get-module("movie", "selector");
 $movielist-sel: get-module("movielist", "selector");
 $tab-sel: get-module("tab", "selector");
-
-$height: 320px;  
-
-.swiper-thumbs {
-    width: 100%;
-    height: $height / 5;
-    box-sizing: border-box;
-    margin: 10px 0;
-    .swiper-wrapper {
-        display: flex;
-        overflow: visible;
-    }
-    .swiper-slide {
-        width: 40%;
-        margin: 0 {
-            right: 10px;
-        }
-        height: 100%;
-        opacity: 0.4;
-        overflow: hidden;
-        > img {
-            width: 100%;
-        }
-        @include fx-center-img();          
-        -webkit-transition: all 0.65s ease;          
-                transition: all 0.65s ease;                
-    }
-    .swiper-slide:last-child {
-        margin-right: 0;
-    }
-    .swiper-slide-active {
-        opacity: 1;
-    }
-}
-
-.slidecator {
-    .swiper-slide {
-        width: 10%;
-    }
-}
+$menu-sel: get-module("menu", "selector");
+$slide-sel: get-module("slide", "selector");
 
 .actionbar {
     @extend %hflexbox;
@@ -61,7 +23,6 @@ $height: 320px;
             > .form-input:after {
                 content: "";
                 display: block;
-                width: 30px;
                 background-color: #e01818;
                 color: #ffffff;
                 margin: 0;
@@ -72,14 +33,154 @@ $height: 320px;
         display: none;
         width: 40px;
         height: 40px;
-        background-color: #124214;
+        background-color: #f3f3f3;
     }
 }
 
-@mixin section_welcome_index($args...) {
+@mixin section_welcome_index($args...) {   
+    @include device-desktop() {
+        #{$menu-sel} {
+            background-image: linear-gradient(-180deg, #565656 0%, #363636 98%);
+            > li > a {
+                font-size: 14px;
+                color: #F0F0F0;
+                line-height: 19px;        
+            }
+            > li:hover > a {
+                background: #E01818;
+            }
+            li > .sub-navi {
+                background: rgba(#ffffff, .9);
+                box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.50);        
+                > li > a {
+                    font-size: 13px;
+                    color: #1E1E1E;
+                    line-height: 18px;
+                }
+            }
+        }
+
+        .actionbar {
+            height: res(116px, 52px);
+            padding-left: res(40px, 18px);
+            padding-right: res(40px, 18px);
+            &__brand {
+                width: res(202px, 90px);
+                height: res(76px, 34px);
+            }
+            &__search-form {
+                .form-group {
+                    > .form-input input {
+                        width: res(700px, 313px);
+                        height: res(70px, 31px);             
+                        font-size: 14px;
+                        color: #A4A4A4;
+                        line-height: 19px;       
+                        padding-left: res(40px, 18px);
+                    }                
+                    > .form-input:after {
+                        width: res(100px, 44.25px);
+                    }
+                }
+            }
+        }
+        #{$menu-sel} {
+            height: res(90px, 39.5px);
+            > li > a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: res(90px, 40px);
+                padding-left: res(66px, 29px);
+                padding-right: res(66px, 29px);
+            }
+            li > .sub-navi {
+                padding-left: res(120px, 53px);
+                padding-right: res(120px, 53px);
+                height: res(100px, 44.25px);
+                li > a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;                
+                    height: res(100px, 44.25px);
+                    padding: 0;
+                    margin-right: res(42px, 18.5px);
+                }
+                li > a:hover {
+                    color: #e01818;
+                    background-color: transparent;                
+                }
+            }
+        }
+        #{$slide-sel} {
+            width: 100%;
+            height: res(900px, 396px);
+            .swiper-slide {
+                .slide__title {
+                    display: inline-flex;
+                    font-size: res(94.9px, 42px);
+                    color: #F4F4F4;
+                    line-height: 66px;
+                    text-shadow: 0px 4px 2px rgba(0,0,0,0.50);
+                    margin: 0;
+                    left: res(219px, 96px);
+                    top: res(510px, 224px);
+                }
+            }
+            .swiper-pagination {
+                height: res(186px) !important;
+                background-image: linear-gradient(-180deg, rgba(#565656, .65) 0%, rgba(#565656, .65) 98%);
+                bottom: - res(51px) !important;
+            }   
+            .swiper-pagination-bullet {
+                width: res(260px);
+                height: res(178px);
+                position: relative;
+                top: 0;
+                margin: 0 !important;
+                border: 2px solid rgba(#FFFFFF, .65);
+            }
+            .swiper-pagination-bullet-active {
+                width: res(260px);
+                top: - res(42px);
+            }
+        }
+        #{$movielist-sel} {
+            width: 1280px !important;
+            @if $screen-width < 1280 {
+                width: 100% !important;
+            }
+            margin: 0 auto;        
+            padding-top: res(104px);
+            @include movielist__head() {
+                padding-bottom: res(24px);
+            }
+            @include movielist__body() {
+                padding-top: res(52px);
+            }
+            &__title {
+                padding-left: res(40px);
+            }
+            &:nth-of-type(1) {
+                padding-top: res(50px);
+            }
+            &:last-of-type {
+                padding-bottom: res(150px);
+            }
+            #{$movie-sel} {
+                padding-left: res(36px);
+                padding-right: res(36px);
+                padding-top: res(12px);
+                padding-bottom: res(14px);
+            }
+        }        
+    }
     @include device-mobile() {
         .actionbar {
             justify-content: space-between;
+            &__brand {
+            
+            }
             &__search-form {
                 margin-left: 0;
             }
@@ -87,12 +188,67 @@ $height: 320px;
                 display: block;
             }
         }
+        #{$menu-sel} {
+            height: res(90px);
+            width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+
+            > li {
+                position: relative;
+            }
+
+            > li > a {
+                width: res(898px, 159.5px);
+                height: res(623px, 120px);
+                @include position-center-center(absolute);
+                background-color: #ffffff;
+            }
+
+            &.open {
+                height: calc(100% - 40px);
+                background: #F3F3F3;
+            }
+        }      
+        #{$movielist-sel} {
+            @include movielist__head() {
+                padding-top: res(65px);
+                padding-bottom: res(85px);
+            }  
+            @include movielist__body() {
+                padding: res(65px) {
+                    bottom: 0;
+                }
+                #{$movie-sel} {
+                    &:nth-child(n+3) {
+                        margin-bottom: 0;
+                    }
+                    &:nth-child(n+5) {
+                        display: none;
+                    }                    
+                }
+            }          
+        }      
+        #{$slide-sel} {
+            width: 100%;
+            height: res(1370px, 192px);
+            .swiper-slide {
+                .slide__title {
+                    color: #ffffff;
+                }
+            }
+        }         
     }
 }
 
 #{$movielist-sel}{
     #{$movie-sel} {
         width: 14%;
+        .count-number {
+            font-size: 10px;
+            color: #6E6E6E;
+            line-height: 12px;          
+        }           
     }
 }
 

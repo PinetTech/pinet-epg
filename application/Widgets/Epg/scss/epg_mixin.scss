@@ -78,6 +78,16 @@
 	}
 }
 
+@mixin device-desktop($default: 769) {
+	$mobile-alias-value: getAliasResolutionValue("mobile");
+	@if $mobile-alias-value == null {
+		$mobile-alias-value: $default;
+	}
+	@if $screen-width > ($mobile-alias-value - 1) {
+		@content;
+	}
+}
+
 @mixin custom-prop-settings($settings: (selector: ".custom-stylesheet")) {
 	$custom-prop-settings: $settings !global;
 	@if function-exists(json-encode) == true {

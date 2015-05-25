@@ -1,6 +1,12 @@
-figure.movie {
-    margin: 0;
-    background-color: #dddddd;
+figure {
+	&.movie {
+		$this: unquote(".movie");
+	    margin: 0;
+	    padding: 0;
+		color: #161616;
+		line-height: 19px;	
+		background: rgba(#F1F1F1, .74);		
+	}
 }
 
 @include module-exports("movie", ("selector": unquote("figure.movie")));

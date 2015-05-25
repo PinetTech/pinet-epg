@@ -86,6 +86,10 @@ class WelcomeController extends BaseController
                 (object)array('title'=>'nature3', 'image'=>'http://lorempixel.com/1200/1200/nature/3'),
                 (object)array('title'=>'nature4', 'image'=>'http://lorempixel.com/1200/1200/nature/4'),
                 (object)array('title'=>'nature5', 'image'=>'http://lorempixel.com/1200/1200/nature/5'),
+                (object)array('title'=>'nature6', 'image'=>'http://lorempixel.com/1200/1200/nature/6'),
+                (object)array('title'=>'nature7', 'image'=>'http://lorempixel.com/1200/1200/nature/7'),
+                (object)array('title'=>'nature8', 'image'=>'http://lorempixel.com/1200/1200/nature/8'),
+                (object)array('title'=>'nature9', 'image'=>'http://lorempixel.com/1200/1200/nature/9')
             ),
             "tab"=>array(
                 "navs"=>array(
