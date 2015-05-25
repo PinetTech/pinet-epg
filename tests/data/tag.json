@@ -1,0 +1,40 @@
+{
+	"title14": {
+		"id": 14,
+		"asset_name": "纵横四海",
+		"$storage": true,
+		"$model": "title"
+	},
+	"column11": {
+		"id": 11,
+		"column_name": "惊悚",
+		"$storage": true,
+		"$model": "column"
+	},
+	"asset_column_ref21": {
+		"id": 21,
+		"create_at": "2015-05-04 15:21:56",
+		"modify_at": "2015-05-04 15:21:59",
+		"action": "aaa",
+		"rank": 2,
+		"status": 3,
+		"column_id": 11,
+		"title_asset_id": 14,
+		"$storage": true,
+		"$model": "assetcolumnref"
+	},
+	"package11": {
+		"id": 11,
+		"asset_name": "纵横四海",
+		"program_type_name": "剧情,惊悚,犯罪",
+		"$storage": true,
+		"$model": "package"
+	},
+	"package12": {
+		"id": 12,
+		"asset_name": "霸王别姬",
+		"program_type_name": "剧情,惊悚,戏剧",
+		"$storage": true,
+		"$model": "package"
+	}
+}

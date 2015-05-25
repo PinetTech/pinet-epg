@@ -1,0 +1,40 @@
+play_histories:
+    mac:
+        type: string
+        key: true
+        options:
+            limit: 17
+    title_id:
+        key: true
+    create_date:
+        type: timestamp
+        key: true
+
+deivices:
+    mac:
+        type: string
+        key: true
+        options:
+            limit: 17
+    create_date:
+        type: datetime
+        key: true
+    uagent:
+        type: string
+        options:
+            limit: 255
+    play_uri:
+        type: string
+        options:
+            limit: 255
+
+search_keys:
+    keyword:
+        type: string
+        key: true
+        options:
+            limit: 50
+    times:
+    timestamp:
+        type: timestamp
+        key: true

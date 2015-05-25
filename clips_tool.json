@@ -22,7 +22,7 @@
 		"mysql": {
 			"table_prefix":"",
 			"type": "MySQLi",
-			"database": "pinet_cms_dev"
+			"database": "mam"
 		}
 	}
 }
