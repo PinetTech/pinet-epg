@@ -1,7 +1,16 @@
 {extends file="base-layout.tpl"}
 	{block name="main"}	
         {nav}
-            {navigation actions=$actions}{/navigation}
+            <div class="actionbar">
+                <div class="actionbar__brand">
+                    brand
+                </div>
+                {form class="actionbar__search-form" name="search"}
+                    {field field="search"}{/field}
+                {/form}
+                <div class="actionbar__trigger" data-trigger="#menu"></div>
+            </div>
+            {navigation id="menu" class="menu" actions=$actions}{/navigation}
         {/nav}
 
 		{swiper class="slide"}
@@ -89,4 +98,29 @@
                 </figure>                                                                                
             </div>
         </section>
+
+        {div class="tab"}
+            {swiper class="tab__nav"}
+                {swiper__wrapper items=$tab['navs']}
+                    {literal}
+                        {swiper__slide}{$item}{/swiper__slide}
+                    {/literal}                    
+                {/swiper__wrapper}
+            {/swiper}
+            {swiper class="tab__thumbs"}
+                {swiper__wrapper items=$tab['navs']}
+                    {literal}
+                        {swiper__slide}{/swiper__slide}
+                    {/literal}
+                {/swiper__wrapper}            
+            {/swiper}
+            {swiper class="tab__content"}
+                {swiper__wrapper}
+                    {swiper__slide}1{/swiper__slide}
+                    {swiper__slide}2{/swiper__slide}
+                    {swiper__slide}3{/swiper__slide}
+                {/swiper__wrapper}                        
+            {/swiper}
+        {/div}
+
 	{/block}

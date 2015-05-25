@@ -14,6 +14,7 @@ class WelcomeController extends BaseController
     }
 
     /**
+     * @Clips\Form({"search"})
      * @Clips\Widget({"epg", "navigation"})
      * @Clips\Scss({"welcome/index"})
      * @Clips\Js({"application/static/js/welcome/index.js"})
@@ -62,6 +63,12 @@ class WelcomeController extends BaseController
             $this->action('/nav/2', 'nav7-2'), 
             $this->action('/nav/3', 'nav7-3')
         );        
+        $nav8 = $this->action('/nav', 'label');
+        $nav8->children = array(
+            $this->action('/nav/1', 'nav8-1'),
+            $this->action('/nav/2', 'nav8-2'), 
+            $this->action('/nav/3', 'nav8-3')
+        );                
         return $this->render('welcome/index', array(
             'actions'=>array(
                 $nav1,
@@ -70,7 +77,8 @@ class WelcomeController extends BaseController
                 $nav4,
                 $nav5,
                 $nav6,
-                $nav7
+                $nav7,
+                $nav8
             ),
             'items'=>array(
                 (object)array('title'=>'nature1', 'image'=>'http://lorempixel.com/1200/1200/nature/1'),
@@ -78,7 +86,64 @@ class WelcomeController extends BaseController
                 (object)array('title'=>'nature3', 'image'=>'http://lorempixel.com/1200/1200/nature/3'),
                 (object)array('title'=>'nature4', 'image'=>'http://lorempixel.com/1200/1200/nature/4'),
                 (object)array('title'=>'nature5', 'image'=>'http://lorempixel.com/1200/1200/nature/5'),
+            ),
+            "tab"=>array(
+                "navs"=>array(
+                    'nav1',
+                    'nav2',
+                    'nav3'
+                ),
+                "contents"=>array(
+                    (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+                    (object)array('episodes'=>'1,2,3,4,5'),
+                    (object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+                )
             ) 
         ));
     }
+
+    /**
+     * @Clips\Form({"search"})
+     * @Clips\Widget({"epg", "navigation"})
+     * @Clips\Scss({"welcome/list"})
+     * @Clips\Js({"application/static/js/welcome/list.js"})
+     */
+    public function movielist() {
+        $nav1 = $this->action('/nav', 'label');
+        $nav1->children = array(
+            $this->action('/nav/1', 'nav1-1'),
+            $this->action('/nav/2', 'nav1-2'), 
+            $this->action('/nav/3', 'nav1-3')
+        );
+        $nav2 = $this->action('/nav', 'label');
+        $nav2->children = array(
+            $this->action('/nav/1', 'nav2-1'),
+            $this->action('/nav/2', 'nav2-2'), 
+            $this->action('/nav/3', 'nav2-3')
+        );
+        $nav3 = $this->action('/nav', 'label');
+        $nav3->children = array(
+            $this->action('/nav/1', 'nav3-1'),
+            $this->action('/nav/2', 'nav3-2'), 
+            $this->action('/nav/3', 'nav3-3')
+        );        
+        return $this->render('welcome/list', array(
+            "actions"=>array(
+                $nav1,
+                $nav2,
+                $nav3
+            ),
+            "tab"=>array(
+                "navs"=>array(
+                    'nav1',
+                    'nav2'
+                ),
+                "contents"=>array(
+                    (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+                    (object)array('episodes'=>'1,2,3,4,5'),
+                    (object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+                )
+            ) 
+        ));
+    }    
 }

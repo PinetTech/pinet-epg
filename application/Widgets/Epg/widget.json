@@ -16,9 +16,12 @@
 			"epg_setting",
 			"epg_mixin",
 			"epg_custom",
+			"epg_menu",
 			"epg_movie",
 			"epg_movielist",
 			"epg_swiper",
+			"epg_tab",
+			"epg_layout",
 			"epg_mobile",
 			"pinet_epg"
 		]

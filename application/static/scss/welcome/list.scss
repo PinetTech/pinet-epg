@@ -1,0 +1,86 @@
+$tab-sel: get-module("tab", "selector");
+
+main {
+	&.movielist {
+		@extend %hflexbox;
+	}
+}
+
+.movies {
+    flex: 1;
+}
+
+#{$tab-sel} {
+    &__nav {
+        margin: 0;
+        .swiper-wrapper {
+            width: 240px;
+        }
+        .swiper-slide {
+            width: 50%;
+        }       
+        .swiper-slide-active {
+            color: #ef1717;
+        }
+    }
+    &__thumbs {
+        border-bottom: 1px solid #dedede;
+        margin: 0;        
+        .swiper-wrapper {
+            width: 240px;
+        }
+        .swiper-slide {
+            width: 50%;
+            height: 3px;
+        }
+        .swiper-slide-active {
+            background-color: #e01818;
+        }
+    }
+    &__content {
+        height: 450px;
+        .swiper-slide {
+        	width: 100%;
+        }
+    }
+}
+
+.nav {
+    &.movietypes {
+        width: 240px;
+        li > .sub-navi {
+            width: 100%;
+        }
+
+        .sub-navi {
+            > li {
+                float: left;
+            }
+        }
+    }
+}
+
+
+@mixin section_welcome_list($args...) {
+    @include device-mobile() {
+        main {
+            &.movielist {
+                display: block;
+            }
+        }
+        .nav {
+            &.movietypes {
+                width: 100%;
+                > li {
+                    @extend %hflexbox;
+                }
+
+                li > .sub-navi {
+                    width: auto;
+                    flex: 1;
+                }
+            }
+        }
+
+    }
+}

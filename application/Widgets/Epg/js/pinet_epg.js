@@ -26,4 +26,11 @@
         return false;
     }
 
+    $('[data-trigger]').on('click', function(){
+        var self = $(this);
+        var triggerEle = $(self.data('trigger'));
+        triggerEle.toggleClass('open');
+        triggerEle.parent().toggleClass('full-screen');
+    });
+
 })();

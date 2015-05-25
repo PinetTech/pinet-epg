@@ -1,0 +1,9 @@
+.tab {
+	&__nav {
+		.swiper-slide {
+			text-align: center;
+		}		
+	}
+}
+
+@include module-exports("tab", ("selector": unquote(".tab")));
