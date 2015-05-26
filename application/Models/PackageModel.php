@@ -7,8 +7,8 @@ use Clips\Object;
 /**
  * Class PackageModel
  * @package Pinet\EPG\Models
- * @Clips\Model(table="Package")
- * @Clips\Model({ "column","assetcolumnref" })
+ * @Clips\Model(table="package")
+ * @Clips\Model({ "column","assetColumnRef" })
  */
 class PackageModel extends DBModel {
 

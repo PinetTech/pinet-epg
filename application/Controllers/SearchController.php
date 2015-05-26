@@ -18,9 +18,15 @@ class SearchController extends BaseController
         return $this->render('index/index');
     }
 
-	public function search(){
+	public function search() {
 		$post = $this->post();
-		$titles = $this->title->getTitlesByKey('rtr');
+		$titles = $this->title->getTitlesByKey($post['key']);
+	}
+
+	public function sift(){
+		$post = $this->post();
+		$titles = $this->title->getTitlesByItem("剧情","aaa",2015);
+		var_dump($titles);
 	}
 
 }

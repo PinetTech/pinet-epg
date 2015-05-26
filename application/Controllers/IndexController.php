@@ -10,12 +10,19 @@ class IndexController extends BaseController
 {
     /**
      * @Clips\Scss({"index/index"})
-     * @Clips\Model({"title"})
+     * @Clips\Model({"title","playHistorie"})
      */
     public function index() {
         $this->title('Pinet Home Page',true);
-		$movies = $this->title->getTitlesByColumn(11,6);
-	    var_dump($movies);die;
-        return $this->render('index/index');
+		$titles = $this->title->getTitlesByColumn(1,6);
+//	    foreach ($titles as $k=>$v) {
+//			$titles[$k]->record = $this->playhistorie->getPlayTimesByTitleID($v->id);
+//	    }
+//	    $hotRecords = $this->playhistorie->getHotRecord();
+//	    var_dump($titles);die;
+//
+//        return $this->render('index/index');
     }
+
+
 }

@@ -19,4 +19,12 @@ class MovieModel extends DBModel {
 
 	}
 
+	public function getPlayUrlByTitleID($titleID, $serverUrl){
+		$movie = $this->one('title_id', $titleID);
+		if(isset($movie->id)){
+			return str_replace('localhost', $serverUrl, $movie->play_url);
+		}
+		return '';
+	}
+
 }
