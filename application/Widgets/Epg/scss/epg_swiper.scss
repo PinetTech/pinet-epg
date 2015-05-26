@@ -12,8 +12,14 @@
 
     .swiper-pagination {
         background-color: rgba(#000, 0.5);
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
         overflow: visible;
         bottom: 0 !important;
         height: auto;
@@ -28,7 +34,8 @@
         background-color: transparent;
         border-radius: 0;
         opacity: 0.7;
-        transition: all 0.65s ease;
+        -webkit-transition: all 0.65s ease;
+                transition: all 0.65s ease;
     }
     .swiper-pagination-bullet:nth-child(n+1) {
         background-size: cover;

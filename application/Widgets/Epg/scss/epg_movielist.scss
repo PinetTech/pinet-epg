@@ -3,8 +3,14 @@ $movielist__title---border-left-color: #e01818;
 @mixin movielist__head() {
     &__head {
         @extend %hflexbox;
-        justify-content: space-between;
-        align-items: stretch;/* Rectangle 1 Copy 3: */
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-align: stretch;
+        -webkit-align-items: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;/* Rectangle 1 Copy 3: */
         border-bottom: 1px solid #e5e5e5;
         @content; 
     }
@@ -17,7 +23,10 @@ $movielist__title---border-left-color: #e01818;
     }
     &__viewall {
         @extend %hflexbox;
-        align-items: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
         font-size: 14px;
         color: #787878;
         line-height: 19px;
@@ -36,9 +45,14 @@ $movielist__title---border-left-color: #e01818;
     @include movielist__head() {
     } 
     @include movielist__body() {
-        justify-content: space-between;
-        flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
     }
 }
 
-@include module-exports("movielist", ("selector": unquote(".movielist")));
+@include module-exports("movielist", ("selector": unquote(".movielist")));}}}
