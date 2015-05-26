@@ -12,7 +12,7 @@
 	},
 	"logger": {
 		"handlers": {
-			"Stream" : ["php://stdin", "debug"],
+			"Stream" : ["php://stdout", "debug"],
 			"FirePHP" : ["debug"],
 			"ChromePHP": ["debug"]
 		},
