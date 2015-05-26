@@ -92,7 +92,7 @@
 	$custom-prop-settings: $settings !global;
 	@if function-exists(json-encode) == true {
 		[custom-prop-settings] {
-			content: json-encode($settings);
+			content: '{"selector":".custom-stylesheet"}';
 		}
 	}
 }
@@ -101,7 +101,7 @@
 	@if global-variable-exists(custom-prop-settings) == true and type-of($custom-prop-settings) == map and length($custom-prop-settings) {
 		$sel: map-get($custom-prop-settings, "selector");
 		&#{$sel} {
-			content: '{"selector":".custom-stylesheet"}';
+			content: json-encode($stylesheet);
 		}
 	}
 }
