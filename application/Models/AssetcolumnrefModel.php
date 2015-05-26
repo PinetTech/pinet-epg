@@ -5,7 +5,7 @@ use Clips\Libraries\DBModel;
 use Clips\Object;
 
 /**
- * Class AssetcolumnrefModel
+ * Class AssetColumnRefModel
  * @package Pinet\EPG\Models
  * @Clips\Model(table="asset_column_ref")
  */

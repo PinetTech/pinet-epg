@@ -2,7 +2,7 @@
 namespace Pinet\EPG\Models;in_array(__FILE__, get_included_files()) or exit("No direct script access allowed");
 
 use Clips\Libraries\DBModel;
-use Clips\Object;
+use Clips\Libraries;
 use Clips\Libraries\WhereOperator;
 
 
@@ -25,7 +25,7 @@ class FindInSet extends WhereOperator {
 /**
  * Class TitleModel
  * @package Pinet\EPG\Models
- * @Clips\Model(table="Title")
+ * @Clips\Model(table="title")
  * @Clips\Model({ "column","assetColumnRef" })
  */
 class TitleModel extends DBModel {
@@ -34,14 +34,13 @@ class TitleModel extends DBModel {
 		return $this->one('asset_name',$name);
 	}
 
-	public function getTitlesByColumn($column_id,$offset=0){
-		$titles = $this->select('title.id,title.asset_name')
+	public function getTitlesByColumn($column_id,$count=0){
+		return $this->select('title.id,title.asset_name')
 				->from('title')
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 				->where(array('asset_column_ref.column_id'=>$column_id))
-				->limit(0,$offset)
+				->limit(0,$count)
 				->result();
-		return $titles;
 	}
 
 	/**
@@ -60,5 +59,59 @@ class TitleModel extends DBModel {
 				->result();
 	}
 
+	public function getTitlesByItem($type,$area,$year){
+		if(isset($type) && isset($area) && isset($year)) {
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')
+							,new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
+							, new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($type) && isset($area)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')
+					, new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($type) && isset($year)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
+					, new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($area) && isset($year)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
+					, new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')))
+					->result();
+		}elseif(isset($type)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($area)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')))
+					->result();
+		}elseif(isset($year)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')))
+					->result();
+		}
+
+	}
 
 }
