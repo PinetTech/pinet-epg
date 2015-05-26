@@ -16,10 +16,13 @@ class TitleModel extends DBModel {
 	}
 
 	public function getTitlesByColumn($column_id, $limit=0){
-		return $this->select('title.id,title.asset_name')
+		return $this->select('title.id,title.asset_name,poster.sourceurl')
 				->from('title')
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
-				->where(array('asset_column_ref.column_id'=>$column_id))
+				->join('poster',array('poster.title_id'=>'title.id'))
+				->where(array('asset_column_ref.column_id'=>$column_id,
+						'poster.image_aspect_ratio'=>'306x429',
+						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
 				->limit(0, $limit)
 				->result();
 	}
@@ -139,6 +142,8 @@ class TitleModel extends DBModel {
 					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')))
 					->result();
 		}
+
+		
 
 	}
 
