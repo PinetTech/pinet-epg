@@ -8,18 +8,14 @@ use Pinet\EPG\Core\BaseController;
  */
 class WelcomeController extends BaseController
 {
-    public function index() {
-        $this->title('Pinet Home Page',true);
-		echo '<center>Hello EPG</center>';
-    }
-
+	
     /**
      * @Clips\Form({"search"})
      * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"welcome/index"})
      * @Clips\Js({"application/static/js/welcome/index.js"})
      */
-    public function test() {
+    public function index() {
         $this->title('Pinet Home Page',true);
         $nav1 = $this->action('/nav', 'label');
         $nav1->children = array(
