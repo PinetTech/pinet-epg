@@ -26,7 +26,7 @@ class FindInSet extends WhereOperator {
  * Class TitleModel
  * @package Pinet\EPG\Models
  * @Clips\Model(table="Title")
- * @Clips\Model({ "column","assetcolumnref" })
+ * @Clips\Model({ "column","assetColumnRef" })
  */
 class TitleModel extends DBModel {
 

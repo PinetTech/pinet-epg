@@ -9,7 +9,7 @@ use Clips\Object;
  * @package Pinet\EPG\Models
  * @Clips\Model(table="asset_column_ref")
  */
-class AssetcolumnrefModel extends DBModel {
+class AssetColumnRefModel extends DBModel {
 
 	public function getByColumnID($id){
 		return $this->get('column_id',$id);
