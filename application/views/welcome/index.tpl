@@ -7,6 +7,9 @@
                 </div>
                 {form class="actionbar__search-form" name="search"}
                     {field field="search"}{/field}
+                    {label class="submit"}
+                        {submit}
+                    {/label}
                 {/form}
                 <div class="actionbar__trigger" data-trigger="#menu">
                     <span></span>
