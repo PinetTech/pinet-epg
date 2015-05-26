@@ -5,12 +5,12 @@ play_histories:
         options:
             limit: 17
     title_id:
-        key: true
+        type: biginteger
     create_date:
         type: timestamp
         key: true
 
-deivices:
+devices:
     mac:
         type: string
         key: true

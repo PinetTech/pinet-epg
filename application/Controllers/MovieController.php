@@ -22,6 +22,7 @@ class MovieController extends BaseController
     /**
      * @Clips\Scss({"movie/index"})
      * @Clips\Widget("videoJs")
+	 * @Clips\Model({"playHistorie"})
      */
     public function play() {
 	    \Clips\context('jquery_init', <<<VIDEOJS_SWF
@@ -31,7 +32,10 @@ class MovieController extends BaseController
 	var player = videojs('video');
 VIDEOJS_SWF
 	    );
-	    
+	    $this->playhistorie->saveHistory(array(
+			'mac' => '',
+			'title_id' => ''
+		));
         $this->title('Pinet Home Page',true);
         return $this->render('movie/play');
     }

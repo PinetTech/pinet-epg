@@ -7,6 +7,12 @@ migrate:
 	@mysql -u root -e "use ${DB}"
 	@./vendor/bin/clips phinx migrate
 
+epg:
+	@mysql -u root -e "use ${DB};drop table if exists phinxlog;drop table if exists play_histories;drop table if exists devices;drop table if exists search_keys;"
+
+clean: epg migrate
+	@echo Clean epg tables and rebuild;
+
 test:
 	@phpunit
 
