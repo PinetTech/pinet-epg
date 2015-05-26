@@ -101,7 +101,7 @@
 	@if global-variable-exists(custom-prop-settings) == true and type-of($custom-prop-settings) == map and length($custom-prop-settings) {
 		$sel: map-get($custom-prop-settings, "selector");
 		&#{$sel} {
-			content: json-encode($stylesheet);
+			content: '{"selector":".custom-stylesheet"}';
 		}
 	}
 }
