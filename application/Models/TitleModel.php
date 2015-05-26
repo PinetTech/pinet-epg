@@ -15,14 +15,13 @@ class TitleModel extends DBModel {
 		return $this->one('asset_name',$name);
 	}
 
-	public function getTitlesByColumn($column_id,$limit=0){
-		$titles = $this->select('title.id,title.asset_name')
+	public function getTitlesByColumn($column_id, $limit=0){
+		return $this->select('title.id,title.asset_name')
 				->from('title')
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 				->where(array('asset_column_ref.column_id'=>$column_id))
-				->limit(0,$limit)
+				->limit(0, $limit)
 				->result();
-		return $titles;
 	}
 
 	/**
@@ -42,7 +41,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getMovieInfoByID($titleID){
-		return $this->select('title.asset_name,title_application.actors,title_application.summary_long,title_application.director')
+		return $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director')
 			->from('title')
 			->join('title_application',array('title.application_id'=>'title_application.id'))
 			->where('title.id', $titleID)
@@ -55,8 +54,11 @@ class TitleModel extends DBModel {
 		if($notIn){
 			$select->where(new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn)));
 		}
-		return $select->limit(0,$limit)
+		$titles = $select->limit(0,$limit)
 			->result();
+		if($titles)
+			return $titles;
+		return array();
 	}
 
 	public function getSameTypeMovies($titleID, $limit=10) {
@@ -74,12 +76,67 @@ class TitleModel extends DBModel {
 		}
 		$titleIDs = array_map(function($title){return $title->id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($titleIDs);
-		foreach($titles as $key=>$title){
+		foreach($titles as $title){
 			$titles['count'] = 0;
 			if(isset($plays[$title->id]))
 				$titles['count'] = $plays[$title->id];
 		}
 		return $titles;
+	}
+
+	public function getTitlesByItem($type,$area,$year){
+		if(isset($type) && isset($area) && isset($year)) {
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')
+							,new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
+							, new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($type) && isset($area)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')
+					, new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($type) && isset($year)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
+					, new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($area) && isset($year)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
+					, new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')))
+					->result();
+		}elseif(isset($type)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new FindInSet('package.program_type_name', $type)))
+					->result();
+		}elseif(isset($area)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('title_application',array('title.application_id'=>'title_application.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')))
+					->result();
+		}elseif(isset($year)){
+			$title = $this->select('distinct title.id,title.asset_name')
+					->from('title')
+					->join('package',array('title.package_id'=>'package.id'))
+					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')))
+					->result();
+		}
+
 	}
 
 }
