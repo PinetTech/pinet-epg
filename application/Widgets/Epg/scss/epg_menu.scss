@@ -1,0 +1,43 @@
+.nav {
+	&.menu {
+		// layout
+		@extend %hflexbox;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
+		position: relative;
+		> li {
+			// position: relative;	
+			position: static;
+		}
+
+		.sub-navi {
+			position: absolute;
+			display: none;
+			z-index: 15;
+			background-color: #ffffff;
+		}
+
+		> li:hover {
+			> a {
+				background-color: #211412;
+				color: #ffffff;
+			}
+			> .sub-navi {
+				@extend %hflexbox;
+				width: 100%;
+				left: 0;
+				top: 100%;
+			}
+		}
+
+		// reset
+		margin: 0;
+
+		// style
+		text-align: center;
+	}
+}
+
+@include module-exports("menu", ("selector": unquote(".nav.menu")));

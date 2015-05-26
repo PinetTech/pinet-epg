@@ -1,0 +1,29 @@
+{
+	"author": "andy",
+	"date": "Tue May 19 15:45:26 2015",
+	"version": "epg",
+	"name": "Epg",
+	"doc":"epg",
+	"depends": ["swiper", "sassstd", "fontawesome"],
+	"js": {
+		"files": [
+			"jquery.stylesheet",
+			"pinet_epg"
+		]
+	},
+	"scss": {
+		"files": [
+			"epg_setting",
+			"epg_mixin",
+			"epg_custom",
+			"epg_menu",
+			"epg_movie",
+			"epg_movielist",
+			"epg_swiper",
+			"epg_tab",
+			"epg_layout",
+			"epg_mobile",
+			"pinet_epg"
+		]
+	}
+}

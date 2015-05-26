@@ -1,0 +1,12 @@
+{
+	"author": "andy",
+	"date": "Thu May 14 10:27:58 2015",
+	"version": "1.0",
+	"name": "Fontawesome",
+	"doc":"fontawesome",
+	"scss": {
+		"files": [
+			"font-awesome"
+		]
+	}
+}

@@ -2,3 +2,5 @@
 /vendor
 composer.lock
 .idea
+.tags
+.tags_sorted_by_file
