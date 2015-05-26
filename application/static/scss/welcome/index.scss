@@ -578,6 +578,11 @@ $nav-sel: get-module("nav", "selector");
                         -ms-transform: translateX(15px);
                             transform: translateX(15px);
                 }
+                .submit {
+                    -webkit-transform: translateX(-70%);
+                        -ms-transform: translateX(-70%);
+                            transform: translateX(-70%);
+                }
             }
         }
     }
