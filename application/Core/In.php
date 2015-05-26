@@ -14,6 +14,6 @@ class In extends WhereOperator {
 	}
 
 	public function toString() {
-		return 'in (?)';
+		return $this->left.' in (?)';
 	}
 }

@@ -22,7 +22,7 @@ class MovieController extends BaseController
     /**
      * @Clips\Scss({"movie/index"})
      * @Clips\Widget("videoJs")
-	 * @Clips\Model({"playHistorie", "title"})
+	 * @Clips\Model({"playHistorie", "title", "movie"})
      */
     public function play($titleID) {
 		$title = $this->title->getMovieInfoByID($titleID);
@@ -38,12 +38,17 @@ class MovieController extends BaseController
 VIDEOJS_SWF
 	    );
 
+		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
+
 	    $this->playhistorie->saveHistory(array(
-			'mac' => '',
-			'title_id' => 2
+			'mac' => $this->request->server('REMOTE_ADDR'),
+			'title_id' => $titleID
 		));
-        $this->title('Pinet Home Page',true);
-        return $this->render('movie/play');
+
+		$sames = $this->title->getSameTypeMovies($titleID);
+		$this->logger->info('movie controller REMOTE_ADDR is ', array($this->request->server('SERVER_ADDR'), $sames));
+        $this->title($title->asset_name,true);
+        return $this->render('movie/play', array('movie' => $title));
     }
 
 
