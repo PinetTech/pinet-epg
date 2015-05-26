@@ -338,7 +338,7 @@ $nav-sel: get-module("nav", "selector");
             &__search-form {
                 margin-left: 0;
                 .form-input > input {
-                    width: res(mobile-to-pc(193px));
+                    width: res(mobile-to-pc(173px));
                     // position: absolute;
                     height: 30px;
                     padding-left: 10px;
@@ -456,17 +456,23 @@ $nav-sel: get-module("nav", "selector");
                 }
             }  
             @include movielist__body() {
+                display: inline-block;
                 padding: res(65px) {
                     bottom: 0;
                 }
                 #{$movie-sel} {
+                    display: block;
+                    float: left;
                     position: relative;
                     &:nth-child(n+3) {
                         margin-bottom: 0;
                     }
                     &:nth-child(n+5) {
                         display: none;
-                    }                    
+                    } 
+                    &:nth-child(even) {
+                        float: right;
+                    }                   
                     .movie__title {
                         text-align: center;
                         background: rgba(#414141, 0.74);
@@ -499,6 +505,15 @@ $nav-sel: get-module("nav", "selector");
             }
         }         
     }
+    @include screen(320px, 350px) {
+        .actionbar {  
+            &__search-form {
+                .form-input > input {
+                    width: 105px;
+                }
+            }
+        }
+    }
 }
 
 #{$movielist-sel}{
@@ -514,33 +529,6 @@ $nav-sel: get-module("nav", "selector");
                 margin-right: 5px;
             }          
         }           
-    }
-}
-
-#{$tab-sel} {
-    &__nav {
-        .swiper-slide {
-            width: 33.3%;   
-        }       
-        .swiper-slide-active {
-            color: #ef1717;
-        }
-    }
-    &__thumbs {
-        border-bottom: 1px solid #dedede;
-        .swiper-slide {
-            width: 33.3%;
-            height: 3px;
-        }
-        .swiper-slide-active {
-            background-color: #e01818;
-        }
-    }
-    &__content {
-        height: 450px;
-        .swiper-slide {
-            width: 100%;
-        }
     }
 }
 
