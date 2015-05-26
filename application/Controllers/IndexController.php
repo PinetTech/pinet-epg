@@ -15,13 +15,13 @@ class IndexController extends BaseController
     public function index() {
         $this->title('Pinet Home Page',true);
 		$titles = $this->title->getTitlesByColumn(1,6);
-//	    foreach ($titles as $k=>$v) {
-//			$titles[$k]->record = $this->playhistorie->getPlayTimesByTitleID($v->id);
-//	    }
-//	    $hotRecords = $this->playhistorie->getHotRecord();
-//	    var_dump($titles);die;
-//
-//        return $this->render('index/index');
+	    foreach ($titles as $k=>$v) {
+			$titles[$k]->record = $this->playhistorie->getPlayTimesByTitleID($v->id);
+	    }
+	    $hotRecords = $this->playhistorie->getHotRecord();
+
+
+        return $this->render('index/index');
     }
 
 

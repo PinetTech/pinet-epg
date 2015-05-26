@@ -1,0 +1,108 @@
+@function register-module($name, $option) {
+	$map: map-deep-set((), $name, $option);
+	@return map-merge($register_modules, $map);
+}
+
+@function get-module($name, $prop: null) {
+	@if $prop == null {
+		@return map-get($register_modules, $name);
+	}
+	@else {
+		@return map-deep-get($register_modules, $name, $prop);
+	}
+}
+
+@function require($name, $prop: null) {
+	@return get-module($name, $prop);
+}
+
+@mixin module-exports($name, $option) {
+	$register-modules: register-module($name, $option) !global;
+}
+
+@mixin fx-center-img($sel: "> img") {
+    position: relative;
+    #{$sel} {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        z-index: -1;
+    }
+}
+
+///@param {String} 
+///@return {Bool}
+@function checkAliasExists($alias: null) {
+	@if type-of($alias) != string {
+		@return null;
+	}
+	@if length($pinet-alias) < 1 {
+		@warn "no alias set";
+		@return null;
+	}
+	@return sl-contain($pinet-alias, $alias);
+}
+
+@function getAliasResolution($alias) {
+	$val: null;
+	@if checkAliasExists($alias) == false {
+		@return null;
+	}
+	@each $val in $pinet-resolutions {
+		@if type-of($val) == map and map-has-key($val, $alias) == true {
+			@return $val;
+		}
+	}
+}
+
+@function getAliasResolutionValue($alias: null) {
+	$val: getAliasResolution($alias);
+	@if $val != null {
+		@return nth(map-values($val), 1);
+	}
+	@else {
+		@return null;
+	}
+}
+
+@mixin device-mobile($default: 769) {
+	$mobile-alias-value: getAliasResolutionValue("mobile");
+	@if $mobile-alias-value == null {
+		$mobile-alias-value: $default;
+	}
+	@if $screen-width < $mobile-alias-value {
+		@content;
+	}
+}
+
+@mixin device-desktop($default: 769) {
+	$mobile-alias-value: getAliasResolutionValue("mobile");
+	@if $mobile-alias-value == null {
+		$mobile-alias-value: $default;
+	}
+	@if $screen-width > ($mobile-alias-value - 1) {
+		@content;
+	}
+}
+
+@mixin custom-prop-settings($settings: (selector: ".custom-stylesheet")) {
+	$custom-prop-settings: $settings !global;
+	@if function-exists(json-encode) == true {
+		[custom-prop-settings] {
+			content: '{"selector":".custom-stylesheet"}';
+		}
+	}
+}
+
+@mixin custom-prop($stylesheet: ()) {
+	@if global-variable-exists(custom-prop-settings) == true and type-of($custom-prop-settings) == map and length($custom-prop-settings) {
+		$sel: map-get($custom-prop-settings, "selector");
+		&#{$sel} {
+			content: json-encode($stylesheet);
+		}
+	}
+}
+
