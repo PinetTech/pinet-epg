@@ -54,9 +54,13 @@ class TitleModel extends DBModel {
 	public function getTitles($limit=10, $notIn=array()){
 		$select = $this->select('title.id,title.asset_name')
 			->from('title');
+		$where = array(
+			new \Clips\Libraries\NotOperator(array('title.asset_id' => null))
+		);
 		if($notIn){
-			$select->where(new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn)));
+			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
 		}
+		$select->where($where);
 		$titles = $select->limit(0,$limit)
 			->result();
 		if($titles)
