@@ -6,6 +6,11 @@ figure {
 		color: #161616;
 		line-height: 19px;	
 		background: rgba(#F1F1F1, .74);		
+		#{$this}__thumb {
+			display: block;
+			max-width: 100%;
+			margin: 0;
+		}
 	}
 }
 

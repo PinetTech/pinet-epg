@@ -4,7 +4,7 @@
 	"version": "epg",
 	"name": "Epg",
 	"doc":"epg",
-	"depends": ["swiper", "sassstd"],
+	"depends": ["swiper", "sassstd", "fontawesome"],
 	"js": {
 		"files": [
 			"jquery.stylesheet",

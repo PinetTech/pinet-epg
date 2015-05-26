@@ -2,3 +2,13 @@
     display: flex;
     flex-direction: row;
 }
+
+$global-ratio: 1280 / 2880 !global;
+@function calc-res($res, $min-res: null, $ratio: $global-ratio) {
+	@if $min-res == null {
+		@return res($res, $res*$ratio);
+	}
+	@else {
+		@return res($res, $min-res);
+	}
+}

@@ -15,7 +15,7 @@ class WelcomeController extends BaseController
 
     /**
      * @Clips\Form({"search"})
-     * @Clips\Widget({"epg", "navigation"})
+     * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"welcome/index"})
      * @Clips\Js({"application/static/js/welcome/index.js"})
      */
@@ -102,7 +102,15 @@ class WelcomeController extends BaseController
                     (object)array('episodes'=>'1,2,3,4,5'),
                     (object)array('number'=>array('sdsds','sdsds','sdsdsds'))
                 )
-            ) 
+            ),
+            "videos"=>array(
+                (object)array('title'=>'movie title1', 'count'=>'152万', 'imageSrc'=>\Clips\static_url('application/static/img/test/01.png')),
+                (object)array('title'=>'movie title2', 'count'=>'152万', 'imageSrc'=>\Clips\static_url('application/static/img/test/01.png')),
+                (object)array('title'=>'movie title3', 'count'=>'152万', 'imageSrc'=>\Clips\static_url('application/static/img/test/01.png')),
+                (object)array('title'=>'movie title4', 'count'=>'152万', 'imageSrc'=>\Clips\static_url('application/static/img/test/01.png')),
+                (object)array('title'=>'movie title5', 'count'=>'152万', 'imageSrc'=>\Clips\static_url('application/static/img/test/01.png')),
+                (object)array('title'=>'movie title6', 'count'=>'152万', 'imageSrc'=>\Clips\static_url('application/static/img/test/01.png'))
+            )
         ));
     }
 
