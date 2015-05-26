@@ -574,7 +574,9 @@ $nav-sel: get-module("nav", "selector");
                 .form-input > input {
                     width: 135px;
                     position: relative;
-                    transform: translateX(15px);
+                    -webkit-transform: translateX(15px);
+                        -ms-transform: translateX(15px);
+                            transform: translateX(15px);
                 }
             }
         }
