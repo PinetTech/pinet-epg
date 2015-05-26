@@ -55,4 +55,4 @@ $movielist__title---border-left-color: #e01818;
     }
 }
 
-@include module-exports("movielist", ("selector": unquote(".movielist")));}}}
+@include module-exports("movielist", ("selector": unquote(".movielist")));
