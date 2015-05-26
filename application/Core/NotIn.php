@@ -14,6 +14,6 @@ class NotIn extends WhereOperator {
 	}
 
 	public function toString() {
-		return 'not in (?)';
+		return $this->left.' not in (?)';
 	}
 }

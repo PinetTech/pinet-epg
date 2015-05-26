@@ -41,19 +41,26 @@ class TitleModel extends DBModel {
 	}
 
 	public function getMovieInfoByID($titleID){
-		return $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director')
+		$titles = $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director')
 			->from('title')
 			->join('title_application',array('title.application_id'=>'title_application.id'))
-			->where('title.id', $titleID)
+			->where(array('title.id' => $titleID))
 			->result();
+		if(count($titles))
+			return $titles[0];
+		return null;
 	}
 
 	public function getTitles($limit=10, $notIn=array()){
 		$select = $this->select('title.id,title.asset_name')
 			->from('title');
+		$where = array(
+			new \Clips\Libraries\NotOperator(array('title.asset_id' => null))
+		);
 		if($notIn){
-			$select->where(new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn)));
+			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
 		}
+		$select->where($where);
 		$titles = $select->limit(0,$limit)
 			->result();
 		if($titles)
