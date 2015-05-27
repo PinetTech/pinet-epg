@@ -4,7 +4,7 @@ script access allowed");
 use Pinet\EPG\Core\BaseController;
 
 /**
- * @Clips\Widget({"html", "lang", "grid", "bootstrap"})
+ * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="welcome")
  */
 class WelcomeController extends BaseController
