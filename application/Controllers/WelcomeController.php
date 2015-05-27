@@ -4,7 +4,7 @@ script access allowed");
 use Pinet\EPG\Core\BaseController;
 
 /**
- * @Clips\Widget({"html", "lang", "grid", "bootstrap"})
+ * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="welcome")
  */
 class WelcomeController extends BaseController
@@ -27,10 +27,13 @@ class WelcomeController extends BaseController
 		$items = array();
 		if($hotRecords) {
 			foreach ($hotRecords as $v) {
-				$items[] = (object)array('title'=>$v->asset_name,'image'=>\Clips\static_url($v->sourceurl));
+				$items[] = (object)array('title'=>$v->asset_name,'image'=>$v->sourceurl);
 			}
 		}else{
-			$items[] = (object)array('title'=>'','image'=>'');
+			$newTitles = $this->title->getNewTitles(9);
+			foreach ($newTitles as $v) {
+				$items[] = (object)array('title'=>$v->asset_name,'image'=>$v->sourceurl);
+			}
 		}
 
 		return $this->render('welcome/index', array(

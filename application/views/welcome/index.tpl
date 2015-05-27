@@ -7,6 +7,9 @@
                 </div>
                 {form class="actionbar__search-form" name="search"}
                     {field field="search"}{/field}
+                    {label class="submit"}
+                        {submit}
+                    {/label}
                 {/form}
                 <div class="actionbar__trigger" data-trigger="#menu">
                     <span></span>
@@ -19,7 +22,7 @@
             {swiper class="slide"}
                 {swiper__wrapper items=$items}
                     {literal}
-                        {swiper__slide data-image=$item->image}
+                        {swiper__slide data-image=$item->image responsive="true"}
                             <h3 class="slide__title">{$item->title}</h3>
                         {/swiper__slide}
                     {/literal}
@@ -35,7 +38,7 @@
 	                <div class="movielist__body">
 	                    {foreach $v['videos'] as $key => $value}
 	                        <figure class="movie">
-	                            <img src="{$value->imageSrc}" alt="" class="movie__thumb">
+                                {resimg data-image=$value->imageSrc class="movie__thumb"}
 	                            <figcaption class="movie__title">{$value->title}</figcaption>
 	                            <div class="movie__views">
 	                                <div class="count-number">

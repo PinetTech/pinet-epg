@@ -11,7 +11,8 @@ class MovieController extends BaseController
 	/**
 	 * @Clips\Model({"column","titleApplication"})
 	 */
-	public function index() {
+	public function index($columnID) {
+		exit('current movie type is'.$columnID);
 		$this->title('Pinet Home Page',true);
 		$columns = $this->column->get();
 		$titleApps = $this->titleapplication->get();
