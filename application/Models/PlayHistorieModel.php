@@ -56,7 +56,7 @@ class PlayHistorieModel extends DBModel {
 		return $this->select('count(1) as count')->from('play_histories')->where(array('title_id'=>$titleID))->result()[0]->count;
 	}
 
-	public function getRecordsByColumnID($columnID,$limit){
+	public function getRecordsByColumnID($columnID,$limit=10){
 		return $this->select('title.id,title.asset_name,count(1)')
 				->from('title')
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))

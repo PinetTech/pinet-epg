@@ -182,13 +182,8 @@
                  genCSS += selector+"{"+style+"}"; // Fix chained selectors.
               }
           }
-       }   
-                   if(selector.includes('title')) {
-                      console.log(parsedStyleMap);
-                      console.log(ident);
-                   }                     
-                   console.log(parsedStyleMap);
-                   applyStyles();
+       }
+	    applyStyles();
     },
 
     applyStyles = function(){
