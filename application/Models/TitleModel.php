@@ -2,6 +2,7 @@
 namespace Pinet\EPG\Models;in_array(__FILE__, get_included_files()) or exit("No direct script access allowed");
 
 use Clips\Libraries\DBModel;
+use Clips\SimpleAction;
 
 /**
  * Class TitleModel
@@ -16,7 +17,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getTitlesByColumn($column_id, $limit=0){
-		return $this->select('title.id,title.asset_name,poster.sourceurl')
+		$titles = $this->select('title.id,title.asset_name,poster.sourceurl')
 				->from('title')
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 				->join('poster',array('poster.title_id'=>'title.id'))
@@ -25,6 +26,10 @@ class TitleModel extends DBModel {
 						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
 				->limit(0, $limit)
 				->result();
+		foreach ($titles as $k=>$v) {
+			$titles[$k]->record = $this->playhistorie->getPlayTimesByTitleID($v->id);
+		}
+		return $titles;
 	}
 
 	/**
@@ -149,6 +154,22 @@ class TitleModel extends DBModel {
 
 		
 
+	}
+
+	public function getHomeNavigations($navs){
+
+		$actions = array();
+		foreach ($navs as $k=>$nav) {
+			$action = new SimpleAction(array('content' => $nav->id, 'label' => $nav->column_name, 'type' => 'server'));
+			$records = $this->playhistorie->getRecordsByColumnID($nav->id,10);
+			$children = array();
+			foreach ($records as $record) {
+				$children[] = new SimpleAction(array('content' => 'movie/play/' . $record->id, 'label' => $record->asset_name, 'type' => 'server'));
+			}
+			$action->children = $children;
+			$actions[] = $action;
+		}
+		return $actions;
 	}
 
 }

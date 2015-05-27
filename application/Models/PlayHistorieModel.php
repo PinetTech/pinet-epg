@@ -39,18 +39,31 @@ class PlayHistorieModel extends DBModel {
 		}
 	}
 
-	public function getHotRecord($limit=10){
-		$records = $this->select('title_id , count(title_id) as count')->from('play_histories')
-			->groupBy('title_id')->orderBy('count(title_id) desc')
-			->limit(0, $limit)->result();
-		foreach ($records as $k=>$v) {
-			$title = $this->title->one('id',$v->title_id);
-			$records[$k]->asset_name = $title->asset_name;
-		}
-		return $records;
+	public function getHotRecord($limit=9){
+		return $this->select('title.id,title.asset_name,poster.sourceurl,count(1)')
+				->from('title')
+				->join('play_histories',array('play_histories.title_id'=>'title.id'))
+				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+				->join('poster',array('poster.title_id'=>'title.id'))
+				->where(array('poster.image_aspect_ratio'=>'306x429',
+						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
+				->groupBy('play_histories.title_id')
+				->limit(0, $limit)
+				->result();
 	}
 
 	public function getPlayTimesByTitleID($titleID){
 		return $this->select('count(1) as count')->from('play_histories')->where(array('title_id'=>$titleID))->result()[0]->count;
+	}
+
+	public function getRecordsByColumnID($columnID,$limit){
+		return $this->select('title.id,title.asset_name,count(1)')
+				->from('title')
+				->join('play_histories',array('play_histories.title_id'=>'title.id'))
+				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+				->where(array('asset_column_ref.column_id'=>$columnID,new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
+				->groupBy('play_histories.title_id')
+				->limit(0, $limit)
+				->result();
 	}
 }
