@@ -39,6 +39,7 @@
     }
     .swiper-pagination-bullet:nth-child(n+1) {
         background-size: cover;
+        background-position: center center;
     }
 
     .swiper-pagination-bullet-active {

@@ -8,6 +8,8 @@
 	"js": {
 		"files": [
 			"jquery.stylesheet",
+			"jquery.nthEverything",
+			"epg_slide",
 			"pinet_epg"
 		]
 	},
@@ -23,6 +25,9 @@
 			"epg_tab",
 			"epg_layout",
 			"epg_mobile",
+			"epg_common",
+			"components/epg_actionbar",
+			"layouts/frontsite",
 			"pinet_epg"
 		]
 	}

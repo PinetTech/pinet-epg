@@ -1,0 +1,31 @@
+%hflexbox {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+}
+
+$global-ratio: 1280 / 2880 !global;
+@function calc-res($res, $min-res: null, $ratio: $global-ratio) {
+	@if $min-res == null {
+		@return res($res, $res*$ratio);
+	}
+	@else {
+		@return res($res, $min-res);
+	}
+}
+
+@function php_static_url($url) {
+    @return php(Clips\static_url, unquote($url));
+}
+
+@function php_img_url($url) {
+    $image-src: unquote($url);
+    @return php(Clips\site_url, unquote("responsive/size/#{$image-src}"));
+}
+
