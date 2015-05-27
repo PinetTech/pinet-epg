@@ -51,35 +51,7 @@
 	                </div>
 	            </section>
 	            {* section.movielist *}
-	        {/foreach}
-                <section class="movielist film">
-                    <div class="movielist__head">
-                        <h3 class="movielist__title">{$v['column_name']}</h3>
-                        <a href="#" class="movielist__viewall">查看全部</a>
-                    </div>
-                    <div class="movielist__body">
-                        <figure class="movie">
-                            {resimg data-image="test/01.png" class="movie__thumb"}
-                            <figcaption class="movie__title">{$value->title}</figcaption>
-                            <div class="movie__views">
-                                <div class="count-number">
-                                    <div class="count-number__icon"></div>
-                                    <div class="count-number__text">{$value->count}</div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="movie">
-                            {resimg data-image="test/01.png" class="movie__thumb"}
-                            <figcaption class="movie__title">{$value->title}</figcaption>
-                            <div class="movie__views">
-                                <div class="count-number">
-                                    <div class="count-number__icon"></div>
-                                    <div class="count-number__text">{$value->count}</div>
-                                </div>
-                            </div>
-                        </figure>                                                                                                   
-                    </div>
-                </section>            
+	        {/foreach}         
         </main>
         <footer>
             <ul class="site-map">

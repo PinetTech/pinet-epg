@@ -1,7 +1,7 @@
 {extends file="base-layout.tpl"}
 	{block name="main"}
 		<main>
-			<div class="movies-select">
+			<div class="videos">
 				{sect class="types"}
 					<div class="select">
 						<h3 class="select__title">

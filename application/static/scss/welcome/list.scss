@@ -4,6 +4,10 @@ $tab-sel: get-module("tab", "selector");
     @extend %hflexbox;
 }
 
+.videos {
+    @extend %hflexbox;
+}
+
 .movies {
     flex: 1;
 }
@@ -45,8 +49,9 @@ $tab-sel: get-module("tab", "selector");
 
 @mixin section_welcome_list($args...) {
     @include device-desktop() {
-        main {
-
+        .videos {
+            @include content-width();
+            margin: 0 auto;
         }
         .types {
             margin-left: calc-res(70px);
