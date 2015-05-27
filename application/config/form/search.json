@@ -1,0 +1,9 @@
+[
+	{
+		"field":"search",
+		"label":"Search",
+		"rules": [
+			"required"
+		]
+	}
+]

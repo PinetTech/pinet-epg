@@ -1,0 +1,12 @@
+{
+	"author": "andy",
+	"date": "Thu May 21 10:52:07 2015",
+	"version": "1.0",
+	"name": "Sassstd",
+	"doc":"sassstd",
+	"scss": {
+		"files": [
+			"sassstd"
+		]
+	}
+}

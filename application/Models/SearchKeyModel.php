@@ -27,4 +27,14 @@ class SearchKeyModel extends DBModel {
 
 	}
 
+//	public function getRecordByColumnID($columnID){
+//		return $this->select('title.id,title.asset_name')
+//				->from('title')
+//				->join('play_histories',array('play_histories.title_id'=>'title.id'))
+//				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+//				->where(array())
+//				->limit(0, $limit)
+//				->result();
+//	}
+
 }
