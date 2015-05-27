@@ -106,3 +106,17 @@
 	}
 }
 
+@mixin content-width() {
+    @include max-screen(1280px) {
+        width: 100% !important;
+    }
+    @include screen(1280px, 1295px) {
+        width: 1265px !important;
+    }
+    @include min-screen(1295px) {
+        width: res(2560px) !important;   
+    }
+}
+
+@mixin pinet-epg-init() {   
+}

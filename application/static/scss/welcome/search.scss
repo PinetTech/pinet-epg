@@ -1,0 +1,92 @@
+$movie-sel: get-module("movie", "selector");
+
+.movie__title:nth-letter(1) {
+	color: #ff0000;
+}
+.movie__title:nth-letter(2) {
+	color: #ff0000;
+}		
+
+@mixin section_welcome_search($args...) {
+	@include device-desktop() {
+		.search-result {
+			@include content-width();
+			margin: 0 auto;
+			&__title {
+				font-size: 22px;
+				color: #202020;
+				line-height: 31px;	
+				padding-bottom: 6.5px;			
+				border-bottom: 3px solid #e5e5e5;
+				margin-top: calc-res(94px);
+				margin-bottom: calc-res(86px);				
+				> h3 {
+					margin: 0;
+				}
+			}
+		}
+		#{$movie-sel} {
+			background-color: transparent;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			padding-bottom: calc-res(54px);
+			border-bottom: 3px solid #e5e5e5;
+			margin-bottom: calc-res(60px);
+			.responsive {
+				width: calc-res(406px);
+				margin-right: calc-res(78px);
+			}
+			.movie__info {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				    -ms-flex: 1;
+				        flex: 1;
+			    display: -webkit-box;
+			    display: -webkit-flex;
+			    display: -ms-flexbox;
+			    display: flex;
+			    -webkit-box-orient: vertical;
+			    -webkit-box-direction: normal;
+			    -webkit-flex-direction: column;
+			        -ms-flex-direction: column;
+			            flex-direction: column;
+			    -webkit-box-pack: justify;
+			    -webkit-justify-content: space-between;
+			        -ms-flex-pack: justify;
+			            justify-content: space-between;				
+			}
+			.movie__title {
+				font-size: 30px;
+				line-height: 42px;		
+				margin: 0;		
+			}
+			.movie__des {
+				> dl > dt {
+					float: left;
+					margin-right: 10px;
+					color: #878787;
+					line-height: 18px;					
+				}
+				> dl > dt:after {
+					content: ": ";
+				}
+			}
+			.movie__control {
+				> button {
+					background-image: linear-gradient(0deg, #D02525 0%, #E01818 100%);
+					border-radius: 5px;	
+					border: 0;
+					color: #ffffff;				
+					width: calc-res(356px);
+					height: calc-res(102px);
+					font-size: 20px;
+				}
+			}
+		}
+	}
+	@include device-mobile() {
+
+	}
+}
