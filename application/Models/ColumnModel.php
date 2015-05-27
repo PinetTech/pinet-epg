@@ -10,6 +10,10 @@ use Clips\Object;
  */
 class ColumnModel extends DBModel {
 
+	public function getAllColumns(){
+		return $this->orderBy("rank")->get();
+	}
+
 	public function getColumnByName($name){
 		return $this->one('column_name',$name);
 	}

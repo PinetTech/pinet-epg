@@ -6,6 +6,7 @@ use Clips\Libraries\DBModel;
 /**
  * Class ColumnModel
  * @package Pinet\EPG\Models
+ * @Clips\Model({"title"})
  */
 class PlayHistorieModel extends DBModel {
 
@@ -50,6 +51,6 @@ class PlayHistorieModel extends DBModel {
 	}
 
 	public function getPlayTimesByTitleID($titleID){
-		return $this->select('count(title_id) as count')->from('play_histories')->from('play_histories')->where('title_id', $titleID)->result()[0]->count;
+		return $this->select('count(1) as count')->from('play_histories')->where(array('title_id'=>$titleID))->result()[0]->count;
 	}
 }
