@@ -182,13 +182,8 @@
                  genCSS += selector+"{"+style+"}"; // Fix chained selectors.
               }
           }
-       }   
-                   if(selector.includes('title')) {
-                      console.log(parsedStyleMap);
-                      console.log(ident);
-                   }                     
-                   console.log(parsedStyleMap);
-                   applyStyles();
+       }                      
+       applyStyles();
     },
 
     applyStyles = function(){
@@ -215,9 +210,9 @@
                }
          }
 
-         // console.log(genCSS + "");
-         // console.dir(genCSS.includes("classtitlenthletterodd-nthEvery"));
-          $('<style>' + genCSS + '</style>').appendTo('head');
+         if(genCSS != '') {
+            $('<style>' + genCSS + '</style>').appendTo('head');
+         }
     };
 
     // Build CSS Rules

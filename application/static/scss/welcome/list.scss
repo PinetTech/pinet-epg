@@ -1,11 +1,7 @@
-@import "./frontsite-layout";
-
 $tab-sel: get-module("tab", "selector");
 
-main {
-	&.movielist {
-		@extend %hflexbox;
-	}
+.movies-select {
+    @extend %hflexbox;
 }
 
 .movies {
@@ -47,23 +43,82 @@ main {
     }
 }
 
-.nav {
-    &.movietypes {
-        width: 240px;
-        li > .sub-navi {
-            width: 100%;
-        }
+@mixin section_welcome_list($args...) {
+    @include device-desktop() {
+        main {
 
-        .sub-navi {
-            > li {
-                float: left;
+        }
+        .types {
+            margin-left: calc-res(70px);
+            margin-right: calc-res(70px);
+        }
+        .select {
+            padding-left: calc-res(54px);
+            padding-right: calc-res(54px);
+            padding-top: calc-res(40px);
+            padding-bottom: calc-res(76px);
+            background: #F2F2F2;
+            border: 1px solid #D4D4D4;            
+            border-bottom: none;
+            h3 {
+                margin: 0;
+                font-size: 18px;
+                color: #DE1C1C;
+                line-height: 25px;                
+                padding-bottom: calc-res(53.99px);
+            }            
+            .select__label {
+                display: inline-block;
+                padding: 5px;
+                background: #FFFFFF;
+                border: 1px solid #CECECE;                
+                margin-right: 15px;
+                .fa {
+                    padding-left: 15px;
+                    cursor: pointer;
+                }
             }
         }
+        .nav {
+            border: 1px solid #D4D4D4;                        
+            &.movietypes {
+                width: calc-res(674px);
+                padding-left: calc-res(54px);
+                padding-right: calc-res(54px);
+                margin-top: 0;
+
+                > li {
+                    flex-wrap: wrap;
+                    padding-top: calc-res(50px);
+                    padding-bottom: calc-res(50px);
+                    border-bottom: 1px solid #e5e5e5;
+                }
+
+                > li > a {
+                    width: 100%;
+                    padding: 0;
+                    font-size: 16.14px;
+                    color: #202020;
+                    line-height: 37px;                    
+                }
+
+                li > .sub-navi {
+                    width: 100%;
+                }
+
+                .sub-navi {
+                    > li {
+                        float: left;
+                    }
+                    > li > a {
+                        padding: 0;
+                        color: #000000;
+                        margin-right: 15px;
+                    }
+                }
+            }
+        }        
     }
-}
-
-
-@mixin section_welcome_list($args...) {
     @include device-mobile() {
         main {
             &.movielist {

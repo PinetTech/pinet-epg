@@ -4,11 +4,11 @@
             <div class="actionbar">
                 <div class="actionbar__brand">
                     {resimg data-image="logo.png"}
-                </div>
+                </div>            
                 {form class="actionbar__search-form" name="search"}
                     {field field="search"}{/field}
                     {label class="submit"}
-                        {submit}
+                        {submit value="搜索"}
                     {/label}
                 {/form}
             </div>
@@ -16,7 +16,7 @@
         {/nav}	
         <main>
             <section class="search-result">
-                <div class="search-result__title">
+                <div class="search-result__header">
                     <h3>搜索结果</h3>
                 </div>
                 <div>
@@ -35,11 +35,22 @@
                                 </dl>
                             </div>
                             <div class="movie__control">
-                                <button type="button">play</button>
+                                <a href="" class="button">play</a>
                             </div>                            
                         </div>
                     </figure>
                 </div>
+            </section>
+            <section class="search-classfication">
+                <div class="search-classfication__header">
+                    <h3>热门搜索</h3>
+                </div>
+                <ul class="search-classfication__hotvideos">
+                    <li>sdasdas</li>
+                    <li>sadsads</li>
+                    <li>sadasdssdsdsdsdsdsdsdsdsssdsdsdsdsds</li>
+                    <li>sadsads</li>
+                </ul>
             </section>
         </main>
         <footer>

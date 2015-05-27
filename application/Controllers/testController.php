@@ -125,7 +125,11 @@ class TestController extends BaseController
         $nav1->children = array(
             $this->action('/nav/1', 'nav1-1'),
             $this->action('/nav/2', 'nav1-2'), 
+            $this->action('/nav/3', 'nav1-3'),
+            $this->action('/nav/1', 'nav1-1'),
+            $this->action('/nav/2', 'nav1-2'), 
             $this->action('/nav/3', 'nav1-3')
+            
         );
         $nav2 = $this->action('/nav', 'label');
         $nav2->children = array(
