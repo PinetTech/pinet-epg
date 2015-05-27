@@ -8,6 +8,7 @@
 	"js": {
 		"files": [
 			"jquery.stylesheet",
+			"jquery.nthEverything",
 			"epg_slide",
 			"pinet_epg"
 		]

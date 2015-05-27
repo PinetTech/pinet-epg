@@ -15,16 +15,16 @@
             {navigation id="menu" class="menu" actions=$actions}{/navigation}
         {/nav}	
         <main>
-            <section>
-                <div>
+            <section class="search-result">
+                <div class="search-result__title">
                     <h3>搜索结果</h3>
                 </div>
                 <div>
                     <figure class="movie">
-                        {resimg data-image="logo.png" class="mobile__thumb"}
+                        {resimg data-image="test/08.png" class="mobile__thumb"}
                         <div class="movie__info">
-                            <figcaption class="movie__title">sadsadasds</figcaption>
-                            <div class="mobile__des">
+                            <figcaption class="movie__title title">sadsadasds</figcaption>
+                            <div class="movie__des">
                                 <dl>
                                     <dt>Name</dt>    
                                     <dd>Godzilla</dd>
@@ -34,7 +34,7 @@
                                     <dd>Japan</dd>
                                 </dl>
                             </div>
-                            <div class="mobile__control">
+                            <div class="movie__control">
                                 <button type="button">play</button>
                             </div>                            
                         </div>
