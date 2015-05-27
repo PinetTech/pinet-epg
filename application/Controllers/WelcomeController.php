@@ -9,14 +9,7 @@ use Pinet\EPG\Core\BaseController;
 class WelcomeController extends BaseController
 {
 	
-    /**
-     * @Clips\Form({"search"})
-     * @Clips\Widget({"epg", "navigation", "image"})
-     * @Clips\Scss({"welcome/index"})
-     * @Clips\Js({"application/static/js/welcome/index.js"})
-     */
-    public function index() {
-        $this->title('Pinet Home Page',true);
+    private function navigation() {
         $nav1 = $this->action('/nav', 'label');
         $nav1->children = array(
             $this->action('/nav/1', 'nav1-1'),
@@ -64,28 +57,39 @@ class WelcomeController extends BaseController
             $this->action('/nav/1', 'nav8-1'),
             $this->action('/nav/2', 'nav8-2'), 
             $this->action('/nav/3', 'nav8-3')
-        );                
+        ); 
+        return array(
+            $nav1,
+            $nav2,
+            $nav3,
+            $nav4,
+            $nav5,
+            $nav6,
+            $nav7,
+            $nav8
+        );
+    }
+
+    /**
+     * @Clips\Form({"search"})
+     * @Clips\Widget({"epg", "navigation", "image"})
+     * @Clips\Scss({"welcome/index"})
+     * @Clips\Js({"application/static/js/welcome/index.js"})
+     */
+    public function index() {
+        $this->title('Pinet Home Page',true);               
         return $this->render('welcome/index', array(
-            'actions'=>array(
-                $nav1,
-                $nav2,
-                $nav3,
-                $nav4,
-                $nav5,
-                $nav6,
-                $nav7,
-                $nav8
-            ),
+            'actions'=>$this->navigation(),
             'items'=>array(
-                (object)array('title'=>'nature1', 'image'=>'http://lorempixel.com/1200/1200/nature/1'),
-                (object)array('title'=>'nature2', 'image'=>'http://lorempixel.com/1200/1200/nature/2'),
-                (object)array('title'=>'nature3', 'image'=>'http://lorempixel.com/1200/1200/nature/3'),
-                (object)array('title'=>'nature4', 'image'=>'http://lorempixel.com/1200/1200/nature/4'),
-                (object)array('title'=>'nature5', 'image'=>'http://lorempixel.com/1200/1200/nature/5'),
-                (object)array('title'=>'nature6', 'image'=>'http://lorempixel.com/1200/1200/nature/6'),
-                (object)array('title'=>'nature7', 'image'=>'http://lorempixel.com/1200/1200/nature/7'),
-                (object)array('title'=>'nature8', 'image'=>'http://lorempixel.com/1200/1200/nature/8'),
-                (object)array('title'=>'nature9', 'image'=>'http://lorempixel.com/1200/1200/nature/9')
+                (object)array('title'=>'nature1', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/1'),
+                (object)array('title'=>'nature2', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/2'),
+                (object)array('title'=>'nature3', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/3'),
+                (object)array('title'=>'nature4', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/4'),
+                (object)array('title'=>'nature5', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/5'),
+                (object)array('title'=>'nature6', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/6'),
+                (object)array('title'=>'nature7', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/7'),
+                (object)array('title'=>'nature8', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/8'),
+                (object)array('title'=>'nature9', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/9')
             ),
             "tab"=>array(
                 "navs"=>array(
@@ -154,4 +158,16 @@ class WelcomeController extends BaseController
             ) 
         ));
     }    
+
+    /**
+     * @Clips\Form({"search"})
+     * @Clips\Widget({"epg", "navigation", "image"})
+     * @Clips\Scss({"welcome/search"})
+     * @Clips\Js({"application/static/js/welcome/search.js"})
+     */
+    public function search() {
+        return $this->render("welcome/search", array(
+            'actions'=>$this->navigation()
+        ));
+    }
 }

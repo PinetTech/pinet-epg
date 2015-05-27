@@ -22,7 +22,7 @@
             {swiper class="slide"}
                 {swiper__wrapper items=$items}
                     {literal}
-                        {swiper__slide data-image=$item->image}
+                        {swiper__slide data-image=$item->res responsive="true"}
                             <h3 class="slide__title">{$item->title}</h3>
                         {/swiper__slide}
                     {/literal}
@@ -37,7 +37,8 @@
                 <div class="movielist__body">
                     {foreach $videos as $key => $value}
                         <figure class="movie">
-                            <img src="{$value->imageSrc}" alt="" class="movie__thumb">
+                            <!-- <img src="{$value->imageSrc}" alt="" class="movie__thumb"> -->
+                            {resimg data-image="test/01.png" class="movie__thumb"}
                             <figcaption class="movie__title">{$value->title}</figcaption>
                             <div class="movie__views">
                                 <div class="count-number">

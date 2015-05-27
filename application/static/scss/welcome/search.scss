@@ -1,0 +1,22 @@
+$movie-sel: get-module("movie", "selector");
+
+@mixin section_welcome_search($args...) {
+	@include device-desktop() {
+		#{$movie-sel} {
+			background-color: transparent;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			.responsive {
+				width: calc-res(406px);
+			}
+			.movie__info {
+				flex: 1;
+			}
+		}
+	}
+	@include device-mobile() {
+
+	}
+}
