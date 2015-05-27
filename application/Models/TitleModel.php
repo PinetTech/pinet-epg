@@ -7,7 +7,7 @@ use Clips\SimpleAction;
 /**
  * Class TitleModel
  * @package Pinet\EPG\Models
- * @Clips\Model(table="Title")
+ * @Clips\Model(table="title")
  * @Clips\Model({ "column","assetColumnRef", "playHistorie" })
  */
 class TitleModel extends DBModel {
@@ -74,6 +74,17 @@ class TitleModel extends DBModel {
 		if($titles)
 			return $titles;
 		return array();
+	}
+
+	public function getNewTitles($limit){
+		$titles = $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
+				->from('title')
+				->join('poster',array('poster.title_id'=>'title.id'))
+				->where(array('poster.image_aspect_ratio'=>'306x429'))
+				->orderBy('title.create_at desc')
+				->limit(0,$limit)
+				->result();
+		return $titles;
 	}
 
 	public function getSameTypeMovies($titleID, $limit=10) {
@@ -156,16 +167,35 @@ class TitleModel extends DBModel {
 
 	}
 
-	public function getHomeNavigations($navs){
+	public function getNewTitlesByVolumnID($columnID,$limit=10){
+		$titles = $this->select('title.id,title.asset_name,title.create_at')
+				->from('title')
+				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+				->where(array('asset_column_ref.column_id'=>$columnID))
+				->orderBy('title.create_at desc')
+				->limit(0,$limit)
+				->result();
+		return $titles;
+	}
 
+	public function getHomeNavigations($navs){
 		$actions = array();
 		foreach ($navs as $k=>$nav) {
-			$action = new SimpleAction(array('content' => $nav->id, 'label' => $nav->column_name, 'type' => 'server'));
-			$records = $this->playhistorie->getRecordsByColumnID($nav->id,10);
+			$action = new SimpleAction(array('content' => 'movie/index/'.$nav->id, 'label' => $nav->column_name, 'type' => 'server'));
+			$records = $this->playhistorie->getRecordsByColumnID($nav->id);
 			$children = array();
-			foreach ($records as $record) {
-				$children[] = new SimpleAction(array('content' => 'movie/play/' . $record->id, 'label' => $record->asset_name, 'type' => 'server'));
+			if($records) {
+				foreach ($records as $record) {
+					$children[] = new SimpleAction(array('content' => 'movie/play/' . $record->id, 'label' => $record->asset_name, 'type' => 'server'));
+				}
+			}else{
+				$newTitles = $this->getNewTitlesByVolumnID($nav->id);
+				foreach ($newTitles as $v) {
+					$children[] = new SimpleAction(array('content' => 'movie/play/' . $v->id, 'label' => $v->asset_name, 'type' => 'server'));
+				}
+
 			}
+
 			$action->children = $children;
 			$actions[] = $action;
 		}

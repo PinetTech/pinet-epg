@@ -182,8 +182,8 @@
                  genCSS += selector+"{"+style+"}"; // Fix chained selectors.
               }
           }
-       }                      
-       applyStyles();
+       }
+	    applyStyles();
     },
 
     applyStyles = function(){
