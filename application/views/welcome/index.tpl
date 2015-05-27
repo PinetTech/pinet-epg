@@ -25,91 +25,30 @@
                     {/literal}
                 {/swiper__wrapper}
                 {swiper__pagination}{/swiper__pagination}
-            {/swiper}                       
-            <section class="movielist film">
-                <div class="movielist__head">
-                    <h3 class="movielist__title">电影</h3>
-                    <a href="#" class="movielist__viewall">查看全部</a>
-                </div>
-                <div class="movielist__body">
-                    {foreach $videos as $key => $value}
-                        <figure class="movie">
-                            <img src="{$value->imageSrc}" alt="" class="movie__thumb">
-                            <figcaption class="movie__title">{$value->title}</figcaption>
-                            <div class="movie__views">
-                                <div class="count-number">
-                                    <div class="count-number__icon"></div>
-                                    <div class="count-number__text">{$value->count}</div>
-                                </div>
-                            </div>
-                        </figure>
-                    {/foreach}
-                </div>
-            </section>
-            {* section.movielist *}
-            <section class="movielist">
-                <div class="movielist__head">
-                    <h3 class="movielist__title">电影</h3>
-                    <a href="#" class="movielist__viewall">查看全部</a>
-                </div>
-                <div class="movielist__body">
-                    {foreach $videos as $key => $value}
-                        <figure class="movie">
-                            <img src="{$value->imageSrc}" alt="" class="movie__thumb">
-                            <figcaption class="movie__title">{$value->title}</figcaption>
-                            <div class="movie__views">
-                                <div class="count-number">
-                                    <div class="count-number__icon"></div>
-                                    <div class="count-number__text">{$value->count}</div>
-                                </div>
-                            </div>
-                        </figure>
-                    {/foreach}
-                </div>
-            </section>
-            {* section.movielist *}
-            <section class="movielist">
-                <div class="movielist__head">
-                    <h3 class="movielist__title">电影</h3>
-                    <a href="#" class="movielist__viewall">查看全部</a>
-                </div>
-                <div class="movielist__body">
-                    {foreach $videos as $key => $value}
-                        <figure class="movie">
-                            <img src="{$value->imageSrc}" alt="" class="movie__thumb">
-                            <figcaption class="movie__title">{$value->title}</figcaption>
-                            <div class="movie__views">
-                                <div class="count-number">
-                                    <div class="count-number__icon"></div>
-                                    <div class="count-number__text">{$value->count}</div>
-                                </div>
-                            </div>
-                        </figure>
-                    {/foreach}
-                </div>
-            </section>
-            {* section.movielist *}
-            <section class="movielist">
-                <div class="movielist__head">
-                    <h3 class="movielist__title">电影</h3>
-                    <a href="#" class="movielist__viewall">查看全部</a>
-                </div>
-                <div class="movielist__body">
-                    {foreach $videos as $key => $value}
-                        <figure class="movie">
-                            <img src="{$value->imageSrc}" alt="" class="movie__thumb">
-                            <figcaption class="movie__title">{$value->title}</figcaption>
-                            <div class="movie__views">
-                                <div class="count-number">
-                                    <div class="count-number__icon"></div>
-                                    <div class="count-number__text">{$value->count}</div>
-                                </div>
-                            </div>
-                        </figure>
-                    {/foreach}
-                </div>
-            </section>
-            {* section.movielist *}                        
+            {/swiper}
+	        {foreach $columns as $v}
+	            <section class="movielist film">
+	                <div class="movielist__head">
+	                    <h3 class="movielist__title">{$v['column_name']}</h3>
+	                    <a href="#" class="movielist__viewall">查看全部</a>
+	                </div>
+	                <div class="movielist__body">
+	                    {foreach $v['videos'] as $key => $value}
+	                        <figure class="movie">
+	                            <img src="{$value->imageSrc}" alt="" class="movie__thumb">
+	                            <figcaption class="movie__title">{$value->title}</figcaption>
+	                            <div class="movie__views">
+	                                <div class="count-number">
+	                                    <div class="count-number__icon"></div>
+	                                    <div class="count-number__text">{$value->count}</div>
+	                                </div>
+	                            </div>
+	                        </figure>
+	                    {/foreach}
+	                </div>
+	            </section>
+	            {* section.movielist *}
+	        {/foreach}
         </main>
         <footer>
             <ul class="site-map">
