@@ -43,16 +43,15 @@ VIDEOJS_SWF
 
 		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
 		$title->assetClass = $this->movie->getMovieByTitleID($titleID)->asset_class;
-//		$mac = \Clips\ip2mac($this->request->getIP());
-//		if($mac) {
-//			$this->playhistorie->saveHistory(array(
-//				'mac' => $mac,
-//				'title_id' => $titleID
-//			));
-//		}
+		$mac = \Clips\ip2mac($this->request->getIP());
+		if($mac) {
+			$this->playhistorie->saveHistory(array(
+				'mac' => $mac,
+				'title_id' => $titleID
+			));
+		}
 
 		$sames = $this->title->getSameTypeMovies($titleID);
-	    $sames = array($sames[0]);
         $this->title($title->asset_name,true);
 
 	    $navs = $this->column->getAllColumns();
@@ -60,6 +59,7 @@ VIDEOJS_SWF
 
 	    if($title->assetClass == 'series') {
 			$series = $this->titleApplication->getSeriesByTitle($title->asset_name);
+
 	    }
 
 	    return $this->render("movie/play", array(

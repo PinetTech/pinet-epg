@@ -7,7 +7,7 @@ use Clips\Object;
 /**
  * Class MovieModel
  * @package Pinet\EPG\Models
- * @Clips\Model({table="movie", "title", "playHistorie"})
+ * @Clips\Model(table="movie", value={"title", "playHistorie"})
  */
 class MovieModel extends DBModel {
 
