@@ -210,9 +210,9 @@
                }
          }
 
-         // console.log(genCSS + "");
-         // console.dir(genCSS.includes("classtitlenthletterodd-nthEvery"));
-          $('<style>' + genCSS + '</style>').appendTo('head');
+         if(genCSS != '') {
+            $('<style>' + genCSS + '</style>').appendTo('head');
+         }
     };
 
     // Build CSS Rules

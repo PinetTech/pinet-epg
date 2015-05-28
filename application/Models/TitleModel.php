@@ -60,10 +60,12 @@ class TitleModel extends DBModel {
 	}
 
 	public function getTitles($limit=10, $notIn=array()){
-		$select = $this->select('title.id,title.asset_name')
-			->from('title');
+		$select = $this->select('title.id,title.asset_name,poster.sourceurl')
+				->from('title')
+				->join('poster',array('poster.title_id'=>'title.id'));
 		$where = array(
-			new \Clips\Libraries\NotOperator(array('title.asset_id' => null))
+			new \Clips\Libraries\NotOperator(array('title.asset_id' => null)),
+				'poster.image_aspect_ratio'=>'306x429'
 		);
 		if($notIn){
 			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
@@ -106,10 +108,10 @@ class TitleModel extends DBModel {
 		}
 		$titleIDs = array_map(function($title){return $title->id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($titleIDs);
-		foreach($titles as $title){
-			$titles['count'] = 0;
+		foreach($titles as $key=>$title){
+			$titles[$key]->count = 0;
 			if(isset($plays[$title->id]))
-				$titles['count'] = $plays[$title->id];
+				$titles[$key]->count = $plays[$title->id];
 		}
 		return $titles;
 	}

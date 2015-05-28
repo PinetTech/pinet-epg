@@ -116,7 +116,7 @@ class TestController extends BaseController
 
     /**
      * @Clips\Form({"search"})
-     * @Clips\Widget({"epg", "navigation"})
+     * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"welcome/list"})
      * @Clips\Js({"application/static/js/welcome/list.js"})
      */
@@ -125,7 +125,11 @@ class TestController extends BaseController
         $nav1->children = array(
             $this->action('/nav/1', 'nav1-1'),
             $this->action('/nav/2', 'nav1-2'), 
+            $this->action('/nav/3', 'nav1-3'),
+            $this->action('/nav/1', 'nav1-1'),
+            $this->action('/nav/2', 'nav1-2'), 
             $this->action('/nav/3', 'nav1-3')
+            
         );
         $nav2 = $this->action('/nav', 'label');
         $nav2->children = array(
@@ -155,7 +159,18 @@ class TestController extends BaseController
                     (object)array('episodes'=>'1,2,3,4,5'),
                     (object)array('number'=>array('sdsds','sdsds','sdsdsds'))
                 )
-            ) 
+            ),
+            'items'=>array(
+                (object)array('title'=>'nature1', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/1'),
+                (object)array('title'=>'nature2', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/2'),
+                (object)array('title'=>'nature3', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/3'),
+                (object)array('title'=>'nature4', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/4'),
+                (object)array('title'=>'nature5', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/5'),
+                (object)array('title'=>'nature6', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/6'),
+                (object)array('title'=>'nature7', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/7'),
+                (object)array('title'=>'nature8', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/8'),
+                (object)array('title'=>'nature9', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/9')
+            ),             
         ));
     }    
 
@@ -170,4 +185,28 @@ class TestController extends BaseController
             'actions'=>$this->navigation()
         ));
     }
+
+    /**
+     * @Clips\Form({"search"})
+     * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
+     * @Clips\Scss({"welcome/play"})
+     * @Clips\Js({"application/static/js/welcome/play.js"})
+     */
+    public function movieplay() {       
+        return $this->render("welcome/play", array(
+            'actions'=>$this->navigation(),
+            "tab"=>array(
+                "navs"=>array(
+                    'nav1',
+                    'nav2'
+                ),
+                "contents"=>array(
+                    (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+                    (object)array('episodes'=>'1,2,3,4,5'),
+                    (object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+                )
+            ) 
+        ));
+    }
+
 }

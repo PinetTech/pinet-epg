@@ -7,7 +7,8 @@ $nav-sel: get-module("nav", "selector");
 
 #{$movielist-sel}{
     #{$movie-sel} {
-        width: 14%;
+        width: 17%;
+        margin-right: 3.75%;
         .count-number {
             font-size: 10px;
             color: #6E6E6E;
@@ -18,6 +19,9 @@ $nav-sel: get-module("nav", "selector");
                 margin-right: 5px;
             }          
         }           
+    }
+    #{$movie-sel}:nth-of-type(5n+5) {
+        margin-right: 0;
     }
 }
 
@@ -32,6 +36,10 @@ $nav-sel: get-module("nav", "selector");
             }
             @include movielist__body() {
                 padding-top: calc-res(52px);
+                -webkit-box-pack: start;
+                -webkit-justify-content: flex-start;
+                    -ms-flex-pack: start;
+                        justify-content: flex-start;
             }
             &__title {
                 padding-left: calc-res(40px);
@@ -77,10 +85,11 @@ $nav-sel: get-module("nav", "selector");
             }  
             @include movielist__body() {
                 display: inline-block;
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: flex;
+                width: 100%;
+                // display: -webkit-box;
+                // display: -webkit-flex;
+                // display: -ms-flexbox;
+                // display: flex;
                 padding: res(65px) {
                     bottom: 0;
                 }
@@ -88,6 +97,8 @@ $nav-sel: get-module("nav", "selector");
                     display: block;
                     float: left;
                     position: relative;
+                    margin-left: 0;
+                    margin-right: 0;
                     &:nth-child(n+3) {
                         margin-bottom: 0;
                     }
@@ -120,6 +131,24 @@ $nav-sel: get-module("nav", "selector");
             }            
         }            
     }
+    @include screen(320px, 350px) {
+        .actionbar {  
+            &__search-form {
+                .form-input > input {
+                    width: 135px;
+                    position: relative;
+                    -webkit-transform: translateX(15px);
+                        -ms-transform: translateX(15px);
+                            transform: translateX(15px);
+                }
+                .submit {
+                    -webkit-transform: translateX(-70%);
+                        -ms-transform: translateX(-70%);
+                            transform: translateX(-70%);
+                }
+            }
+        }
+    }    
 }
 
 

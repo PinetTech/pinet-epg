@@ -30,6 +30,7 @@ class ColumnModel extends DBModel {
 			$columns[$k]['videos'] = $videos;
 			$columns[$k]['column_id'] = $nav->id;
 			$columns[$k]['column_name'] = $nav->column_name;
+			$columns[$k]['url'] = 'movie/index/'.$nav->id;
 		}
 		return $columns;
 	}

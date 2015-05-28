@@ -3,7 +3,7 @@
 use Pinet\EPG\Core\BaseController;
 
 /**
- * @Clips\Widget({"html", "lang", "grid", "bootstrap"})
+ * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="index")
  */
 class IndexController extends BaseController
@@ -23,6 +23,14 @@ class IndexController extends BaseController
 
         return $this->render('index/index');
     }
-
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
+	 * @Clips\Scss({"welcome/play"})
+	 * @Clips\Js({"application/static/js/welcome/play.js"})
+	 */
+	public function play(){
+		return $this->render('welcome/play');
+	}
 
 }

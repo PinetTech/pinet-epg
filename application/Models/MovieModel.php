@@ -7,7 +7,7 @@ use Clips\Object;
 /**
  * Class MovieModel
  * @package Pinet\EPG\Models
- * @Clips\Model({"title", "playHistorie"})
+ * @Clips\Model(table="movie", value={"title", "playHistorie"})
  */
 class MovieModel extends DBModel {
 
@@ -26,6 +26,11 @@ class MovieModel extends DBModel {
 		}
 		return '';
 	}
+
+	public function getMovieByTitleID($titleID){
+		return $this->one('title_id', $titleID);
+	}
+
 
 	public function getProgramTypes(){
 		return array(
