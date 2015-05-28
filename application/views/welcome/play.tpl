@@ -19,7 +19,24 @@
         {/nav}	
         <main>
         	<div class="videoplayer">
-        		{video src="{$movie->playUrl}" height="400" width="600"}
+        		<div class="videoplayer__body">
+        			<video></video>
+        			<div class="videoplayer__list">
+        				<h3>剧集</h3>
+        				<ul>
+        					<li>1</li>
+        					<li>2</li>
+        					<li>3</li>
+        					<li>4</li>
+        					<li>5</li>
+        					<li>6</li>
+        					<li>7</li>
+        					<li>8</li>
+        					<li>9</li>
+        					<li>10</li>
+        				</ul>
+        			</div>
+        		</div>
         	</div>
 	        {div class="tab"}
 	            {swiper class="tab__nav"}
@@ -43,33 +60,110 @@
 	                {/swiper__wrapper}                        
 	            {/swiper}
 	        {/div}
-	        <div class="movie-info">
-	        	<div class="movie-info__header">
-	        		简介
-	        	</div>
-	        	<div class="movie-info__body">
-					<h3>神奇蜘蛛侠</h3>	        		
-					<dl>
-						<dt>导演</dt>
-					</dl>
-	        	</div>
-	        </div>
-	        <div class="movie-info">
-	        	<div class="movie-info__header">
-	        		猜你喜欢
-	        	</div>
-	        	<div class="movie-info__body">
-                    <figure class="movie">
-                        {resimg data-image=$value->imageSrc class="movie__thumb"}
-                        <figcaption class="movie__title">{$value->title}</figcaption>
-                        <div class="movie__views">
-                            <div class="count-number">
-                                <div class="count-number__icon"></div>
-                                <div class="count-number__text">{$value->count}</div>
-                            </div>
-                        </div>
-                    </figure>	        		
-	        	</div>
-	        </div>	        
+			<div class="movie-infos">
+		        <div class="movie-info summary">
+		        	<div class="movie-info__header">
+		        		<h3>简介</h3>
+		        	</div>
+		        	<div class="movie-info__body">
+						<h3 class="movie-info__title">神奇蜘蛛侠</h3>	        		
+						<dl class="movie-info__des">
+							<dt>主演</dt>
+							<dd>不知道</dd>
+							<dt>导演</dt>
+							<dd>不知道</dd>
+							<dt>简介</dt>	
+							<dd>不知道</dd>
+						</dl>
+		        	</div>
+		        </div>
+		        <div class="movie-info guess">
+		        	<div class="movie-info__header">
+		        		<h3>猜你喜欢</h3>
+		        	</div>
+		        	<div class="movie-info__body">
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>
+	                    <figure class="movie">
+	                        {resimg data-image="test/01.png" class="movie__thumb"}
+	                        <figcaption class="movie__title">title</figcaption>
+	                        <div class="movie__views">
+	                            <div class="count-number">
+	                                <div class="count-number__icon"></div>
+	                                <div class="count-number__text">152万</div>
+	                            </div>
+	                        </div>
+	                    </figure>      		
+		        	</div>
+		        </div>					
+			</div>        
         </main>
 	{/block}

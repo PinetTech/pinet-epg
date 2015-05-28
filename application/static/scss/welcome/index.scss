@@ -20,7 +20,7 @@ $nav-sel: get-module("nav", "selector");
             }          
         }           
     }
-    #{$movie-sel}:nth-child(n+5) {
+    #{$movie-sel}:nth-of-type(5n+5) {
         margin-right: 0;
     }
 }
