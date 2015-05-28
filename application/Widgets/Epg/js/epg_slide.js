@@ -16,7 +16,7 @@
                     if(img.length > 0) {
                         var src = '';
                         img.load(function(){
-                            if(img.attr('data-pagination-src') != '') {
+                            if(img.attr('data-pagination-src') && img.attr('data-pagination-src') != '') {
                                 src = img.attr('data-pagination-src');
                             }
                             else {

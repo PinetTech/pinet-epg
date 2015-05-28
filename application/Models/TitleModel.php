@@ -60,10 +60,12 @@ class TitleModel extends DBModel {
 	}
 
 	public function getTitles($limit=10, $notIn=array()){
-		$select = $this->select('title.id,title.asset_name')
-			->from('title');
+		$select = $this->select('title.id,title.asset_name,poster.sourceurl')
+				->from('title')
+				->join('poster',array('poster.title_id'=>'title.id'));
 		$where = array(
-			new \Clips\Libraries\NotOperator(array('title.asset_id' => null))
+			new \Clips\Libraries\NotOperator(array('title.asset_id' => null)),
+				'poster.image_aspect_ratio'=>'306x429'
 		);
 		if($notIn){
 			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
@@ -76,11 +78,15 @@ class TitleModel extends DBModel {
 		return array();
 	}
 
-	public function getNewTitles($limit){
+	public function getNewTitles($limit, $notIn=array()){
+		$where = array('poster.image_aspect_ratio'=>'306x429');
+		if($notIn){
+			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
+		}
 		$titles = $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
 				->from('title')
 				->join('poster',array('poster.title_id'=>'title.id'))
-				->where(array('poster.image_aspect_ratio'=>'306x429'))
+				->where($where)
 				->orderBy('title.create_at desc')
 				->limit(0,$limit)
 				->result();
@@ -102,10 +108,10 @@ class TitleModel extends DBModel {
 		}
 		$titleIDs = array_map(function($title){return $title->id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($titleIDs);
-		foreach($titles as $title){
-			$titles['count'] = 0;
+		foreach($titles as $key=>$title){
+			$titles[$key]->count = 0;
 			if(isset($plays[$title->id]))
-				$titles['count'] = $plays[$title->id];
+				$titles[$key]->count = $plays[$title->id];
 		}
 		return $titles;
 	}
@@ -167,33 +173,34 @@ class TitleModel extends DBModel {
 
 	}
 
-	public function getNewTitlesByVolumnID($columnID,$limit=10){
+	public function getNewTitlesByVolumnID($columnID, $notIn=array() ,$limit=10){
+		$where = array('asset_column_ref.column_id'=>$columnID);
+		if($notIn){
+			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
+		}
 		$titles = $this->select('title.id,title.asset_name,title.create_at')
 				->from('title')
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
-				->where(array('asset_column_ref.column_id'=>$columnID))
+				->where($where)
 				->orderBy('title.create_at desc')
 				->limit(0,$limit)
 				->result();
 		return $titles;
 	}
 
-	public function getHomeNavigations($navs){
+	public function getHomeNavigations($navs, $limit=10){
 		$actions = array();
 		foreach ($navs as $k=>$nav) {
 			$action = new SimpleAction(array('content' => 'movie/index/'.$nav->id, 'label' => $nav->column_name, 'type' => 'server'));
 			$records = $this->playhistorie->getRecordsByColumnID($nav->id);
+			$count = count($records);
+			if($count != $limit){
+				$titleIDs = array_map(function($record){ return $record->id;}, $records);
+				$records = array_merge($records, $this->getNewTitlesByVolumnID($nav->id, $titleIDs, $limit-$count));
+			}
 			$children = array();
-			if($records) {
-				foreach ($records as $record) {
-					$children[] = new SimpleAction(array('content' => 'movie/play/' . $record->id, 'label' => $record->asset_name, 'type' => 'server'));
-				}
-			}else{
-				$newTitles = $this->getNewTitlesByVolumnID($nav->id);
-				foreach ($newTitles as $v) {
-					$children[] = new SimpleAction(array('content' => 'movie/play/' . $v->id, 'label' => $v->asset_name, 'type' => 'server'));
-				}
-
+			foreach ($records as $record) {
+				$children[] = new SimpleAction(array('content' => 'movie/play/' . $record->id, 'label' => $record->asset_name, 'type' => 'server'));
 			}
 
 			$action->children = $children;

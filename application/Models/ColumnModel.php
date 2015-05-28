@@ -25,11 +25,12 @@ class ColumnModel extends DBModel {
 			$videos = array();
 			$movies = $this->title->getTitlesByColumn($nav->id,6);
 			foreach ($movies as $movie) {
-				$videos[]=(object)array('title'=>$movie->asset_name, 'count'=>$movie->record, 'imageSrc'=>$movie->sourceurl);
+				$videos[]=(object)array('id'=>$movie->id, 'title'=>$movie->asset_name, 'count'=>$movie->record, 'imageSrc'=>$movie->sourceurl);
 			}
 			$columns[$k]['videos'] = $videos;
 			$columns[$k]['column_id'] = $nav->id;
 			$columns[$k]['column_name'] = $nav->column_name;
+			$columns[$k]['url'] = 'movie/index/'.$nav->id;
 		}
 		return $columns;
 	}
