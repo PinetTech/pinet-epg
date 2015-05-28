@@ -158,6 +158,23 @@ $table-sel: get-module("tab", "select");
     }   	
 }
 
+@mixin search-tab-desktop() {
+    #{$tab-sel} {
+        &__nav {
+            .swiper-slide {
+                > a {
+                    font-size: 22px;
+                    color: #202020;
+                    line-height: 31px;                    
+                }
+            }
+        }
+        &__content {
+            margin-top: calc-res(68px);
+        }
+    }   	
+}
+
 @mixin search-movie-mobile() {
 	#{$movie-sel} {
 		background-color: transparent;
@@ -338,9 +355,14 @@ $table-sel: get-module("tab", "select");
 
 @mixin section_welcome_search($args...) {
 	@include device-desktop() {
+		main {
+			background: #FAFAFA;			
+		}
 		.search-result {
 			@include content-width();
 			margin: 0 auto;
+			margin-bottom: calc-res(342px);
+			padding-top: calc-res(45.95px);
 			&__header {
 				font-size: 22px;
 				color: #202020;
@@ -425,6 +447,7 @@ $table-sel: get-module("tab", "select");
 		@include search-types-desktop();
 		@include search-areas-desktop();
 		@include search-movietypes-desktop();
+		@include search-tab-desktop();
 	}
 	@include device-mobile() {
 		.actionbar {

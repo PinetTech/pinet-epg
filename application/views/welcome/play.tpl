@@ -20,7 +20,7 @@
         <main>
         	<div class="videoplayer">
         		<div class="videoplayer__body">
-        			<video></video>
+        			<video class="video-js"></video>
         			<div class="videoplayer__list">
         				<h3>剧集</h3>
         				<ul>
