@@ -40,11 +40,13 @@ VIDEOJS_SWF
 	    );
 
 		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
-
-	    $this->playhistorie->saveHistory(array(
-			'mac' => $this->request->server('REMOTE_ADDR'),
-			'title_id' => $titleID
-		));
+		$mac = \Clips\ip2mac($this->request->getIP());
+		if($mac) {
+			$this->playhistorie->saveHistory(array(
+				'mac' => $mac,
+				'title_id' => $titleID
+			));
+		}
 
 		$sames = $this->title->getSameTypeMovies($titleID);
 		$this->logger->info('movie controller REMOTE_ADDR is ', array($this->request->server('SERVER_ADDR'), $sames));
