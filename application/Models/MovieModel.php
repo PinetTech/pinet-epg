@@ -7,7 +7,7 @@ use Clips\Object;
 /**
  * Class MovieModel
  * @package Pinet\EPG\Models
- * @Clips\Model(table="movie")
+ * @Clips\Model({"title", "playHistorie"})
  */
 class MovieModel extends DBModel {
 
@@ -49,5 +49,15 @@ class MovieModel extends DBModel {
 			$years[] = $year - $i;
 		}
 		return $years;
+	}
+
+	public function getPushRecords($limit=9){
+		$records = $this->playhistorie->getHotRecord($limit);
+		$count = count($records);
+		if($count != $limit){
+			$titleIDs = array_map(function($record){ return $record->id;}, $records);
+			$record = array_merge($records, $this->title->getNewTitles($limit-$count, $titleIDs));
+		}
+		return $record;
 	}
 }

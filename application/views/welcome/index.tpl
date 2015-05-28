@@ -22,8 +22,9 @@
             {swiper class="slide"}
                 {swiper__wrapper items=$items}
                     {literal}
-                        {swiper__slide data-image=$item->image responsive="true"}
-                            <h3 class="slide__title">{$item->title}</h3>
+                        {swiper__slide}
+	                    {a uri="movie/play/{$item->id}"}{resimg data-image=$item->sourceurl}{/a}
+                            <h3 class="slide__title">{$item->asset_name}</h3>
                         {/swiper__slide}
                     {/literal}
                 {/swiper__wrapper}
@@ -38,7 +39,7 @@
 	                <div class="movielist__body">
 	                    {foreach $v['videos'] as $key => $value}
 	                        <figure class="movie">
-                                {resimg data-image=$value->imageSrc class="movie__thumb"}
+                                {a uri="movie/play/{$value->id}"}{resimg data-image=$value->imageSrc class="movie__thumb"}{/a}
 	                            <figcaption class="movie__title">{$value->title}</figcaption>
 	                            <div class="movie__views">
 	                                <div class="count-number">
