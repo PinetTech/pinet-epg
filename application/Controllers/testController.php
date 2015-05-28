@@ -116,7 +116,7 @@ class TestController extends BaseController
 
     /**
      * @Clips\Form({"search"})
-     * @Clips\Widget({"epg", "navigation"})
+     * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"welcome/list"})
      * @Clips\Js({"application/static/js/welcome/list.js"})
      */
@@ -174,4 +174,28 @@ class TestController extends BaseController
             'actions'=>$this->navigation()
         ));
     }
+
+    /**
+     * @Clips\Form({"search"})
+     * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
+     * @Clips\Scss({"welcome/play"})
+     * @Clips\Js({"application/static/js/welcome/play.js"})
+     */
+    public function movieplay() {       
+        return $this->render("welcome/play", array(
+            'actions'=>$this->navigation(),
+            "tab"=>array(
+                "navs"=>array(
+                    'nav1',
+                    'nav2'
+                ),
+                "contents"=>array(
+                    (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+                    (object)array('episodes'=>'1,2,3,4,5'),
+                    (object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+                )
+            ) 
+        ));
+    }
+
 }
