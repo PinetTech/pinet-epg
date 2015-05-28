@@ -14,7 +14,7 @@ function smarty_block_swiper__slide($params, $content = '', $template, &$repeat)
 	$dataImage = \Clips\get_default($params, 'data-image', null);
 	$paginationImage = \Clips\get_default($params, 'data-pagination-image', null);
 	$responsive = \Clips\get_default($params, 'responsive', false);
-
+	$image = '';
 	if($dataImage) {
 		if ($responsive == "true") {
 			$image = smarty_function_resimg(array('data-image'=>$dataImage, 'data-pagination-src'=>$paginationImage), $template);
