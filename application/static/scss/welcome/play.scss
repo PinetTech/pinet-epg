@@ -1,0 +1,230 @@
+$tab-sel: get-module("tab", "selector");
+$movie-sel: get-module("movie", "selector");
+
+#{$tab-sel} {
+    &__nav {
+        margin: 0;
+        .swiper-wrapper {
+            width: 240px;
+        }
+        .swiper-slide {
+            width: 50%;
+        }       
+        .swiper-slide-active {
+            color: #ef1717;
+        }
+    }
+    &__thumbs {
+        border-bottom: 1px solid #dedede;
+        margin: 0;        
+        .swiper-wrapper {
+            width: 240px;
+        }
+        .swiper-slide {
+            width: 50%;
+            height: 3px;
+        }
+        .swiper-slide-active {
+            background-color: #e01818;
+        }
+    }
+    &__content {
+        height: 450px;
+        .swiper-slide {
+        	width: 100%;
+        }
+    }
+}
+
+#{$movie-sel} {
+    width: 17%;
+    margin-right: 3.75%;
+    .count-number {
+        font-size: 10px;
+        color: #6E6E6E;
+        line-height: 12px;
+        .count-number__text:before {
+            content: "\f16a";
+            font-family: FontAwesome;
+            margin-right: 5px;
+        }          
+    }           
+}
+#{$movie-sel}:nth-of-type(5n+5) {
+    margin-right: 0;
+}
+
+@mixin section_welcome_play($args...) {
+	@include device-desktop() {
+		.actionbar {
+			&__back {
+				display: none;
+			}
+		}
+		.videoplayer {
+			display: flex;
+			width: 100%;
+			padding: 20px 0;
+			background-color: #333333;
+            height: calc-res(1132px);
+            background: #1F1F1F;            
+            justify-content: center;
+            &__body {
+                display: flex;
+                height: 100%;
+                background-color: #ffffff;
+                margin: 0 auto;
+                > video {
+                    width: calc-res(1860px);
+                    height: 100%;
+                    float: left;
+                    background-color: #123123;
+                }
+            }
+            &__list {
+                width: calc-res(710px);
+                height: 100%;
+                background-color: #333333;                
+                > h3 {
+                    height: calc-res(116px);
+                    line-height: calc-res(116px);
+                    margin: 0;
+                    color: #ffffff;
+                    padding-left: calc-res(72px);
+                    padding-right: calc-res(72px);                    
+                }
+                > ul {
+                    list-style: none;
+                    padding-left: calc-res(72px);
+                    padding-right: calc-res(72px);                    
+                    margin: 0 {
+                        top: 10px;
+                    };                    
+                    > li {
+                        background: #222222;                        
+                        color: #ffffff;
+                        display: block;
+                        width: calc-res(90px);
+                        height: calc-res(90px);
+                        float: left;
+                        margin-right: 10px;
+                        margin-bottom: 10px;
+                        text-align: center;
+                        line-height: calc-res(90px);
+                    }
+                    > li:hover {
+                        cursor: pointer;
+                        background-color: #c51313;
+                    }
+                    > li.active {
+                        background-color: #c51313;
+                    }
+                }
+            }
+		}
+		.tab {
+			display: none;
+		}
+        .movie-infos {
+            display: block;
+            @include content-width();
+            margin: 0 auto;
+            margin-top: calc-res(80px);
+        }
+        .movie-info {
+            margin-bottom: calc-res(98px);
+            &__header {
+                border-bottom: 1px solid #e5e5e5;
+                margin-bottom: calc-res(92px);
+                h3 {
+                    font-size: 22px;
+                    color: #202020;
+                    line-height: 23px;                
+                    border-bottom: 3px solid #a1a1a1;                    
+                    width: calc-res(313px);
+                    text-align: center;
+                    margin: 0;
+                    padding-bottom: 10px;
+                }
+            }
+            &.summary {
+                .movie-info__title {
+                    font-size: 38px;
+                    color: #FF1717;
+                    line-height: 57px;                
+                    margin: 0;
+                }
+                .movie-info__des {
+                    > dt {
+                        float: left;
+                    }
+                    > dt:after {
+                        content: ": ";
+                    }
+                    > dt:nth-of-type(3) {
+                        float: none;
+                        margin-top: calc-res(74px);
+                    }
+                    > dd:nth-of-type(3) {
+                        margin-left: 0;
+                    }
+                }                
+            }
+            &.guess {
+                .movie-info__body {
+                    display: inline-block;
+                    width: 100%;
+                }
+                #{$movie-sel} {
+                    padding-bottom: res(14px, 6.2px);
+                    float: left;
+                    margin-bottom: calc-res(60px);
+                    .movie__title {
+                        padding-left: calc-res(36px);                    
+                        padding-right: calc-res(36px);
+                        line-height: 23px;
+                    }
+                    .movie__views {
+                        padding-left: calc-res(36px);                    
+                        padding-right: calc-res(36px);
+                        line-height: 23px;
+                    }
+                }
+            }
+        }
+	}
+	@include device-mobile() {
+		nav {
+            @include position(fixed, 0, 0, 0, 0);
+            z-index: 1200;
+            height: 50px;			
+		}
+        .actionbar {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            &__brand {
+                display: none;
+            }
+            &__search-form {
+                display: none;
+            }
+            &__back {
+                color: #333333;
+                > a {
+                    color: #333333;
+                }
+            }
+        }	
+        .videoplayer {
+        	display: block;
+        	width: 100%;
+        	padding: 0;
+        }	
+        .tab {
+        	display: block;
+        }
+        .movie-info {
+        	display: none;
+        }
+	}
+}

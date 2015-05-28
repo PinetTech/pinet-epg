@@ -1,9 +1,5 @@
 $tab-sel: get-module("tab", "selector");
 
-.movies-select {
-    @extend %hflexbox;
-}
-
 .videos {
     @extend %hflexbox;
 }
@@ -125,21 +121,92 @@ $tab-sel: get-module("tab", "selector");
         }        
     }
     @include device-mobile() {
-        main {
-            &.movielist {
+        .actionbar {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #ff0000;
+            &__brand {
+                display: none;
+            }
+            &__search-form {
+                display: none;
+            }
+            &__back {
+                color: #ffffff;
+                > a {
+                    color: #ffffff;
+                }
+            }
+            &__switch {
+                @extend %hflexbox;
+                border: 1px solid #ffffff;
+                > a {
+                    display: block;
+                    color: #ffffff;
+                }
+
+                *.active {
+                    background-color: #ffffff;
+                    color: #ff0000;
+                }   
+            }
+            &__search {
+                > a {
+                    color: #ffffff;
+                }
+            }
+        }
+        .videos {
+            display: block;
+        }
+        .select {
+            display: none;
+        }
+        .movie-filter {
+            padding-left: 10px;
+            padding-right: 10px;
+            display: inline-flex;
+            width: 100%;
+            .list {
+                width: 100%;
+                border-bottom: 1px solid #eaeaea;
+            }
+            > a {
                 display: block;
+                float: left;
+                margin-right: 10px;
             }
         }
         .nav {
             &.movietypes {
                 width: 100%;
+                margin: 0;
+                margin-left: 10px;
+                margin-right: 10px;
                 > li {
                     @extend %hflexbox;
+                    border-bottom: 1px solid #eaeaea;
+                }
+
+                > li:last-child {
+                    border-bottom: none;
+                }
+
+                > li > a {
+                    padding: 0;
+                    margin: 0;
+                    margin-right: 10px;
                 }
 
                 li > .sub-navi {
                     width: auto;
                     flex: 1;
+                }
+
+                .sub-navi > li > a {
+                    float: left;
+                    padding: 0;
+                    margin-right: 10px;
                 }
             }
         }
