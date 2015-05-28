@@ -14,7 +14,7 @@ class WelcomeController extends BaseController
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"welcome/index"})
 	 * @Clips\Js({"application/static/js/welcome/index.js"})
-	 * @Clips\Model({"title","playHistorie","column"})
+	 * @Clips\Model({"title","playHistorie","column","movie"})
 	 */
 	public function index() {
 		$this->title('Pinet Home Page',true);
@@ -22,35 +22,11 @@ class WelcomeController extends BaseController
 		$navs = $this->column->getAllColumns();
 		$actions = $this->title->getHomeNavigations($navs);
 		$columns = $this->column->getColumns($navs);
-
-		$hotRecords = $this->playhistorie->getHotRecord();
-		$items = array();
-		if($hotRecords) {
-			foreach ($hotRecords as $v) {
-				$items[] = (object)array('title'=>$v->asset_name,'image'=>$v->sourceurl);
-			}
-		}else{
-			$newTitles = $this->title->getNewTitles(9);
-			foreach ($newTitles as $v) {
-				$items[] = (object)array('title'=>$v->asset_name,'image'=>$v->sourceurl);
-			}
-		}
+		$items = $this->movie->getPushRecords();
 
 		return $this->render('welcome/index', array(
 				'actions'=>$actions,
 				'items'=>$items,
-				"tab"=>array(
-						"navs"=>array(
-								'nav1',
-								'nav2',
-								'nav3'
-						),
-						"contents"=>array(
-								(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
-								(object)array('episodes'=>'1,2,3,4,5'),
-								(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
-						)
-				),
 				"columns"=>$columns
 		));
 	}
