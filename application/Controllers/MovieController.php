@@ -21,9 +21,11 @@ class MovieController extends BaseController
 	}
 
     /**
-     * @Clips\Scss({"movie/index"})
-     * @Clips\Widget("videoJs")
-	 * @Clips\Model({"playHistorie", "title", "movie"})
+     * @Clips\Form({"search"})
+     * @Clips\Scss({"movie/play"})
+     * @Clips\Js({"application/static/js/movie/play.js"})
+     * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
+	 * @Clips\Model({"playHistorie", "title", "movie","column","TitleApplication"})
      */
     public function play($titleID) {
 		$title = $this->title->getMovieInfoByID($titleID);
@@ -37,21 +39,34 @@ class MovieController extends BaseController
 	// initialize the player
 	var player = videojs('video');
 VIDEOJS_SWF
-	    );
+	    ,true);
 
 		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
-		$mac = \Clips\ip2mac($this->request->getIP());
-		if($mac) {
-			$this->playhistorie->saveHistory(array(
-				'mac' => $mac,
-				'title_id' => $titleID
-			));
-		}
+		$title->assetClass = $this->movie->getMovieByTitleID($titleID)->asset_class;
+//		$mac = \Clips\ip2mac($this->request->getIP());
+//		if($mac) {
+//			$this->playhistorie->saveHistory(array(
+//				'mac' => $mac,
+//				'title_id' => $titleID
+//			));
+//		}
 
 		$sames = $this->title->getSameTypeMovies($titleID);
-		$this->logger->info('movie controller REMOTE_ADDR is ', array($this->request->server('SERVER_ADDR'), $sames));
+	    $sames = array($sames[0]);
         $this->title($title->asset_name,true);
-        return $this->render('movie/play', array('movie' => $title));
+
+	    $navs = $this->column->getAllColumns();
+	    $actions = $this->title->getHomeNavigations($navs);
+
+	    if($title->assetClass == 'series') {
+			$series = $this->titleApplication->getSeriesByTitle($title->asset_name);
+	    }
+
+	    return $this->render("movie/play", array(
+			    'actions'=>$actions,
+		        'movie'=>$title,
+		        'sames'=>$sames
+	    ));
     }
 
 
