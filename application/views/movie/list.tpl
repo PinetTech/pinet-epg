@@ -25,16 +25,17 @@
             </div>
         {/nav}		
 		<main>
-            {swiper class="slide"}
-                {swiper__wrapper items=$items}
-                    {literal}
-                        {swiper__slide data-image=$item->res responsive="true"}
-                            <h3 class="slide__title">{$item->title}</h3>
-                        {/swiper__slide}
-                    {/literal}
-                {/swiper__wrapper}
-                {swiper__pagination}{/swiper__pagination}
-            {/swiper}			
+			{swiper class="slide"}
+				{swiper__wrapper items=$items}
+					{literal}
+						{swiper__slide}
+						{a uri="movie/play/{$item->id}"}{resimg data-image=$item->sourceurl}{/a}
+						<h3 class="slide__title">{$item->asset_name}</h3>
+						{/swiper__slide}
+					{/literal}
+				{/swiper__wrapper}
+				{swiper__pagination}{/swiper__pagination}
+			{/swiper}
 			<div class="videos">		
 				{sect class="types"}
 					<div class="select">
@@ -50,17 +51,17 @@
 						<div class="list">
 							<a href="" class="title">排序</a>
 							<a href="" class="hot active">最热</a>
-							<a href="" class="new">最新</a>			
+							<a href="" class="new">最新</a>
 						</div>
 					</div>
-					{navigation id="movietypes" class="movietypes" actions=$actions}{/navigation}
+					{navigation id="movietypes" class="movietypes" actions=$sifts}{/navigation}
 				{/sect}				
 				{sect class="movies"}
 			        {div class="tab"}
 			            {swiper class="tab__nav"}
 			                {swiper__wrapper items=$tab['navs']}
 			                    {literal}
-			                        {swiper__slide}{a href="http://www.baidu123.com"}{$item}{/a}{/swiper__slide}
+			                        {swiper__slide}{a href={$item['url']}}{$item['name']}{/a}{/swiper__slide}
 			                    {/literal}                    
 			                {/swiper__wrapper}
 			            {/swiper}
@@ -76,7 +77,9 @@
 			                    {swiper__slide}
 				                    {foreach $movies as $v}
 					                    <figure class="movie">
+						                    {a uri="movie/play/{$v->id}"}
 					                        {resimg data-image=$v->sourceurl class="movie__thumb"}
+						                    {/a}
 					                        <figcaption class="movie__title">{$v->title}</figcaption>
 					                        <div class="movie__views">
 					                            <div class="count-number">
