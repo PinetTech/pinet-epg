@@ -98,8 +98,7 @@
 		tab.thumbs = new Swiper('.tab .tab__thumbs', tab.thumbsOptions);
 		tab.thumbs.lockSwipes();
 		tab.contentOptions = {
-			spaceBetween: 10,
-			slidesPerView: 'auto'
+			// slidesPerView: 'auto'
 		};
 		tab.contentOptions.onSlideChangeEnd = function(swiper) {
 			tab.nav.activeIndex = swiper.activeIndex;
