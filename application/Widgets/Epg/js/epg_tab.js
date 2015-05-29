@@ -1,4 +1,5 @@
-function initialize() {
+(function(){
+
 	function overwriteTabController(swiper) {
 		var s = swiper;
 
@@ -66,42 +67,66 @@ function initialize() {
 		};
 	}
 
-	var tab = {};
-	tab.navOptions = {
-		slidesPerView: 'auto'
-	};
-	tab.nav = new Swiper('.tab .tab__nav', tab.navOptions);
-	tab.thumbsOptions = {
-		slidesPerView: 'auto'
-	};
-	tab.nav.lockSwipes();
-	tab.thumbs = new Swiper('.tab .tab__thumbs', tab.thumbsOptions);
-	tab.thumbs.lockSwipes();
-	tab.contentOptions = {
-		spaceBetween: 10,
-		slidesPerView: 'auto'
-	};
-	tab.contentOptions.onSlideChangeEnd = function(swiper) {
-		tab.nav.activeIndex = swiper.activeIndex;
-		tab.nav.update();
-	}
-	tab.content = new Swiper('.tab .tab__content', tab.contentOptions);
-	tab.content.params.control = tab.thumbs;
-	overwriteTabController(tab.content);
-
-	function checkLocks(tab) {
-		if($(window).width() < 768) {
-			tab.content.unlockSwipes();
+	function initTab() {
+		var tab = {};
+	    function clickHandle(e) {
+	        var self = $(e.currentTarget);
+	        var i = self.data('slide-index');
+	        tab.content.slideTo(i);
+	    }
+	    tab.navOptions = {
+	        slidesPerView: 'auto'
+	    };
+	    tab.navOptions.onInit = function(swiper) {
+	        var slides = swiper.slides;
+	        if(slides.length > 0) {
+	            slides.each(function(i){
+	                var self = $(this);
+	                self.data('slide-index', i);
+	            });
+	        }
+	        swiper.wrapper.on('click', '.' + swiper.params.slideClass, clickHandle);      
+	        swiper.wrapper.on('click', '.' + swiper.params.slideClass + ' a', function(e){
+	        	e.preventDefault();
+	        });   
+	    };
+		tab.nav = new Swiper('.tab .tab__nav', tab.navOptions);
+		tab.thumbsOptions = {
+			slidesPerView: 'auto'
+		};
+		tab.nav.lockSwipes();
+		tab.thumbs = new Swiper('.tab .tab__thumbs', tab.thumbsOptions);
+		tab.thumbs.lockSwipes();
+		tab.contentOptions = {
+			spaceBetween: 10,
+			slidesPerView: 'auto'
+		};
+		tab.contentOptions.onSlideChangeEnd = function(swiper) {
+			tab.nav.activeIndex = swiper.activeIndex;
+			tab.nav.update();
 		}
-		else {
-			tab.content.lockSwipes();
+		tab.content = new Swiper('.tab .tab__content', tab.contentOptions);
+		tab.content.params.control = tab.thumbs;
+		overwriteTabController(tab.content);
+
+		function checkLocks(tab) {
+			if($(window).width() < 768) {
+				tab.content.unlockSwipes();
+			}
+			else {
+				tab.content.lockSwipes();
+			}
 		}
-	}
 
-	checkLocks(tab);
-
-	$(window).resize(function(){
 		checkLocks(tab);
-	});
 
-}
+		$(window).resize(function(){
+			checkLocks(tab);
+		});
+
+		return tab;
+	}
+
+	window.initTab = initTab;
+
+})()

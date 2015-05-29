@@ -211,7 +211,8 @@ class TestController extends BaseController
             "tab"=>array(
                 "navs"=>array(
                     'nav1',
-                    'nav2'
+                    'nav2',
+                    'nav3'
                 ),
                 "contents"=>array(
                     (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),

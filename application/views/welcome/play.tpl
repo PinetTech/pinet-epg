@@ -57,6 +57,7 @@
 	                {swiper__wrapper}
 	                    {swiper__slide}1{/swiper__slide}
 	                    {swiper__slide}2{/swiper__slide}
+	                    {swiper__slide}3{/swiper__slide}
 	                {/swiper__wrapper}                        
 	            {/swiper}
 	        {/div}

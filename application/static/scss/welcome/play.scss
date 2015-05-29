@@ -255,56 +255,7 @@ $movie-sel: get-module("movie", "selector");
                     width: 33.3%;
                     position: relative;
                     margin: 0;
-                    // &.active {
-                    //     background-color: transparent;
-                    //     border-bottom: 1px solid #ff0000;   
-                    //     text-align: center;         
-                    //     margin-left: 5px;
-                    //     margin-right: 5px;
-                    //     width: calc(25% - 10px);
-                    // }
-                    // &.active:after {
-                    //     content: $fa-var-angle-up;
-                    //     font-family: FontAwesome;
-                    //     position: relative;
-                    //     margin: auto;
-                    //     left: 0;
-                    //     top: -1.9px;
-                    //     border-bottom: 1px solid #ffffff;
-                    //     height: 11px;
-                    //     width: 10px;
-                    //     z-index: 1000;
-                    //     font-size: 14px;
-                    //     color: #ff0000;
-                    //     z-index: 1000;
-                    //     background-color: #ffffff;      
-                    // }
                 }
-                // .swiper-slide-active {
-                //     background-color: transparent;
-                //     border-bottom: 1px solid #ff0000;   
-                //     text-align: center;         
-                //     margin-left: 5px;
-                //     margin-right: 5px;
-                //     width: calc(25% - 10px);
-                // }
-
-                // .swiper-slide-active:after {
-                //     content: $fa-var-angle-up;
-                //     font-family: FontAwesome;
-                //     position: relative;
-                //     margin: auto;
-                //     left: 0;
-                //     top: -1.9px;
-                //     border-bottom: 1px solid #ffffff;
-                //     height: 11px;
-                //     width: 10px;
-                //     z-index: 1000;
-                //     font-size: 14px;
-                //     color: #ff0000;
-                //     z-index: 1000;
-                //     background-color: #ffffff;                  
-                // }
             }
         }          	
         .movie-info {
