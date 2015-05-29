@@ -70,13 +70,10 @@ VIDEOJS_SWF
 
 		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
 		$title->assetClass = $this->movie->getMovieByTitleID($titleID)->asset_class;
-		$mac = \Clips\ip2mac($this->request->getIP());
-		if($mac) {
-			$this->playhistorie->saveHistory(array(
-				'mac' => $mac,
-				'title_id' => $titleID
-			));
-		}
+		$this->playhistorie->saveHistory(array(
+			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
+			'title_id' => $titleID
+		));
 
 		$sames = $this->title->getSameTypeMovies($titleID);
         $this->title($title->asset_name,true);

@@ -11,14 +11,17 @@ use Clips\Libraries\DBModel;
 class PlayHistorieModel extends DBModel {
 
 	public function saveHistory($history){
-		if($this->checkFlushData($history['title_id'])){
+		if($this->checkFlushData($history['mac'], $history['title_id'])){
 			return $this->insert($history);
 		}
 		return true;
 	}
 
-	public function checkFlushData($titleID){
-		$history = $this->orderBy('create_date desc')->one('title_id', $titleID);
+	public function checkFlushData($mac, $titleID){
+		$history = $this->orderBy('create_date desc')->one(array(
+			'mac' => $mac,
+			'title_id' => $titleID
+		));
 		if(isset($history->id)){
 			$now = new \DateTime();
 			$lastTime = new \DateTime($history->create_date);
