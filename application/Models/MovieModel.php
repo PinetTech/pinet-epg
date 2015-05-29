@@ -2,7 +2,7 @@
 namespace Pinet\EPG\Models;in_array(__FILE__, get_included_files()) or exit("No direct script access allowed");
 
 use Clips\Libraries\DBModel;
-use Clips\Object;
+use Clips\SimpleAction;
 
 /**
  * Class MovieModel
@@ -34,14 +34,14 @@ class MovieModel extends DBModel {
 
 	public function getProgramTypes(){
 		return array(
-			'剧情', '动作', '犯罪', '喜剧', '科幻', '西部', '传记', '爱情', '歌舞'
+			'全部','剧情', '动作', '犯罪', '喜剧', '科幻', '西部', '传记', '爱情', '歌舞'
 		, '惊悚', '冒险', '悬疑', '奇幻', '历史', '恐怖', '战争', '运动', '音乐', '家庭'
 		);
 	}
 
 	public function getAreas(){
 		return array(
-			'中国大陆', '香港', '英国', '美国', '德国', '法国', '澳大利亚', '台湾', '丹麦', '日本'
+				'全部','中国大陆', '香港', '英国', '美国', '德国', '法国', '澳大利亚', '台湾', '丹麦', '日本'
 		, '新西兰', '意大利', '加拿大', '巴西', '秘鲁', '韩国', '西班牙', '瑞士', '尼泊尔'
 		);
 	}
@@ -53,6 +53,8 @@ class MovieModel extends DBModel {
 		for($i=1 ; $i < 5; $i++){
 			$years[] = $year - $i;
 		}
+		$years[0] = '全部';
+		$years[] = '更早';
 		return $years;
 	}
 
@@ -64,5 +66,32 @@ class MovieModel extends DBModel {
 			$record = array_merge($records, $this->title->getNewTitles($limit-$count, $titleIDs));
 		}
 		return $record;
+	}
+
+	public function sift(){
+		$types = $this->getProgramTypes();
+		$areas = $this->getAreas();
+		$years = $this->getYears();
+		$type = new SimpleAction(array('content' => '/nav', 'label' => '按类型', 'type' => 'server'));
+		$typeChildren = array();
+		foreach ($types as $v) {
+			$typeChildren[] = new SimpleAction(array('content' => '/nav/'.$v, 'label' => $v, 'type' => 'server'));
+		}
+		$type->children = $typeChildren;
+
+		$area = new SimpleAction(array('content' => '/nav', 'label' => '按地区', 'type' => 'server'));
+		$areaChildren = array();
+		foreach ($areas as $v) {
+			$areaChildren[] = new SimpleAction(array('content' => '/nav/'.$v, 'label' => $v, 'type' => 'server'));
+		}
+		$area->children = $areaChildren;
+
+		$year = new SimpleAction(array('content' => '/nav', 'label' => '按年份', 'type' => 'server'));
+		$yearChildren = array();
+		foreach ($years as $v) {
+			$yearChildren[] = new SimpleAction(array('content' => '/nav/'.$v, 'label' => $v, 'type' => 'server'));
+		}
+		$year->children = $yearChildren;
+		return array($type,$area,$year);
 	}
 }

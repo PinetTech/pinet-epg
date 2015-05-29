@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="movie-classfication"></div>
-                        {navigation id="movietypes" class="movietypes" actions=$actions}{/navigation}
+                        {navigation id="movietypes" class="movietypes" actions=$sifts}{/navigation}
                     {/sect}                 
                     <div class="areas">
                         {div class="tab"}
@@ -58,27 +58,29 @@
                             {swiper class="tab__content"}
                                 {swiper__wrapper}
                                     {swiper__slide}
-                                        {for $i=1 to 3}
+	                                    {foreach $movies as $v}
                                            <figure class="movie">
-                                            {resimg data-image="test/08.png" class="mobile__thumb"}
+                                            {resimg data-image=$v->sourceurl class="mobile__thumb"}
                                             <div class="movie__info">
-                                                <figcaption class="movie__title title">sadsadasds</figcaption>
+                                                <figcaption class="movie__title title">{$v->asset_name}</figcaption>
                                                 <div class="movie__des">
                                                     <dl>
-                                                        <dt>Name</dt>    
-                                                        <dd>Godzilla</dd>
-                                                        <dt>Born</dt>
-                                                        <dd>1952</dd>
-                                                        <dt>Birthplace</dt>
-                                                        <dd>Japan</dd>
+                                                        <dt>别名</dt>
+                                                        <dd>{$v->asset_name}</dd>
+                                                        <dt>地区</dt>
+                                                        <dd>{$v->area}</dd>
+                                                        <dt>类型</dt>
+                                                        <dd>{$v->program_type_name}</dd>
+                                                        <dt>简介</dt>
+                                                        <dd>{$v->summary_short}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="movie__control">
-                                                    <a href="" class="button">play</a>
+                                                    <a href={$v->url} class="button">play</a>
                                                 </div>                            
                                             </div>
                                         </figure>
-                                        {/for}  
+	                                    {/foreach}
                                     {/swiper__slide}
                                     {swiper__slide}2{/swiper__slide}
                                 {/swiper__wrapper}                        
