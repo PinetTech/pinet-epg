@@ -9,15 +9,71 @@ use Pinet\EPG\Core\BaseController;
 class MovieController extends BaseController
 {
 	/**
-	 * @Clips\Model({"column","titleApplication"})
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"welcome/list"})
+	 * @Clips\Js({"application/static/js/welcome/list.js"})
+	 * @Clips\Model({"column","titleApplication","movie","title","playhistorie"})
 	 */
 	public function index($columnID) {
-		exit('current movie type is'.$columnID);
 		$this->title('Pinet Home Page',true);
-		$columns = $this->column->get();
-		$titleApps = $this->titleapplication->get();
+		$types = $this->movie->getProgramTypes();
+		$areas = $this->movie->getAreas();
+		$years = $this->movie->getYears();
 
-		return $this->render('movie/index');
+		$type = $this->action('/nav', '按类型');
+		$typeChildren = array();
+		foreach ($types as $v) {
+			$typeChildren[] = $this->action('/nav/'.$v, $v);
+		}
+		$type->children = $typeChildren;
+
+		$area = $this->action('/nav', '按地区');
+		$areaChildren = array();
+		foreach ($areas as $v) {
+			$areaChildren[] = $this->action('/nav/'.$v, $v);
+		}
+		$area->children = $areaChildren;
+
+		$year = $this->action('/nav', '按年份');
+		$yearChildren = array();
+		foreach ($years as $v) {
+			$yearChildren[] = $this->action('/nav/'.$v, $v);
+		}
+		$year->children = $yearChildren;
+
+		$actions = array($type,$area,$year);
+
+//		(object)array('title'=>'nature1', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/1'),
+		$movies = array();
+		$records = $this->playhistorie->getHotRecord(8);
+		foreach ($records as $v) {
+			$movies[] = (object)array('title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
+		}
+
+		$items = $this->movie->getPushRecords();
+//		var_dump($items);
+		$itemRecords = array();
+		foreach ($items as $v) {
+			$itemRecords[] = (object)array('title'=>$v->asset_name, 'res'=>$v->sourceurl,'titleID'=>$v->id);
+		}
+
+		return $this->render('movie/list',array(
+				"actions"=>$actions,
+				'movies'=>$movies,
+				'items'=>$itemRecords,
+				"tab"=>array(
+						"navs"=>array(
+								'最新',
+								'最热'
+						),
+						"contents"=>array(
+								(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+								(object)array('episodes'=>'1,2,3,4,5'),
+								(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+						)
+				),
+		));
 	}
 
     /**
