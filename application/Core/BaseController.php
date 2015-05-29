@@ -37,4 +37,19 @@ class BaseController extends Controller implements Initializable {
 		\Clips\context('html_meta', array('name' => 'apple-mobile-web-app-title',
 			'content' => 'Pinet EPG'), true);
 	}
+
+	protected function render($template, $args = array(), $slider = true, $column = false, $engine = null, $headers = array()) {
+		$navs = $this->column->getAllColumns();
+		$actions = $this->title->getHomeNavigations($navs);
+		$args['actions'] = $actions;
+		if($slider){
+			$items = $this->movie->getPushRecords();
+			$args['items'] = $items;
+		}
+		if($column){
+			$columns = $this->column->getColumns($navs);
+			$args['columns'] = $columns;
+		}
+		return parent::render($template, $args, $engine, $headers);
+	}
 }

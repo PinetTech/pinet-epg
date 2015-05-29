@@ -3,7 +3,7 @@
 use Pinet\EPG\Core\BaseController;
 
 /**
- * @Clips\Widget({"html", "lang", "grid", "bootstrap"})
+ * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="index")
  * @Clips\Model({"searchKey","title"})
  */
@@ -18,9 +18,31 @@ class SearchController extends BaseController
         return $this->render('index/index');
     }
 
-	public function search() {
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"search/movie"})
+	 * @Clips\Js({"application/static/js/search/movie.js"})
+	 * @Clips\Model({"title","column","movie"})
+	 */
+	public function movie() {
 		$post = $this->post();
 		$titles = $this->title->getTitlesByKey($post['key']);
+		return $this->render("search/movie", array(
+			"tab"=>array(
+				"navs"=>array(
+					'全部',
+					'电影',
+					'电视剧',
+					'电视剧'
+				),
+				"contents"=>array(
+					(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+					(object)array('episodes'=>'1,2,3,4,5'),
+					(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+				)
+			)
+		) ,false);
 	}
 
 	public function sift(){

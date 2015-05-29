@@ -8,7 +8,7 @@ use Clips\SimpleAction;
  * Class TitleModel
  * @package Pinet\EPG\Models
  * @Clips\Model(table="title")
- * @Clips\Model({ "column","assetColumnRef", "playHistorie" })
+ * @Clips\Model({ "column","assetColumnRef", "playHistorie", "searchKey" })
  */
 class TitleModel extends DBModel {
 
@@ -39,7 +39,7 @@ class TitleModel extends DBModel {
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
 		return $this->select('distinct title.id,title_application.area,title_application.summary_short,
-								title_application.actors,title_application,title_application.director,package.program_type_name')
+								title_application.actors,title_application.director,package.program_type_name')
 				->from('title')
 				->join('title_application',array('title.application_id'=>'title_application.id'))
 				->join('package',array('title.package_id'=>'package.id'))
