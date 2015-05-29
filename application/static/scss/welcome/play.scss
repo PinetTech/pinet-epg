@@ -4,9 +4,6 @@ $movie-sel: get-module("movie", "selector");
 #{$tab-sel} {
     &__nav {
         margin: 0;
-        .swiper-wrapper {
-            width: 240px;
-        }
         .swiper-slide {
             width: 50%;
         }       
@@ -17,11 +14,7 @@ $movie-sel: get-module("movie", "selector");
     &__thumbs {
         border-bottom: 1px solid #dedede;
         margin: 0;        
-        .swiper-wrapper {
-            width: 240px;
-        }
         .swiper-slide {
-            width: 50%;
             height: 3px;
         }
         .swiper-slide-active {
@@ -29,7 +22,6 @@ $movie-sel: get-module("movie", "selector");
         }
     }
     &__content {
-        height: 450px;
         .swiper-slide {
         	width: 100%;
         }
@@ -74,7 +66,7 @@ $movie-sel: get-module("movie", "selector");
                 height: 100%;
                 background-color: #ffffff;
                 margin: 0 auto;
-                > video {
+                .video-js {
                     width: calc-res(1860px);
                     height: 100%;
                     float: left;
@@ -219,12 +211,55 @@ $movie-sel: get-module("movie", "selector");
         	display: block;
         	width: 100%;
         	padding: 0;
-        }	
-        .tab {
-        	display: block;
+            height: res(mobile-to-pc(263px));
+            &__list {
+                display: none;
+            }
+            &__body {
+                height: 100%;
+            }
+            .video-js {
+                width: 100%;
+                height: 100%;
+                background-color: #318273;
+            }
         }
+        #{$tab-sel} {
+            display: block;
+            &__nav {
+                border-top: 1px solid #e3e3e3;
+                .swiper-slide {
+                    width: 33.3%;
+                    padding-top: res(mobile-to-pc(16px));
+                    padding-bottom: res(mobile-to-pc(16px));                    
+                    position: relative;
+                    > a {
+                        font-size: 16px;
+                        color: #555555;
+                        line-height: 22px;                      
+                    }
+                    &.active {
+                        > a {
+                            color: #ff0000;
+                        }
+                    }
+                }
+                .swiper-slide-active {
+                    > a {
+                        color: #ff0000;
+                    }
+                }
+            }
+            &__thumbs {
+                .swiper-slide {
+                    width: 33.3%;
+                    position: relative;
+                    margin: 0;
+                }
+            }
+        }          	
         .movie-info {
         	display: none;
-        }
+        }      
 	}
 }

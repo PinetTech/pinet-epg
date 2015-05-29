@@ -7,8 +7,8 @@ $nav-sel: get-module("nav", "selector");
 
 #{$movielist-sel}{
     #{$movie-sel} {
-        width: 17%;
-        margin-right: 3.75%;
+        width: 14%;
+        margin-right: 3.2%;
         .count-number {
             font-size: 10px;
             color: #6E6E6E;
@@ -20,7 +20,7 @@ $nav-sel: get-module("nav", "selector");
             }          
         }           
     }
-    #{$movie-sel}:nth-of-type(5n+5) {
+    #{$movie-sel}:nth-of-type(6n+6) {
         margin-right: 0;
     }
 }
@@ -51,7 +51,7 @@ $nav-sel: get-module("nav", "selector");
                 padding-bottom: calc-res(150px);
             }
             #{$movie-sel} {
-                padding-bottom: res(14px, 6.2px);
+                padding-bottom: calc-res(14px);
                 .movie__title {
                     padding-left: calc-res(36px);                    
                     padding-right: calc-res(36px);

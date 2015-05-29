@@ -182,7 +182,20 @@ class TestController extends BaseController
      */
     public function search() {
         return $this->render("welcome/search", array(
-            'actions'=>$this->navigation()
+            'actions'=>$this->navigation(),
+            "tab"=>array(
+                    "navs"=>array(
+                            'nav1',
+                            'nav2',
+                            'nav3',
+                            'nav4'
+                    ),
+                    "contents"=>array(
+                            (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+                            (object)array('episodes'=>'1,2,3,4,5'),
+                            (object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+                    )
+            )            
         ));
     }
 
@@ -198,7 +211,8 @@ class TestController extends BaseController
             "tab"=>array(
                 "navs"=>array(
                     'nav1',
-                    'nav2'
+                    'nav2',
+                    'nav3'
                 ),
                 "contents"=>array(
                     (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),

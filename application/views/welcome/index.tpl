@@ -52,7 +52,7 @@
 	                </div>
 	            </section>
 	            {* section.movielist *}
-	        {/foreach}         
+	        {/foreach}                  
         </main>
         <footer>
             <ul class="site-map">
