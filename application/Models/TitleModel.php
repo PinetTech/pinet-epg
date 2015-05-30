@@ -38,13 +38,20 @@ class TitleModel extends DBModel {
 	public function getTitlesByKey($key){
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
-		return $this->select('distinct title.id,title_application.area,title_application.summary_short,
-								title_application.actors,title_application.director,package.program_type_name')
+		return $this->select('distinct title.id,title.asset_name,title_application.area,title_application.summary_short,
+								title_application.actors,title_application.director,package.program_type_name,poster.sourceurl')
 				->from('title')
 				->join('title_application',array('title.application_id'=>'title_application.id'))
 				->join('package',array('title.package_id'=>'package.id'))
-				->where(new \Clips\Libraries\OrOperator(array(array('title.asset_name' => $key), array('title_application.director' => $key)
-				, new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))))
+				->join('poster',array('poster.title_id'=>'title.id'))
+				->where(array(
+						new \Clips\Libraries\OrOperator(
+								array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
+										new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
+										new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
+						),
+						'poster.image_aspect_ratio'=>'306x429'
+				))
 				->result();
 	}
 
@@ -168,8 +175,10 @@ class TitleModel extends DBModel {
 					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')))
 					->result();
 		}
-
-		
+		foreach ($title as $k=>$v) {
+			$title[$k]->count = $this->playhistorie->getPlayTimesByTitleID($v->id);
+		}
+		return $title;
 
 	}
 
@@ -209,4 +218,37 @@ class TitleModel extends DBModel {
 		return $actions;
 	}
 
+	public function getHotsByColumnID($columnID,$limit=10){
+		return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
+				->from('title')
+				->join('play_histories',array('play_histories.title_id'=>'title.id'))
+				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+				->join('poster',array('poster.title_id'=>'title.id'))
+				->where(array('asset_column_ref.column_id'=>$columnID,
+						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
+						'poster.image_aspect_ratio'=>'306x429'
+				))
+				->groupBy('play_histories.title_id')
+				->orderBy("count desc")
+				->limit(0, $limit)
+				->result();
+	}
+
+	public function getNewsByColumnID($columnID,$limit=10){
+		$news = $this->select('title.id,title.asset_name,poster.sourceurl')
+				->from('title')
+				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+				->join('poster',array('poster.title_id'=>'title.id'))
+				->where(array('asset_column_ref.column_id'=>$columnID,
+						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
+						'poster.image_aspect_ratio'=>'306x429'
+				))
+				->orderBy('title.create_at desc')
+				->limit(0, $limit)
+				->result();
+		foreach ($news as $k=>$v) {
+			$news[$k]->count = $this->playhistorie->getPlayTimesByTitleID($v->id);
+		}
+		return $news;
+	}
 }

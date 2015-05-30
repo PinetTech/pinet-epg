@@ -1,9 +1,10 @@
 <?php namespace Pinet\EPG\Controllers; in_array(__FILE__, get_included_files()) or exit("No direct script access allowed");
 
 use Pinet\EPG\Core\BaseController;
+use Clips\Controller;
 
 /**
- * @Clips\Widget({"html", "lang", "grid", "bootstrap"})
+ * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="movie")
  */
 class MovieController extends BaseController
@@ -15,57 +16,27 @@ class MovieController extends BaseController
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
 	 * @Clips\Model({"column","titleApplication","movie","title","playhistorie"})
 	 */
-	public function index($columnID) {
+	public function index($columnID=1,$type='new') {
 		$this->title('Pinet Home Page',true);
-		$types = $this->movie->getProgramTypes();
-		$areas = $this->movie->getAreas();
-		$years = $this->movie->getYears();
+		$sift = $this->movie->sift();
 
-		$type = $this->action('/nav', '按类型');
-		$typeChildren = array();
-		foreach ($types as $v) {
-			$typeChildren[] = $this->action('/nav/'.$v, $v);
-		}
-		$type->children = $typeChildren;
-
-		$area = $this->action('/nav', '按地区');
-		$areaChildren = array();
-		foreach ($areas as $v) {
-			$areaChildren[] = $this->action('/nav/'.$v, $v);
-		}
-		$area->children = $areaChildren;
-
-		$year = $this->action('/nav', '按年份');
-		$yearChildren = array();
-		foreach ($years as $v) {
-			$yearChildren[] = $this->action('/nav/'.$v, $v);
-		}
-		$year->children = $yearChildren;
-
-		$actions = array($type,$area,$year);
-
-//		(object)array('title'=>'nature1', 'res'=>'test/01.png', 'image'=>'http://lorempixel.com/1200/1200/nature/1'),
 		$movies = array();
-		$records = $this->playhistorie->getHotRecord(8);
-		foreach ($records as $v) {
-			$movies[] = (object)array('title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
+		if($type == 'hot') {
+			$records = $this->title->getHotsByColumnID($columnID);
+		}elseif($type == 'new'){
+			$records = $this->title->getNewsByColumnID($columnID);
 		}
-
-		$items = $this->movie->getPushRecords();
-//		var_dump($items);
-		$itemRecords = array();
-		foreach ($items as $v) {
-			$itemRecords[] = (object)array('title'=>$v->asset_name, 'res'=>$v->sourceurl,'titleID'=>$v->id);
+		foreach ($records as $v) {
+			$movies[] = (object)array('id'=>$v->id,'title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
 		}
 
 		return $this->render('movie/list',array(
-				"actions"=>$actions,
+				"sifts"=>$sift,
 				'movies'=>$movies,
-				'items'=>$itemRecords,
 				"tab"=>array(
 						"navs"=>array(
-								'最新',
-								'最热'
+								array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+								array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 						),
 						"contents"=>array(
 								(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
@@ -99,13 +70,10 @@ VIDEOJS_SWF
 
 		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
 		$title->assetClass = $this->movie->getMovieByTitleID($titleID)->asset_class;
-		$mac = \Clips\ip2mac($this->request->getIP());
-		if($mac) {
-			$this->playhistorie->saveHistory(array(
-				'mac' => $mac,
-				'title_id' => $titleID
-			));
-		}
+		$this->playhistorie->saveHistory(array(
+			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
+			'title_id' => $titleID
+		));
 
 		$sames = $this->title->getSameTypeMovies($titleID);
         $this->title($title->asset_name,true);
