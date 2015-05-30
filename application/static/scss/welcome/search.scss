@@ -466,7 +466,7 @@ $table-sel: get-module("tab", "select");
 					.swiper-slide {
 						width: 25%;
 						padding-top: res(mobile-to-pc(16px));
-						padding-bottom: res(mobile-to-pc(16px));					
+						padding-bottom: res(mobile-to-pc(7px));					
 						position: relative;
 						> a {
 							font-size: 16px;
@@ -479,17 +479,17 @@ $table-sel: get-module("tab", "select");
 							}
 						}
 					}
-					.swiper-slide-active {
-						> a {
-							color: #ff0000;
-						}
-					}
+					// .swiper-slide-active {
+					// 	> a {
+					// 		color: #ff0000;
+					// 	}
+					// }
 				}
 				&__thumbs {
 					.swiper-slide {
 						width: 25%;
-						position: relative;
 						height: 10px;
+						position: relative;
 						margin: 0;
 						&.active {
 							background-color: transparent;
@@ -516,31 +516,31 @@ $table-sel: get-module("tab", "select");
 							background-color: #ffffff;		
 						}
 					}
-					.swiper-slide-active {
-						background-color: transparent;
-						border-bottom: 1px solid #ff0000;	
-						text-align: center;			
-						margin-left: 5px;
-						margin-right: 5px;
-						width: calc(25% - 10px);
-					}
+					// .swiper-slide-active {
+					// 	background-color: transparent;
+					// 	border-bottom: 1px solid #ff0000;	
+					// 	text-align: center;			
+					// 	margin-left: 5px;
+					// 	margin-right: 5px;
+					// 	width: calc(25% - 10px);
+					// }
 
-					.swiper-slide-active:after {
-						content: $fa-var-angle-up;
-						font-family: FontAwesome;
-						position: relative;
-						margin: auto;
-						left: 0;
-						top: -1.9px;
-						border-bottom: 1px solid #ffffff;
-						height: 11px;
-						width: 10px;
-						z-index: 1000;
-						font-size: 14px;
-						color: #ff0000;
-						z-index: 1000;
-						background-color: #ffffff;					
-					}
+					// .swiper-slide-active:after {
+					// 	content: $fa-var-angle-up;
+					// 	font-family: FontAwesome;
+					// 	position: relative;
+					// 	margin: auto;
+					// 	left: 0;
+					// 	top: -1.9px;
+					// 	border-bottom: 1px solid #ffffff;
+					// 	height: 11px;
+					// 	width: 10px;
+					// 	z-index: 1000;
+					// 	font-size: 14px;
+					// 	color: #ff0000;
+					// 	z-index: 1000;
+					// 	background-color: #ffffff;					
+					// }
 				}
 			}
 		}

@@ -46,14 +46,14 @@
                             {swiper class="tab__nav"}
                                 {swiper__wrapper items=$tab['navs']}
                                     {literal}
-                                        {swiper__slide}{a href="http://www.baidu.com"}{$item}{/a}{/swiper__slide}
+                                        {swiper__slide class="active"}{a href="http://www.baidu.com"}{$item}{/a}{/swiper__slide}
                                     {/literal}                    
                                 {/swiper__wrapper}
                             {/swiper}
                             {swiper class="tab__thumbs"}
                                 {swiper__wrapper items=$tab['navs']}
                                     {literal}
-                                        {swiper__slide}{/swiper__slide}
+                                        {swiper__slide class="active"}{/swiper__slide}
                                     {/literal}
                                 {/swiper__wrapper}            
                             {/swiper}
@@ -82,7 +82,10 @@
                                         </figure>
                                         {/for}  
                                     {/swiper__slide}
-                                    {swiper__slide}2{/swiper__slide}
+<!--                                     {swiper__slide}2{/swiper__slide}
+                                    {swiper__slide}3{/swiper__slide}
+                                    {swiper__slide}4{/swiper__slide}
+                                    {swiper__slide}5{/swiper__slide} -->
                                 {/swiper__wrapper}                        
                             {/swiper}
                         {/div}                        

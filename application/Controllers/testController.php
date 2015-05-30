@@ -180,18 +180,19 @@ class TestController extends BaseController
      * @Clips\Form({"search"})
      * @Clips\Model({"title","column","movie"})     
      * @Clips\Widget({"epg", "navigation", "image"})
-     * @Clips\Scss({"welcome/search"})
+     * @Clips\Scss({"search/movie_mobile"})
      * @Clips\Js({"application/static/js/welcome/search.js"})
      */
     public function search() {
-        return $this->render("welcome/search", array(
+        return $this->render("search/movie-mobile", array(
             'actions'=>$this->navigation(),
             "tab"=>array(
                     "navs"=>array(
                             'nav1',
                             'nav2',
                             'nav3',
-                            'nav4'
+                            'nav4',
+                            'nav5'
                     ),
                     "contents"=>array(
                             (object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),

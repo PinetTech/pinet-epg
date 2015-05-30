@@ -1,18 +1,23 @@
-{extends file="base-layout.tpl"}
-	{block name="main"}
+{extends file="frontsite-layout.tpl"}
+    {block name="nav"}
         {nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
                     {resimg data-image="logo.png"}
                 </div>            
                 {form class="actionbar__search-form" name="search"}
-                    {field field="search"}{/field}
+                    {field field="search"}
+                        {input}
+                        <i class="fa fa-times" remove-input-val-trigger="#field_search"></i>
+                    {/field}                
                     {label class="submit"}
                         {submit value="搜索"}
                     {/label}
                 {/form}
             </div>
-        {/nav}	
+        {/nav}      
+    {/block}
+    {block name="content"}	
         <main class="result">
             <section class="search-result">
                 <div class="search-result__header">
@@ -82,7 +87,6 @@
                                         </figure>
 	                                    {/foreach}
                                     {/swiper__slide}
-                                    {swiper__slide}2{/swiper__slide}
                                 {/swiper__wrapper}                        
                             {/swiper}
                         {/div}                        
@@ -100,20 +104,5 @@
                     <li>sadsads</li>
                 </ul>
             </section>
-        </main>
-        <footer>
-            <ul class="site-map">
-                <li>关于我们</li>
-                <li>网站地图</li>
-                <li>期刊订阅</li>
-                <li>联系我们</li>
-                <li>法律声明</li>
-                <li>友情链接</li>
-                <li>上海工商</li>
-                <li>举报中心</li>
-            </ul>
-            <div class="added-license">增值许可证</div>
-            <div class="copy-right">版权</div>
-            <div class="technical-support">技术支持 pinet</div>
-        </footer>        
+        </main>       
 	{/block}
