@@ -72,6 +72,7 @@ class TestController extends BaseController
 
     /**
      * @Clips\Form({"search"})
+     * @Clips\Model({"title","column","movie"})     
      * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"welcome/index"})
      * @Clips\Js({"application/static/js/welcome/index.js"})
@@ -116,6 +117,7 @@ class TestController extends BaseController
 
     /**
      * @Clips\Form({"search"})
+     * @Clips\Model({"title","column","movie"})     
      * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"welcome/list"})
      * @Clips\Js({"application/static/js/welcome/list.js"})
@@ -176,6 +178,7 @@ class TestController extends BaseController
 
     /**
      * @Clips\Form({"search"})
+     * @Clips\Model({"title","column","movie"})     
      * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"welcome/search"})
      * @Clips\Js({"application/static/js/welcome/search.js"})

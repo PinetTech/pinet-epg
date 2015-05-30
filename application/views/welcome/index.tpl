@@ -52,7 +52,29 @@
 	                </div>
 	            </section>
 	            {* section.movielist *}
-	        {/foreach}                  
+	        {/foreach}     
+            {for $i=1 to 3}             
+                <section class="movielist film">
+                    <div class="movielist__head">
+                        <h3 class="movielist__title">{$v['column_name']}</h3>
+                        <a href="{$v['url']}" class="movielist__viewall">查看全部</a>
+                    </div>
+                    <div class="movielist__body">
+                        {for $j=1 to 4}
+                            <figure class="movie">
+                                {a uri="movie/play/{$value->id}"}{resimg data-image="test/01.png" class="movie__thumb"}{/a}
+                                <figcaption class="movie__title">{$value->title}</figcaption>
+                                <div class="movie__views">
+                                    <div class="count-number">
+                                        <div class="count-number__icon"></div>
+                                        <div class="count-number__text">{$value->count}</div>
+                                    </div>
+                                </div>
+                            </figure>                        
+                        {/for}
+                    </div>
+                </section>            
+            {/for}
         </main>
         <footer>
             <ul class="site-map">

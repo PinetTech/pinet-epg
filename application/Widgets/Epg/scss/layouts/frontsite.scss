@@ -95,6 +95,7 @@ $nav-sel: get-module("nav", "selector");
             display: -ms-flexbox;
             display: flex;
             margin-left: 0;
+            padding-left: res(mobile-to-pc(15px));
             .form-input > input {
                 width: res(mobile-to-pc(203px));
                 height: 30px;
@@ -107,14 +108,14 @@ $nav-sel: get-module("nav", "selector");
             }
             .submit {
                 position: relative;
-                -webkit-transform: translateX(-100%);
-                    -ms-transform: translateX(-100%);
-                        transform: translateX(-100%);
+                -webkit-transform: translateX(-24px);
+                    -ms-transform: translateX(-24px);
+                        transform: translateX(-24px);
             }
             .submit .btn {
                 display: block;
                 height: 100%;
-                width: 30px;
+                width: 10px;
                 appearance: none;
                 background-color: transparent;
                 border: 0;
@@ -264,9 +265,9 @@ $nav-sel: get-module("nav", "selector");
             -webkit-align-items: center;
                     -ms-flex-align: center;
                 align-items: center;
-            font-size: 20px;
+            font-size: res(mobile-to-pc(20px));
             color: #212121 !important;
-            line-height: 28px;                                
+            line-height: res(mobile-to-pc(28px));
         }
 
         > li > a:before {
