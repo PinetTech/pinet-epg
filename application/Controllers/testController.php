@@ -204,6 +204,7 @@ class TestController extends BaseController
 
     /**
      * @Clips\Form({"search"})
+     * @Clips\Model({"title","column","movie"})     
      * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
      * @Clips\Scss({"welcome/play"})
      * @Clips\Js({"application/static/js/welcome/play.js"})

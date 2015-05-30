@@ -57,6 +57,8 @@ $movie-sel: get-module("movie", "selector");
     }
 }
 
+@include welcome-list-init();
+
 @mixin welcome-list-desktop() {
     @mixin actionbar() {
         .actionbar {
@@ -436,12 +438,13 @@ $movie-sel: get-module("movie", "selector");
         @include movie-filter();
         @include nav();
         @include tab();
-        @include movie();            
+        @include movie();  
+        @include videos();
+        @include select();
+        @include movies();          
     }
     @include constructor();
 }
-
-@include welcome-list-init();
 
 @mixin section_welcome_list($args...) {
     @include device-desktop() {
