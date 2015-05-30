@@ -1,5 +1,5 @@
-{extends file="bootstrap-layout.tpl"}
-	{block name="main"}
+{extends file="frontsite-layout.tpl"}
+	{block name="nav"}
 		{nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
@@ -16,7 +16,9 @@
                     <a href="" class="button">电影</a>
                 </div>               
             </div>
-        {/nav}	
+        {/nav}		
+	{/block}
+	{block name="content"}
         <main>
         	<div class="videoplayer">
         		<div class="videoplayer__body">
@@ -130,88 +132,20 @@
 		        		<h3>猜你喜欢</h3>
 		        	</div>
 		        	<div class="movie-info__body">
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>
-	                    <figure class="movie">
-	                        {resimg data-image="test/01.png" class="movie__thumb"}
-	                        <figcaption class="movie__title">title</figcaption>
-	                        <div class="movie__views">
-	                            <div class="count-number">
-	                                <div class="count-number__icon"></div>
-	                                <div class="count-number__text">152万</div>
-	                            </div>
-	                        </div>
-	                    </figure>      		
+		        		{for $i=1 to 7}
+		                    <figure class="movie">
+		                        {resimg data-image="test/01.png" class="movie__thumb"}
+		                        <figcaption class="movie__title">title</figcaption>
+		                        <div class="movie__views">
+		                            <div class="count-number">
+		                                <div class="count-number__icon"></div>
+		                                <div class="count-number__text">152万</div>
+		                            </div>
+		                        </div>
+		                    </figure> 
+		        		{/for}  		
 		        	</div>
 		        </div>					
 			</div>        
-        </main>
+        </main>	
 	{/block}

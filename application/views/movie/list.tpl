@@ -1,5 +1,5 @@
-{extends file="base-layout.tpl"}
-	{block name="main"}
+{extends file="frontsite-layout.tpl"}
+	{block name="nav"}
         {nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
@@ -24,6 +24,8 @@
                 </div>                
             </div>
         {/nav}		
+	{/block}
+	{block name="content"}
 		<main>
             {swiper class="slide"}
                 {swiper__wrapper items=$items}
@@ -93,5 +95,5 @@
 			        {/div}
 				{/sect}					
 			</div>		
-		</main>
+		</main>	
 	{/block}
