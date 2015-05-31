@@ -23,6 +23,7 @@
                     <a href="" class="button"><i class="fa fa-search"></i></a>
                 </div>                
             </div>
+			{navigation id="menu" class="menu" actions=$actions}{/navigation}            
         {/nav}		
 	{/block}
 	{block name="content"}
@@ -45,9 +46,9 @@
 							您已选择
 						</h3>
 						<div class="select__choose">
-							<div class="select__label">美国<i class="fa fa-times"></i></div>
+<!-- 							<div class="select__label">美国<i class="fa fa-times"></i></div>
 							<div class="select__label">院线<i class="fa fa-times"></i></div>
-						</div>
+ -->						</div>
 					</div>
 					<div class="movie-filter">
 						<div class="list">
@@ -91,8 +92,21 @@
 					                        </div>
 					                    </figure>
 			                    	{/foreach}
+			                    	{for $i=1 to 10}
+					                    <figure class="movie">
+						                    {a uri="movie/play/{$v->id}"}
+					                        {resimg data-image=$v->sourceurl class="movie__thumb"}
+						                    {/a}
+					                        <figcaption class="movie__title">{$v->title}</figcaption>
+					                        <div class="movie__views">
+					                            <div class="count-number">
+					                                <div class="count-number__icon"></div>
+					                                <div class="count-number__text">{$v->record}</div>
+					                            </div>
+					                        </div>
+					                    </figure>			                    	
+			                    	{/for}
 			                    {/swiper__slide}
-			                    {swiper__slide}2{/swiper__slide}
 			                {/swiper__wrapper}                        
 			            {/swiper}
 			        {/div}

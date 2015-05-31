@@ -61,14 +61,20 @@ $movie-sel: get-module("movie", "selector");
 
     @mixin videoplayer() {
         .videoplayer {
+            display: -webkit-flex;
+            display: -ms-flexbox;
             display: flex;
             width: 100%;
             padding: 20px 0;
             background-color: #333333;
             height: calc-res(1132px);
             background: #1F1F1F;            
-            justify-content: center;
+            -webkit-justify-content: center;            
+                -ms-flex-pack: center;            
+                    justify-content: center;
             &__body {
+                display: -webkit-flex;
+                display: -ms-flexbox;
                 display: flex;
                 height: 100%;
                 background-color: #ffffff;
@@ -235,8 +241,12 @@ $movie-sel: get-module("movie", "selector");
                 color: #ffffff;
                 padding-left: res(mobile-to-pc(20px));
                 font-size: res(mobile-to-pc(24px));
+                display: -webkit-flex;
+                display: -ms-flexbox;
                 display: flex;
-                align-items: center;
+                -webkit-align-items: center;
+                    -ms-flex-align: center;
+                        align-items: center;
                 > a {
                     color: #ffffff;
                     font-size: res(mobile-to-pc(18px));
@@ -374,6 +384,8 @@ $movie-sel: get-module("movie", "selector");
                     }
                 }        
                 .videolist {
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
                     display: flex;
                     width: 100%;
                     > ul {
@@ -435,10 +447,10 @@ $movie-sel: get-module("movie", "selector");
 }
 
 @mixin section_welcome_play($args...) {
-	@include device-desktop() {
+    @include device-desktop() {
         @include welcome-play-desktop();
-	}
-	@include device-mobile() {	       	
+    }
+    @include device-mobile() {          
         @include welcome-play-mobile();      
-	}
+    }
 }

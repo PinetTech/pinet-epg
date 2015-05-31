@@ -31,7 +31,7 @@ $movie-sel: unquote(".movie");
     &__content {
         height: 450px;
         .swiper-slide {
-        	width: 100%;
+            width: 100%;
         }
     }
 }
@@ -55,32 +55,38 @@ $movie-sel: unquote(".movie");
 }
 
 @mixin section_movie_play($args...) {
-	@include device-desktop() {
-		.actionbar {
-			&__back {
-				display: none;
-			}
-		}
-		.videoplayer {
-			display: flex;
-			width: 100%;
-			padding: 20px 0;
-			background-color: #333333;
+    @include device-desktop() {
+        .actionbar {
+            &__back {
+                display: none;
+            }
+        }
+        .videoplayer {
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            width: 100%;
+            padding: 20px 0;
+            background-color: #333333;
             height: calc-res(1132px);
             background: #1F1F1F;            
-            justify-content: center;
+            -webkit-justify-content: center;            
+                -ms-flex-pack: center;            
+                    justify-content: center;
             &__body {
+                display: -webkit-flex;
+                display: -ms-flexbox;
                 display: flex;
                 height: 100%;
                 background-color: #ffffff;
                 margin: 0 auto;
-			  	.video-js {
-				  	width: calc-res(1860px) !important;
-				  	height: 100% !important;
-				  	float: left;
-				  	background-color: #123123;
-				  	overflow: hidden;
-				}
+                .video-js {
+                    width: calc-res(1860px) !important;
+                    height: 100% !important;
+                    float: left;
+                    background-color: #123123;
+                    overflow: hidden;
+                }
             }
             &__list {
                 width: calc-res(710px);
@@ -122,10 +128,10 @@ $movie-sel: unquote(".movie");
                     }
                 }
             }
-		}
-		.tab {
-			display: none;
-		}
+        }
+        .tab {
+            display: none;
+        }
         .movie-infos {
             display: block;
             @include content-width();
@@ -193,13 +199,13 @@ $movie-sel: unquote(".movie");
                 }
             }
         }
-	}
-	@include device-mobile() {
-		nav {
+    }
+    @include device-mobile() {
+        nav {
             @include position(fixed, 0, 0, 0, 0);
             z-index: 1200;
-            height: 50px;			
-		}
+            height: 50px;           
+        }
         .actionbar {
             padding-top: 10px;
             padding-bottom: 10px;
@@ -215,17 +221,17 @@ $movie-sel: unquote(".movie");
                     color: #333333;
                 }
             }
-        }	
+        }   
         .videoplayer {
-        	display: block;
-        	width: 100%;
-        	padding: 0;
-        }	
+            display: block;
+            width: 100%;
+            padding: 0;
+        }   
         .tab {
-        	display: block;
+            display: block;
         }
         .movie-info {
-        	display: none;
+            display: none;
         }
-	}
+    }
 }

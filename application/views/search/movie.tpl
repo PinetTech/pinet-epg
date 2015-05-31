@@ -30,9 +30,9 @@
                                 您已选择
                             </h3>
                             <div class="select__choose">
-                                <div class="select__label">美国<i class="fa fa-times"></i></div>
+<!--                                 <div class="select__label">美国<i class="fa fa-times"></i></div>
                                 <div class="select__label">院线<i class="fa fa-times"></i></div>
-                            </div>
+ -->                            </div>
                         </div>
                         <div class="movie-filter">
                             <div class="list">

@@ -70,7 +70,6 @@ $table-sel: get-module("tab", "select");
 	@mixin movie() {
 		#{$movie-sel} {
 			background-color: transparent;
-			display: -webkit-box;
 			display: -webkit-flex;
 			display: -ms-flexbox;
 			display: flex;
@@ -82,23 +81,18 @@ $table-sel: get-module("tab", "select");
 				margin-right: calc-res(78px);
 			}
 			.movie__info {
-				-webkit-box-flex: 1;
 				-webkit-flex: 1;
-				    -ms-flex: 1;
-				        flex: 1;
-			    display: -webkit-box;
+				-ms-flex: 1;
+				    flex: 1;
 			    display: -webkit-flex;
 			    display: -ms-flexbox;
 			    display: flex;
-			    -webkit-box-orient: vertical;
-			    -webkit-box-direction: normal;
 			    -webkit-flex-direction: column;
-			        -ms-flex-direction: column;
-			            flex-direction: column;
-			    -webkit-box-pack: justify;
+			    -ms-flex-direction: column;
+			    flex-direction: column;
 			    -webkit-justify-content: space-between;
-			        -ms-flex-pack: justify;
-			            justify-content: space-between;				
+			    -ms-flex-pack: justify;
+			        justify-content: space-between;				
 			}
 			.movie__title {
 				font-size: 30px;
@@ -224,7 +218,9 @@ $table-sel: get-module("tab", "select");
 	            margin-top: 0;
 
 	            > li {
-	                flex-wrap: wrap;
+	                -webkit-flex-wrap: wrap;
+	                    -ms-flex-wrap: wrap;
+	                        flex-wrap: wrap;
 	                padding-top: calc-res(50px);
 	                padding-bottom: calc-res(50px);
 	                border-bottom: 1px solid #e5e5e5;
@@ -336,6 +332,8 @@ $table-sel: get-module("tab", "select");
 				display: none;
 			}
 			&__search-form {
+				display: -webkit-flex;
+				display: -ms-flexbox;
 				display: flex;
 				width: 100%;
 				padding-left: 10px;
@@ -343,7 +341,9 @@ $table-sel: get-module("tab", "select");
 				padding-top: 10px;
 				padding-bottom: 10px;
 				.form-group {
-					flex: 1;
+					-webkit-flex: 1;
+					    -ms-flex: 1;
+					        flex: 1;
 					> .form-input {
 						position: relative;
 					}
@@ -373,8 +373,12 @@ $table-sel: get-module("tab", "select");
 					}					
 					> .form-label {
 						width: 1px;
+						display: -webkit-flex;
+						display: -ms-flexbox;
 						display: flex;
-						align-items: flex-end;
+						-webkit-align-items: flex-end;
+						    -ms-flex-align: end;
+						        align-items: flex-end;
 						color: transparent;
 					}
 				}
@@ -395,10 +399,13 @@ $table-sel: get-module("tab", "select");
 		        }
 		        .submit {
 		            position: relative;
+		            display: -webkit-flex;
+		            display: -ms-flexbox;
 		            display: flex;
-		            align-items: center;
+		            -webkit-align-items: center;
+		                -ms-flex-align: center;
+		                    align-items: center;
 		            -webkit-transform: translateX(0);
-		                -ms-transform: translateX(0);
 		                    transform: translateX(0);
 		        }
 		        .submit .btn {
@@ -555,7 +562,6 @@ $table-sel: get-module("tab", "select");
 	@mixin movie() {
 		#{$movie-sel} {
 			background-color: transparent;
-			display: -webkit-box;
 			display: -webkit-flex;
 			display: -ms-flexbox;
 			display: flex;
@@ -571,23 +577,18 @@ $table-sel: get-module("tab", "select");
 				margin-right: calc-res(78px);
 			}
 			.movie__info {
-				-webkit-box-flex: 1;
 				-webkit-flex: 1;
-				    -ms-flex: 1;
-				        flex: 1;
-			    display: -webkit-box;
+				-ms-flex: 1;
+				    flex: 1;
 			    display: -webkit-flex;
 			    display: -ms-flexbox;
 			    display: flex;
-			    -webkit-box-orient: vertical;
-			    -webkit-box-direction: normal;
 			    -webkit-flex-direction: column;
-			        -ms-flex-direction: column;
-			            flex-direction: column;
-			    -webkit-box-pack: justify;
+			    -ms-flex-direction: column;
+			    flex-direction: column;
 			    -webkit-justify-content: space-between;
-			        -ms-flex-pack: justify;
-			            justify-content: space-between;				
+			    -ms-flex-pack: justify;
+			        justify-content: space-between;				
 			}
 			.movie__title {
 				font-size: 30px;
