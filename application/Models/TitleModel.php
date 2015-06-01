@@ -17,15 +17,16 @@ class TitleModel extends DBModel {
 	}
 
 	public function getTitlesByColumn($column_id, $limit=0){
-		$titles = $this->select('title.id,title.asset_name,poster.sourceurl')
-				->from('title')
-				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
-				->join('poster',array('poster.title_id'=>'title.id'))
-				->where(array('asset_column_ref.column_id'=>$column_id,
-						'poster.image_aspect_ratio'=>'306x429',
-						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
-				->limit(0, $limit)
-				->result();
+		$titles = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl')
+			->from('title')
+			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+			->join('poster',array('poster.title_id'=>'title.id'))
+			->where(array('asset_column_ref.column_id'=>$column_id,
+				'poster.image_aspect_ratio'=>'306x429',
+				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
+			->groupBy('title.package_id')
+			->limit(0, $limit)
+			->result();
 		foreach ($titles as $k=>$v) {
 			$titles[$k]->record = $this->playhistorie->getPlayTimesByTitleID($v->id);
 		}
@@ -38,20 +39,21 @@ class TitleModel extends DBModel {
 	public function getTitlesByKey($key){
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
-		return $this->select('distinct title.id,title.asset_name,title_application.area,title_application.summary_short,
+		return $this->select('min(title.id) as id,title.asset_name,title_application.area,title_application.summary_short,
 								title_application.actors,title_application.director,package.program_type_name,poster.sourceurl')
-				->from('title')
-				->join('title_application',array('title.application_id'=>'title_application.id'))
-				->join('package',array('title.package_id'=>'package.id'))
-				->join('poster',array('poster.title_id'=>'title.id'))
-				->where(array(
-						new \Clips\Libraries\OrOperator(
-								array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
-										new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
-										new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
-						),
-						'poster.image_aspect_ratio'=>'306x429'
-				))
+			->from('title')
+			->join('title_application',array('title.application_id'=>'title_application.id'))
+			->join('package',array('title.package_id'=>'package.id'))
+			->join('poster',array('poster.title_id'=>'title.id'))
+			->where(array(
+					new \Clips\Libraries\OrOperator(
+							array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
+									new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
+									new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
+					),
+					'poster.image_aspect_ratio'=>'306x429'
+			))
+			->groupBy('title.package_id')
 				->result();
 	}
 
@@ -88,7 +90,7 @@ class TitleModel extends DBModel {
 	public function getNewTitles($limit, $notIn=array()){
 		$where = array('poster.image_aspect_ratio'=>'306x429');
 		if($notIn){
-			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
+			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', implode(',', $notIn));
 		}
 		$titles = $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
 				->from('title')
@@ -182,10 +184,10 @@ class TitleModel extends DBModel {
 
 	}
 
-	public function getNewTitlesByVolumnID($columnID, $notIn=array() ,$limit=10){
+	public function getNewTitlesByColumnID($columnID, $notIn=array() ,$limit=10){
 		$where = array('asset_column_ref.column_id'=>$columnID);
 		if($notIn){
-			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
+			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', implode(',', $notIn));
 		}
 		$titles = $this->select('title.id,title.asset_name,title.create_at')
 				->from('title')
@@ -204,8 +206,8 @@ class TitleModel extends DBModel {
 			$records = $this->playhistorie->getRecordsByColumnID($nav->id);
 			$count = count($records);
 			if($count != $limit){
-				$titleIDs = array_map(function($record){ return $record->id;}, $records);
-				$records = array_merge($records, $this->getNewTitlesByVolumnID($nav->id, $titleIDs, $limit-$count));
+				$packageIDs = array_map(function($record){ return $record->id;}, $records);
+				$records = array_merge($records, $this->getNewTitlesByColumnID($nav->id, $packageIDs, $limit-$count));
 			}
 			$children = array();
 			foreach ($records as $record) {
@@ -229,7 +231,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getHotsByColumnID($columnID,$offset=0,$limit=10){
-		return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
+		return $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,count(1) as count')
 				->from('title')
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
@@ -238,24 +240,25 @@ class TitleModel extends DBModel {
 						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
 						'poster.image_aspect_ratio'=>'306x429'
 				))
-				->groupBy('play_histories.title_id')
+				->groupBy('play_histories.package_id')
 				->orderBy("count desc")
 				->limit($offset, $limit)
 				->result();
 	}
 
 	public function getNewsByColumnID($columnID,$offset=0,$limit=10){
-		$news = $this->select('title.id,title.asset_name,poster.sourceurl')
-				->from('title')
-				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
-				->join('poster',array('poster.title_id'=>'title.id'))
-				->where(array('asset_column_ref.column_id'=>$columnID,
-						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
-						'poster.image_aspect_ratio'=>'306x429'
-				))
-				->orderBy('title.create_at desc')
-				->limit($offset, $limit)
-				->result();
+		$news = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl')
+			->from('title')
+			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+			->join('poster',array('poster.title_id'=>'title.id'))
+			->where(array('asset_column_ref.column_id'=>$columnID,
+				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
+				'poster.image_aspect_ratio'=>'306x429'
+			))
+			->groupBy('title.package_id')
+			->orderBy('title.create_at desc')
+			->limit($offset, $limit)
+			->result();
 		foreach ($news as $k=>$v) {
 			$news[$k]->count = $this->playhistorie->getPlayTimesByTitleID($v->id);
 		}

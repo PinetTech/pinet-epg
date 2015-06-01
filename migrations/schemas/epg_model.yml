@@ -6,7 +6,10 @@ play_histories:
             limit: 17
     title_id:
         type: biginteger
-    asset_id:
+    package_id:
+        type: biginteger
+        key: true
+    title_asset_id:
         type: string
         key: true
         options:

@@ -19,16 +19,4 @@ class AssetColumnRefModel extends DBModel {
 	public function getColumnByID($titleID){
 		return $this->one('title_asset_id', $titleID);
 	}
-
-//	public function getSameTypeMovies($titleID, $offset=0, $limit=10){
-//		$ref= $this->one('title_asset_id', $titleID);
-//		if(isset($ref->id)){
-//			$$this->get(array(
-//				'column_id' => $ref->column_id,
-//				new \Clips\Libraries\NotOperator(array('title_asset_id'=>$titleID))
-//			), $offset ,$limit);
-//		}else{
-//			return
-//		}
-//	}
 }
