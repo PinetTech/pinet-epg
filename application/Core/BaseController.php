@@ -38,12 +38,12 @@ class BaseController extends Controller implements Initializable {
 			'content' => 'Pinet EPG'), true);
 	}
 
-	protected function render($template, $args = array(), $columnID, $slider = true, $column = false, $engine = null, $headers = array()) {
+	protected function render($template, $args = array(), $slider = true, $column = false, $engine = null, $headers = array()) {
 		$navs = $this->column->getAllColumns();
 		$actions = $this->title->getHomeNavigations($navs);
 		$args['actions'] = $actions;
 		if($slider){
-			$items = $this->movie->getPushRecords($columnID);
+			$items = $this->movie->getPushRecords();
 			$args['items'] = $items;
 		}
 		if($column){
