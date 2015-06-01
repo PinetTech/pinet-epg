@@ -58,8 +58,8 @@ class MovieModel extends DBModel {
 		return $years;
 	}
 
-	public function getPushRecords($limit=9){
-		$records = $this->playhistorie->getHotRecord($limit);
+	public function getPushRecords($columnID=1,$limit=9){
+		$records = $this->playhistorie->getHotRecord($limit,$columnID);
 		$count = count($records);
 		if($count != $limit){
 			$titleIDs = array_map(function($record){ return $record->id;}, $records);

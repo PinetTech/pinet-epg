@@ -12,6 +12,8 @@ class PlayHistorieModel extends DBModel {
 
 	public function saveHistory($history){
 		if($this->checkFlushData($history['mac'], $history['title_id'])){
+			$title = $this->title->one('id',$history['title_id']);
+			$history['asset_id'] = $title->asset_id;
 			return $this->insert($history);
 		}
 		return true;
@@ -42,7 +44,23 @@ class PlayHistorieModel extends DBModel {
 		}
 	}
 
-	public function getHotRecord($limit=9){
+	public function getHotRecord($limit=9,$columnID){
+//		$type = $this->title->getTypeByColumnID($columnID);
+//		if($type == 'Serise') {
+//			return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
+//					->from('title')
+//					->join('play_histories',array('play_histories.title_id'=>'title.id'))
+//					->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+//					->join('poster',array('poster.title_id'=>'title.id'))
+//					->where(array('poster.image_aspect_ratio'=>'306x429',
+//							new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
+//					->groupBy('play_histories.title_id')
+//					->groupBy('title.asset_name')
+//					->orderBy('count desc')
+//					->limit(0, $limit)
+//					->result();
+//		}
+
 		return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
 				->from('title')
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))

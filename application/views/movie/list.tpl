@@ -5,7 +5,7 @@
                 <div class="actionbar__brand">
                     {resimg data-image="logo.png"}
                 </div>            
-                {form class="actionbar__search-form" name="search"}
+                {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
@@ -92,20 +92,6 @@
 					                        </div>
 					                    </figure>
 			                    	{/foreach}
-			                    	{for $i=1 to 10}
-					                    <figure class="movie">
-						                    {a uri="movie/play/{$v->id}"}
-					                        {resimg data-image=$v->sourceurl class="movie__thumb"}
-						                    {/a}
-					                        <figcaption class="movie__title">{$v->title}</figcaption>
-					                        <div class="movie__views">
-					                            <div class="count-number">
-					                                <div class="count-number__icon"></div>
-					                                <div class="count-number__text">{$v->record}</div>
-					                            </div>
-					                        </div>
-					                    </figure>			                    	
-			                    	{/for}
 			                    {/swiper__slide}
 			                {/swiper__wrapper}                        
 			            {/swiper}

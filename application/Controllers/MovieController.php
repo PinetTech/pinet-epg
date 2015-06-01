@@ -44,7 +44,7 @@ class MovieController extends BaseController
 								(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
 						)
 				),
-		));
+		),$columnID);
 	}
 
     /**
@@ -81,8 +81,8 @@ VIDEOJS_SWF
 	    $navs = $this->column->getAllColumns();
 	    $actions = $this->title->getHomeNavigations($navs);
 
-	    if($title->assetClass == 'series') {
-			$series = $this->titleApplication->getSeriesByTitle($title->asset_name);
+	    if($title->assetClass == 'Series') {
+			$series = $this->title->getSeriesByTitle($title->asset_name);
 
 	    }
 
