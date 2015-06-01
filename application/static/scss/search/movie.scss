@@ -76,7 +76,8 @@ $table-sel: get-module("tab", "select");
 			padding-bottom: calc-res(54px);
 			border-bottom: 3px solid #e5e5e5;
 			margin-bottom: calc-res(60px);
-			max-width: calc-res(1818px);
+			// max-width: calc-res(1818px);
+			max-width: 100%;
 			.responsive {
 				width: calc-res(406px);
 				margin-right: calc-res(78px);
@@ -295,6 +296,12 @@ $table-sel: get-module("tab", "select");
 		}		
 	}
 
+	@mixin menu() {
+		#menu {
+			padding: 0;
+		}
+	}
+
 	@mixin constructor(){
 		@include main();
 		@include search-result();
@@ -307,6 +314,7 @@ $table-sel: get-module("tab", "select");
 		@include movietypes();
 		@include tab();
 		@include actionbar();
+		@include menu();
 	}
 	@include constructor();
 }

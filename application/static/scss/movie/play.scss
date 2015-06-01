@@ -87,6 +87,15 @@ $movie-sel: get-module("movie", "selector");
                 }
                 .vjs-big-play-button {
                     @include position-center-center(absolute);
+                    border-radius: 50%;
+                    @include size(calc-res(214px), calc-res(214px));
+                    border: 0;
+                    text-align: center;
+                    &:before {
+                        line-height: calc-res(214px);
+                        font-size: calc-res(100px);
+                        color: #ffffff;
+                    }
                 }   
                 .vjs-progress-control {
                     overflow: hidden;
@@ -287,6 +296,18 @@ $movie-sel: get-module("movie", "selector");
                 height: 100% !important;
                 background-color: #318273;
             }
+			.vjs-big-play-button {
+                @include position-center-center(absolute);
+                border-radius: 50%;
+                @include size(res(mobile-to-pc(67.03px)), res(mobile-to-pc(67.03px)));
+                border: 0;
+                text-align: center;
+                &:before {
+                    line-height: res(mobile-to-pc(67.03px));
+                    font-size: res(mobile-to-pc(35px));
+                    color: #ffffff;
+                }				
+			}           
             .vjs-progress-control {
                 overflow: hidden;
             }                             

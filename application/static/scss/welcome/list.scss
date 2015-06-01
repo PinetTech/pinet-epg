@@ -190,6 +190,9 @@ $movie-sel: get-module("movie", "selector");
             &__nav {
                 // display: none;
                 .swiper-slide {
+                    font-size: 22px;
+                    color: #202020;
+                    line-height: 31px;                    
                     > a {
                         font-size: 22px;
                         color: #202020;
@@ -197,7 +200,7 @@ $movie-sel: get-module("movie", "selector");
                     }
                 }
                 .swiper-slide.active {
-                    color: #ef1717;                    
+                    // color: #ef1717;                    
                 }
             }
             &__thumbs {
@@ -404,8 +407,13 @@ $movie-sel: get-module("movie", "selector");
                 display: none;
             }
             &__content {
-                padding-left: 10px;
-                padding-right: 10px;
+                // padding-left: 10px;
+                // padding-right: 10px;
+                .movie-con {
+                    width: res(mobile-to-pc(394px));
+                    margin: 0 auto;
+                }
+
                 padding-top: calc-res(42px);
                 .swiper-slide {
                     width: 100% !important;
@@ -436,7 +444,12 @@ $movie-sel: get-module("movie", "selector");
                 line-height: 19px;                        
                 padding-top: 3px;
                 padding-bottom: 3px;
-            }                    
+            }  
+            .responsive {
+                height: 200px;
+                position: relative;
+                overflow: hidden;
+            }                              
             .count-number {
                 &__text {
                     display: none;

@@ -65,6 +65,11 @@ $nav-sel: get-module("nav", "selector");
                     padding-right: calc-res(36px);
                     line-height: 23px;
                 }
+                .responsive {
+                    height: 200px;
+                    position: relative;
+                    overflow: hidden;
+                }                 
             }
         } 
     }
