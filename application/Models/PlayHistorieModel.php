@@ -44,31 +44,19 @@ class PlayHistorieModel extends DBModel {
 		}
 	}
 
-	public function getHotRecord($limit=9,$columnID){
-//		$type = $this->title->getTypeByColumnID($columnID);
-//		if($type == 'Serise') {
-//			return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
-//					->from('title')
-//					->join('play_histories',array('play_histories.title_id'=>'title.id'))
-//					->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
-//					->join('poster',array('poster.title_id'=>'title.id'))
-//					->where(array('poster.image_aspect_ratio'=>'306x429',
-//							new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
-//					->groupBy('play_histories.title_id')
-//					->groupBy('title.asset_name')
-//					->orderBy('count desc')
-//					->limit(0, $limit)
-//					->result();
-//		}
-
-		return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
+	public function getHotRecord($columnID , $limit=9){
+		$where = array('poster.image_aspect_ratio'=>'306x429',
+			new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)));
+		if($columnID){
+			$where['asset_column_ref.column_id'] = $columnID;
+		}
+		return $this->select('min(title.id) as id,play_histories.package_id,title.asset_name,poster.sourceurl,count(1) as count')
 				->from('title')
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 				->join('poster',array('poster.title_id'=>'title.id'))
-				->where(array('poster.image_aspect_ratio'=>'306x429',
-						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
-				->groupBy('play_histories.title_id')
+				->where($where)
+				->groupBy('play_histories.package_id')
 				->orderBy('count desc')
 				->limit(0, $limit)
 				->result();
@@ -78,13 +66,13 @@ class PlayHistorieModel extends DBModel {
 		return $this->select('count(1) as count')->from('play_histories')->where(array('title_id'=>$titleID))->result()[0]->count;
 	}
 
-	public function getRecordsByColumnID($columnID,$limit=10){
-		return $this->select('title.id,title.asset_name,count(1)')
+	public function getRecordsByColumnID($columnID, $limit=10){
+		return $this->select('min(title.id) as id,play_histories.package_id,title.asset_name,count(1)')
 				->from('title')
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 				->where(array('asset_column_ref.column_id'=>$columnID,new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
-				->groupBy('play_histories.title_id')
+				->groupBy('play_histories.package_id')
 				->limit(0, $limit)
 				->result();
 	}

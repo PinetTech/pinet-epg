@@ -36,6 +36,7 @@ class SearchController extends BaseController
 		$sift = $this->movie->sift();
 
 		return $this->render("search/movie", array(
+			'nav' => true,
 			"sifts"=>$sift,
 			'movies'=>$titles,
 			"tab"=>array(
@@ -50,7 +51,7 @@ class SearchController extends BaseController
 					(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
 				)
 			)
-		) ,false);
+		));
 	}
 
 }
