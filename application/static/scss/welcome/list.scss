@@ -46,9 +46,6 @@ $movie-sel: get-module("movie", "selector");
             }          
         }           
     }
-    #{$movie-sel}:nth-of-type(4n+4) {
-        margin-right: 0;
-    }
 }
 
 @include welcome-list-init();
@@ -220,8 +217,8 @@ $movie-sel: get-module("movie", "selector");
             padding-bottom: res(14px, 6.2px);
             float: left;
             margin-bottom: calc-res(60px);
-            width: 22%;
-            margin-right: 4%;        
+            width: 17.5%;
+            margin-right: 3.125%;        
             .movie__title {
                 padding-left: calc-res(36px);                    
                 padding-right: calc-res(36px);
@@ -238,6 +235,9 @@ $movie-sel: get-module("movie", "selector");
                 overflow: hidden;
             }            
         }           
+        #{$movie-sel}:nth-of-type(5n+5) {
+            margin-right: 0;
+        }        
     }
 
     @mixin movie-filter() {
@@ -446,7 +446,7 @@ $movie-sel: get-module("movie", "selector");
                 padding-bottom: 3px;
             }  
             .responsive {
-                height: 200px;
+                height: res(mobile-to-pc(270px));
                 position: relative;
                 overflow: hidden;
             }                              

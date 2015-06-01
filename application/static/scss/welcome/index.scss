@@ -8,8 +8,6 @@ $nav-sel: get-module("nav", "selector");
 @mixin welcome-index-init() {
     #{$movielist-sel}{
         #{$movie-sel} {
-            width: 14%;
-            margin-right: 3.2%;
             .count-number {
                 font-size: 10px;
                 color: #6E6E6E;
@@ -20,9 +18,6 @@ $nav-sel: get-module("nav", "selector");
                     margin-right: 5px;
                 }          
             }           
-        }
-        #{$movie-sel}:nth-of-type(6n+6) {
-            margin-right: 0;
         }
     }
 }
@@ -55,10 +50,15 @@ $nav-sel: get-module("nav", "selector");
             #{$movie-sel} {
                 padding-bottom: calc-res(14px);
                 float: left;
+                width: 12.3%;      
+                margin-right: 2.3%;                  
                 .movie__title {
                     padding-left: calc-res(36px);                    
                     padding-right: calc-res(36px);
                     line-height: 23px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;                                    
                 }
                 .movie__views {
                     padding-left: calc-res(36px);                    
@@ -71,6 +71,9 @@ $nav-sel: get-module("nav", "selector");
                     overflow: hidden;
                 }                 
             }
+            #{$movie-sel}:nth-of-type(7n+7) {
+                margin-right: 0;
+            }             
         } 
     }
 
@@ -122,7 +125,12 @@ $nav-sel: get-module("nav", "selector");
                     } 
                     &:nth-child(even) {
                         float: right;
-                    }                   
+                    }         
+                    .responsive {
+                        height: 200px;
+                        position: relative;
+                        overflow: hidden;
+                    }                                 
                     .movie__title {
                         text-align: center;
                         background: rgba(#414141, 0.74);

@@ -30,8 +30,6 @@ $movie-sel: get-module("movie", "selector");
     }
 
     #{$movie-sel} {
-        width: 17%;
-        margin-right: 3.75%;
         .count-number {
             font-size: 10px;
             color: #6E6E6E;
@@ -42,9 +40,6 @@ $movie-sel: get-module("movie", "selector");
                 margin-right: 5px;
             }          
         }           
-    }
-    #{$movie-sel}:nth-of-type(5n+5) {
-        margin-right: 0;
     }
 }
 
@@ -208,10 +203,15 @@ $movie-sel: get-module("movie", "selector");
                     padding-bottom: res(14px, 6.2px);
                     float: left;
                     margin-bottom: calc-res(60px);
+					width: 12.3%;      
+					margin-right: 2.3%;              
                     .movie__title {
                         padding-left: calc-res(36px);                    
                         padding-right: calc-res(36px);
                         line-height: 23px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                     }
                     .movie__views {
                         padding-left: calc-res(36px);                    
@@ -219,11 +219,14 @@ $movie-sel: get-module("movie", "selector");
                         line-height: 23px;
                     }
                     .responsive {
-                        height: 200px;
+                        height: 150px;
                         position: relative;
                         overflow: hidden;
                     }
                 }
+			    #{$movie-sel}:nth-of-type(7n+7) {
+			        margin-right: 0;
+			    }                
             }
         }
     }
