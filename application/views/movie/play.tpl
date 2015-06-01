@@ -1,5 +1,5 @@
-{extends file="bootstrap-layout.tpl"}
-	{block name="main"}
+{extends file="frontsite-layout.tpl"}
+	{block name="nav"}
 		{nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
@@ -16,7 +16,10 @@
                     <a href="" class="button">电影</a>
                 </div>               
             </div>
+            {navigation id="menu" class="menu" actions=$actions}{/navigation}
         {/nav}	
+	{/block}
+	{block name="content"}
         <main>
         	<div class="videoplayer">
         		<div class="videoplayer__body">
@@ -57,8 +60,56 @@
 	            {/swiper}
 	            {swiper class="tab__content"}
 	                {swiper__wrapper}
-	                    {swiper__slide}1{/swiper__slide}
-	                    {swiper__slide}2{/swiper__slide}
+	                    {swiper__slide}
+					        <div class="movie-infomation summary">
+					        	<div class="movie-infomation__header">
+					        		<h3>简介</h3>
+					        	</div>
+					        	<div class="movie-infomation__body">
+									<h3 class="movie-infomation__title">神奇蜘蛛侠</h3>	        		
+									<dl class="movie-infomation__des">
+										<dt>主演</dt>
+										<dd>不知道</dd>
+										<dt>导演</dt>
+										<dd>不知道</dd>
+										<dt>简介</dt>	
+										<dd>不知道</dd>
+									</dl>
+					        	</div>
+					        </div>
+	                    {/swiper__slide}
+	                    {swiper__slide}
+		        			<div class="videolist">
+		        				<ul>
+		        					<li>1</li>
+		        					<li>2</li>
+		        					<li>3</li>
+		        					<li>4</li>
+		        					<li>5</li>
+		        					<li>6</li>
+		        					<li>7</li>
+		        					<li>8</li>
+		        					<li>9</li>
+		        					<li>10</li>
+		        				</ul>
+		        			</div>
+	                    {/swiper__slide}
+	                    {swiper__slide}
+	                    	<div class="movies">
+								{for $i=1 to 10}
+				                    <figure class="movie">
+				                        {resimg data-image="test/01.png" class="movie__thumb"}
+				                        <figcaption class="movie__title">title</figcaption>
+				                        <div class="movie__views">
+				                            <div class="count-number">
+				                                <div class="count-number__icon"></div>
+				                                <div class="count-number__text">152万</div>
+				                            </div>
+				                        </div>
+				                    </figure>							
+								{/for}	                    		
+	                    	</div>
+	                    {/swiper__slide}
 	                {/swiper__wrapper}                        
 	            {/swiper}
 	        {/div}
@@ -99,5 +150,5 @@
 		        	</div>
 		        </div>					
 			</div>        
-        </main>
+        </main>	
 	{/block}

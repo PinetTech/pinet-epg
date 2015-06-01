@@ -49,9 +49,9 @@ class MovieController extends BaseController
 
     /**
      * @Clips\Form({"search"})
-     * @Clips\Scss({"movie/play"})
      * @Clips\Js({"application/static/js/movie/play.js"})
      * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
+	 * @Clips\Scss({"movie/play"})
 	 * @Clips\Model({"playHistorie", "title", "movie","column","TitleApplication"})
      */
     public function play($titleID) {
@@ -89,7 +89,16 @@ VIDEOJS_SWF
 	    return $this->render("movie/play", array(
 			    'actions'=>$actions,
 		        'movie'=>$title,
-		        'sames'=>$sames
+		        'sames'=>$sames,
+				"tab"=>array(
+						"navs"=>array(
+								'nav1',
+								'nav2',
+								'nav3'
+						),
+						"contents"=>array(
+						)
+				)		        
 	    ));
     }
 

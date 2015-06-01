@@ -85,6 +85,9 @@ $movie-sel: get-module("movie", "selector");
                     float: left;
                     background-color: #123123;
                 }
+                .vjs-big-play-button {
+                    @include position-center-center(absolute);
+                }                
             }
             &__list {
                 width: calc-res(710px);
