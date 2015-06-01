@@ -14,9 +14,9 @@ class MovieController extends BaseController
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
-	 * @Clips\Model({"column","titleApplication","movie","title","playhistorie"})
+	 * @Clips\Model({"column", "movie", "title"})
 	 */
-	public function index($columnID=1,$type='new') {
+	public function index($columnID=1, $type='new') {
 		$this->title('Pinet Home Page',true);
 		$sift = $this->movie->sift();
 
@@ -31,20 +31,23 @@ class MovieController extends BaseController
 		}
 
 		return $this->render('movie/list',array(
-				"sifts"=>$sift,
-				'movies'=>$movies,
-				"tab"=>array(
-						"navs"=>array(
-								array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-								array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
-						),
-						"contents"=>array(
-								(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
-								(object)array('episodes'=>'1,2,3,4,5'),
-								(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
-						)
+			'nav' => true,
+			'slider' => true,
+			'column_id' => $columnID,
+			"sifts"=>$sift,
+			'movies'=>$movies,
+			"tab"=>array(
+				"navs"=>array(
+					array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+					array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 				),
-		),$columnID);
+				"contents"=>array(
+					(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+					(object)array('episodes'=>'1,2,3,4,5'),
+					(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+				)
+			),
+		));
 	}
 
     /**
@@ -87,18 +90,19 @@ VIDEOJS_SWF
 	    }
 
 	    return $this->render("movie/play", array(
-			    'actions'=>$actions,
-		        'movie'=>$title,
-		        'sames'=>$sames,
-				"tab"=>array(
-						"navs"=>array(
-								'nav1',
-								'nav2',
-								'nav3'
-						),
-						"contents"=>array(
-						)
-				)		        
+			'nav' => true,
+		    'actions'=>$actions,
+	        'movie'=>$title,
+	        'sames'=>$sames,
+			"tab"=>array(
+					"navs"=>array(
+							'nav1',
+							'nav2',
+							'nav3'
+					),
+					"contents"=>array(
+					)
+			)		        
 	    ));
     }
 
