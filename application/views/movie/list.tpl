@@ -5,7 +5,7 @@
                 <div class="actionbar__brand">
                     {resimg data-image="logo.png"}
                 </div>            
-                {form class="actionbar__search-form" name="search"}
+                {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
@@ -61,46 +61,41 @@
 				{/sect}				
 				{sect class="movies"}
 			        {div class="tab"}
-			            {swiper class="tab__nav" items1=$tab['navs']}
-			                {swiper__wrapper}
-{* 			                    {literal}
+			            {swiper class="tab__nav"}
+			                {swiper__wrapper items=$tab['navs']}
+			                    {literal}
 			                        {swiper__slide}{a href={$item['url']}}{$item['name']}{/a}{/swiper__slide}
-			                    {/literal}                     *}
-			                    {swiper__slide class="active"}sdss{/swiper__slide}
+			                    {/literal}                    
+{* 			                    {swiper__slide class="active"}sdss{/swiper__slide}
 			                    {swiper__slide}sdsds{/swiper__slide}
-			                {/swiper__wrapper}
+ *}			                {/swiper__wrapper}
 			            {/swiper}
 			            {swiper class="tab__thumbs"}
-			                {swiper__wrapper items1=$tab['navs']}
-{* 			                    {literal}
+			                {swiper__wrapper items=$tab['navs']}
+			                    {literal}
 			                        {swiper__slide}{/swiper__slide}
 			                    {/literal}
- *}			                    {swiper__slide class="active"}{/swiper__slide}
+{* 			                    {swiper__slide class="active"}{/swiper__slide}
 			                    {swiper__slide}{/swiper__slide}
-			                {/swiper__wrapper}            
+ *}			                {/swiper__wrapper}            
 			            {/swiper}
 			            {swiper class="tab__content"}
 			                {swiper__wrapper}
 			                    {swiper__slide}
-			                    	<div class="movie-con">
-					                    {foreach $movies as $v}
-						                    <figure class="movie">
-							                    {a uri="movie/play/{$v->id}"}
-						                        {resimg data-image=$v->sourceurl class="movie__thumb"}
-							                    {/a}
-						                        <figcaption class="movie__title">{$v->title}</figcaption>
-						                        <div class="movie__views">
-						                            <div class="count-number">
-						                                <div class="count-number__icon"></div>
-						                                <div class="count-number__text">{$v->record}</div>
-						                            </div>
-						                        </div>
-						                    </figure>
-				                    	{/foreach}			                    		
-			                    	</div>
-			                    {/swiper__slide}
-			                    {swiper__slide}
-			                    	2
+				                    {foreach $movies as $v}
+					                    <figure class="movie">
+						                    {a uri="movie/play/{$v->id}"}
+					                        {resimg data-image=$v->sourceurl class="movie__thumb"}
+						                    {/a}
+					                        <figcaption class="movie__title">{$v->title}</figcaption>
+					                        <div class="movie__views">
+					                            <div class="count-number">
+					                                <div class="count-number__icon"></div>
+					                                <div class="count-number__text">{$v->record}</div>
+					                            </div>
+					                        </div>
+					                    </figure>
+			                    	{/foreach}
 			                    {/swiper__slide}
 			                {/swiper__wrapper}                        
 			            {/swiper}
