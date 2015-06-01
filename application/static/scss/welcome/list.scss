@@ -223,6 +223,9 @@ $movie-sel: get-module("movie", "selector");
                 padding-left: calc-res(36px);                    
                 padding-right: calc-res(36px);
                 line-height: 23px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;                
             }
             .movie__views {
                 padding-left: calc-res(36px);                    
@@ -230,7 +233,7 @@ $movie-sel: get-module("movie", "selector");
                 line-height: 23px;
             }
             .responsive {
-                height: 200px;
+                height: 150px;
                 position: relative;
                 overflow: hidden;
             }            
