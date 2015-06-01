@@ -218,7 +218,17 @@ class TitleModel extends DBModel {
 		return $actions;
 	}
 
-	public function getHotsByColumnID($columnID,$limit=10){
+	public function getTypeByColumnID($columnID){
+		$titleID = $this->assetcolumnref->one('column_id',$columnID)->title_asset_id;
+		if(!$titleID) {
+			return 'Movie';
+		}else{
+			$show_type = $this->one('id',$titleID)->show_type;
+			return $show_type;
+		}
+	}
+
+	public function getHotsByColumnID($columnID,$offset=0,$limit=10){
 		return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
 				->from('title')
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))
@@ -230,11 +240,11 @@ class TitleModel extends DBModel {
 				))
 				->groupBy('play_histories.title_id')
 				->orderBy("count desc")
-				->limit(0, $limit)
+				->limit($offset, $limit)
 				->result();
 	}
 
-	public function getNewsByColumnID($columnID,$limit=10){
+	public function getNewsByColumnID($columnID,$offset=0,$limit=10){
 		$news = $this->select('title.id,title.asset_name,poster.sourceurl')
 				->from('title')
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
@@ -244,7 +254,7 @@ class TitleModel extends DBModel {
 						'poster.image_aspect_ratio'=>'306x429'
 				))
 				->orderBy('title.create_at desc')
-				->limit(0, $limit)
+				->limit($offset, $limit)
 				->result();
 		foreach ($news as $k=>$v) {
 			$news[$k]->count = $this->playhistorie->getPlayTimesByTitleID($v->id);

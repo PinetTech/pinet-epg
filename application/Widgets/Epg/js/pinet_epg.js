@@ -33,4 +33,31 @@
         triggerEle.parent().toggleClass('full-screen');
     });
 
+    $.fn.hasContentState = function() {        
+        var self = $(this);
+        setInterval(function(){
+            if(self.val().length > 0) {
+                self.addClass('has-content');
+            }
+            else {
+                self.removeClass('has-content');
+            }
+
+        }, 30);
+    }
+
+    $.fn.removeInputVal = function() {
+        var self = $(this);
+        var ele = $(self.attr("remove-input-val-trigger"));
+        if(ele.length > 0) {
+            self.on('click', function(){
+                ele.val('');
+            });
+        }
+    }
+
+    $('input').each(function(){
+        $(this).hasContentState();
+    });
+
 })();

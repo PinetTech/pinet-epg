@@ -27,7 +27,7 @@ class SearchController extends BaseController
 	 */
 	public function movie() {
 		$post = $this->post();
-		$titles = $this->title->getTitlesByKey('史泰龙');
+		$titles = $this->title->getTitlesByKey($post['search']);
 		foreach ($titles as $k=>$v) {
 			$titles[$k]->url = \Clips\static_url('movie/play/'.$v->id);
 		}

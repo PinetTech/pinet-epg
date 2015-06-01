@@ -1,0 +1,207 @@
+$movie-sel: get-module("movie", "selector");
+$table-sel: get-module("tab", "select");
+
+@mixin search-movie-mobile-init() {
+}
+
+@include search-movie-mobile-init();
+
+@mixin search-movie-mobile-desktop() {
+	@mixin actionbar() {
+		.actionbar {
+			&__search-form {
+				.fa-times {
+					display: none;
+				}
+			}
+		}
+	}
+
+	@mixin constructor(){
+	}
+	@include constructor();
+}
+
+@mixin search-movie-mobile-mobile() {
+	@mixin all() {
+		html, body {
+			height: 100%;
+		}		
+		main {
+			height: calc(100% - 50px);
+			.search-result {
+				display: none;
+			}
+			.search-classfication {
+				display: block;
+			}
+		}
+		main.result {
+			height: auto;
+			.search-result {
+				display: block;
+				.search-result__header {
+					display: none;
+				}
+			}			
+			.search-classfication {
+				display: none;
+			}
+		}			
+	}
+
+	@mixin actionbar() {
+		.actionbar {
+			&__brand {
+				display: none;
+			}
+			&__search-form {
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				width: 100%;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				.form-group {
+					-webkit-flex: 1;
+					    -ms-flex: 1;
+					        flex: 1;
+					> .form-input {
+						position: relative;
+					}
+					> .form-input input {
+						text-indent: 20px;
+					}
+					> .form-input:before {
+						content: $fa-var-search;
+						font-family: FontAwesome;
+						height: 10px;
+						border-bottom: 1px solid #ff0000;
+						position: absolute;
+						padding-top: 5px;
+						padding-left: 5px;
+						padding-right: 5px;
+						color: #A4A4A4;						
+						height: 100%;
+					}
+					> .form-input:after {
+						content: "";
+						width: 0;
+						height: 5px;
+						border-right: 1px solid #ff0000;
+						position: absolute;
+						right: 0;
+						bottom: 0;
+					}					
+					> .form-label {
+						width: 1px;
+						display: -webkit-flex;
+						display: -ms-flexbox;
+						display: flex;
+						-webkit-align-items: flex-end;
+						    -ms-flex-align: end;
+						        align-items: flex-end;
+						color: transparent;
+					}
+				}
+				.form-input {
+					width: 100%;
+				}
+				.form-label:before {
+					content: "";
+					height: 5px;
+					border: 1px solid #ff0000;					
+				}					
+		        .form-input > input {
+		            width: 100%;
+		            height: 30px;
+		            padding-left: 10px;
+		            border: none;
+		            border-bottom: 1px solid #ff0000;
+		        }
+		        .submit {
+		            position: relative;
+		            display: -webkit-flex;
+		            display: -ms-flexbox;
+		            display: flex;
+		            -webkit-align-items: center;
+		                -ms-flex-align: center;
+		                    align-items: center;
+		            -webkit-transform: translateX(0);
+		                    transform: translateX(0);
+		        }
+		        .submit .btn {
+		            display: block;
+		            height: 100%;
+		            width: auto;
+		            color: #000000;
+		            padding: 0;
+		            margin: 0;
+
+					padding-left: 10px;
+					padding-right: 10px;
+		        }
+		        .submit:after {
+					display: none;                  
+		        } 
+		        .form-input.has-content + .fa-times {
+		        	display: block;
+		        }		
+		        .fa-times {
+		        	height: 15px;
+		        	@include position(absolute, 0, 0, 0, 0);
+		        	margin: auto;
+		        	left: auto;
+		        	right: 10px;
+		        	color: #a4a4a4;
+		        	display: none;
+		        }		
+			}
+		}
+	}
+
+	@mixin search-classfication() {
+		.search-classfication {
+			padding-left: 20px;
+			padding-right: 20px;
+			background: #F3F3F3;
+			height: 100%;
+			&__header {
+				padding-top: calc-res(55px);
+				padding-bottom: calc-res(55px);
+				h3 {
+					margin: 0;
+				}
+			}
+			&__hotvideos {
+				list-style: none;
+				display: inline-block;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				> li {
+					float: left;
+					margin-right: 40px;
+					margin-bottom: 20px;
+				}
+			}
+		}	
+	}		
+
+	@mixin constructor(){
+		@include all();
+		@include actionbar();
+		@include search-classfication();
+	}
+	@include constructor();
+}
+
+@mixin section_search_movie_mobile($args...) {
+	@include device-desktop() {
+	}
+	@include device-mobile() {
+		@include search-movie-mobile-mobile();
+	}
+}

@@ -1,18 +1,20 @@
-{extends file="base-layout.tpl"}
-	{block name="main"}
+{extends file="frontsite-layout.tpl"}
+    {block name="nav"}
         {nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
                     {resimg data-image="logo.png"}
                 </div>            
-                {form class="actionbar__search-form" name="search"}
+                {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
                     {/label}
                 {/form}
             </div>
-        {/nav}	
+        {/nav}      
+    {/block}
+    {block name="content"}
         <main class="result">
             <section class="search-result">
                 <div class="search-result__header">
@@ -44,14 +46,14 @@
                             {swiper class="tab__nav"}
                                 {swiper__wrapper items=$tab['navs']}
                                     {literal}
-                                        {swiper__slide}{a href="http://www.baidu.com"}{$item}{/a}{/swiper__slide}
+                                        {swiper__slide class="active"}{a href="http://www.baidu.com"}{$item}{/a}{/swiper__slide}
                                     {/literal}                    
                                 {/swiper__wrapper}
                             {/swiper}
                             {swiper class="tab__thumbs"}
                                 {swiper__wrapper items=$tab['navs']}
                                     {literal}
-                                        {swiper__slide}{/swiper__slide}
+                                        {swiper__slide class="active"}{/swiper__slide}
                                     {/literal}
                                 {/swiper__wrapper}            
                             {/swiper}
@@ -80,7 +82,10 @@
                                         </figure>
                                         {/for}  
                                     {/swiper__slide}
-                                    {swiper__slide}2{/swiper__slide}
+<!--                                     {swiper__slide}2{/swiper__slide}
+                                    {swiper__slide}3{/swiper__slide}
+                                    {swiper__slide}4{/swiper__slide}
+                                    {swiper__slide}5{/swiper__slide} -->
                                 {/swiper__wrapper}                        
                             {/swiper}
                         {/div}                        
@@ -99,19 +104,4 @@
                 </ul>
             </section>
         </main>
-        <footer>
-            <ul class="site-map">
-                <li>关于我们</li>
-                <li>网站地图</li>
-                <li>期刊订阅</li>
-                <li>联系我们</li>
-                <li>法律声明</li>
-                <li>友情链接</li>
-                <li>上海工商</li>
-                <li>举报中心</li>
-            </ul>
-            <div class="added-license">增值许可证</div>
-            <div class="copy-right">版权</div>
-            <div class="technical-support">技术支持 pinet</div>
-        </footer>        
-	{/block}
+    {/block}

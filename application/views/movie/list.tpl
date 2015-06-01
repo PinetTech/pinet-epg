@@ -1,11 +1,11 @@
-{extends file="base-layout.tpl"}
-	{block name="main"}
+{extends file="frontsite-layout.tpl"}
+	{block name="nav"}
         {nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
                     {resimg data-image="logo.png"}
                 </div>            
-                {form class="actionbar__search-form" name="search"}
+                {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
@@ -23,7 +23,10 @@
                     <a href="" class="button"><i class="fa fa-search"></i></a>
                 </div>                
             </div>
+			{navigation id="menu" class="menu" actions=$actions}{/navigation}            
         {/nav}		
+	{/block}
+	{block name="content"}
 		<main>
 			{swiper class="slide"}
 				{swiper__wrapper items=$items}
@@ -43,9 +46,9 @@
 							您已选择
 						</h3>
 						<div class="select__choose">
-							<div class="select__label">美国<i class="fa fa-times"></i></div>
+<!-- 							<div class="select__label">美国<i class="fa fa-times"></i></div>
 							<div class="select__label">院线<i class="fa fa-times"></i></div>
-						</div>
+ -->						</div>
 					</div>
 					<div class="movie-filter">
 						<div class="list">
@@ -90,11 +93,10 @@
 					                    </figure>
 			                    	{/foreach}
 			                    {/swiper__slide}
-			                    {swiper__slide}2{/swiper__slide}
 			                {/swiper__wrapper}                        
 			            {/swiper}
 			        {/div}
 				{/sect}					
 			</div>		
-		</main>
+		</main>	
 	{/block}
