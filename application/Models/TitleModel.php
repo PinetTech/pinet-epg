@@ -36,24 +36,30 @@ class TitleModel extends DBModel {
 	/**
 	 * @Clips\Model({ "searchKey" })
 	 */
-	public function getTitlesByKey($key){
+	public function getTitlesByHotKey($key, $columnID, $offset=0, $limit=10){
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
-		return $this->select('min(title.id) as id,title.asset_name,title_application.area,title_application.summary_short,
+		$where = array(
+			new \Clips\Libraries\OrOperator(
+				array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
+					new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
+					new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
+			),
+			'poster.image_aspect_ratio'=>'306x429'
+		);
+		if($columnID){
+			$where['asset_column_ref.column_id'] = $columnID;
+		}
+		return $this->select('min(title.id) as id,asset_column_ref.column_id,title.asset_name,title_application.area,title_application.summary_short,
 								title_application.actors,title_application.director,package.program_type_name,poster.sourceurl')
 			->from('title')
 			->join('title_application',array('title.application_id'=>'title_application.id'))
 			->join('package',array('title.package_id'=>'package.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))
-			->where(array(
-					new \Clips\Libraries\OrOperator(
-							array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
-									new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
-									new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
-					),
-					'poster.image_aspect_ratio'=>'306x429'
-			))
+			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+			->where($where)
 			->groupBy('title.package_id')
+			->limit($offset, $limit)
 				->result();
 	}
 
