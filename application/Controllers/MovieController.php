@@ -121,7 +121,6 @@ VIDEOJS_SWF
 
 		$this->request->session('sift', $type);
 		$sift = $this->movie->sift($columnID);
-//		$movies = $this->title->siftTitles($this->request->session('sift'));
 
 		$records = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
 		$records = $this->title->siftRecords($records,$this->request->session('sift'));
