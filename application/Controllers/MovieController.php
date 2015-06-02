@@ -106,5 +106,16 @@ VIDEOJS_SWF
 	    ));
     }
 
-
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Model({"title","column","movie","searchKey"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"movie/hot"})
+	 * @Clips\Js({"application/static/js/welcome/search.js"})
+	 */
+	public function hot(){
+		return $this->render("movie/hot", array(
+			'hots' => $this->searchkey->getKeys(20)
+		));
+	}
 }
