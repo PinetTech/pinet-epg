@@ -20,8 +20,8 @@
                 	<a href="" class="switch__filter active">筛选</a>
                 </div>
                 <div class="actionbar__search">
-                    <a href="" class="button"><i class="fa fa-search"></i></a>
-                </div>                
+	                {a uri="movie/hot" class="button"}<i class="fa fa-search"></i>{/a}
+                </div>
             </div>
 			{navigation id="menu" class="menu" actions=$actions}{/navigation}            
         {/nav}		
