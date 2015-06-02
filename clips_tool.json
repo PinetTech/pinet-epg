@@ -8,6 +8,7 @@
 	"debug_sass": true,
 	"resolutions": ["320", "360", "375", "414", "480", "640", {"mobile":"769"}, {"pc":"1280"}, "1440", "1920", "2880"],
     "sass_preload": ["variables"],
+    "use_rewrite": true,
     "image_url_base": ["http://192.168.22.233:8099/mamPoster/"],
 	"models": {
 	},

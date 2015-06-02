@@ -8,7 +8,6 @@ play_histories:
         type: biginteger
     package_id:
         type: biginteger
-        key: true
     title_asset_id:
         type: string
         key: true
