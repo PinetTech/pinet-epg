@@ -114,15 +114,13 @@ VIDEOJS_SWF
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
 	 * @Clips\Model({"column", "movie", "title"})
 	 */
-	public function sift($columnID,$key,$value){
+	public function sift($columnID){
+		$key = $this->get('key');
+		$value = $this->get('value');
 		$type[$key] = $value;
-		$type['type'] = '喜剧';
-		$type['area'] = '美国';
-//		$type['year'] = '2016';
 
 		$this->request->session('sift', $type);
 		$sift = $this->movie->sift($columnID);
-//		$movies = $this->title->siftTitles($this->request->session('sift'));
 
 		$records = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
 		$records = $this->title->siftRecords($records,$this->request->session('sift'));
