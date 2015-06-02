@@ -67,7 +67,7 @@
 		};
 	}
 
-	function initTab(onTabNavClick) {
+	function initTab(onTabNavClick, tabContentOptions, tabNavOptions) {
 		var tab = {};
 	    function clickHandle(e) {
 	        var self = $(e.currentTarget);
@@ -77,6 +77,7 @@
 	    tab.navOptions = {
 	        slidesPerView: 'auto'
 	    };
+	    tab.navOptions = $.extend({}, { slidesPerView: 'auto' }, tabNavOptions);
 	    tab.navOptions.onInit = function(swiper) {
 	        var slides = swiper.slides;
 	        if(slides.length > 0) {
@@ -91,15 +92,11 @@
 	        }
 	    };
 		tab.nav = new Swiper('.tab .tab__nav', tab.navOptions);
-		tab.thumbsOptions = {
-			slidesPerView: 'auto'
-		};
+		tab.thumbsOptions = $.extend({}, { slidesPerView: 'auto' }, tabNavOptions);
 		tab.nav.lockSwipes();
 		tab.thumbs = new Swiper('.tab .tab__thumbs', tab.thumbsOptions);
 		tab.thumbs.lockSwipes();
-		tab.contentOptions = {
-			// slidesPerView: 'auto'
-		};
+		tab.contentOptions = $.extend({}, tabContentOptions);
 		tab.contentOptions.onSlideChangeEnd = function(swiper) {
 			tab.nav.activeIndex = swiper.activeIndex;
 			tab.nav.update();

@@ -15,6 +15,7 @@
                     {/label}
                 {/form}
             </div>
+            {navigation id="menu" class="menu" actions=$actions}{/navigation}
         {/nav}      
     {/block}
     {block name="content"}	

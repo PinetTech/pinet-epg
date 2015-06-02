@@ -16,7 +16,7 @@
                 <section class="movielist film">
                     <div class="movielist__head">
                         <h3 class="movielist__title">{$v['column_name']}</h3>
-                        <a href="{$v['url']}" class="movielist__viewall">查看全部</a>
+                        <a href="{$v['url']}" class="movielist__viewall">全部</a>
                     </div>
                     <div class="movielist__body">
                         {foreach $v['videos'] as $key => $value}
