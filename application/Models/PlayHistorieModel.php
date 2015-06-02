@@ -13,8 +13,11 @@ class PlayHistorieModel extends DBModel {
 	public function saveHistory($history){
 		if($this->checkFlushData($history['mac'], $history['title_id'])){
 			$title = $this->title->one('id',$history['title_id']);
-			$history['title_asset_id'] = $title->asset_id;
-			return $this->insert($history);
+			if($title){
+				$history['title_asset_id'] = $title->asset_id;
+				$history['package_id'] = $title->package_id;
+				return $this->insert($history);
+			}
 		}
 		return true;
 	}
