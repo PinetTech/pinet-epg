@@ -8,7 +8,7 @@ use Clips\SimpleAction;
  * Class TitleModel
  * @package Pinet\EPG\Models
  * @Clips\Model(table="title")
- * @Clips\Model({ "column","assetColumnRef", "playHistorie", "searchKey" })
+ * @Clips\Model({ "column","assetColumnRef", "playHistorie", "searchKey","poster","package","titleApplication" })
  */
 class TitleModel extends DBModel {
 
@@ -131,63 +131,128 @@ class TitleModel extends DBModel {
 		return $titles;
 	}
 
-	public function getTitlesByItem($type,$area,$year){
-		if(isset($type) && isset($area) && isset($year)) {
-			$title = $this->select('distinct title.id,title.asset_name')
-					->from('title')
-					->join('title_application',array('title.application_id'=>'title_application.id'))
-					->join('package',array('title.package_id'=>'package.id'))
-					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')
-							,new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
-							, new FindInSet('package.program_type_name', $type)))
-					->result();
-		}elseif(isset($type) && isset($area)){
-			$title = $this->select('distinct title.id,title.asset_name')
-					->from('title')
-					->join('title_application',array('title.application_id'=>'title_application.id'))
-					->join('package',array('title.package_id'=>'package.id'))
-					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')
-					, new FindInSet('package.program_type_name', $type)))
-					->result();
-		}elseif(isset($type) && isset($year)){
-			$title = $this->select('distinct title.id,title.asset_name')
-					->from('title')
-					->join('package',array('title.package_id'=>'package.id'))
-					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
-					, new FindInSet('package.program_type_name', $type)))
-					->result();
-		}elseif(isset($area) && isset($year)){
-			$title = $this->select('distinct title.id,title.asset_name')
-					->from('title')
-					->join('title_application',array('title.application_id'=>'title_application.id'))
-					->join('package',array('title.package_id'=>'package.id'))
-					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')
-					, new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')))
-					->result();
-		}elseif(isset($type)){
-			$title = $this->select('distinct title.id,title.asset_name')
-					->from('title')
-					->join('package',array('title.package_id'=>'package.id'))
-					->where(array(new FindInSet('package.program_type_name', $type)))
-					->result();
-		}elseif(isset($area)){
-			$title = $this->select('distinct title.id,title.asset_name')
-					->from('title')
-					->join('title_application',array('title.application_id'=>'title_application.id'))
-					->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%')))
-					->result();
-		}elseif(isset($year)){
-			$title = $this->select('distinct title.id,title.asset_name')
-					->from('title')
-					->join('package',array('title.package_id'=>'package.id'))
-					->where(array(new \Clips\Libraries\LikeOperator('package.create_at', $year.'%')))
-					->result();
+	function array_unique_fb($array2D) {     //二维数组去重
+		foreach ($array2D as $k=>$v)
+		{
+			$v = join(",",$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
+			$temp[$k] = $v;
 		}
-		foreach ($title as $k=>$v) {
-			$title[$k]->count = $this->playhistorie->getPlayTimesByTitleID($v->id);
+		$temp = array_unique($temp); //去掉重复的字符串,也就是重复的一维数组
+		foreach ($temp as $k => $v)
+		{
+			$array=explode(",",$v); //再将拆开的数组重新组装
+			$temp2[$k]["id"] =$array[0];
+			$temp2[$k]["asset_name"] =$array[1];
 		}
-		return $title;
+		return $temp2;
+	}
 
+	public function siftTitles($session){
+		$type = $session['type'];
+		$area = $session['area'];
+		$year = $session['year'];
+
+		if(isset($type)) {
+			foreach ($type as $v) {
+				$typeTitles[] = $this->select('title.id,title.asset_name')
+						->from('title')
+						->join('package',array('title.package_id'=>'package.id'))
+						->where(array( new \Pinet\EPG\Core\FindInSet('package.program_type_name', $v)))
+						->result();
+			}
+			foreach ($typeTitles as $vs) {
+				foreach ($vs as $v) {
+					$typeAll[] = (Array)$v;
+				}
+			}
+		}
+
+		if(isset($area)) {
+			foreach ($area as $v) {
+				$areaTitles[] = $this->select('title.id,title.asset_name')
+						->from('title')
+						->join('title_application',array('title.application_id'=>'title_application.id'))
+						->where(array(new \Clips\Libraries\LikeOperator('title_application.area', '%'.$v.'%')))
+						->result();
+			}
+			foreach ($areaTitles as $vs) {
+				foreach ($vs as $v) {
+					$typeAll[] = (Array)$v;
+				}
+			}
+		}
+
+		if(isset($year)) {
+			foreach ($year as $v) {
+				$yearTitles[] = $this->select('title.id,title.asset_name')
+						->from('title')
+						->where(array(new \Clips\Libraries\LikeOperator('title.create_at', $v.'%')))
+						->result();
+			}
+			foreach ($yearTitles as $vs) {
+				foreach ($vs as $v) {
+					$typeAll[] = (Array)$v;
+				}
+			}
+		}
+
+		$typeAll = $this->array_unique_fb($typeAll);
+
+		foreach ($typeAll as $k=>$v) {
+			$typeAll[$k]['count'] = $this->playhistorie->getPlayTimesByTitleID($v['id']);
+			$poster = $this->poster->one(array(
+				'title_id' => $v['id'],
+				'image_aspect_ratio' => '306x429'
+			));
+			$typeAll[$k]['sourceurl'] = $poster->sourceurl;
+		}
+		var_dump($typeAll);die;
+		return $typeAll;
+
+	}
+
+	public function siftRecords($records,$session){
+		foreach ($records as $k=>$v) {
+			$title = $this->one('id',$v->id);
+			$records[$k]->type = $this->package->one('id',$title->package_id)->program_type_name;
+			$records[$k]->area = $this->titleapplication->one('id',$title->application_id)->area;
+			$records[$k]->year = $title->create_at;
+		}
+		if(isset($session['type'])) {
+			foreach ($records as $k=>$v) {
+				if($session['type'] == 'all') {
+
+				}elseif(!in_array($session['type'],explode(',',$v->type))) {
+					unset($records[$k]);
+				}
+			}
+		}
+		if(isset($session['area'])) {
+			foreach ($records as $k=>$v) {
+				if($session['area'] == 'all') {
+
+				}elseif(strpos($v->area, $session['area'])===false) {
+					unset($records[$k]);
+				}
+			}
+		}
+		if(isset($session['year'])) {
+			foreach ($records as $k=>$v) {
+				$year = substr($v->year,0,4);
+				if($session['year'] == 'all') {
+
+				}elseif(strpos($session['year'],0,1) == '-'){
+					$year_sift = strpos($session['year'],1,4);
+					if($year>$year_sift) {
+						unset($records[$k]);
+					}
+				}elseif(strpos($v->year, $session['year'])===false) {
+					unset($records[$k]);
+				}
+			}
+		}
+//		var_dump($records);die;
+		return $records;
 	}
 
 	public function getNewTitlesByColumnID($columnID, $notIn=array() ,$limit=10){

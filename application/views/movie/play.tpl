@@ -116,7 +116,7 @@
 			<div class="movie-infos">
 		        <div class="movie-info summary">
 		        	<div class="movie-info__header">
-		        		<h3>简介</h3>
+		        		<h3>{lang}Synopsis{/lang}</h3>
 		        	</div>
 		        	<div class="movie-info__body">
 						<h3 class="movie-info__title">{$movie->asset_name}</h3>
