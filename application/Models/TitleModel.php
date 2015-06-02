@@ -241,8 +241,8 @@ class TitleModel extends DBModel {
 				$year = substr($v->year,0,4);
 				if($session['year'] == 'all') {
 
-				}elseif(strpos($session['year'],0,1) == '-'){
-					$year_sift = strpos($session['year'],1,4);
+				}elseif(substr($session['year'],0,1) == '-'){
+					$year_sift = substr($session['year'],1,4);
 					if($year>$year_sift) {
 						unset($records[$k]);
 					}
@@ -251,7 +251,6 @@ class TitleModel extends DBModel {
 				}
 			}
 		}
-//		var_dump($records);die;
 		return $records;
 	}
 
