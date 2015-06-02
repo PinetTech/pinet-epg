@@ -195,6 +195,7 @@ $movie-sel: get-module("movie", "selector");
                 }                
             }
             &.guess {
+                margin-bottom: calc-res(574px);
                 .movie-info__body {
                     display: inline-block;
                     width: 100%;
@@ -219,10 +220,13 @@ $movie-sel: get-module("movie", "selector");
                         line-height: 23px;
                     }
                     .responsive {
-                        height: 150px;
+                        height: calc-res(430px);
                         position: relative;
                         overflow: hidden;
-                    }
+                        > img {
+                            height: 100%;
+                        }
+                    }  
                 }
 			    #{$movie-sel}:nth-of-type(7n+7) {
 			        margin-right: 0;
@@ -397,29 +401,41 @@ $movie-sel: get-module("movie", "selector");
                     display: block;
                     float: left;
                     position: relative;
-                    margin-left: 0;
-                    margin-right: 0;
-                    width: 49%;
-                    margin-bottom: 10px;
-                    &:nth-child(even) {
-                        float: right;
-                    }                   
+                    margin: 0;
+                    width: 32%;
+                    float: left;
+                    &:nth-child(3n+2) {
+                        margin-left: 2%;
+                        margin-right: 2%;
+                    }
+                    &:nth-child(n+4) {
+                        margin-bottom: 0;
+                    }
+                    .responsive {
+                        height: res(mobile-to-pc(196px));
+                        position: relative;
+                        overflow: hidden;
+                        > img {
+                            height: 100%;
+                        }
+                    }                                 
                     .movie__title {
                         text-align: center;
-                        background: rgba(#414141, 0.74);
-                        color: #ffffff;
-                        @include position(absolute, 0, 0, 0, 0);
+                        background-color: #ffffff;
                         top: auto;
-                        font-size: 14px;
+                        font-size: 11.5px;
                         line-height: 19px;                        
                         padding-top: 3px;
                         padding-bottom: 3px;
-                    }                    
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;                         
+                    }
                     .count-number {
                         &__text {
                             display: none;
                         }
-                    }
+                    }                    
                 }        
                 .videolist {
                     display: -webkit-flex;

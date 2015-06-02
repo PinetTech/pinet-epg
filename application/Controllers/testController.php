@@ -228,4 +228,12 @@ class TestController extends BaseController
         ));
     }
 
+    /**
+     * @Clips\Widget({"epg", "navigation", "image"})
+     * @Clips\Scss({"error404"})
+     */
+    public function showerror() {
+        return $this->render('welcome/404');
+    }   
+
 }
