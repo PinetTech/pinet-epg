@@ -46,9 +46,6 @@ $movie-sel: get-module("movie", "selector");
             }          
         }           
     }
-    #{$movie-sel}:nth-of-type(4n+4) {
-        margin-right: 0;
-    }
 }
 
 @include welcome-list-init();
@@ -190,6 +187,9 @@ $movie-sel: get-module("movie", "selector");
             &__nav {
                 // display: none;
                 .swiper-slide {
+                    font-size: 22px;
+                    color: #202020;
+                    line-height: 31px;                    
                     > a {
                         font-size: 22px;
                         color: #202020;
@@ -197,7 +197,7 @@ $movie-sel: get-module("movie", "selector");
                     }
                 }
                 .swiper-slide.active {
-                    color: #ef1717;                    
+                    // color: #ef1717;                    
                 }
             }
             &__thumbs {
@@ -217,19 +217,33 @@ $movie-sel: get-module("movie", "selector");
             padding-bottom: res(14px, 6.2px);
             float: left;
             margin-bottom: calc-res(60px);
-            width: 22%;
-            margin-right: 4%;        
+            width: 17.5%;
+            margin-right: 3.125%;        
             .movie__title {
                 padding-left: calc-res(36px);                    
                 padding-right: calc-res(36px);
                 line-height: 23px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;                
             }
             .movie__views {
                 padding-left: calc-res(36px);                    
                 padding-right: calc-res(36px);
                 line-height: 23px;
             }
+            .responsive {
+                height: calc-res(430px);
+                position: relative;
+                overflow: hidden;
+                > img {
+                    height: 100%;
+                }
+            }             
         }           
+        #{$movie-sel}:nth-of-type(5n+5) {
+            margin-right: 0;
+        }        
     }
 
     @mixin movie-filter() {
@@ -264,7 +278,7 @@ $movie-sel: get-module("movie", "selector");
         .actionbar {
             padding-top: 10px;
             padding-bottom: 10px;
-            background-color: #ff0000;
+            background-color: #e01818;
             &__brand {
                 display: none;
             }
@@ -304,7 +318,7 @@ $movie-sel: get-module("movie", "selector");
 
                 *.active {
                     background-color: #ffffff;
-                    color: #ff0000;
+                    color: #e01818;
                 }   
             }
             &__search {
@@ -399,8 +413,13 @@ $movie-sel: get-module("movie", "selector");
                 display: none;
             }
             &__content {
-                padding-left: 10px;
-                padding-right: 10px;
+                // padding-left: 10px;
+                // padding-right: 10px;
+                .movie-con {
+                    width: res(mobile-to-pc(394px));
+                    margin: 0 auto;
+                }
+
                 padding-top: calc-res(42px);
                 .swiper-slide {
                     width: 100% !important;
@@ -414,24 +433,39 @@ $movie-sel: get-module("movie", "selector");
             display: block;
             float: left;
             position: relative;
-            margin-left: 0;
-            margin-right: 0;
-            width: 49%;
-            margin-bottom: 10px;
-            &:nth-child(even) {
-                float: right;
-            }                   
+            margin: 0;
+            width: 32%;
+            float: left;
+            &:nth-child(3n+2) {
+                margin-left: 2%;
+                margin-right: 2%;
+            }
+            &:nth-child(n+4) {
+                margin-bottom: 0;
+            }
+            &:nth-child(n+4) {
+                display: none;
+            }
+            .responsive {
+                height: res(mobile-to-pc(196px));
+                position: relative;
+                overflow: hidden;
+                > img {
+                    height: 100%;
+                }
+            }                                 
             .movie__title {
                 text-align: center;
-                background: rgba(#414141, 0.74);
-                color: #ffffff;
-                @include position(absolute, 0, 0, 0, 0);
+                background-color: #ffffff;
                 top: auto;
-                font-size: 14px;
+                font-size: 11.5px;
                 line-height: 19px;                        
                 padding-top: 3px;
                 padding-bottom: 3px;
-            }                    
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;                         
+            }                              
             .count-number {
                 &__text {
                     display: none;

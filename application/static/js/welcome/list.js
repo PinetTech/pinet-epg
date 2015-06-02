@@ -14,7 +14,29 @@ function initialize() {
         slide = new Slide('.slide');
     }, 0);
     if($('.tab').length > 0) {
-    	var tab = initTab();
+    	var tab = initTab(function(){}, {
+            slidesPerView: 'auto'
+        });
+
+        updateActiveContent(tab);
+        tab.content.unlockSwipes();        
+    }
+
+    function updateActiveContent(tab) {
+        // var index = tab.nav;
+        var slides = tab.nav.slides;
+        var index = -1;
+
+        $(slides).each(function(i){
+            var self = $(this);
+            if(self.hasClass('active')) {
+                index = i;
+            }
+        });
+
+        if(index > -1) {
+            tab.content.slideTo(index);        
+        }
     }
 
     if($('.select').length > 0) {

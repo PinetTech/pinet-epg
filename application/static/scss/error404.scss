@@ -1,0 +1,34 @@
+@mixin error404-init() {
+}
+
+@include error404-init();
+
+@mixin error404-desktop() {
+	@mixin constructor(){
+	}
+	@include constructor();
+}
+
+@mixin error404-mobile() {
+	@mixin nav() {
+		nav {
+			height: 50px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+	}
+
+	@mixin constructor(){
+		@include nav();
+	}
+	@include constructor();
+}
+
+@mixin section_error404($args...) {
+	@include device-desktop() {
+		@include error404-desktop();
+	}
+	@include device-mobile() {
+		@include error404-mobile();
+	}
+}

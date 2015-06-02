@@ -66,14 +66,18 @@
 			                    {literal}
 			                        {swiper__slide}{a href={$item['url']}}{$item['name']}{/a}{/swiper__slide}
 			                    {/literal}                    
-			                {/swiper__wrapper}
+{* 			                    {swiper__slide class="active"}sdss{/swiper__slide}
+			                    {swiper__slide}sdsds{/swiper__slide}
+ *}			                {/swiper__wrapper}
 			            {/swiper}
 			            {swiper class="tab__thumbs"}
 			                {swiper__wrapper items=$tab['navs']}
 			                    {literal}
 			                        {swiper__slide}{/swiper__slide}
 			                    {/literal}
-			                {/swiper__wrapper}            
+{* 			                    {swiper__slide class="active"}{/swiper__slide}
+			                    {swiper__slide}{/swiper__slide}
+ *}			                {/swiper__wrapper}            
 			            {/swiper}
 			            {swiper class="tab__content"}
 			                {swiper__wrapper}
