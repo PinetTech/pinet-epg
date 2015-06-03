@@ -41,4 +41,3 @@ function initialize() {
 }
 
 // updateLabel(".select__choose", "sdsd1");
-

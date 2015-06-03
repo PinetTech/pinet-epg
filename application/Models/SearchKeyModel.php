@@ -14,17 +14,18 @@ class SearchKeyModel extends DBModel {
 	}
 
 	public function recordHotKey($key){
-		$hotKey = $this->one('keyword',$key);
-		if(isset($hotKey->id)) {
-			$hotKey->times += 1;
-			$this->update($hotKey);
-		}else{
-			$this->insert(array(
+		if($key){
+			$hotKey = $this->one('keyword',$key);
+			if(isset($hotKey->id)) {
+				$hotKey->times += 1;
+				$this->update($hotKey);
+			}else{
+				$this->insert(array(
 					'keyword' => $key,
 					'times' => 1
-			));
+				));
+			}
 		}
-
 	}
 
 

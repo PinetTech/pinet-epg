@@ -18,13 +18,13 @@ class MovieController extends BaseController
 	 */
 	public function index($columnID=1, $type='new') {
 		$this->title('Pinet Home Page',true);
-		$sift = $this->movie->sift();
+		$sift = $this->movie->sift($columnID);
 
 		$movies = array();
 		if($type == 'hot') {
-			$records = $this->title->getHotsByColumnID($columnID);
+			$records = $this->title->getHotsByColumnID($columnID,$offset=0,$limit=10);
 		}elseif($type == 'new'){
-			$records = $this->title->getNewsByColumnID($columnID);
+			$records = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
 		}
 		foreach ($records as $v) {
 			$movies[] = (object)array('id'=>$v->id,'title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
@@ -51,6 +51,7 @@ class MovieController extends BaseController
 	}
 
     /**
+     *
      * @Clips\Form({"search"})
      * @Clips\Js({"application/static/js/movie/play.js"})
      * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
@@ -106,5 +107,57 @@ VIDEOJS_SWF
 	    ));
     }
 
+	/**
+	 *
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"welcome/list"})
+	 * @Clips\Js({"application/static/js/welcome/list.js"})
+	 * @Clips\Model({"column", "movie", "title"})
+	 */
+	public function sift($columnID){
+		$key = $this->get('key');
+		$value = $this->get('value');
+		$type[$key] = $value;
 
+		$this->request->session('sift', $type);
+		$sift = $this->movie->sift($columnID);
+
+		$records = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
+		$records = $this->title->siftRecords($records,$this->request->session('sift'));
+		foreach ($records as $v) {
+			$movies[] = (object)array('id'=>$v->id,'title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
+		}
+
+		return $this->render('movie/list',array(
+				'nav' => true,
+				'slider' => true,
+				'column_id' => $columnID,
+				'movies'=>$movies,
+				"sifts"=>$sift,
+				"tab"=>array(
+						"navs"=>array(
+								array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+								array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
+						),
+						"contents"=>array(
+								(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+								(object)array('episodes'=>'1,2,3,4,5'),
+								(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+						)
+				),
+		));
+	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Model({"title","column","movie","searchKey"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"movie/hot"})
+	 * @Clips\Js({"application/static/js/welcome/search.js"})
+	 */
+	public function hot(){
+		return $this->render("movie/hot", array(
+				'hots' => $this->searchkey->getKeys(20)
+		));
+	}
 }

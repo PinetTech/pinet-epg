@@ -73,7 +73,7 @@
                                                     </dl>
                                                 </div>
                                                 <div class="movie__control">
-                                                    <a href={$v->url} class="button">play</a>
+                                                    <a href={$v->url} class="button">播放</a>
                                                 </div>                            
                                             </div>
                                         </figure>
