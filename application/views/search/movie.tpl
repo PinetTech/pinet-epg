@@ -3,7 +3,7 @@
         {nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
-                    {resimg data-image="logo.png"}
+	                {a uri="/"}{resimg data-image="logo.png"}{/a}
                 </div>            
                 {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}

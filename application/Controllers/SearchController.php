@@ -40,6 +40,7 @@ class SearchController extends BaseController
 		return $this->render("search/movie", array(
 			'nav' => true,
 			"sifts"=>$sift,
+			'search'=>$search,
 			'movies'=>$titles,
 			"tab"=>array(
 				"navs"=>array(

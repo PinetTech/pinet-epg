@@ -48,7 +48,7 @@ class PlayHistorieModel extends DBModel {
 	}
 
 	public function getHotRecord($columnID , $limit=9){
-		$where = array('poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE),
+		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE),
 			new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)));
 		if($columnID){
 			$where['asset_column_ref.column_id'] = $columnID;
