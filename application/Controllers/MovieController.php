@@ -74,7 +74,6 @@ VIDEOJS_SWF
 	    ,true);
 
 		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
-		$title->assetClass = $this->movie->getMovieByTitleID($titleID)->asset_class;
 		$this->playhistorie->saveHistory(array(
 			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
 			'title_id' => $titleID
@@ -92,8 +91,8 @@ VIDEOJS_SWF
 
 	    $navs = $this->column->getAllColumns();
 	    $actions = $this->title->getHomeNavigations($navs);
-
-	    if($title->assetClass == 'Series') {
+	    var_dump($title);die;
+	    if($title->show_type == 'Serise') {
 			$series = $this->titleapplication->getSeries($title->package_id);
 
 	    }

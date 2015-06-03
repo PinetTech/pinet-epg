@@ -64,7 +64,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getMovieInfoByID($titleID){
-		$titles = $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director')
+		$titles = $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director,title.show_type')
 			->from('title')
 			->join('title_application',array('title.application_id'=>'title_application.id'))
 			->where(array('title.id' => $titleID))
