@@ -17,7 +17,7 @@ class MovieController extends BaseController
 	 * @Clips\Model({"column", "movie", "title"})
 	 */
 	public function index($columnID=1, $type='new') {
-
+		$this->request->session('column_id', $columnID);
 		$this->title('Pinet Home Page',true);
 		$sift = $this->movie->sift($columnID);
 
@@ -31,7 +31,6 @@ class MovieController extends BaseController
 		return $this->render('movie/list',array(
 			'nav' => true,
 			'slider' => true,
-			'search' => array('column_id'=>$columnID),
 			'column_id' => $columnID,
 			"sifts"=>$sift,
 			'movies'=>$movies,
@@ -121,6 +120,7 @@ VIDEOJS_SWF
 	 * @Clips\Model({"column", "movie", "title"})
 	 */
 	public function sift($columnID){
+		$this->request->session('column_id', $columnID);
 		$sift = $this->request->session('sift') ? $this->request->session('sift') : array();
 		$this->request->session('sift', array_merge($sift ,$this->get()));
 		$sift = $this->movie->sift($columnID);
@@ -135,7 +135,6 @@ VIDEOJS_SWF
 		return $this->render('movie/list',array(
 			'nav' => true,
 			'slider' => true,
-			'search' => array('column_id'=>$columnID),
 			'column_id' => $columnID,
 			'movies'=>$movies,
 			"sifts"=>$sift,

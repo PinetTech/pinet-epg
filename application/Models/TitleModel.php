@@ -3,6 +3,7 @@ namespace Pinet\EPG\Models;in_array(__FILE__, get_included_files()) or exit("No 
 
 use Clips\Libraries\DBModel;
 use Clips\SimpleAction;
+use Pinet\EPG\Core\ColumnAction;
 
 /**
  * Class TitleModel
@@ -277,7 +278,7 @@ class TitleModel extends DBModel {
 	public function getHomeNavigations($navs, $limit=10){
 		$actions = array();
 		foreach ($navs as $k=>$nav) {
-			$action = new SimpleAction(array('content' => 'movie/index/'.$nav->id, 'label' => $nav->column_name, 'type' => 'server'));
+			$action = new ColumnAction(array('content' => 'movie/index/'.$nav->id, 'label' => $nav->column_name, 'type' => 'server'));
 			$records = $this->playhistorie->getRecordsByColumnID($nav->id);
 			$count = count($records);
 			if($count != $limit){
