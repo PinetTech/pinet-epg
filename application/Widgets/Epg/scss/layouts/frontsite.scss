@@ -420,6 +420,9 @@ $menu-icons-length: length($menu-icons);
                 > a {
                     position: relative;
                     top: calc-res(20px);
+                    color: transparent;
+                }
+                &:hover > a {
                     color: #212121;
                 }
             }
