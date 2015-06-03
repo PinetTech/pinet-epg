@@ -10,6 +10,6 @@ use Clips\Object;
  * @Clips\Model(table="poster")
  */
 class PosterModel extends DBModel {
-
+	const POSTER_SIZE = '306x429';
 
 }

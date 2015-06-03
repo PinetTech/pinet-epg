@@ -34,4 +34,8 @@ class DeviceModel extends DBModel {
 		return $columns;
 	}
 
+	public function saveDevices($history){
+		return $this->insert($history);
+	}
+
 }

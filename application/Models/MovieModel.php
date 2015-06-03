@@ -2,7 +2,7 @@
 namespace Pinet\EPG\Models;in_array(__FILE__, get_included_files()) or exit("No direct script access allowed");
 
 use Clips\Libraries\DBModel;
-use Clips\SimpleAction;
+use Pinet\EPG\Core\SiftAction;
 
 /**
  * Class MovieModel
@@ -70,28 +70,28 @@ class MovieModel extends DBModel {
 		return $record;
 	}
 
-	public function sift($columnID){
+	public function sift($columnID=1){
 		$types = $this->getProgramTypes();
 		$areas = $this->getAreas();
 		$years = $this->getYears();
-		$type = new SimpleAction(array('content' => '/nav', 'label' => '按类型', 'type' => 'server'));
+		$type = new SiftAction(array('content' => '/nav', 'label' => '按类型', 'type' => 'server'));
 		$typeChildren = array();
 		foreach ($types as $k=>$v) {
-			$typeChildren[] = new SimpleAction(array('content' => '/movie/sift/'.$columnID.'?key=type&value='.$k, 'label' => $v, 'type' => 'server'));
+			$typeChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?type='.$k, 'label' => $v, 'type' => 'server'));
 		}
 		$type->children = $typeChildren;
 
-		$area = new SimpleAction(array('content' => '/nav', 'label' => '按地区', 'type' => 'server'));
+		$area = new SiftAction(array('content' => '/nav', 'label' => '按地区', 'type' => 'server'));
 		$areaChildren = array();
 		foreach ($areas as $k=>$v) {
-			$areaChildren[] = new SimpleAction(array('content' => '/movie/sift/'.$columnID.'?key=area&value='.$k, 'label' => $v, 'type' => 'server'));
+			$areaChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?area='.$k, 'label' => $v, 'type' => 'server'));
 		}
 		$area->children = $areaChildren;
 
-		$year = new SimpleAction(array('content' => '/nav', 'label' => '按年份', 'type' => 'server'));
+		$year = new SiftAction(array('content' => '/nav', 'label' => '按年份', 'type' => 'server'));
 		$yearChildren = array();
 		foreach ($years as $k=>$v) {
-			$yearChildren[] = new SimpleAction(array('content' => '/movie/sift/'.$columnID.'?key=year&value='.$k, 'label' => $v, 'type' => 'server'));
+			$yearChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?year='.$k, 'label' => $v, 'type' => 'server'));
 		}
 		$year->children = $yearChildren;
 		return array($type,$area,$year);
