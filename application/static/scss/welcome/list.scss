@@ -161,7 +161,9 @@ $movie-sel: get-module("movie", "selector");
                             color: #ff8f00;
                         }
                         &.active {
-                            color: #ff8f00;
+                            > a {
+                                color: #ff8f00;    
+                            }
                         }
                     }
                 }
