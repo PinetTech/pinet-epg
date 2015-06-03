@@ -48,7 +48,7 @@ class PlayHistorieModel extends DBModel {
 	}
 
 	public function getHotRecord($columnID , $limit=9){
-		$where = array('poster.image_aspect_ratio'=>'306x429',
+		$where = array('poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE),
 			new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)));
 		if($columnID){
 			$where['asset_column_ref.column_id'] = $columnID;
@@ -65,8 +65,8 @@ class PlayHistorieModel extends DBModel {
 				->result();
 	}
 
-	public function getPlayTimesByTitleID($titleID){
-		return $this->select('count(1) as count')->from('play_histories')->where(array('title_id'=>$titleID))->result()[0]->count;
+	public function getPlayTimesByPackageID($packeageID){
+		return $this->select('count(1) as count')->from('play_histories')->where(array('package_id'=>$packeageID))->result()[0]->count;
 	}
 
 	public function getRecordsByColumnID($columnID, $limit=10){

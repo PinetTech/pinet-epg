@@ -5,7 +5,7 @@
                 <div class="actionbar__brand">
                     {resimg data-image="logo.png"}
                 </div>            
-                {form class="actionbar__search-form" name="search"}
+                {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}
                         {input}
                         <i class="fa fa-times" remove-input-val-trigger="#field_search"></i>

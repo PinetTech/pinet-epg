@@ -31,8 +31,11 @@ class SearchController extends BaseController
 		foreach ($titles as $k=>$v) {
 			$titles[$k]->url = \Clips\static_url('movie/play/'.$v->id);
 		}
+//		echo '<pre>';
+//		var_dump($this->column->getColumnMovieCount($titles));die;
 
-		$sift = $this->movie->sift();
+		$sift = $this->movie->sift('all');
+		$this->formData('search', (object)(array('search'=>$search)));
 
 		return $this->render("search/movie", array(
 			'nav' => true,
