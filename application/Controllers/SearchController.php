@@ -26,6 +26,7 @@ class SearchController extends BaseController
 	 * @Clips\Model({"title","column","movie"})
 	 */
 	public function movie() {
+		$this->request->session('sift',null);
 		$search = $this->request->post('search') ? $this->request->post('search') : $this->request->get('search');
 		$columnID = $this->request->post('column_id');
 		$this->request->session('column_id', $columnID);

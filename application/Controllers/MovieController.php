@@ -18,6 +18,7 @@ class MovieController extends BaseController
 	 */
 	public function index($columnID=1, $type='new') {
 		$this->request->session('column_id', $columnID);
+		$this->request->session('sift',null);
 		$this->title('Pinet Home Page',true);
 		$sift = $this->movie->sift($columnID);
 
