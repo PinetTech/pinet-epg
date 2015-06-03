@@ -27,19 +27,20 @@ class SearchController extends BaseController
 	 */
 	public function movie() {
 		$search = $this->request->post('search') ? $this->request->post('search') : $this->request->get('search');
-		$titles = $this->title->getTitlesByHotKey($search);
+		$columnID = $this->request->post('column_id');
+		$this->request->session('column_id', $columnID);
+		$titles = $this->title->getTitlesByHotKey($search, $columnID);
 		foreach ($titles as $k=>$v) {
 			$titles[$k]->url = \Clips\static_url('movie/play/'.$v->id);
 		}
-//		echo '<pre>';
-//		var_dump($this->column->getColumnMovieCount($titles));die;
 
-		$sift = $this->movie->sift('all');
+		$sift = $this->movie->sift($columnID);
 		$this->formData('search', (object)(array('search'=>$search)));
 
 		return $this->render("search/movie", array(
 			'nav' => true,
 			"sifts"=>$sift,
+			'search'=>$search,
 			'movies'=>$titles,
 			"tab"=>array(
 				"navs"=>array(

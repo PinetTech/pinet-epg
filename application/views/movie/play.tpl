@@ -3,10 +3,11 @@
 		{nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
-                    {resimg data-image="logo.png"}
+                    {a uri="/"}{resimg data-image="logo.png"}{/a}
                 </div>            
                 {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}{/field}
+                    {field field="column_id"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
                     {/label}
@@ -24,23 +25,16 @@
         	<div class="videoplayer">
         		<div class="videoplayer__body">
 			        {video src="{$movie->playUrl}"}
-			        {if ($movie->assetClass == 'series' ) }
+			        {* {if ($movie->show_type == 'Serise' ) } *}
         			<div class="videoplayer__list" >
         				<h3>剧集</h3>
         				<ul>
-				        	<li><a href="">1</a></li>
-				        	<li><a href="">2</a></li>
-				        	<li><a href="">3</a></li>
-				        	<li><a href="">4</a></li>
-				        	<li><a href="">5</a></li>
-				        	<li><a href="">6</a></li>
-				        	<li><a href="">7</a></li>
-				        	<li><a href="">8</a></li>
-				        	<li><a href="">9</a></li>
-				        	<li><a href="">10</a></li>
+			                {foreach $seriesList as $v}
+				                <li>{a uri="/movie/play/{$v->titleID}"}{$v->episode}{/a}</li>
+					        {/foreach}
 				        </ul>
 			        </div>
-			        {/if}
+			        {* {/if} *}
         		</div>
         	</div>
 	        {div class="tab"}

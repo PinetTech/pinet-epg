@@ -3,13 +3,14 @@
         {nav}
             <div class="actionbar">
                 <div class="actionbar__brand">
-                    {resimg data-image="logo.png"}
+	                {a uri="/"}{resimg data-image="logo.png"}{/a}
                 </div>            
                 {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}
                         {input}
                         <i class="fa fa-times" remove-input-val-trigger="#field_search"></i>
-                    {/field}                
+                    {/field}
+                    {field field="column_id"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
                     {/label}
