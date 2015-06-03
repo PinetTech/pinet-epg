@@ -1,0 +1,137 @@
+@mixin error500-init() {
+	body {
+		background: #FEFEFE;			
+	}	
+}
+
+@include error500-init();
+
+@mixin error500-desktop() {
+	@mixin nav() {
+		nav {
+			height: calc-res(310px);
+		}
+	}
+
+	@mixin error-message() {
+		.error-message {
+			height: calc-res(850px);
+			border-top: 1px solid #d2d2d2;
+			border-bottom: 1px solid #d2d2d2;
+			.message {
+				position: absolute;
+				left: 43%;
+				top: calc-res(492px);
+				&__title {
+					font-size: 144px;
+					color: #EE4040;
+					margin: 0;
+					line-height: normal;
+				}
+				&__content {
+					font-size: 27px;
+					color: #1C1C1C;
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	@mixin error-section() {
+		.error-section {
+			height: calc-res(740px);
+			padding-top: calc-res(166px);
+			.button {
+				display: block;
+				width: calc-res(350px);
+				height: calc-res(110px);
+				text-align: center;
+				margin: 0 auto;
+				background-image: linear-gradient(0deg, #D02525 0%, #E01818 100%);
+				border-radius: 5px;
+				font-size: 18px;
+				color: #FFFFFF;
+				line-height: calc-res(110px);				
+			}
+		}
+	}
+
+	@mixin constructor(){
+		@include nav();
+		@include error-message();
+		@include error-section();
+	}
+	@include constructor();
+}
+
+@mixin error500-mobile() {
+	@mixin nav() {
+		nav {
+			height: 50px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+	}
+
+	@mixin error-message() {
+		.error-message {
+			height: res(mobile-to-pc(360px));
+			border-top: 1px solid #d2d2d2;
+			.message {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				top: res(mobile-to-pc(163px));
+				&__title {
+					font-size: 58.08px;
+					color: #EE4040;
+					margin: 0;
+					line-height: normal;
+				}
+				&__content {
+					font-size: 18px;
+					color: #1C1C1C;
+					margin: 0;
+					width: res(mobile-to-pc(220px));
+				}
+			}
+		}
+	}	
+
+	@mixin error-section() {
+		.error-section {
+			height: res(mobile-to-pc(135px));	
+			padding-top: res(mobile-to-pc(30px));
+			.button {
+				display: block;
+				width: res(mobile-to-pc(175px));
+				height: res(mobile-to-pc(55px));
+				text-align: center;
+				margin: 0 auto;
+				background-image: linear-gradient(0deg, #D02525 0%, #E01818 100%);
+				border-radius: 5px;
+				font-size: 18px;
+				color: #FFFFFF;
+				line-height: res(mobile-to-pc(55px));				
+			}			
+		}
+	}	
+
+	@mixin constructor(){
+		@include nav();
+		@include error-message();
+		@include error-section();
+	}
+	@include constructor();
+}
+
+@mixin section_error500($args...) {
+	@include device-desktop() {
+		@include error500-desktop();
+	}
+	@include device-mobile() {
+		@include error500-mobile();
+	}
+}

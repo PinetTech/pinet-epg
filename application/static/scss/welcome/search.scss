@@ -226,13 +226,13 @@ $table-sel: get-module("tab", "select");
 	                border-bottom: 1px solid #e5e5e5;
 	            }
 
-	            > li > a {
-	                width: 100%;
-	                padding: 0;
-	                font-size: 16.14px;
-	                color: #202020;
-	                line-height: 37px;                    
-	            }
+                > li > a {
+                    width: 100%;
+                    padding: 0;
+                    font-size: calc-res(32.28px);
+                    color: #202020;
+                    line-height: 37px;                    
+                }
 
 	            > li > a:hover {
 	                background-color: transparent;
