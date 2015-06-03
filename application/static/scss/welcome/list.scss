@@ -151,6 +151,11 @@ $movie-sel: get-module("movie", "selector");
                 .sub-navi {
                     > li {
                         float: left;
+                        &.active {
+                            > a {
+                                color: #ff8f00;    
+                            }
+                        }                        
                     }
                     > li > a {
                         padding: 0;
@@ -159,11 +164,6 @@ $movie-sel: get-module("movie", "selector");
                         &:hover {
                             background-color: transparent;
                             color: #ff8f00;
-                        }
-                        &.active {
-                            > a {
-                                color: #ff8f00;    
-                            }
                         }
                     }
                 }
