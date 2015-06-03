@@ -260,9 +260,11 @@ $table-sel: get-module("tab", "select");
 	                        background-color: transparent;
 	                        color: #ff8f00;
 	                    }
-	                    &.active {
-	                        color: #ff8f00;
-	                    }
+                        &.active {
+                            > a {
+                                color: #ff8f00;    
+                            }
+                        }
 	                }
 	            }
 	        }
