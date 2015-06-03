@@ -36,7 +36,7 @@ class TitleModel extends DBModel {
 	/**
 	 * @Clips\Model({ "searchKey" })
 	 */
-	public function getTitlesByHotKey($key, $columnID, $offset=0, $limit=10){
+	public function getTitlesByHotKey($key, $columnID=1, $offset=0, $limit=10){
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
 		$where = array(
@@ -94,7 +94,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getNewTitles($limit, $notIn=array()){
-		$where = array('poster.image_aspect_ratio'=>'306x429');
+		$where = array('poster.original'=>'1');
 		if($notIn){
 			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', implode(',', $notIn));
 		}
@@ -220,9 +220,14 @@ class TitleModel extends DBModel {
 		}
 		if(isset($session['type'])) {
 			foreach ($records as $k=>$v) {
+				$types = explode(',',$v->type);
+				foreach ($types as $k=>$v) {
+					$types[$k] = trim($v);
+				}
+
 				if($session['type'] == 'all') {
 
-				}elseif(!in_array($session['type'],explode(',',$v->type))) {
+				}elseif(!in_array($session['type'],$types)) {
 					unset($records[$k]);
 				}
 			}

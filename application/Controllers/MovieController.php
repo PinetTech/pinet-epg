@@ -79,6 +79,13 @@ VIDEOJS_SWF
 			'title_id' => $titleID
 		));
 
+	    $this->playhistorie->saveDevices(array(
+			    'mac' => (string)\Clips\ip2mac($this->request->getIP()),
+			    'create_date' => date("Y-m-d H:i:s",time()),
+			    'uagent' => $_SERVER['HTTP_USER_AGENT'],
+			    'play_uri' => $_SERVER['REQUEST_URI']
+        ));
+
 		$sames = $this->title->getSameTypeMovies($titleID);
         $this->title($title->asset_name,true);
 
@@ -115,15 +122,13 @@ VIDEOJS_SWF
 	 * @Clips\Model({"column", "movie", "title"})
 	 */
 	public function sift($columnID){
-		$key = $this->get('key');
-		$value = $this->get('value');
-		$type[$key] = $value;
-
-		$this->request->session('sift', $type);
+		$sift = $this->request->session('sift') ? $this->request->session('sift') : array();
+		$this->request->session('sift', array_merge($sift ,$this->get()));
 		$sift = $this->movie->sift($columnID);
 
 		$records = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
 		$records = $this->title->siftRecords($records,$this->request->session('sift'));
+		$movies = array();
 		foreach ($records as $v) {
 			$movies[] = (object)array('id'=>$v->id,'title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
 		}
