@@ -63,6 +63,7 @@ $movie-sel: get-module("movie", "selector");
         .videoplayer {
             display: -webkit-flex;
             display: -ms-flexbox;
+            display: -webkit-box;
             display: flex;
             width: 100%;
             padding: 20px 0;
@@ -71,10 +72,12 @@ $movie-sel: get-module("movie", "selector");
             background: #1F1F1F;            
             -webkit-justify-content: center;            
                 -ms-flex-pack: center;            
+                    -webkit-box-pack: center;            
                     justify-content: center;
             &__body {
                 display: -webkit-flex;
                 display: -ms-flexbox;
+                display: -webkit-box;
                 display: flex;
                 height: 100%;
                 background-color: #ffffff;
@@ -246,9 +249,11 @@ $movie-sel: get-module("movie", "selector");
                 font-size: res(mobile-to-pc(24px));
                 display: -webkit-flex;
                 display: -ms-flexbox;
+                display: -webkit-box;
                 display: flex;
                 -webkit-align-items: center;
                     -ms-flex-align: center;
+                        -webkit-box-align: center;
                         align-items: center;
                 > a {
                     color: #ffffff;
@@ -389,6 +394,7 @@ $movie-sel: get-module("movie", "selector");
                 .videolist {
                     display: -webkit-flex;
                     display: -ms-flexbox;
+                    display: -webkit-box;
                     display: flex;
                     width: 100%;
                     > ul {

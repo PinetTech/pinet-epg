@@ -58,6 +58,7 @@ $movie-sel: get-module("movie", "selector");
         .videoplayer {
             display: -webkit-flex;
             display: -ms-flexbox;
+            display: -webkit-box;
             display: flex;
             width: 100%;
             padding: 20px 0;
@@ -66,10 +67,12 @@ $movie-sel: get-module("movie", "selector");
             background: #1F1F1F;            
             -webkit-justify-content: center;            
                 -ms-flex-pack: center;            
+                    -webkit-box-pack: center;            
                     justify-content: center;
             &__body {
                 display: -webkit-flex;
                 display: -ms-flexbox;
+                display: -webkit-box;
                 display: flex;
                 height: 100%;
                 background-color: #ffffff;
@@ -116,8 +119,6 @@ $movie-sel: get-module("movie", "selector");
                         top: 10px;
                     };                    
                     > li {
-                        background: #222222;                        
-                        color: #ffffff;
                         display: block;
                         width: calc-res(90px);
                         height: calc-res(90px);
@@ -127,12 +128,24 @@ $movie-sel: get-module("movie", "selector");
                         text-align: center;
                         line-height: calc-res(90px);
                     }
-                    > li:hover {
-                        cursor: pointer;
-                        background-color: #c51313;
+                    > li > a {
+                        background: #222222;                        
+                        color: #ffffff;
+                        display: block;
+                        width: calc-res(90px);
+                        height: calc-res(90px);
+                        float: left;
+                        margin-right: 10px;
+                        margin-bottom: 10px;
+                        text-align: center;
+                        line-height: calc-res(90px);                        
                     }
-                    > li.active {
-                        background-color: #c51313;
+                    > li > a:hover {
+                        cursor: pointer;
+                        background-color: #c51313;                        
+                    }
+                    > li.active > a {
+                        background-color: #c51313;                        
                     }
                 }
             }
@@ -204,8 +217,8 @@ $movie-sel: get-module("movie", "selector");
                     padding-bottom: res(14px, 6.2px);
                     float: left;
                     margin-bottom: calc-res(60px);
-					width: 12.3%;      
-					margin-right: 2.3%;              
+                    width: 12.3%;      
+                    margin-right: 2.3%;              
                     .movie__title {
                         padding-left: calc-res(36px);                    
                         padding-right: calc-res(36px);
@@ -228,9 +241,9 @@ $movie-sel: get-module("movie", "selector");
                         }
                     }  
                 }
-			    #{$movie-sel}:nth-of-type(7n+7) {
-			        margin-right: 0;
-			    }                
+                #{$movie-sel}:nth-of-type(7n+7) {
+                    margin-right: 0;
+                }                
             }
         }
     }
@@ -270,9 +283,11 @@ $movie-sel: get-module("movie", "selector");
                 font-size: res(mobile-to-pc(24px));
                 display: -webkit-flex;
                 display: -ms-flexbox;
+                display: -webkit-box;
                 display: flex;
                 -webkit-align-items: center;
                     -ms-flex-align: center;
+                        -webkit-box-align: center;
                         align-items: center;
                 > a {
                     color: #ffffff;
@@ -303,7 +318,7 @@ $movie-sel: get-module("movie", "selector");
                 height: 100% !important;
                 background-color: #318273;
             }
-			.vjs-big-play-button {
+            .vjs-big-play-button {
                 @include position-center-center(absolute);
                 border-radius: 50%;
                 @include size(res(mobile-to-pc(67.03px)), res(mobile-to-pc(67.03px)));
@@ -313,8 +328,8 @@ $movie-sel: get-module("movie", "selector");
                     line-height: res(mobile-to-pc(67.03px));
                     font-size: res(mobile-to-pc(35px));
                     color: #ffffff;
-                }				
-			}           
+                }               
+            }           
             .vjs-progress-control {
                 overflow: hidden;
             }                             
@@ -440,6 +455,7 @@ $movie-sel: get-module("movie", "selector");
                 .videolist {
                     display: -webkit-flex;
                     display: -ms-flexbox;
+                    display: -webkit-box;
                     display: flex;
                     width: 100%;
                     > ul {
@@ -460,19 +476,30 @@ $movie-sel: get-module("movie", "selector");
                             margin-bottom: res(mobile-to-pc(12px));
                             text-align: center;
                             line-height: res(mobile-to-pc(43px));
-                            border: 1px solid #d3d3d3;
                         }
                         > li:nth-child(6n+6) {
                             margin-right: 0;
                         }
-                        > li:hover {
+                        > li > a {
+                            display: block;
+                            width: 100%;
+                            height: res(mobile-to-pc(43px));
+                            float: left;
+                            margin-right: 3.86%;
+                            margin-bottom: res(mobile-to-pc(12px));
+                            text-align: center;
+                            line-height: res(mobile-to-pc(43px));
+                            border: 1px solid #d3d3d3;
+                            color: #000000;
+                        }
+                        > li > a:hover {
                             cursor: pointer;
                             color: #ffffff;
                             background-color: #ff0000;
                         }
-                        > li.active {
+                        > li.active > a {
                             color: #ffffff;
-                            background-color: #ff0000;
+                            background-color: #ff0000;                            
                         }
                     }
                 }      
