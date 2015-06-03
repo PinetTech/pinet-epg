@@ -48,9 +48,8 @@ class TitleApplicationModel extends DBModel {
 		return $result;
 	}
 
-	public function getSeries($packageID){
-		$series = $this->get(array('id'=>$packageID));
-		var_dump($series);die;
+	public function getEpisodeNameByID($ID){
+		return $this->one(array('id'=>$ID));
 	}
 
 }

@@ -89,9 +89,9 @@ VIDEOJS_SWF
 
 	    $navs = $this->column->getAllColumns();
 	    $actions = $this->title->getHomeNavigations($navs);
-	    var_dump($title);die;
+//	    var_dump($title);die;
 	    if($title->show_type == 'Serise') {
-			$series = $this->titleapplication->getSeries($title->package_id);
+			$series = $this->title->getSeries($title->package_id);
 
 	    }
 

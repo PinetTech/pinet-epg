@@ -64,7 +64,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getMovieInfoByID($titleID){
-		$titles = $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director,title.show_type')
+		$titles = $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director,title.show_type,title.package_id')
 			->from('title')
 			->join('title_application',array('title.application_id'=>'title_application.id'))
 			->where(array('title.id' => $titleID))
@@ -340,5 +340,13 @@ class TitleModel extends DBModel {
 		return $news;
 	}
 
+	public function getSeries($packageID){
+		$series = $this->get(array('package_id'=>$packageID));
+		foreach ($series as $k=>$v) {
+			$app = $this->titleapplication->getEpisodeNameByID($v->application_id);
+			$series[$k]->episode_name = $app->episode_name;
+		}
 
+		var_dump($series);die;
+	}
 }
