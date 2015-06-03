@@ -48,7 +48,7 @@ class TitleApplicationModel extends DBModel {
 		return $result;
 	}
 
-	public function get_area(){
+	public function getSeries($packageID){
 
 	}
 

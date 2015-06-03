@@ -49,6 +49,7 @@ class ColumnModel extends DBModel {
 				$movies[$column->id] = array('id'=>$column->id, 'name'=> $column->column_name, 'count'=> $movies[$column->id]);
 			}
 		}
+		ksort($movies);
 		return $movies;
 	}
 
