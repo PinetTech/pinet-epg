@@ -83,7 +83,7 @@ class TitleModel extends DBModel {
 				'poster.image_aspect_ratio'=>'306x429'
 		);
 		if($notIn){
-			$where[] = new \Pinet\EPG\Core\NotIn('title.id', implode(',', $notIn));
+			$where[] = new \Pinet\EPG\Core\NotIn('title.id', $notIn);
 		}
 		$select->where($where);
 		$titles = $select->limit(0,$limit)
@@ -96,7 +96,7 @@ class TitleModel extends DBModel {
 	public function getNewTitles($limit, $notIn=array()){
 		$where = array('poster.original'=>'1');
 		if($notIn){
-			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', implode(',', $notIn));
+			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', $notIn);
 		}
 		$titles = $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
 				->from('title')
@@ -262,7 +262,7 @@ class TitleModel extends DBModel {
 	public function getNewTitlesByColumnID($columnID, $notIn=array() ,$limit=10){
 		$where = array('asset_column_ref.column_id'=>$columnID);
 		if($notIn){
-			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', implode(',', $notIn));
+			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', $notIn);
 		}
 		$titles = $this->select('title.id,title.asset_name,title.create_at')
 				->from('title')

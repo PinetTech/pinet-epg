@@ -49,7 +49,7 @@ class PlayHistorieModel extends DBModel {
 	public function getMovieHistories($titleIDs){
 		$result = array();
 		$plays = $this->select('title_id, count(title_id) as count')->from('play_histories')
-			->where(new \Pinet\EPG\Core\In('title_id', implode(',', $titleIDs)))
+			->where(new \Pinet\EPG\Core\In('title_id', $titleIDs))
 			->groupBy('title_id')
 			->result();
 		foreach($plays as $play){
