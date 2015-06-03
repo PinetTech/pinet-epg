@@ -88,10 +88,13 @@ VIDEOJS_SWF
 
 	    $navs = $this->column->getAllColumns();
 	    $actions = $this->title->getHomeNavigations($navs);
-//	    var_dump($title);die;
+	    $seriesList = array();
 	    if($title->show_type == 'Serise') {
 			$series = $this->title->getSeries($title->package_id);
-
+		    foreach ($series as $k=>$v) {
+			    $seriesList[$k]->titleID = $v->id;
+			    $seriesList[$k]->episode = $v->episode_name;
+		    }
 	    }
 
 	    return $this->render("movie/play", array(
@@ -99,6 +102,7 @@ VIDEOJS_SWF
 		    'actions'=>$actions,
 	        'movie'=>$title,
 	        'sames'=>$sames,
+		    'seriesList'=>$seriesList,
 			"tab"=>array(
 					"navs"=>array(
 							'nav1',
@@ -107,7 +111,7 @@ VIDEOJS_SWF
 					),
 					"contents"=>array(
 					)
-			)		        
+			)
 	    ));
     }
 
