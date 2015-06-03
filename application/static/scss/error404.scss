@@ -1,10 +1,101 @@
 @mixin error404-init() {
+	body {
+		background: #FEFEFE;			
+	}	
 }
 
 @include error404-init();
 
 @mixin error404-desktop() {
+	@mixin nav() {
+		nav {
+			height: calc-res(310px);
+		}
+	}
+
+	@mixin error-message() {
+		.error-message {
+			height: calc-res(850px);
+			border-top: 1px solid #d2d2d2;
+			border-bottom: 1px solid #d2d2d2;
+			.message {
+				position: absolute;
+				left: 43%;
+				top: calc-res(492px);
+				&__title {
+					font-size: 144px;
+					color: #EE4040;
+					margin: 0;
+					line-height: normal;
+				}
+				&__content {
+					font-size: 27px;
+					color: #1C1C1C;
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	@mixin error-section() {
+		.error-section {
+			height: calc-res(740px);
+			padding-top: calc-res(166px);
+			&__form {
+				width: calc-res(1504px);
+				margin: 0 auto;
+				display: table;
+				position: relative;
+	            .form-group {
+	            	display: table-cell;
+	            	vertical-align: top;
+	            	width: 100%;
+	            	> .form-label {
+					    position: absolute;
+					    top: -30px;
+					    z-index: 1000;
+						font-size: 14px;
+						color: #868686;
+	            	}
+	                > .form-input input {
+	                	width: 100%;
+	                	height: calc-res(90px);
+	                    font-size: 14px;
+	                    color: #A4A4A4;
+	                    line-height: 19px;   
+	                    padding-left: calc-res(40px);    
+	                }                
+	            }
+	            .submit {
+	                position: relative;
+	                display: table-cell;
+	                vertical-align: top;
+	                & > input {
+						width: calc-res(155px);	                	
+	                }	                
+	            }
+	            .submit:after {
+	                content: $fa-var-search;
+	                font-family: FontAwesome;
+	                font-size: calc-res(60px);
+	                height: calc-res(90px);
+	                background-color: #e01818;
+	                color: #ffffff;
+	                margin: 0;            
+	                @include position(absolute, 0, 0, 0, 0);
+	                cursor: pointer;
+	                text-align: center;
+	                line-height: calc-res(90px);
+	                width: calc-res(155px);
+	            }  				
+			}
+		}
+	}
+
 	@mixin constructor(){
+		@include nav();
+		@include error-message();
+		@include error-section();
 	}
 	@include constructor();
 }
@@ -18,8 +109,105 @@
 		}
 	}
 
+	@mixin error-message() {
+		.error-message {
+			height: res(mobile-to-pc(360px));
+			border-top: 1px solid #d2d2d2;
+			.message {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				-webkit-flex-direction: column;
+				    -ms-flex-direction: column;
+				        flex-direction: column;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				    -ms-flex-pack: center;
+				        justify-content: center;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				    -ms-flex-align: center;
+				        align-items: center;
+				position: relative;
+				top: res(mobile-to-pc(163px));
+				&__title {
+					font-size: 58.08px;
+					color: #EE4040;
+					margin: 0;
+					line-height: normal;
+				}
+				&__content {
+					font-size: 18px;
+					color: #1C1C1C;
+					margin: 0;
+					width: res(mobile-to-pc(220px));
+				}
+			}
+		}
+	}	
+
+	@mixin error-section() {
+		.error-section {
+			height: res(mobile-to-pc(135px));	
+			padding-top: res(mobile-to-pc(30px));
+			&__form {
+				width: res(mobile-to-pc(364px));
+				margin: 0 auto;
+				display: table;
+				position: relative;
+	            .form-group {
+	            	display: table-cell;
+	            	vertical-align: top;
+	            	width: 100%;
+	            	> .form-label {
+					    position: absolute;
+					    top: -30px;
+					    z-index: 1000;
+						font-size: 14px;
+						color: #868686;
+	            	}
+	                > .form-input input {
+	                	width: 100%;
+	                	height: res(mobile-to-pc(43px));
+	                    font-size: 14px;
+	                    color: #A4A4A4;
+	                    line-height: 19px;   
+	                    padding-left: res(mobile-to-pc(19.9px));    
+	                }                
+	            }
+	            .submit {
+	                position: relative;
+	                display: table-cell;
+	                vertical-align: top;
+	                & > input {
+						width: res(mobile-to-pc(82px));	                	
+	                }
+	            }
+	            .submit:after {
+	                content: $fa-var-search;
+	                font-family: FontAwesome;
+	                font-size: res(mobile-to-pc(30px));
+	                height: res(mobile-to-pc(43px));
+	                background-color: #e01818;
+	                color: #ffffff;
+	                margin: 0;            
+	                @include position(absolute, 0, 0, 0, 0);
+	                cursor: pointer;
+	                text-align: center;
+	                line-height: res(mobile-to-pc(43px));
+	                width: res(mobile-to-pc(82px));
+	            }  				
+			}			
+		}
+	}	
+
 	@mixin constructor(){
 		@include nav();
+		@include error-message();
+		@include error-section();
 	}
 	@include constructor();
 }

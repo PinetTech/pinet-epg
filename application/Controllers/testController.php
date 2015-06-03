@@ -229,11 +229,12 @@ class TestController extends BaseController
     }
 
     /**
+     * @Clips\Form({"search"})
      * @Clips\Widget({"epg", "navigation", "image"})
      * @Clips\Scss({"error404"})
      */
     public function showerror() {
-        return $this->render('welcome/404');
+        return $this->render('error/404');
     }   
 
 }

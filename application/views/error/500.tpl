@@ -12,17 +12,12 @@
 		<main>
 			<div class="error-message">
 				<div class="message">
-					<h3 class="message__title">404</h3>
-					<p class="message__content">Sorry,电视台可能放假,今天没节目看啦!</p>
+					<h3 class="message__title">500</h3>
+					<p class="message__content">Sorry,再精彩的节目,没有电也看不成啦!</p>
 				</div>
 			</div>
 			<div class="error-section">
-                {form class="error-section__form" name="search" action='search/movie/'}
-                    {field field="search"}{/field}
-                    {label class="submit"}
-                        {submit value="搜索"}
-                    {/label}
-                {/form}
+				{a href="" class="button"}返回首页{/a}
 			</div>
 		</main>
 	{/block}

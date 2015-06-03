@@ -135,7 +135,7 @@ $movie-sel: get-module("movie", "selector");
                 > li > a {
                     width: 100%;
                     padding: 0;
-                    font-size: 16.14px;
+                    font-size: calc-res(32.28px);
                     color: #202020;
                     line-height: 37px;                    
                 }
