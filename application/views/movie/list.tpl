@@ -7,6 +7,7 @@
                 </div>            
                 {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}{/field}
+                    {field field="column_id"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
                     {/label}
@@ -80,11 +81,11 @@
 						                    {a uri="movie/play/{$v->id}"}
 					                        {resimg data-image=$v->sourceurl class="movie__thumb"}
 						                    {/a}
-					                        <figcaption class="movie__title">{$v->title}</figcaption>
+					                        <figcaption class="movie__title">{$v->asset_name}</figcaption>
 					                        <div class="movie__views">
 					                            <div class="count-number">
 					                                <div class="count-number__icon"></div>
-					                                <div class="count-number__text">{$v->record}</div>
+					                                <div class="count-number__text">{$v->count}</div>
 					                            </div>
 					                        </div>
 					                    </figure>

@@ -23,17 +23,15 @@ class MovieController extends BaseController
 
 		$movies = array();
 		if($type == 'hot') {
-			$records = $this->title->getHotsByColumnID($columnID,$offset=0,$limit=10);
+			$movies = $this->title->getHotsByColumnID($columnID,$offset=0,$limit=10);
 		}elseif($type == 'new'){
-			$records = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
-		}
-		foreach ($records as $v) {
-			$movies[] = (object)array('id'=>$v->id,'title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
+			$movies = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
 		}
 
 		return $this->render('movie/list',array(
 			'nav' => true,
 			'slider' => true,
+			'search' => array('column_id'=>$columnID),
 			'column_id' => $columnID,
 			"sifts"=>$sift,
 			'movies'=>$movies,
@@ -115,7 +113,7 @@ VIDEOJS_SWF
     }
 
 	/**
-	 *
+	 * @Clips\Form({"search"})
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
@@ -134,22 +132,23 @@ VIDEOJS_SWF
 		}
 
 		return $this->render('movie/list',array(
-				'nav' => true,
-				'slider' => true,
-				'column_id' => $columnID,
-				'movies'=>$movies,
-				"sifts"=>$sift,
-				"tab"=>array(
-						"navs"=>array(
-								array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-								array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
-						),
-						"contents"=>array(
-								(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
-								(object)array('episodes'=>'1,2,3,4,5'),
-								(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
-						)
-				),
+			'nav' => true,
+			'slider' => true,
+			'search' => array('column_id'=>$columnID),
+			'column_id' => $columnID,
+			'movies'=>$movies,
+			"sifts"=>$sift,
+			"tab"=>array(
+					"navs"=>array(
+							array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+							array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
+					),
+					"contents"=>array(
+							(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
+							(object)array('episodes'=>'1,2,3,4,5'),
+							(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
+					)
+			)
 		));
 	}
 

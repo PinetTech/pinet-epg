@@ -251,6 +251,11 @@ $table-sel: get-module("tab", "select");
 	            .sub-navi {
 	                > li {
 	                    float: left;
+                        &.active {
+                            > a {
+                                color: #ff8f00;    
+                            }
+                        }	                    
 	                }
 	                > li > a {
 	                    padding: 0;
@@ -258,9 +263,6 @@ $table-sel: get-module("tab", "select");
 	                    margin-right: 15px;
 	                    &:hover {
 	                        background-color: transparent;
-	                        color: #ff8f00;
-	                    }
-	                    &.active {
 	                        color: #ff8f00;
 	                    }
 	                }

@@ -9,7 +9,8 @@
                     {field field="search"}
                         {input}
                         <i class="fa fa-times" remove-input-val-trigger="#field_search"></i>
-                    {/field}                
+                    {/field}
+                    {field field="column_id"}{/field}
                     {label class="submit"}
                         {submit value="搜索"}
                     {/label}
