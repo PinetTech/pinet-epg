@@ -14,6 +14,7 @@ class In extends WhereOperator {
 	}
 
 	public function toString() {
-		return $this->left.' in (?)';
+		$r = str_pad('?', (count($this->right)-1)*2+1, '?,', STR_PAD_LEFT);
+		return $this->left." in ($r)";
 	}
 }
