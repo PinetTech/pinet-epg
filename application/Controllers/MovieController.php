@@ -17,6 +17,7 @@ class MovieController extends BaseController
 	 * @Clips\Model({"column", "movie", "title"})
 	 */
 	public function index($columnID=1, $type='new') {
+
 		$this->title('Pinet Home Page',true);
 		$sift = $this->movie->sift($columnID);
 
@@ -56,7 +57,7 @@ class MovieController extends BaseController
      * @Clips\Js({"application/static/js/movie/play.js"})
      * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
 	 * @Clips\Scss({"movie/play"})
-	 * @Clips\Model({"playHistorie", "title", "movie","column","TitleApplication"})
+	 * @Clips\Model({"playHistorie", "title", "movie","column","titleApplication","device"})
      */
     public function play($titleID) {
 		$title = $this->title->getMovieInfoByID($titleID);
@@ -79,11 +80,11 @@ VIDEOJS_SWF
 			'title_id' => $titleID
 		));
 
-	    $this->playhistorie->saveDevices(array(
+	    $this->device->saveDevices(array(
 			    'mac' => (string)\Clips\ip2mac($this->request->getIP()),
 			    'create_date' => date("Y-m-d H:i:s",time()),
 			    'uagent' => $_SERVER['HTTP_USER_AGENT'],
-			    'play_uri' => $_SERVER['REQUEST_URI']
+			    'play_uri' => \Clips\context('uri')
         ));
 
 		$sames = $this->title->getSameTypeMovies($titleID);
@@ -93,7 +94,7 @@ VIDEOJS_SWF
 	    $actions = $this->title->getHomeNavigations($navs);
 
 	    if($title->assetClass == 'Series') {
-			$series = $this->title->getSeriesByTitle($title->asset_name);
+			$series = $this->titleapplication->getSeries($title->package_id);
 
 	    }
 

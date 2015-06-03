@@ -35,12 +35,12 @@ class SearchController extends BaseController
 //		var_dump($this->column->getColumnMovieCount($titles));die;
 
 		$sift = $this->movie->sift('all');
+		$this->formData('search', (object)(array('search'=>$search)));
 
 		return $this->render("search/movie", array(
 			'nav' => true,
 			"sifts"=>$sift,
 			'movies'=>$titles,
-			'search'=>$search,
 			"tab"=>array(
 				"navs"=>array(
 					'全部',

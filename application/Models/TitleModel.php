@@ -17,18 +17,18 @@ class TitleModel extends DBModel {
 	}
 
 	public function getTitlesByColumn($column_id, $limit=0){
-		$titles = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl')
+		$titles = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
 			->from('title')
 			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))
 			->where(array('asset_column_ref.column_id'=>$column_id,
-				'poster.image_aspect_ratio'=>'306x429',
+				'poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE),
 				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
 			->groupBy('title.package_id')
 			->limit(0, $limit)
 			->result();
 		foreach ($titles as $k=>$v) {
-			$titles[$k]->record = $this->playhistorie->getPlayTimesByTitleID($v->id);
+			$titles[$k]->record = $this->playhistorie->getPlayTimesByPackageID($v->package_id);
 		}
 		return $titles;
 	}
@@ -45,7 +45,7 @@ class TitleModel extends DBModel {
 					new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
 					new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
 			),
-			'poster.image_aspect_ratio'=>'306x429'
+			'poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE)
 		);
 		if($columnID){
 			$where['asset_column_ref.column_id'] = $columnID;
@@ -80,7 +80,7 @@ class TitleModel extends DBModel {
 				->join('poster',array('poster.title_id'=>'title.id'));
 		$where = array(
 			new \Clips\Libraries\NotOperator(array('title.asset_id' => null)),
-				'poster.image_aspect_ratio'=>'306x429'
+				'poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE)
 		);
 		if($notIn){
 			$where[] = new \Pinet\EPG\Core\NotIn('title.id', $notIn);
@@ -94,7 +94,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getNewTitles($limit, $notIn=array()){
-		$where = array('poster.original'=>'1');
+		$where = array('poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE));
 		if($notIn){
 			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', $notIn);
 		}
@@ -199,10 +199,10 @@ class TitleModel extends DBModel {
 		$typeAll = $this->array_unique_fb($typeAll);
 
 		foreach ($typeAll as $k=>$v) {
-			$typeAll[$k]['count'] = $this->playhistorie->getPlayTimesByTitleID($v['id']);
+			$typeAll[$k]['count'] = $this->playhistorie->getPlayTimesByPackageID($v['package_id']);
 			$poster = $this->poster->one(array(
 				'title_id' => $v['id'],
-				'image_aspect_ratio' => '306x429'
+				'image_aspect_ratio' => (PosterModel::POSTER_SIZE)
 			));
 			$typeAll[$k]['sourceurl'] = $poster->sourceurl;
 		}
@@ -313,7 +313,7 @@ class TitleModel extends DBModel {
 				->join('poster',array('poster.title_id'=>'title.id'))
 				->where(array('asset_column_ref.column_id'=>$columnID,
 						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
-						'poster.image_aspect_ratio'=>'306x429'
+						'poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE)
 				))
 				->groupBy('play_histories.package_id')
 				->orderBy("count desc")
@@ -328,15 +328,17 @@ class TitleModel extends DBModel {
 			->join('poster',array('poster.title_id'=>'title.id'))
 			->where(array('asset_column_ref.column_id'=>$columnID,
 				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
-				'poster.image_aspect_ratio'=>'306x429'
+				'poster.image_aspect_ratio'=>(PosterModel::POSTER_SIZE)
 			))
 			->groupBy('title.package_id')
 			->orderBy('title.create_at desc')
 			->limit($offset, $limit)
 			->result();
 		foreach ($news as $k=>$v) {
-			$news[$k]->count = $this->playhistorie->getPlayTimesByTitleID($v->id);
+			$news[$k]->count = $this->playhistorie->getPlayTimesByPackageID($v->package_id);
 		}
 		return $news;
 	}
+
+
 }
