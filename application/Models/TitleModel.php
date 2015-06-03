@@ -36,7 +36,7 @@ class TitleModel extends DBModel {
 	/**
 	 * @Clips\Model({ "searchKey" })
 	 */
-	public function getTitlesByHotKey($key, $columnID=1, $offset=0, $limit=10){
+	public function getTitlesByHotKey($key, $columnID, $offset=0, $limit=10){
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
 		$where = array(
@@ -322,7 +322,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getNewsByColumnID($columnID,$offset=0,$limit=10){
-		$news = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl')
+		$news = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
 			->from('title')
 			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))

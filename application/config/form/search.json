@@ -5,5 +5,14 @@
 		"rules": [
 			"required"
 		]
-	}
+	},
+    {
+        "field":"column_id",
+        "label":"",
+        "rules": [
+            {
+                "type": "hidden"
+            }
+        ]
+    }
 ]

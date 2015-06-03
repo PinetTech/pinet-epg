@@ -39,6 +39,7 @@ class BaseController extends Controller implements Initializable {
 	}
 
 	protected function render($template, $args = array(), $engine = null, $headers = array()) {
+		$this->formData('search', (object)\Clips\get_default($args, 'search', array('column_id'=>'')));
 		if(\Clips\get_default($args, 'nav', false)){
 			$navs = $this->column->getAllColumns();
 			$actions = $this->title->getHomeNavigations($navs);

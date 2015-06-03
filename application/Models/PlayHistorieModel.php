@@ -65,8 +65,8 @@ class PlayHistorieModel extends DBModel {
 				->result();
 	}
 
-	public function getPlayTimesByPackageID($packeageID){
-		return $this->select('count(1) as count')->from('play_histories')->where(array('package_id'=>$packeageID))->result()[0]->count;
+	public function getPlayTimesByPackageID($packageID){
+		return $this->select('count(1) as count')->from('play_histories')->where(array('package_id'=>$packageID))->result()[0]->count;
 	}
 
 	public function getRecordsByColumnID($columnID, $limit=10){
