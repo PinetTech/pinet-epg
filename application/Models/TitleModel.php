@@ -213,51 +213,45 @@ class TitleModel extends DBModel {
 	}
 
 	public function siftRecords($records,$session){
-		foreach ($records as $k=>$v) {
-			$title = $this->one('id',$v->id);
-			$records[$k]->type = $this->package->one('id',$title->package_id)->program_type_name;
-			$records[$k]->area = $this->titleapplication->one('id',$title->application_id)->area;
-			$records[$k]->year = $title->create_at;
-		}
-		if(isset($session['type'])) {
-			foreach ($records as $k=>$v) {
-				$types = explode(',',$v->type);
-				foreach ($types as $k=>$v) {
-					$types[$k] = trim($v);
-				}
-
-				if($session['type'] == 'all') {
-
-				}elseif(!in_array($session['type'],$types)) {
-					unset($records[$k]);
+		$siftRecords = array();
+		foreach($records as $record){
+			$title = $this->one('id',$record->id);
+			$titleApp = $this->titleapplication->one('id',$title->application_id);
+			$record->type = $this->package->one('id',$title->package_id)->program_type_name;
+			$record->area = $titleApp->area;
+			$record->director = $titleApp->director;
+			$record->actors = $titleApp->actors;
+			$record->year = $title->create_at;
+			if(isset($session['search']) && $session['search']) {
+				$search = $session['search'];
+				if(!(strpos($record->asset_name, $search) !== false || strpos($record->director, $search) !== false
+					|| strpos($record->actors, $search) !== false)){
+					continue;
 				}
 			}
-		}
-		if(isset($session['area'])) {
-			foreach ($records as $k=>$v) {
-				if($session['area'] == 'all') {
-
-				}elseif(strpos($v->area, $session['area'])===false) {
-					unset($records[$k]);
+			if(isset($session['type']) && $session['type'] && $session['type'] != 'all') {
+				if(!in_array($session['type'], array_map(function($type){ return trim($type);}, explode(',',$record->type)))){
+					continue;
 				}
 			}
-		}
-		if(isset($session['year'])) {
-			foreach ($records as $k=>$v) {
-				$year = substr($v->year,0,4);
-				if($session['year'] == 'all') {
-
-				}elseif(substr($session['year'],0,1) == '-'){
-					$year_sift = substr($session['year'],1,4);
-					if($year>$year_sift) {
-						unset($records[$k]);
-					}
-				}elseif(strpos($v->year, $session['year'])===false) {
-					unset($records[$k]);
+			if(isset($session['area']) && $session['area'] && $session['area'] != 'all') {
+				if(strpos($record->area, $session['area'])===false){
+					continue;
 				}
 			}
+			if(isset($session['year']) && $session['year'] && $session['year'] != 'all') {
+				$prefix = 0;
+				if(substr($session['year'],0,1) == '-'){
+					$prefix = 1;
+				}
+				$year = substr($record->year,$prefix,4);
+				if($year > $session['year']) {
+					continue;
+				}
+			}
+			$siftRecords[] = $record;
 		}
-		return $records;
+		return $siftRecords;
 	}
 
 	public function getNewTitlesByColumnID($columnID, $notIn=array() ,$limit=10){

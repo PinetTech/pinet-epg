@@ -39,7 +39,7 @@ class BaseController extends Controller implements Initializable {
 	}
 
 	protected function render($template, $args = array(), $engine = null, $headers = array()) {
-		$searches = array('search'=> \Clips\get_default($args, 'search', ''), 'column_id'=> $this->request->session('column_id'));
+		$searches = array('search'=> $this->request->session('search'), 'column_id'=> $this->request->session('column_id'));
 		$this->formData('search', (object)$searches);
 		if(\Clips\get_default($args, 'nav', false)){
 			$navs = $this->column->getAllColumns();

@@ -19,6 +19,7 @@ class WelcomeController extends BaseController
 	public function index() {
 		$this->title('Pinet Home Page',true);
 		$this->request->session('column_id', null);
+		$this->request->session('search', null);
 		return $this->render('welcome/index', array(
 			'nav' => true,
 			'slider' => true,
