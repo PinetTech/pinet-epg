@@ -74,9 +74,11 @@
         });
     }
 
-    $('#field_search').each(function(){
-        $(this).hasContentState();
-    });
+    if($('#field_search').length > 0) {
+        $('#field_search').each(function(){
+            $(this).hasContentState();
+        })
+    }
 })();
 
 $(function(){

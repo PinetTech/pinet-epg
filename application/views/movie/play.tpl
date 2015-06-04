@@ -25,7 +25,8 @@
         	<div class="videoplayer">
         		<div class="videoplayer__body">
 			        {video src="{$movie->playUrl}"}
-			        {* {if ($movie->show_type == 'Serise' ) } *}
+			        <div class="video-button-text">现在播放</div>
+			        {if ($movie->show_type == 'Serise' ) }
         			<div class="videoplayer__list" >
         				<h3>剧集</h3>
         				<ul>
@@ -34,7 +35,7 @@
 					        {/foreach}
 				        </ul>
 			        </div>
-			        {* {/if} *}
+			        {/if}
         		</div>
         	</div>
 	        {div class="tab"}

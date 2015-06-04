@@ -68,6 +68,8 @@ class MovieController extends BaseController
 	videojs.options.flash.swf = Clips.staticUrl('application/Widgets/VideoJs/js/video-js.swf');
 	// initialize the player
 	var player = videojs('video');
+	setPoster(player, Clips.staticUrl('application/static/img/poster.png'), Clips.staticUrl('application/static/img/poster.png'));
+	$(player.el()).find('.vjs-big-play-button span').text($('.video-button-text').text());
 VIDEOJS_SWF
 	    ,true);
 
