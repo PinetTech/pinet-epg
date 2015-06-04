@@ -132,18 +132,21 @@ VIDEOJS_SWF
 	public function sift($columnID){
 		$this->request->session('column_id', $columnID);
 		$sift = $this->request->session('sift') ? $this->request->session('sift') : array();
+		if($this->request->session('search')){
+			$sift['search'] = $this->request->session('search');
+		}
 		$this->request->session('sift', array_merge($sift ,$this->get()));
-		$sift = $this->movie->sift($columnID);
+		$siftTypes = $this->movie->sift($columnID);
 
 		$movies = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
-		$movies = $this->title->siftRecords($movies,$this->request->session('sift'));
+		$movies = $this->title->siftRecords($movies, $this->request->session('sift'));
 
 		return $this->render('movie/list',array(
 			'nav' => true,
 			'slider' => true,
 			'column_id' => $columnID,
 			'movies'=>$movies,
-			"sifts"=>$sift,
+			"sifts"=>$siftTypes,
 			"tab"=>array(
 					"navs"=>array(
 							array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
