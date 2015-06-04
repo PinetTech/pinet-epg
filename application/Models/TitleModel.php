@@ -212,8 +212,53 @@ class TitleModel extends DBModel {
 
 	}
 
-	public function siftRecords($records,$session){
-		$siftRecords = array();
+	public function siftRecords($session,$columnID){
+		$where = array();
+		if(isset($session['search']) && $session['search']) {
+			$search = $session['search'];
+			$where[] = new \Clips\Libraries\OrOperator(
+					array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$search.'%'),
+							new \Clips\Libraries\LikeOperator('title_application.director', '%'.$search.'%'),
+							new \Pinet\EPG\Core\FindInSet('title_application.actors', $search))
+			);
+		}
+		if(isset($session['type']) && $session['type'] && $session['type'] != 'all') {
+			$type = $session['type'];
+			$where[] = new \Clips\Libraries\LikeOperator('package.program_type_name', '%'.$type.'%');
+		}
+		if(isset($session['area']) && $session['area'] && $session['area'] != 'all') {
+			$area = $session['area'];
+			$where[] = new \Clips\Libraries\LikeOperator('title_application.area', '%'.$area.'%');
+		}
+		if(isset($session['year']) && $session['year'] && $session['year'] != 'all') {
+			$siftYear = $session['year'];
+			if(substr($siftYear,0,1) == '-'){
+				$where["date_format(title.create_at, '%Y')"] = new \Clips\Libraries\CommonOperator('year', $siftYear, '<');
+			}else{
+				$where["date_format(title.create_at, '%Y')"] = $siftYear;
+			}
+		}
+		$where['asset_column_ref.column_id'] = $columnID;
+		$where['poster.image_aspect_ratio'] = '300x428';
+		$where[] = new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null));
+		$titles = $this->select("count(play_histories.id) as count ,min(title.id) as id, package.program_type_name,
+								title_application.director,title_application.actors,title_application.area,
+								title.asset_name,poster.sourceurl,title.package_id,date_format(title.create_at, '%Y') as year")
+						->from('title')
+						->join('poster',array('poster.title_id'=>'title.id'))
+						->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+						->join('package',array('package.id'=>'title.package_id'))
+						->join('title_application',array('title_application.id'=>'title.application_id'))
+						->join('play_histories',array('play_histories.package_id'=>'title.package_id'),'left')
+						->where($where)
+						->groupBy('title.package_id')
+						->orderBy('title.create_at desc')
+						->result();
+//		var_dump($titles);die;
+		return $titles;
+
+
+/*		$siftRecords = array();
 		foreach($records as $record){
 			$title = $this->one('id',$record->id);
 			$titleApp = $this->titleapplication->one('id',$title->application_id);
@@ -251,7 +296,7 @@ class TitleModel extends DBModel {
 			}
 			$siftRecords[] = $record;
 		}
-		return $siftRecords;
+		return $siftRecords;*/
 	}
 
 	public function getNewTitlesByColumnID($columnID, $notIn=array() ,$limit=10){
