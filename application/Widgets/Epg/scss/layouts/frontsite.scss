@@ -594,6 +594,7 @@ $menu-icons-length: length($menu-icons);
             }
             > li:last-child {
                 display: block;
+                margin-left: 0;
             }
         }
         .copyright {
