@@ -37,8 +37,8 @@ class MovieController extends BaseController
 			'movies'=>$movies,
 			"tab"=>array(
 				"navs"=>array(
-					array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-					array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
+					array('name'=>'Latest','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+					array('name'=>'Hottest','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 				),
 				"contents"=>array(
 					(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
@@ -55,9 +55,14 @@ class MovieController extends BaseController
      * @Clips\Js({"application/static/js/movie/play.js"})
      * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
 	 * @Clips\Scss({"movie/play"})
-	 * @Clips\Model({"playHistorie", "title", "movie","column","titleApplication","device"})
+	 * @Clips\Model({"playHistorie", "title", "movie","column","assetColumnRef","device"})
      */
     public function play($titleID) {
+	    $this->request->session('column_id', null);
+	    $columnRef = $this->assetcolumnref->getColumnByID($titleID);
+	    if(isset($columnRef->column_id)){
+	        $this->request->session('column_id', $columnRef->column_id);
+	    }
 		$title = $this->title->getMovieInfoByID($titleID);
 		if(!isset($title->id)){
 			echo 'Not Found This Movie!';//todo need redirect 404 page
@@ -93,8 +98,9 @@ VIDEOJS_SWF
 	    if($title->show_type == 'Serise') {
 			$series = $this->title->getSeries($title->package_id);
 		    foreach ($series as $k=>$v) {
-			    $seriesList[$k]->titleID = $v->id;
-			    $seriesList[$k]->episode = $v->episode_name;
+			    $seriesList[$k]['titleID'] = $v->id;
+			    $seriesList[$k]['episode'] = $v->episode_name;
+			    $seriesList[$k]['active'] = ($v->id == $titleID ? 'active' : '');
 		    }
 	    }
 
@@ -129,12 +135,8 @@ VIDEOJS_SWF
 		$this->request->session('sift', array_merge($sift ,$this->get()));
 		$sift = $this->movie->sift($columnID);
 
-		$records = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
-		$records = $this->title->siftRecords($records,$this->request->session('sift'));
-		$movies = array();
-		foreach ($records as $v) {
-			$movies[] = (object)array('id'=>$v->id,'title'=>$v->asset_name, 'sourceurl'=>$v->sourceurl,'record'=>$v->count);
-		}
+		$movies = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
+		$movies = $this->title->siftRecords($movies,$this->request->session('sift'));
 
 		return $this->render('movie/list',array(
 			'nav' => true,

@@ -4,7 +4,7 @@
             <div class="actionbar">
                 <div class="actionbar__brand">
                     {a uri="/"}{resimg data-image="logo.png"}{/a}
-                </div>            
+                </div>
                 {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}{/field}
                     {field field="column_id"}{/field}
@@ -15,26 +15,26 @@
                 <div class="actionbar__back">
                 	<i class="fa fa-chevron-left"></i>
                     <a href="" class="button">电影</a>
-                </div>               
+                </div>
             </div>
             {navigation id="menu" class="menu" actions=$actions}{/navigation}
-        {/nav}	
+        {/nav}
 	{/block}
 	{block name="content"}
         <main>
         	<div class="videoplayer">
         		<div class="videoplayer__body">
 			        {video src="{$movie->playUrl}"}
-			        {if ($movie->show_type == 'Serise' ) }
+			         {if ($movie->show_type == 'Serise' ) }
         			<div class="videoplayer__list" >
-        				<h3>剧集</h3>
+        				<h3>{lang}Episode{/lang}</h3>
         				<ul>
 		                {foreach $seriesList as $v}
-			                <li>{a uri="/movie/play/{$v->titleID}"}{$v->episode}{/a}</li>
+			                <li class="{$v['active']}">{a uri="/movie/play/{$v['titleID']}"}{$v['episode']}{/a}</li>
 				        {/foreach}
 				        </ul>
 			        </div>
-			        {/if}
+			         {/if}
         		</div>
         	</div>
 	        {div class="tab"}
@@ -42,7 +42,7 @@
 	                {swiper__wrapper items=$tab['navs']}
 	                    {literal}
 	                        {swiper__slide}{a href="http://www.baidu.com"}{$item}{/a}{/swiper__slide}
-	                    {/literal}                    
+	                    {/literal}
 	                {/swiper__wrapper}
 	            {/swiper}
 	            {swiper class="tab__thumbs"}
@@ -50,41 +50,41 @@
 	                    {literal}
 	                        {swiper__slide}{/swiper__slide}
 	                    {/literal}
-	                {/swiper__wrapper}            
+	                {/swiper__wrapper}
 	            {/swiper}
 	            {swiper class="tab__content"}
 	                {swiper__wrapper}
 	                    {swiper__slide}
 					        <div class="movie-infomation summary">
 					        	<div class="movie-infomation__header">
-					        		<h3>简介</h3>
+					        		<h3>{lang}Synopsis{/lang}</h3>
 					        	</div>
 					        	<div class="movie-infomation__body">
-									<h3 class="movie-infomation__title">神奇蜘蛛侠</h3>	        		
+									<h3 class="movie-infomation__title">神奇蜘蛛侠</h3>
 									<dl class="movie-infomation__des">
-										<dt>主演</dt>
+										<dt>{lang}Protagonist{/lang}</dt>
 										<dd>不知道</dd>
-										<dt>导演</dt>
+										<dt>{lang}Directors{/lang}</dt>
 										<dd>不知道</dd>
-										<dt>简介</dt>	
+										<dt>{lang}Synopsis{/lang}</dt>
 										<dd>不知道</dd>
 									</dl>
 					        	</div>
 					        </div>
 	                    {/swiper__slide}
 	                    {swiper__slide}
-		        			<div class="videolist">
+		        			<div class="videolist">		        			
 		        				<ul>
-		        					<li>1</li>
-		        					<li>2</li>
-		        					<li>3</li>
-		        					<li>4</li>
-		        					<li>5</li>
-		        					<li>6</li>
-		        					<li>7</li>
-		        					<li>8</li>
-		        					<li>9</li>
-		        					<li>10</li>
+						        	<li><a href="">1</a></li>
+						        	<li><a href="">2</a></li>
+						        	<li><a href="">3</a></li>
+						        	<li><a href="">4</a></li>
+						        	<li><a href="">5</a></li>
+						        	<li><a href="">6</a></li>
+						        	<li><a href="">7</a></li>
+						        	<li><a href="">8</a></li>
+						        	<li><a href="">9</a></li>
+						        	<li><a href="">10</a></li>
 		        				</ul>
 		        			</div>
 	                    {/swiper__slide}
@@ -100,11 +100,11 @@
 				                                <div class="count-number__text">152万</div>
 				                            </div>
 				                        </div>
-				                    </figure>							
-								{/for}	                    		
+				                    </figure>
+								{/for}
 	                    	</div>
 	                    {/swiper__slide}
-	                {/swiper__wrapper}                        
+	                {/swiper__wrapper}
 	            {/swiper}
 	        {/div}
 			<div class="movie-infos">
@@ -115,18 +115,18 @@
 		        	<div class="movie-info__body">
 						<h3 class="movie-info__title">{$movie->asset_name}</h3>
 						<dl class="movie-info__des">
-							<dt>主演</dt>
+							<dt>{lang}Protagonist{/lang}</dt>
 							<dd>{$movie->actors}</dd>
-							<dt>导演</dt>
+							<dt>{lang}Directors{/lang}</dt>
 							<dd>{$movie->director}</dd>
-							<dt>简介</dt>	
+							<dt>{lang}Synopsis{/lang}</dt>
 							<dd>{$movie->summary_short}</dd>
 						</dl>
 		        	</div>
 		        </div>
 		        <div class="movie-info guess">
 		        	<div class="movie-info__header">
-		        		<h3>猜你喜欢</h3>
+		        		<h3>{lang}Guess you like{/lang}</h3>
 		        	</div>
 		        	<div class="movie-info__body">
 				        {foreach $sames as $v}
@@ -144,7 +144,7 @@
 	                    </figure>
 						{/foreach}
 		        	</div>
-		        </div>					
-			</div>        
-        </main>	
+		        </div>
+			</div>
+        </main>
 	{/block}

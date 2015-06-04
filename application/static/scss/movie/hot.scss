@@ -28,6 +28,7 @@ $table-sel: get-module("tab", "select");
 			height: 100%;
 		}		
 		main {
+			height: -webkit-calc(100% - 50px);
 			height: calc(100% - 50px);
 			.search-result {
 				display: none;
@@ -58,6 +59,7 @@ $table-sel: get-module("tab", "select");
 			&__search-form {
 				display: -webkit-flex;
 				display: -ms-flexbox;
+				display: -webkit-box;
 				display: flex;
 				width: 100%;
 				padding-left: 10px;
@@ -67,6 +69,7 @@ $table-sel: get-module("tab", "select");
 				.form-group {
 					-webkit-flex: 1;
 					    -ms-flex: 1;
+					        -webkit-box-flex: 1;
 					        flex: 1;
 					> .form-input {
 						position: relative;
@@ -99,9 +102,11 @@ $table-sel: get-module("tab", "select");
 						width: 1px;
 						display: -webkit-flex;
 						display: -ms-flexbox;
+						display: -webkit-box;
 						display: flex;
 						-webkit-align-items: flex-end;
 						    -ms-flex-align: end;
+						        -webkit-box-align: end;
 						        align-items: flex-end;
 						color: transparent;
 					}
@@ -125,12 +130,15 @@ $table-sel: get-module("tab", "select");
 		            position: relative;
 		            display: -webkit-flex;
 		            display: -ms-flexbox;
+		            display: -webkit-box;
 		            display: flex;
 		            -webkit-align-items: center;
 		                -ms-flex-align: center;
+		                    -webkit-box-align: center;
 		                    align-items: center;
 		            -webkit-transform: translateX(0);
-		                    transform: translateX(0);
+		                    -ms-transform: translateX(0);
+		                transform: translateX(0);
 		        }
 		        .submit .btn {
 		            display: block;

@@ -56,8 +56,31 @@
         }
     }
 
+    $.fn.resizeAdpat = function() {
+        var self = $(this);     
+        if($(window).width() > 1280) {
+            self.height($(window).width() * 0.3);   
+        }
+        else {
+            self.removeAttr("style");
+        }
+        $(window).resize(function(){
+            if($(window).width() > 1280) {
+                self.height($(window).width() * 0.3);
+            }
+            else {
+                self.removeAttr("style");
+            }            
+        });
+    }
+
     $('input').each(function(){
         $(this).hasContentState();
     });
-
 })();
+
+$(function(){
+    if($('.error-message').length > 0) {
+        $('.error-message').resizeAdpat();
+    }
+});

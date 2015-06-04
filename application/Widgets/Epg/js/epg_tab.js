@@ -100,6 +100,9 @@
 		tab.contentOptions.onSlideChangeEnd = function(swiper) {
 			tab.nav.activeIndex = swiper.activeIndex;
 			tab.nav.update();
+			if($.isFunction(tab.contentOptions.changeState)) {
+				tab.contentOptions.changeState(swiper);
+			}
 		}
 		tab.content = new Swiper('.tab .tab__content', tab.contentOptions);
 		tab.content.params.control = tab.thumbs;
