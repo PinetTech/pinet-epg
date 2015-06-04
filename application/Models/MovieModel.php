@@ -70,6 +70,18 @@ class MovieModel extends DBModel {
 		return $record;
 	}
 
+	//now instead of getPushRecords for banner
+	public function getRecommendTitles(){
+		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE));
+		return $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
+			->from('title')
+			->join('recommend_titles',array('recommend_titles.title_id'=>'title.id'))
+			->join('poster',array('poster.title_id'=>'title.id'))
+			->where($where)
+			->limit(0, 9)
+			->result();
+	}
+
 	public function sift($columnID=1){
 		$types = $this->getProgramTypes();
 		$areas = $this->getAreas();

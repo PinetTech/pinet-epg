@@ -47,3 +47,8 @@ search_keys:
     timestamp:
         type: timestamp
         key: true
+
+recommend_titles:
+    title_id:
+        type: biginteger
+        key: true
