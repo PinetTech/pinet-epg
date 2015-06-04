@@ -106,7 +106,10 @@ $movie-sel: get-module("movie", "selector");
                         text-shadow: none;
                         margin-right: calc-res(26px);
                     }
-                }   
+                } 
+                .vjs-poster {
+                    background-size: contain;
+                }  
                 .video-button-text {
                     display: none;
                 }
@@ -347,7 +350,7 @@ $movie-sel: get-module("movie", "selector");
                 background-color: #f62929 !important;                    
                 border-radius: 5px;
                 border: none;
-                margin-bottom: res(mobile-to-pc(60px));
+                margin-bottom: res(mobile-to-pc(30px));
                 color: #ffffff;
                 font-size: 14px;
                 &:before {
@@ -360,6 +363,9 @@ $movie-sel: get-module("movie", "selector");
                     margin-right: res(mobile-to-pc(7px));
                 }
             }   
+            .vjs-poster {
+                background-size: cover;
+            }              
             .video-button-text {
                 display: none;
             }
