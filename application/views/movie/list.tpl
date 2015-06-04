@@ -14,11 +14,11 @@
                 {/form}
                 <div class="actionbar__back">
                 	<i class="fa fa-chevron-left"></i>
-                    <a href="" class="button">电影</a>
+                    <a href="" class="button">{lang}电影{/lang}</a>
                 </div>
                 <div class="actionbar__switch">
-                	<a href="" class="switch__recommendation">推荐</a>
-                	<a href="" class="switch__filter active">筛选</a>
+                	<a href="" class="switch__recommendation">{lang}Recommend{/lang}</a>
+                	<a href="" class="switch__filter active">{lang}Sift{/lang}</a>
                 </div>
                 <div class="actionbar__search">
 	                {a uri="movie/hot" class="button"}<i class="fa fa-search"></i>{/a}
@@ -44,9 +44,9 @@
 				{sect class="types"}
 					<div class="movie-filter">
 						<div class="list">
-							<a href="" class="title">排序</a>
-							<a href="" class="hot active">最热</a>
-							<a href="" class="new">最新</a>
+							<a href="" class="title">{lang}Sort{/lang}</a>
+							<a href="" class="hot active">{lang}Hottest{/lang}</a>
+							<a href="" class="new">{lang}Latest{/lang}</a>
 						</div>
 					</div>
 					{navigation id="movietypes" class="movietypes" actions=$sifts}
@@ -58,7 +58,7 @@
 			            {swiper class="tab__nav"}
 			                {swiper__wrapper items=$tab['navs']}
 			                    {literal}
-			                        {swiper__slide}{a href={$item['url']}}{$item['name']}{/a}{/swiper__slide}
+			                        {swiper__slide}{a href={$item['url']}}{lang}{$item['name']}{/lang}{/a}{/swiper__slide}
 			                    {/literal}                    
 {* 			                    {swiper__slide class="active"}sdss{/swiper__slide}
 			                    {swiper__slide}sdsds{/swiper__slide}
