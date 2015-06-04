@@ -6,7 +6,9 @@
                     {resimg data-image="logo.png"}
                 </div>
 	            {form class="actionbar__search-form" name="search" action='search/movie/'}
-		            {field field="search"}{/field}
+		            {field field="search"}
+                        {input}
+                    {/field}
 	                {field field="column_id"}{/field}
 		            {label class="submit"}
 		                {submit value="搜索"}
