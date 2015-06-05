@@ -1,7 +1,7 @@
 [
 	{
 		"field":"search",
-		"label":"Search"
+		"label":"片名,导演,演员"
 	},
     {
         "field":"column_id",

@@ -466,7 +466,13 @@ $movie-sel: get-module("movie", "selector");
                 }
             }
         }        
-    }    
+    }
+
+	@mixin slide() {
+		.slide {
+			display: none;
+		}
+	}
 
     @mixin tab() {
         #{$tab-sel} {
@@ -558,6 +564,7 @@ $movie-sel: get-module("movie", "selector");
         @include actionbar();
         @include movie-filter();
         @include nav();
+		@include slide();
         @include tab();
         @include movie();  
         @include videos();
