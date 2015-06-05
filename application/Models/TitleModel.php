@@ -304,7 +304,7 @@ class TitleModel extends DBModel {
 		}
 	}
 
-	public function getHotsByColumnID($columnID,$offset=0,$limit=10){
+	public function getHotsByColumnID($columnID,$offset=0,$limit=20){
 		return $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,count(1) as count')
 				->from('title')
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))
@@ -320,7 +320,7 @@ class TitleModel extends DBModel {
 				->result();
 	}
 
-	public function getNewsByColumnID($columnID,$offset=0,$limit=10){
+	public function getNewsByColumnID($columnID,$offset=0,$limit=20){
 		$news = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
 			->from('title')
 			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
