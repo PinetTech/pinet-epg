@@ -375,10 +375,16 @@ $menu-icons-length: length($menu-icons);
 @mixin frontsite-slide-mobile() {
     #{$slide-sel} {
         width: 100%;
-        height: res(1370px, 192px);
+        // height: res(1370px, 192px);
         .swiper-slide {
             .slide__title {
                 color: #ffffff;
+                position: relative;
+            }
+            .responsive {
+                // $mobile-alias-value: getAliasResolutionValue("mobile");
+                // width: #{$mobile-alias-value}px !important;                
+                // margin-left: -50%;
             }
         }
     }       

@@ -178,6 +178,9 @@ VIDEOJS_SWF
 		));
 	}
 
+	/**
+	 * @Clips\Model({"title"})
+	 */
 	public function getMore($flag,$type='new'){
 		$columnID = $this->request->session('column_id');
 		if($this->request->session('offset')==false) {

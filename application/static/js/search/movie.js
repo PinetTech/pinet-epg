@@ -44,9 +44,9 @@ var content = {sourceurl: 'test/01.png', asset_name:"sdsdsds", area:"sdsdsd", pr
 setTimeout(function(){
     var pagesection = $('<div class="movie-content" page="'+ (++page) +'"></div>');
     $('.tab').find('.tab__content .swiper-slide .pages-container').append(pagesection);
-    for(var i =0; i < 10; i++) {
-        render(pagesection, content);
-    }
+    // for(var i =0; i < 10; i++) {
+    //     render(pagesection, content);
+    // }
     $('.tab .shaft-load').removeClass('show');
     $('.tab').find('.movie[page]').each(function(i){
         var self = $(this);
