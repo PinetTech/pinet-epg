@@ -180,9 +180,7 @@ VIDEOJS_SWF
 		$columnID = $this->request->session('column_id');
 		$offset = ($flag + 1) * 20;
 		$this->request->session('offset',$offset+1);
-
-
-		$titles = array();
+		
 		if($type == 'new') {
 			$titles = $this->title->getNewsByColumnID($columnID,$this->request->session('offset'),20);
 		}elseif($type == 'hot'){
