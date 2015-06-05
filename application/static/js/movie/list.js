@@ -55,7 +55,7 @@ function initialize() {
         if(showShaftLoad && $(document).scrollTop() > $('.tab').find('.tab__content .movie-content .movie:nth-last-of-type(1)').offset().top - 450) {
             showShaftLoad = false;
             $('.tab .shaft-load').addClass('show');
-            $.post(Clips.siteUrl('movie/getMore'), {
+            $.post(Clips.siteUrl('movie/getMore/'+(++page)), {
 
             }, function(data){
                 if(data && data.movies && data.movies.length > 0) {
@@ -65,6 +65,9 @@ function initialize() {
                         render(pagesection, v);
                     });
                     prepare();
+                }
+                else {
+                    $('.tab .shaft-load').removeClass('show');
                 }
             }, 'json');            
         }                

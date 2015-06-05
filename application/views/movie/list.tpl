@@ -13,8 +13,8 @@
                     {/label}
                 {/form}
                 <div class="actionbar__back">
-                	<i class="fa fa-chevron-left"></i>
-                    <a href="" class="button">{$column_name}</a>
+                	{a uri="/"}<i class="fa fa-chevron-left"></i>{/a}
+                    <a class="button">{$column_name}</a>
                 </div>
                 <div class="actionbar__switch">
                 	{a uri="movie/top/{$column_id}" class="switch__recommendation"}{lang}推荐{/lang}{/a}
@@ -29,6 +29,17 @@
 	{/block}
 	{block name="content"}
 		<main>
+			{swiper class="slide"}
+				{swiper__wrapper items=$items}
+					{literal}
+						{swiper__slide}
+							{a uri="movie/play/{$item->id}"}{resimg data-image=$item->sourceurl}{/a}
+							<h3 class="slide__title">{$item->asset_name}</h3>
+						{/swiper__slide}
+					{/literal}
+				{/swiper__wrapper}
+				{swiper__pagination}{/swiper__pagination}
+			{/swiper}
 			<div class="videos">		
 				{sect class="types"}
 					<div class="movie-filter">
@@ -77,20 +88,20 @@
 						                    </figure>				                    							                    
 				                    	{/foreach}
 			                    	</div>
-                                    <div class="shaft-load">
-                                      <div class="shaft1"></div>
-                                      <div class="shaft2"></div>
-                                      <div class="shaft3"></div>
-                                      <div class="shaft4"></div>
-                                      <div class="shaft5"></div>
-                                      <div class="shaft6"></div>
-                                      <div class="shaft7"></div>
-                                      <div class="shaft8"></div>
-                                      <div class="shaft9"></div>
-                                      <div class="shaft10"></div>
-                                    </div> 			                    	
 			                    {/swiper__slide}
-			                {/swiper__wrapper}                        
+			                {/swiper__wrapper}
+				            <div class="shaft-load">
+					            <div class="shaft1"></div>
+					            <div class="shaft2"></div>
+					            <div class="shaft3"></div>
+					            <div class="shaft4"></div>
+					            <div class="shaft5"></div>
+					            <div class="shaft6"></div>
+					            <div class="shaft7"></div>
+					            <div class="shaft8"></div>
+					            <div class="shaft9"></div>
+					            <div class="shaft10"></div>
+				            </div>
 			            {/swiper}
 			        {/div}
 				{/sect}					

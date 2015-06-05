@@ -38,7 +38,7 @@ class MovieController extends BaseController
 			"sifts"=>$sift,
 			"column_name"=>$this->column->load($columnID)->column_name,
 			'movies'=>$movies,
-			'more'=>count($movies)<20 ? false : true,
+			'more'=>true,
 			'tab'=>array(
 				array('name'=>'最新', 'active' => $type == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
 				array('name'=>'最热', 'active' => $type == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))

@@ -39,7 +39,7 @@ function initialize() {
             && $(document).scrollTop() > $('.tab').find('.tab__content .movie-content:last-child .movie:nth-last-of-type(1)').offset().top - 450) {
             showShaftLoad = false;
             $('.tab .shaft-load').addClass('show');
-            $.post(Clips.siteUrl('search/getMore'), {
+            $.post(Clips.siteUrl('search/getMore/'+(++page)), {
 
             }, function(data){
                 if(data && data.movies && data.movies.length > 0) {
@@ -51,6 +51,9 @@ function initialize() {
                         render(pagesection, v);
                     });
                     prepare();
+                }
+                else {
+                    $('.tab .shaft-load').removeClass('show');
                 }
             }, 'json');         
         }        

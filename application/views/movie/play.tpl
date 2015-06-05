@@ -13,8 +13,8 @@
                     {/label}
                 {/form}
                 <div class="actionbar__back">
-                	<i class="fa fa-chevron-left"></i>
-                    {a uri="{$returnColumn->url}" class="button"}{$movie->asset_name}{/a}
+	                {a uri="{$returnColumn->url}"}<i class="fa fa-chevron-left"></i>{/a}
+                    {a class="button"}{$movie->asset_name}{/a}
                 </div>
             </div>
             {navigation id="menu" class="menu" actions=$actions}{/navigation}
