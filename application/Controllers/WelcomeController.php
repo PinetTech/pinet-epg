@@ -17,7 +17,7 @@ class WelcomeController extends BaseController
 	 * @Clips\Model({"title","column","movie"})
 	 */
 	public function index() {
-		$this->title('Pinet Home Page',true);
+		$this->title('EPG Home Page',true);
 		$this->request->session('column_id', null);
 		$this->request->session('search', null);
 		return $this->render('welcome/index', array(

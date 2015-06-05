@@ -19,7 +19,8 @@ class MovieController extends BaseController
 	public function index($columnID=1, $type='new') {
 		$this->request->session('column_id', $columnID);
 		$this->request->session('sift',null);
-		$this->title('Pinet Home Page',true);
+		$this->request->session('offset',null);
+		$this->title('EPG Home Page',true);
 		$sift = $this->movie->sift($columnID);
 
 		$movies = array();
@@ -173,5 +174,26 @@ VIDEOJS_SWF
 		return $this->render("movie/hot", array(
 				'hots' => $this->searchkey->getKeys(20)
 		));
+	}
+
+	public function getMore($flag,$type){
+		$columnID = $this->request->session('column_id');
+		$offset = ($flag + 1) * 20;
+		$this->request->session('offset',$offset+1);
+
+
+		$titles = array();
+		if($type == 'new') {
+			$titles = $this->title->getNewsByColumnID($columnID,$this->request->session('offset'),20);
+		}elseif($type == 'hot'){
+			$titles = $this->title->getHotsByColumnID($columnID,$this->request->session('offset'),20);
+		}else{
+			$titles = $this->title->siftRecords($this->request->session('sift'),$columnID,$this->request->session('offset'),20);
+		}
+		return $this->json(array(
+			'flag'=>$flag + 1,
+			'movies'=>$titles
+		));
+
 	}
 }

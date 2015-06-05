@@ -78,7 +78,7 @@ class TestController extends BaseController
      * @Clips\Js({"application/static/js/welcome/index.js"})
      */
     public function index() {
-        $this->title('Pinet Home Page',true);               
+        $this->title('EPG Home Page',true);
         return $this->render('welcome/index', array(
             'actions'=>$this->navigation(),
             'items'=>array(
