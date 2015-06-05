@@ -571,6 +571,7 @@ $table-sel: get-module("tab", "select");
 		.areas {
 			display: flex;
 			#{$tab-sel} {
+				width: 100%;
 				&__nav {
 					border-top: 1px solid #e3e3e3;
 					.swiper-slide {
@@ -654,6 +655,9 @@ $table-sel: get-module("tab", "select");
 					// 	z-index: 1000;
 					// 	background-color: #ffffff;					
 					// }
+				}
+				&__content {
+					width: 100% !important;
 				}
 			}
 		}

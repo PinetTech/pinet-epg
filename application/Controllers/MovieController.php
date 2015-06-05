@@ -36,6 +36,7 @@ class MovieController extends BaseController
 			"sifts"=>$sift,
 			'flag'=>1,
 			'movies'=>$movies,
+			'more'=>count($movies)<20 ? false : true,
 			"tab"=>array(
 				"navs"=>array(
 					array('name'=>'Latest','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
@@ -127,7 +128,7 @@ VIDEOJS_SWF
 
 	/**
 	 * @Clips\Form({"search"})
-	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
 	 */
@@ -141,7 +142,6 @@ VIDEOJS_SWF
 		$siftTypes = $this->movie->sift($columnID);
 
 		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID,0,20);
-
 		return $this->render('movie/list',array(
 			'nav' => true,
 			'slider' => true,
@@ -162,6 +162,40 @@ VIDEOJS_SWF
 			)
 		));
 	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
+	 * @Clips\Scss({"welcome/list"})
+	 * @Clips\Js({"application/static/js/welcome/list.js"})
+	 */
+	public function top($columnID){
+		$this->request->session('column_id', $columnID);
+		$sift = $this->request->session('sift') ? $this->request->session('sift') : array();
+		if($this->request->session('search')){
+			$sift['search'] = $this->request->session('search');
+		}
+		$this->request->session('sift', array_merge($sift ,$this->get()));
+		$siftTypes = $this->movie->sift($columnID);
+
+		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID,0,20);
+		return $this->render('movie/top',array(
+			'nav' => true,
+			'slider' => true,
+			'column_id' => $columnID,
+			'movies'=>$movies,
+			"sifts"=>$siftTypes,
+			'more'=>count($movies)<20 ? false : true,
+			"tab"=>array(
+					"navs"=>array(
+							array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+							array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
+					),
+					"contents"=>array(
+					)
+			)
+		));
+	}	
 
 	/**
 	 * @Clips\Form({"search"})

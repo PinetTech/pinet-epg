@@ -53,7 +53,7 @@
                                     {/literal}
                                 {/swiper__wrapper}
                             {/swiper}
-                            {swiper class="tab__content"}
+                            {swiper class="tab__content" more="{$more}"}
                                 {swiper__wrapper}
                                     {swiper__slide}
                                         <div class="pages-container">

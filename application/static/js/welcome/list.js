@@ -45,7 +45,15 @@ function initialize() {
     var template = Handlebars.compile(source); 
     var page = 0;
 
-    $(window).scroll(function(){
+    var tabcontent = $('.tab').find('.tab__content .movie-content');
+
+    if(tabcontent.attr("more") && tabcontent.attr("more") != "" && tabcontent.attr("more") == "1") {
+        $(window).on('scroll', scrollHandler);
+    }
+
+    $(window).on('scroll', scrollHandler);
+
+    function scrollHandler() {
         if(showShaftLoad && $(document).scrollTop() > $('.tab').find('.tab__content .movie-content .movie:nth-last-of-type(1)').offset().top - 450) {
             showShaftLoad = false;
             $('.tab .shaft-load').addClass('show');
@@ -61,8 +69,8 @@ function initialize() {
                     prepare();
                 }
             }, 'json');            
-        }        
-    });
+        }                
+    }
 
     function render(context, content) {
         var html = template(content);
