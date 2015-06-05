@@ -13,7 +13,7 @@ class SearchController extends BaseController
      * @Clips\Scss({"index/index"})
      */
     public function index() {
-        $this->title('Pinet Home Page',true);
+        $this->title('EPG Home Page',true);
 		$keys = $this->search->getKeys(6);
         return $this->render('index/index');
     }
@@ -27,6 +27,7 @@ class SearchController extends BaseController
 	 */
 	public function movie() {
 		$this->request->session('sift',null);
+		$this->request->session('offset',null);
 		$search = $this->request->post('search') ? $this->request->post('search') : $this->request->get('search');
 		$columnID = $this->request->post('column_id');
 		$this->request->session('column_id', $columnID);

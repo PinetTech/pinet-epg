@@ -207,12 +207,11 @@ class TitleModel extends DBModel {
 			));
 			$typeAll[$k]['sourceurl'] = $poster->sourceurl;
 		}
-		var_dump($typeAll);die;
 		return $typeAll;
 
 	}
 
-	public function siftRecords($session,$columnID){
+	public function siftRecords($session,$columnID,$offset=0,$limit=20){
 		$where = array();
 		if(isset($session['search']) && $session['search']) {
 			$search = $session['search'];
@@ -253,50 +252,10 @@ class TitleModel extends DBModel {
 						->where($where)
 						->groupBy('title.package_id')
 						->orderBy('title.create_at desc')
+						->limit($offset,$limit)
 						->result();
-//		var_dump($titles);die;
 		return $titles;
 
-
-/*		$siftRecords = array();
-		foreach($records as $record){
-			$title = $this->one('id',$record->id);
-			$titleApp = $this->titleapplication->one('id',$title->application_id);
-			$record->type = $this->package->one('id',$title->package_id)->program_type_name;
-			$record->area = $titleApp->area;
-			$record->director = $titleApp->director;
-			$record->actors = $titleApp->actors;
-			$record->year = $title->create_at;
-			if(isset($session['search']) && $session['search']) {
-				$search = $session['search'];
-				if(!(strpos($record->asset_name, $search) !== false || strpos($record->director, $search) !== false
-					|| strpos($record->actors, $search) !== false)){
-					continue;
-				}
-			}
-			if(isset($session['type']) && $session['type'] && $session['type'] != 'all') {
-				if(!in_array($session['type'], array_map(function($type){ return trim($type);}, explode(',',$record->type)))){
-					continue;
-				}
-			}
-			if(isset($session['area']) && $session['area'] && $session['area'] != 'all') {
-				if(strpos($record->area, $session['area'])===false){
-					continue;
-				}
-			}
-			if(isset($session['year']) && $session['year'] && $session['year'] != 'all') {
-				$prefix = 0;
-				if(substr($session['year'],0,1) == '-'){
-					$prefix = 1;
-				}
-				$year = substr($record->year,$prefix,4);
-				if($year > $session['year']) {
-					continue;
-				}
-			}
-			$siftRecords[] = $record;
-		}
-		return $siftRecords;*/
 	}
 
 	public function getNewTitlesByColumnID($columnID, $notIn=array() ,$limit=10){
