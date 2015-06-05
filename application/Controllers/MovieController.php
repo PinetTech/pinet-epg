@@ -96,7 +96,7 @@ VIDEOJS_SWF
 	    $navs = $this->column->getAllColumns();
 	    $actions = $this->title->getHomeNavigations($navs);
 	    $seriesList = array();
-	    if($title->show_type == 'Serise') {
+	    if($title->show_type == 'Series') {
 			$series = $this->title->getSeries($title->package_id);
 		    foreach ($series as $k=>$v) {
 			    $seriesList[$k]['titleID'] = $v->id;
@@ -104,7 +104,7 @@ VIDEOJS_SWF
 			    $seriesList[$k]['active'] = ($v->id == $titleID ? 'active' : '');
 		    }
 	    }
-
+//	    var_dump($seriesList);die;
 	    return $this->render("movie/play", array(
 			'nav' => true,
 		    'actions'=>$actions,
