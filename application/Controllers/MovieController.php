@@ -24,9 +24,9 @@ class MovieController extends BaseController
 
 		$movies = array();
 		if($type == 'hot') {
-			$movies = $this->title->getHotsByColumnID($columnID,$offset=0,$limit=10);
+			$movies = $this->title->getHotsByColumnID($columnID,0,20);
 		}elseif($type == 'new'){
-			$movies = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
+			$movies = $this->title->getNewsByColumnID($columnID,0,20);
 		}
 
 		return $this->render('movie/list',array(
