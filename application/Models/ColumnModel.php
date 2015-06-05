@@ -34,23 +34,13 @@ class ColumnModel extends DBModel {
 		return $columns;
 	}
 
-	public function getColumnMovieCount($movies){
-		$columns = $this->getAllColumns();
-		$counts = array();
-		$movies = array_reduce($movies, function($carry, $movie){
-			if(!isset($carry[$movie->column_id])) {
-				$carry[$movie->column_id] = 0;
-			}
-			$carry[$movie->column_id]++;
-			return $carry;
-		}, $counts);
-		foreach($columns as $column){
-			if(isset($movies[$column->id])){
-				$movies[$column->id] = array('id'=>$column->id, 'name'=> $column->column_name, 'count'=> $movies[$column->id]);
+	public function getReturnColumn($columnID){
+		if($columnID){
+			$column = $this->load($columnID);
+			if(isset($column->id)){
+				return (object)array('url'=>'movie/index/'.$column->id, 'column_name' => $column->column_name);
 			}
 		}
-		ksort($movies);
-		return $movies;
+		return (object)array('url'=> '/', 'column_name'=> '首页');
 	}
-
 }

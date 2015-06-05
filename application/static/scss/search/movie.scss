@@ -35,6 +35,55 @@ $table-sel: get-module("tab", "select");
 	        }
 	    }
 	}
+	$teal:     #56D7C6 !default;
+	$purple:   #B96CFF !default;
+	$blue:     #222232 !default;
+
+	/* Universal styling */
+	[class^="shaft-load"] {
+	  margin: 10px auto;
+	  width: 60px;
+	  height: 30px;
+	  opacity: 0;
+	  position: relative;
+	  > div {
+	    float: left;
+	    background: $purple;
+	    height: 100%;
+	    width: 5px;
+	    margin-right: 1px;
+	    display: inline-block;
+	  }
+	  .shaft1 { animation-delay: 0.05s;}
+	  .shaft2 { animation-delay: 0.1s; }
+	  .shaft3 { animation-delay: 0.15s; }
+	  .shaft4 { animation-delay: 0.2s; }
+	  .shaft5 { animation-delay: 0.25s; }
+	  .shaft6 { animation-delay: 0.3s; }
+	  .shaft7 { animation-delay: 0.35s; }
+	  .shaft8 { animation-delay: 0.4s;}
+	  .shaft9 { animation-delay: 0.45s; }
+	  .shaft10 { animation-delay: 0.5s; }
+	}
+
+	[class^="shaft-load"].show {
+		opacity: 1;
+	}
+
+	/* Shaft 1 */
+	.shaft-load {
+	  > div {
+	    animation: loading 1.5s infinite ease-in-out;
+	    transform: scaleY(0.05) translateX(-10px);
+	  }
+	}
+
+	@keyframes loading {
+	  50% { 
+	    transform: scaleY(1.2) translateX(10px);
+	    background: $teal;
+	  }		
+	}
 }
 
 @include search-movie-init();
@@ -520,7 +569,9 @@ $table-sel: get-module("tab", "select");
 
 	@mixin areas() {
 		.areas {
+			display: flex;
 			#{$tab-sel} {
+				width: 100%;
 				&__nav {
 					border-top: 1px solid #e3e3e3;
 					.swiper-slide {
@@ -604,6 +655,9 @@ $table-sel: get-module("tab", "select");
 					// 	z-index: 1000;
 					// 	background-color: #ffffff;					
 					// }
+				}
+				&__content {
+					width: 100% !important;
 				}
 			}
 		}

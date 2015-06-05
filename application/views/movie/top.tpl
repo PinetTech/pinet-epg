@@ -14,11 +14,11 @@
                 {/form}
                 <div class="actionbar__back">
                 	<i class="fa fa-chevron-left"></i>
-                    <a href="" class="button">{$column_name}</a>
+                    <a href="" class="button">{lang}电影{/lang}</a>
                 </div>
                 <div class="actionbar__switch">
-                	{a uri="movie/top/{$column_id}" class="switch__recommendation"}{lang}推荐{/lang}{/a}
-                	{a uri="movie/sift/{$column_id}" class="switch__filter active"}{lang}筛选{/lang}{/a}
+                	{a uri="movie/top/1" class="switch__recommendation active"}{lang}推荐{/lang}{/a}
+                	{a uri="movie/sift/1" class="switch__filter"}{lang}筛选{/lang}{/a}
                 </div>
                 <div class="actionbar__search">
 	                {a uri="movie/hot" class="button"}<i class="fa fa-search"></i>{/a}
@@ -29,34 +29,37 @@
 	{/block}
 	{block name="content"}
 		<main>
+			{swiper class="slide"}
+				{swiper__wrapper items=$items}
+					{literal}
+						{swiper__slide}
+						{a uri="movie/play/{$item->id}"}{resimg data-image=$item->sourceurl}{/a}
+						<h3 class="slide__title">{$item->asset_name}</h3>
+						{/swiper__slide}
+					{/literal}
+				{/swiper__wrapper}
+				{swiper__pagination}{/swiper__pagination}
+			{/swiper}
 			<div class="videos">		
-				{sect class="types"}
-					<div class="movie-filter">
-						<div class="list">
-							<a class="title">{lang}排序{/lang}</a>
-							{foreach $tab as $item}
-								{a class="{$item['active']}" href={$item['url']}}{lang}{$item['name']}{/lang}{/a}
-							{/foreach}
-						</div>
-					</div>
-					{navigation id="movietypes" class="movietypes" actions=$sifts}
-					{/navigation}
-				{/sect}				
 				{sect class="movies"}
 			        {div class="tab"}
 			            {swiper class="tab__nav"}
-			                {swiper__wrapper items=$tab}
+			                {swiper__wrapper items=$tab['navs']}
 			                    {literal}
-			                        {swiper__slide class="{$item['active']}"}{a href={$item['url']}}{lang}{$item['name']}{/lang}{/a}{/swiper__slide}
+			                        {swiper__slide}{a href={$item['url']}}{lang}{$item['name']}{/lang}{/a}{/swiper__slide}
 			                    {/literal}                    
- 			                {/swiper__wrapper}
+{* 			                    {swiper__slide class="active"}sdss{/swiper__slide}
+			                    {swiper__slide}sdsds{/swiper__slide}
+ *}			                {/swiper__wrapper}
 			            {/swiper}
 			            {swiper class="tab__thumbs"}
-			                {swiper__wrapper items=$tab}
+			                {swiper__wrapper items=$tab['navs']}
 			                    {literal}
 			                        {swiper__slide}{/swiper__slide}
 			                    {/literal}
- 			                {/swiper__wrapper}
+{* 			                    {swiper__slide class="active"}{/swiper__slide}
+			                    {swiper__slide}{/swiper__slide}
+ *}			                {/swiper__wrapper}            
 			            {/swiper}
 			            {swiper class="tab__content"}
 			                {swiper__wrapper}

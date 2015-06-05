@@ -1,3 +1,26 @@
+(function(){
+
+    function checkPoster(player, mobileposter, desktopposter) {
+        if($(window).width() < 768) {
+            player.poster(mobileposter);
+        }   
+        else {
+            player.poster(desktopposter);
+        }   
+    }
+
+    function setPoster(player, mobileposter, desktopposter) {
+        checkPoster(player, mobileposter, desktopposter);
+        $(window).resize(function(){
+            checkPoster(player, mobileposter, desktopposter);
+        });
+    }   
+
+    window.checkPoster = checkPoster;
+    window.setPoster = setPoster;
+
+})()
+
 function initialize() {
     var tab = initTab(function(swiper){
         swiper.wrapper.on('click', '.' + swiper.params.slideClass + ' a', function(e){

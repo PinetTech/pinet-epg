@@ -6,7 +6,9 @@
                     {resimg data-image="logo.png"}
                 </div>
 	            {form class="actionbar__search-form" name="search" action='search/movie/'}
-		            {field field="search"}{/field}
+		            {field field="search"}
+                        {input}
+                    {/field}
 	                {field field="column_id"}{/field}
 		            {label class="submit"}
 		                {submit value="搜索"}
@@ -21,11 +23,13 @@
                 <div class="search-classfication__header">
                     <h3>热门搜索</h3>
                 </div>
+	            {if $hots}
 	            {ul items=$hots class="search-classfication__hotvideos"}
 		            {literal}
 			            <li>{a uri="search/movie/?search={$item->keyword}"}{$item->keyword}{/a}</li>
 		            {/literal}
 	            {/ul}
+	            {/if}
             </section>
         </main>       
 	{/block}

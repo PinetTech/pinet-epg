@@ -46,8 +46,9 @@ class BaseController extends Controller implements Initializable {
 			$actions = $this->title->getHomeNavigations($navs);
 			$args['actions'] = $actions;
 			if(\Clips\get_default($args, 'slider', false)){
-				$items = $this->movie->getPushRecords(\Clips\get_default($args, 'column_id', ''));
-				$args['items'] = $items;
+//				$items = $this->movie->getPushRecords(\Clips\get_default($args, 'column_id', ''));
+				$items = $this->movie->getRecommendTitles();
+				$args['items'] = array();
 			}
 			if(\Clips\get_default($args, 'column', false)){
 				$columns = $this->column->getColumns($navs);
