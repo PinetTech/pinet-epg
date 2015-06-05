@@ -5,7 +5,7 @@ use Pinet\EPG\Core\BaseController;
 /**
  * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="index")
- * @Clips\Model({"searchKey","title"})
+ * @Clips\Model({"title","column","movie"})
  */
 class SearchController extends BaseController
 {
@@ -23,11 +23,9 @@ class SearchController extends BaseController
 	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
 	 * @Clips\Scss({"search/movie"})
 	 * @Clips\Js({"application/static/js/search/movie.js"})
-	 * @Clips\Model({"title","column","movie"})
 	 */
 	public function movie() {
 		$this->request->session('sift',null);
-		$this->request->session('offset',null);
 		$search = $this->request->post('search') ? $this->request->post('search') : $this->request->get('search');
 		$columnID = $this->request->post('column_id');
 		$this->request->session('column_id', $columnID);
@@ -44,6 +42,8 @@ class SearchController extends BaseController
 			'nav' => true,
 			"sifts"=>$sift,
 			'movies'=>$titles,
+			'flag'=>1,
+			'more'=>count($titles)<20 ? false : true,
 			"tab"=>array(
 				"navs"=>array(
 					'全部',
@@ -56,6 +56,25 @@ class SearchController extends BaseController
 					(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
 				)
 			)
+		));
+	}
+
+	public function getMore($flag){
+		$offset = $flag * 20;
+		$this->request->session('offset',$offset);
+		$columnID = $this->request->session('column_id');
+		$search = $this->request->session('search');
+		$titles = $this->title->getTitlesByHotKey($search, $columnID,$offset,20);
+		foreach ($titles as $k=>$v) {
+			$titles[$k]->url = \Clips\static_url('movie/play/'.$v->id);
+		}
+
+
+		$titles = $this->title->getTitlesByHotKey($search, $columnID);
+
+		return $this->json(array(
+				'flag'=>$flag + 1,
+				'movies'=>$titles
 		));
 	}
 
