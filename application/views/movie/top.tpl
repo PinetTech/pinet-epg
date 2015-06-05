@@ -44,7 +44,7 @@
 				{sect class="movies"}
 			        {div class="tab"}
 			            {swiper class="tab__nav"}
-			                {swiper__wrapper items=$tab['navs']}
+			                {swiper__wrapper items=$tab}
 			                    {literal}
 			                        {swiper__slide}{a href={$item['url']}}{lang}{$item['name']}{/lang}{/a}{/swiper__slide}
 			                    {/literal}                    
@@ -53,7 +53,7 @@
  *}			                {/swiper__wrapper}
 			            {/swiper}
 			            {swiper class="tab__thumbs"}
-			                {swiper__wrapper items=$tab['navs']}
+			                {swiper__wrapper items=$tab}
 			                    {literal}
 			                        {swiper__slide}{/swiper__slide}
 			                    {/literal}

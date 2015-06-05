@@ -38,7 +38,7 @@ class MovieController extends BaseController
 			"sifts"=>$sift,
 			"column_name"=>$this->column->load($columnID)->column_name,
 			'movies'=>$movies,
-			'more'=>true,
+			'more'=>count($movies)<20 ? false : true,
 			'tab'=>array(
 				array('name'=>'最新', 'active' => $type == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
 				array('name'=>'最热', 'active' => $type == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
@@ -154,7 +154,7 @@ VIDEOJS_SWF
 	/**
 	 * @Clips\Form({"search"})
 	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
-	 * @Clips\Scss({"movie/list"})
+	 * @Clips\Scss({"movie/top"})
 	 * @Clips\Js({"application/static/js/movie/list.js"})
 	 */
 	public function top($columnID){

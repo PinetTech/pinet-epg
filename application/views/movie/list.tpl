@@ -65,7 +65,7 @@
 			            {swiper class="tab__thumbs"}
 			                {swiper__wrapper items=$tab}
 			                    {literal}
-			                        {swiper__slide}{/swiper__slide}
+			                        {swiper__slide class="{$item['active']}"}{/swiper__slide}
 			                    {/literal}
  			                {/swiper__wrapper}
 			            {/swiper}
