@@ -6,6 +6,7 @@ use Clips\Controller;
 /**
  * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="movie")
+ * @Clips\Model({"title", "movie","column"})
  */
 class MovieController extends BaseController
 {
@@ -14,12 +15,10 @@ class MovieController extends BaseController
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
-	 * @Clips\Model({"column", "movie", "title"})
 	 */
 	public function index($columnID=1, $type='new') {
 		$this->request->session('column_id', $columnID);
 		$this->request->session('sift',null);
-		$this->request->session('offset',null);
 		$this->title('EPG Home Page',true);
 		$sift = $this->movie->sift($columnID);
 
@@ -35,6 +34,7 @@ class MovieController extends BaseController
 			'slider' => true,
 			'column_id' => $columnID,
 			"sifts"=>$sift,
+			'flag'=>1,
 			'movies'=>$movies,
 			"tab"=>array(
 				"navs"=>array(
@@ -56,7 +56,7 @@ class MovieController extends BaseController
      * @Clips\Js({"application/static/js/movie/play.js"})
      * @Clips\Widget({"epg", "navigation", "image", "videoJs"})
 	 * @Clips\Scss({"movie/play"})
-	 * @Clips\Model({"playHistorie", "title", "movie","column","assetColumnRef","device"})
+	 * @Clips\Model({"playHistorie","assetColumnRef","device"})
      */
     public function play($titleID) {
 	    $this->request->session('column_id', null);
@@ -128,7 +128,6 @@ VIDEOJS_SWF
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
-	 * @Clips\Model({"column", "movie", "title"})
 	 */
 	public function sift($columnID){
 		$this->request->session('column_id', $columnID);
@@ -139,9 +138,7 @@ VIDEOJS_SWF
 		$this->request->session('sift', array_merge($sift ,$this->get()));
 		$siftTypes = $this->movie->sift($columnID);
 
-		$movies = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
-//		$movies = $this->title->siftRecords($movies, $this->request->session('sift'));
-		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID);
+		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID,0,20);
 
 		return $this->render('movie/list',array(
 			'nav' => true,
@@ -149,6 +146,7 @@ VIDEOJS_SWF
 			'column_id' => $columnID,
 			'movies'=>$movies,
 			"sifts"=>$siftTypes,
+			'more'=>count($movies)<20 ? false : true,
 			"tab"=>array(
 					"navs"=>array(
 							array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
@@ -165,7 +163,7 @@ VIDEOJS_SWF
 
 	/**
 	 * @Clips\Form({"search"})
-	 * @Clips\Model({"title","column","movie","searchKey"})
+	 * @Clips\Model({"searchKey"})
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"movie/hot"})
 	 * @Clips\Js({"application/static/js/welcome/search.js"})
@@ -178,18 +176,14 @@ VIDEOJS_SWF
 
 	public function getMore($flag,$type='new'){
 		$columnID = $this->request->session('column_id');
-		if($this->request->session('offset')==false) {
-			$flag = 0;
-		}
 		$offset = $flag * 20;
-		$this->request->session('offset',$offset);
 
 		if($type == 'new') {
-			$titles = $this->title->getNewsByColumnID($columnID,$this->request->session('offset'),20);
+			$titles = $this->title->getNewsByColumnID($columnID,$offset,20);
 		}elseif($type == 'hot'){
-			$titles = $this->title->getHotsByColumnID($columnID,$this->request->session('offset'),20);
+			$titles = $this->title->getHotsByColumnID($columnID,$offset,20);
 		}else{
-			$titles = $this->title->siftRecords($this->request->session('sift'),$columnID,$this->request->session('offset'),20);
+			$titles = $this->title->siftRecords($this->request->session('sift'),$offset,20);
 		}
 		return $this->json(array(
 			'flag'=>$flag + 1,
