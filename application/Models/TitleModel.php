@@ -37,7 +37,7 @@ class TitleModel extends DBModel {
 	/**
 	 * @Clips\Model({ "searchKey" })
 	 */
-	public function getTitlesByHotKey($key, $columnID, $offset=0, $limit=10){
+	public function getTitlesByHotKey($key, $columnID, $offset=0, $limit=20){
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
 		$where = array(
