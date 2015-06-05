@@ -40,14 +40,14 @@ class TitleModel extends DBModel {
 	public function getTitlesByHotKey($key, $columnID, $offset=0, $limit=20){
 		$key = trim($key);
 		$this->searchkey->recordHotKey($key);
-		$where = array(
-			new \Clips\Libraries\OrOperator(
-				array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
-					new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
-					new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
-			),
-			'poster.image_aspect_ratio'=>(PosterModel::SMALL_SIZE)
-		);
+		$where['poster.image_aspect_ratio'] = PosterModel::SMALL_SIZE;
+		if($key){
+			$where[] = new \Clips\Libraries\OrOperator(
+					array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
+						new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
+						new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
+				);
+		}
 		if($columnID){
 			$where['asset_column_ref.column_id'] = $columnID;
 		}
@@ -62,6 +62,29 @@ class TitleModel extends DBModel {
 			->groupBy('title.package_id')
 			->limit($offset, $limit)
 				->result();
+	}
+
+	public function getColumnMovieCount($key, $columnID){
+		$key = trim($key);
+		$where = array();
+		if($key){
+			$where[] = new \Clips\Libraries\OrOperator(
+				array(new \Clips\Libraries\LikeOperator('title.asset_name', '%'.$key.'%'),
+					new \Clips\Libraries\LikeOperator('title_application.director', '%'.$key.'%'),
+					new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
+			);
+		}
+		if($columnID){
+			$where['asset_column_ref.column_id'] = $columnID;
+		}
+		return $this->select('count(title.id) as count,columns.column_name,asset_column_ref.column_id')
+			->from('title')
+			->join('title_application',array('title.application_id'=>'title_application.id'))
+			->join('columns',array('asset_column_ref.column_id'=>'columns.id'))
+			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+			->where($where)
+			->groupBy('asset_column_ref.column_id')
+			->result();
 	}
 
 	public function getMovieInfoByID($titleID){
@@ -237,7 +260,8 @@ class TitleModel extends DBModel {
 				$where["date_format(title.create_at, '%Y')"] = $siftYear;
 			}
 		}
-		$where['asset_column_ref.column_id'] = $columnID;
+		if($columnID)
+			$where['asset_column_ref.column_id'] = $columnID;
 		$where['poster.image_aspect_ratio'] = '300x428';
 		$where[] = new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null));
 		$titles = $this->select("count(play_histories.id) as count ,min(title.id) as id, package.program_type_name,

@@ -17,8 +17,10 @@ class MovieController extends BaseController
 	 * @Clips\Js({"application/static/js/movie/list.js"})
 	 */
 	public function index($columnID=1, $type='new') {
+		$this->request->session('type', $type);
 		$this->request->session('column_id', $columnID);
 		$this->request->session('sift',null);
+		$this->request->session('search',null);
 		$this->title('EPG Home Page',true);
 		$sift = $this->movie->sift($columnID);
 
@@ -34,17 +36,13 @@ class MovieController extends BaseController
 			'slider' => true,
 			'column_id' => $columnID,
 			"sifts"=>$sift,
-			'flag'=>1,
+			"column_name"=>$this->column->load($columnID)->column_name,
 			'movies'=>$movies,
 			'more'=>count($movies)<20 ? false : true,
-			"tab"=>array(
-				"navs"=>array(
-					array('name'=>'Latest','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-					array('name'=>'Hottest','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
-				),
-				"contents"=>array(
-				)
-			),
+			'tab'=>array(
+				array('name'=>'最新', 'active' => $type == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+				array('name'=>'最热', 'active' => $type == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
+			)
 		));
 	}
 
@@ -63,6 +61,8 @@ class MovieController extends BaseController
 	        $this->request->session('column_id', $columnRef->column_id);
 	    }
 		$title = $this->title->getMovieInfoByID($titleID);
+		$columnID = $this->request->session('column_id');
+		$column = $this->column->getReturnColumn($columnID);
 		if(!isset($title->id)){
 			echo 'Not Found This Movie!';//todo need redirect 404 page
 			die;
@@ -109,16 +109,14 @@ VIDEOJS_SWF
 			'nav' => true,
 		    'actions'=>$actions,
 	        'movie'=>$title,
+	        'returnColumn'=>$this->column->getReturnColumn($columnID),
 	        'sames'=>$sames,
+	        'column_id'=>$columnID,
 		    'seriesList'=>$seriesList,
 			"tab"=>array(
-					"navs"=>array(
-							'nav1',
-							'nav2',
-							'nav3'
-					),
-					"contents"=>array(
-					)
+				'简介',
+				'剧集',
+				'相关'
 			)
 	    ));
     }
@@ -129,7 +127,7 @@ VIDEOJS_SWF
 	 * @Clips\Scss({"movie/list"})
 	 * @Clips\Js({"application/static/js/movie/list.js"})
 	 */
-	public function sift($columnID){
+	public function sift($columnID=''){
 		$this->request->session('column_id', $columnID);
 		$sift = $this->request->session('sift') ? $this->request->session('sift') : array();
 		if($this->request->session('search')){
@@ -146,13 +144,9 @@ VIDEOJS_SWF
 			'movies'=>$movies,
 			"sifts"=>$siftTypes,
 			'more'=>count($movies)<20 ? false : true,
-			"tab"=>array(
-					"navs"=>array(
-							array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-							array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
-					),
-					"contents"=>array(
-					)
+			'tab'=>array(
+				array('name'=>'最新', 'active' => $this->request->session('type') == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+				array('name'=>'最热', 'active' => $this->request->session('type') == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 			)
 		));
 	}
@@ -180,13 +174,9 @@ VIDEOJS_SWF
 			'movies'=>$movies,
 			"sifts"=>$siftTypes,
 			'more'=>count($movies)<20 ? false : true,
-			"tab"=>array(
-					"navs"=>array(
-							array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-							array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
-					),
-					"contents"=>array(
-					)
+			'tab'=>array(
+				array('name'=>'最新', 'active' => $this->request->session('type') == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+				array('name'=>'最热', 'active' => $this->request->session('type') == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 			)
 		));
 	}	
@@ -207,9 +197,9 @@ VIDEOJS_SWF
 	/**
 	 * @Clips\Model({"title"})
 	 */
-	public function getMore($flag,$type='new'){
+	public function getMore($page,$type='new'){
 		$columnID = $this->request->session('column_id');
-		$offset = $flag * 20;
+		$offset = $page * 20;
 
 		if($type == 'new') {
 			$titles = $this->title->getNewsByColumnID($columnID,$offset,20);
@@ -219,7 +209,7 @@ VIDEOJS_SWF
 			$titles = $this->title->siftRecords($this->request->session('sift'),$offset,20);
 		}
 		return $this->json(array(
-			'flag'=>$flag + 1,
+			'page'=>$page + 1,
 			'movies'=>$titles
 		));
 

@@ -11,10 +11,14 @@ function smarty_block_swiper__wrapper($params, $content = '', $template, &$repea
 		'class' => 'swiper-wrapper'
 	);
 
-	$content = "\t".Clips\process_list_items($params, $content, $template);
+	if($params['items']){
+		$content = "\t".Clips\process_list_items($params, $content, $template);
 
-	if(isset($params['items']))
-		unset($params['items']);
+		if(isset($params['items']))
+			unset($params['items']);
+	}else{
+		$content ='';
+	}
 
 	\Clips\context_pop('indent_level');
 	return \Clips\create_tag('div', $params, $default, $content);

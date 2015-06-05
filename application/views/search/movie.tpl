@@ -40,14 +40,14 @@
                     <div class="areas">
                         {div class="tab"}
                             {swiper class="tab__nav"}
-                                {swiper__wrapper items=$tab['navs']}
+                                {swiper__wrapper items=$tab}
                                     {literal}
-                                        {swiper__slide}{a href="http://www.baidu.com"}{$item}{/a}{/swiper__slide}
+                                        {swiper__slide class="{$item['active']}"}{a uri="search/movie/?column_id={$item['id']}&search={$item['search']}"}{$item['column_name']}{/a}{/swiper__slide}
                                     {/literal}
                                 {/swiper__wrapper}
                             {/swiper}
                             {swiper class="tab__thumbs"}
-                                {swiper__wrapper items=$tab['navs']}
+                                {swiper__wrapper items=$tab}
                                     {literal}
                                         {swiper__slide}{/swiper__slide}
                                     {/literal}
