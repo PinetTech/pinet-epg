@@ -29,7 +29,7 @@
 	{/block}
 	{block name="content"}
 		<main>
-			{swiper class="slide"}
+{* 			{swiper class="slide"}
 				{swiper__wrapper items=$items}
 					{literal}
 						{swiper__slide}
@@ -39,7 +39,7 @@
 					{/literal}
 				{/swiper__wrapper}
 				{swiper__pagination}{/swiper__pagination}
-			{/swiper}
+			{/swiper} *}
 			<div class="videos">		
 				{sect class="types"}
 					<div class="movie-filter">
