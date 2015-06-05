@@ -1,10 +1,7 @@
 [
 	{
 		"field":"search",
-		"label":"Search",
-		"rules": [
-			"required"
-		]
+		"label":"Search"
 	},
     {
         "field":"column_id",
