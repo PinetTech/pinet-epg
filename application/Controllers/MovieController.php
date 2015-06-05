@@ -176,11 +176,14 @@ VIDEOJS_SWF
 		));
 	}
 
-	public function getMore($flag,$type){
+	public function getMore($flag,$type='new'){
 		$columnID = $this->request->session('column_id');
-		$offset = ($flag + 1) * 20;
-		$this->request->session('offset',$offset+1);
-		
+		if($this->request->session('offset')==false) {
+			$flag = 0;
+		}
+		$offset = $flag * 20;
+		$this->request->session('offset',$offset);
+
 		if($type == 'new') {
 			$titles = $this->title->getNewsByColumnID($columnID,$this->request->session('offset'),20);
 		}elseif($type == 'hot'){
