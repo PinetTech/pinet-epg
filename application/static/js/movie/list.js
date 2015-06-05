@@ -51,8 +51,6 @@ function initialize() {
         $(window).on('scroll', scrollHandler);
     }
 
-    $(window).on('scroll', scrollHandler);
-
     function scrollHandler() {
         if(showShaftLoad && $(document).scrollTop() > $('.tab').find('.tab__content .movie-content .movie:nth-last-of-type(1)').offset().top - 450) {
             showShaftLoad = false;

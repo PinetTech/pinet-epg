@@ -13,8 +13,8 @@ class MovieController extends BaseController
 	/**
 	 * @Clips\Form({"search"})
 	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
-	 * @Clips\Scss({"welcome/list"})
-	 * @Clips\Js({"application/static/js/welcome/list.js"})
+	 * @Clips\Scss({"movie/list"})
+	 * @Clips\Js({"application/static/js/movie/list.js"})
 	 */
 	public function index($columnID=1, $type='new') {
 		$this->request->session('column_id', $columnID);
@@ -43,9 +43,6 @@ class MovieController extends BaseController
 					array('name'=>'Hottest','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 				),
 				"contents"=>array(
-					(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
-					(object)array('episodes'=>'1,2,3,4,5'),
-					(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
 				)
 			),
 		));
@@ -129,8 +126,8 @@ VIDEOJS_SWF
 	/**
 	 * @Clips\Form({"search"})
 	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
-	 * @Clips\Scss({"welcome/list"})
-	 * @Clips\Js({"application/static/js/welcome/list.js"})
+	 * @Clips\Scss({"movie/list"})
+	 * @Clips\Js({"application/static/js/movie/list.js"})
 	 */
 	public function sift($columnID){
 		$this->request->session('column_id', $columnID);
@@ -155,9 +152,6 @@ VIDEOJS_SWF
 							array('name'=>'最热','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 					),
 					"contents"=>array(
-							(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
-							(object)array('episodes'=>'1,2,3,4,5'),
-							(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
 					)
 			)
 		));
@@ -166,8 +160,8 @@ VIDEOJS_SWF
 	/**
 	 * @Clips\Form({"search"})
 	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
-	 * @Clips\Scss({"welcome/list"})
-	 * @Clips\Js({"application/static/js/welcome/list.js"})
+	 * @Clips\Scss({"movie/list"})
+	 * @Clips\Js({"application/static/js/movie/list.js"})
 	 */
 	public function top($columnID){
 		$this->request->session('column_id', $columnID);
@@ -202,7 +196,7 @@ VIDEOJS_SWF
 	 * @Clips\Model({"searchKey"})
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"movie/hot"})
-	 * @Clips\Js({"application/static/js/welcome/search.js"})
+	 * @Clips\Js({"application/static/js/movie/hot.js"})
 	 */
 	public function hot(){
 		return $this->render("movie/hot", array(

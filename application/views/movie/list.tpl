@@ -44,7 +44,7 @@
 				{sect class="types"}
 					<div class="movie-filter">
 						<div class="list">
-							<a href="" class="title">{lang}Sort{/lang}</a>
+							<a class="title">{lang}Sort{/lang}</a>
 							<a href="" class="hot active">{lang}Hottest{/lang}</a>
 							<a href="" class="new">{lang}Latest{/lang}</a>
 						</div>

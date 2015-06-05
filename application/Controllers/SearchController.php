@@ -51,9 +51,6 @@ class SearchController extends BaseController
 					'电视剧'
 				),
 				"contents"=>array(
-					(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),
-					(object)array('episodes'=>'1,2,3,4,5'),
-					(object)array('number'=>array('sdsds','sdsds','sdsdsds'))
 				)
 			)
 		));

@@ -33,8 +33,6 @@ function initialize() {
         $(window).on("scroll", scrollHandler);
     }
 
-$(window).on("scroll", scrollHandler);
-
     function scrollHandler() {
         if(showShaftLoad 
             && $('.tab').find('.tab__content .movie-content:last-child .movie:nth-last-of-type(1)').length > 0 

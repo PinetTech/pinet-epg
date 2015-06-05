@@ -1,7 +1,7 @@
 $tab-sel: get-module("tab", "selector");
 $movie-sel: get-module("movie", "selector");
 
-@mixin welcome-list-init() {
+@mixin movie-list-init() {
     .videos {
         @extend %hflexbox;
     }
@@ -97,9 +97,9 @@ $movie-sel: get-module("movie", "selector");
     }    
 }
 
-@include welcome-list-init();
+@include movie-list-init();
 
-@mixin welcome-list-desktop() {
+@mixin movie-list-desktop() {
     @mixin actionbar() {
         .actionbar {
             &__back {
@@ -328,7 +328,7 @@ $movie-sel: get-module("movie", "selector");
     @include constructor();    
 }
 
-@mixin welcome-list-mobile() {
+@mixin movie-list-mobile() {
     @mixin actionbar() {
         .actionbar {
             padding-top: 10px;
@@ -566,12 +566,12 @@ $movie-sel: get-module("movie", "selector");
     @include constructor();
 }
 
-@mixin section_welcome_list($args...) {
+@mixin section_movie_list($args...) {
     @include device-desktop() {
-        @include welcome-list-desktop();
+        @include movie-list-desktop();
 
     }
     @include device-mobile() {
-        @include welcome-list-mobile();
+        @include movie-list-mobile();
     }
 }
