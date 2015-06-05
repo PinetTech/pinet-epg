@@ -11,7 +11,7 @@ class MovieController extends BaseController
 {
 	/**
 	 * @Clips\Form({"search"})
-	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
 	 * @Clips\Model({"column", "movie", "title"})

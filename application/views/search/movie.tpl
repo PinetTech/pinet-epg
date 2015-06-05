@@ -56,46 +56,78 @@
                             {swiper class="tab__content"}
                                 {swiper__wrapper}
                                     {swiper__slide}
-	                                    {foreach $movies as $v}
-                                           <figure class="movie">
-                                            {resimg data-image=$v->sourceurl class="mobile__thumb"}
-                                            <div class="movie__info">
-                                                <figcaption class="movie__title title">{$v->asset_name}</figcaption>
-                                                <div class="movie__des">
-                                                    <dl>
-                                                        <dt>别名</dt>
-                                                        <dd>{$v->asset_name}</dd>
-                                                        <dt>地区</dt>
-                                                        <dd>{$v->area}</dd>
-                                                        <dt>类型</dt>
-                                                        <dd>{$v->program_type_name}</dd>
-                                                        <dt>简介</dt>
-                                                        <dd>{$v->summary_short}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="movie__control">
-                                                    <a href={$v->url} class="button">播放</a>
-                                                </div>                            
-                                            </div>
-                                        </figure>
-	                                    {/foreach}
-                                    {/swiper__slide}
+                                        <div class="pages-container">
+                                            <div class="movie-content" page="0">
+                                                {foreach $movies as $v}
+                                                   <figure class="movie">
+                                                    {resimg data-image=$v->sourceurl class="mobile__thumb"}
+                                                    <div class="movie__info">
+                                                        <figcaption class="movie__title title">{$v->asset_name}</figcaption>
+                                                        <div class="movie__des">
+                                                            <dl>
+                                                                <dt>别名</dt>
+                                                                <dd>{$v->asset_name}</dd>
+                                                                <dt>地区</dt>
+                                                                <dd>{$v->area}</dd>
+                                                                <dt>类型</dt>
+                                                                <dd>{$v->program_type_name}</dd>
+                                                                <dt>简介</dt>
+                                                                <dd>{$v->summary_short}</dd>
+                                                            </dl>
+                                                        </div>
+                                                        <div class="movie__control">
+                                                            <a href={$v->url} class="button">播放</a>
+                                                        </div>                            
+                                                    </div>
+                                                </figure>
+                                                {/foreach}                                              
+                                            </div>                                              
+                                        </div>          
+                                        <div class="shaft-load">
+                                          <div class="shaft1"></div>
+                                          <div class="shaft2"></div>
+                                          <div class="shaft3"></div>
+                                          <div class="shaft4"></div>
+                                          <div class="shaft5"></div>
+                                          <div class="shaft6"></div>
+                                          <div class="shaft7"></div>
+                                          <div class="shaft8"></div>
+                                          <div class="shaft9"></div>
+                                          <div class="shaft10"></div>
+                                        </div>                                                                 
+                                    {/swiper__slide}                                     
                                 {/swiper__wrapper}                        
                             {/swiper}
                         {/div}                        
                     </div>                    
                 </div>
             </section>
-            <section class="search-classfication">
-                <div class="search-classfication__header">
-                    <h3>热门搜索</h3>
-                </div>
-                <ul class="search-classfication__hotvideos">
-                    <li>sdasdas</li>
-                    <li>sadsads</li>
-                    <li>sadasdssdsdsdsdsdsdsdsdsssdsdsdsdsds</li>
-                    <li>sadsads</li>
-                </ul>
-            </section>
         </main>       
+        {template id="movie-template"}
+	        {literal}
+	           <figure class="movie" page="1">
+					<div data-image="{{sourceurl}}" class="responsive mobile__thumb">
+						<img class="mobile__thumb" src="">
+					</div>
+					<div class="movie__info">
+						<figcaption class="movie__title title">{{asset_name}}</figcaption>
+					   	<div class="movie__des">
+					        <dl>
+					            <dt>别名</dt>
+					            <dd>{{asset_name}}</dd>
+					            <dt>地区</dt>
+					            <dd>{{area}}</dd>
+					            <dt>类型</dt>
+					            <dd>{{program_type_name}}</dd>
+					            <dt>简介</dt>
+					            <dd>{{summary_short}}</dd>
+					        </dl>
+					    </div>
+					    <div class="movie__control">
+					        <a href="{{url}}" class="button">播放</a>
+					    </div>                            
+					</div>
+	            </figure>   
+			{/literal}                         
+        {/template}        
 	{/block}

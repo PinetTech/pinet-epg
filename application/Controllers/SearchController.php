@@ -20,7 +20,7 @@ class SearchController extends BaseController
 
 	/**
 	 * @Clips\Form({"search"})
-	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
 	 * @Clips\Scss({"search/movie"})
 	 * @Clips\Js({"application/static/js/search/movie.js"})
 	 * @Clips\Model({"title","column","movie"})

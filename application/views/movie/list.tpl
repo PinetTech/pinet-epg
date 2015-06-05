@@ -76,25 +76,57 @@
 			            {swiper class="tab__content"}
 			                {swiper__wrapper}
 			                    {swiper__slide}
-				                    {foreach $movies as $v}
-					                    <figure class="movie">
-						                    {a uri="movie/play/{$v->id}"}
-					                        {resimg data-image=$v->sourceurl class="movie__thumb"}
-						                    {/a}
-					                        <figcaption class="movie__title">{$v->asset_name}</figcaption>
-					                        <div class="movie__views">
-					                            <div class="count-number">
-					                                <div class="count-number__icon"></div>
-					                                <div class="count-number__text">{$v->count}</div>
-					                            </div>
-					                        </div>
-					                    </figure>
-			                    	{/foreach}
+			                    	<div class="movie-content">
+					                    {foreach $movies as $v}
+						                    <figure class="movie">
+							                    {a uri="movie/play/{$v->id}"}
+						                        {resimg data-image=$v->sourceurl class="movie__thumb"}
+							                    {/a}
+						                        <figcaption class="movie__title">{$v->asset_name}</figcaption>
+						                        <div class="movie__views">
+						                            <div class="count-number">
+						                                <div class="count-number__icon"></div>
+						                                <div class="count-number__text">{$v->count}</div>
+						                            </div>
+						                        </div>
+						                    </figure>				                    							                    
+				                    	{/foreach}
+			                    	</div>
+                                    <div class="shaft-load">
+                                      <div class="shaft1"></div>
+                                      <div class="shaft2"></div>
+                                      <div class="shaft3"></div>
+                                      <div class="shaft4"></div>
+                                      <div class="shaft5"></div>
+                                      <div class="shaft6"></div>
+                                      <div class="shaft7"></div>
+                                      <div class="shaft8"></div>
+                                      <div class="shaft9"></div>
+                                      <div class="shaft10"></div>
+                                    </div> 			                    	
 			                    {/swiper__slide}
 			                {/swiper__wrapper}                        
 			            {/swiper}
 			        {/div}
 				{/sect}					
 			</div>		
+			{template id="movie-template"}
+				{literal}
+                    <figure class="movie" page="{{page}}">
+						<a href="{{url}}">
+							<div data-image="{{sourceurl}}" class="responsive mobile__thumb">
+								<img class="mobile__thumb" src="">
+							</div>	                    					
+						</a>	                    
+                        <figcaption class="movie__title">{{asset_name}}</figcaption>
+                        <div class="movie__views">
+                            <div class="count-number">
+                                <div class="count-number__icon"></div>
+                                <div class="count-number__text">{{count}}</div>
+                            </div>
+                        </div>
+                    </figure>
+				{/literal}						                    
+			{/template}
 		</main>	
 	{/block}
