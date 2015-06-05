@@ -25,7 +25,7 @@
         	<div class="videoplayer">
         		<div class="videoplayer__body">
 			        {video src="{$movie->playUrl}"}
-			         {if ($movie->show_type == 'Serise' ) }
+			         {if ($movie->show_type == 'Series' ) }
         			<div class="videoplayer__list" >
         				<h3>{lang}Episode{/lang}</h3>
         				<ul>
