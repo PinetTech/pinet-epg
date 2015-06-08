@@ -423,12 +423,15 @@ $menu-icons-length: length($menu-icons);
             }            
             &__link {
                 margin-left: res(mobile-to-pc(16px));
-                > a {
-                    position: relative;
-                    top: calc-res(20px);
-                    color: transparent;
+                a {
+                    text-decoration: none;
                 }
-                &:hover > a {
+                h3 {
+                    position: relative;
+                    color: transparent;
+                    font-size: 14px;
+                }
+                &:hover h3 {
                     color: #212121;
                 }
             }
@@ -518,7 +521,7 @@ $menu-icons-length: length($menu-icons);
                 float: left;
                 width: res(mobile-to-pc(30.5px));
                 height: res(mobile-to-pc(30.5px));
-                margin-left: res(mobile-to-pc(11.3px));
+                margin: 0;
             }            
             &__link {
                 width: res(mobile-to-pc(135.5px));
@@ -537,11 +540,25 @@ $menu-icons-length: length($menu-icons);
                         align-items: center;
                 font-size: res(mobile-to-pc(10px));
                 text-align: center;
-                > a {
+                a {
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    width: 100%;
+                    -webkit-box-pack: center;
+                    -webkit-justify-content: center;
+                        -ms-flex-pack: center;
+                            justify-content: center;
+                    -webkit-box-align: center;
+                    -webkit-align-items: center;
+                        -ms-flex-align: center;
+                            align-items: center    
+                }                
+                h3 {
                     position: relative;
                     line-height: normal;
                     color: #212121;
-                    margin-right: res(mobile-to-pc(11.3px));
                     padding-left: res(mobile-to-pc(6.5px));
                     display: -webkit-box;
                     display: -webkit-flex;

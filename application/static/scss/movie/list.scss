@@ -65,16 +65,16 @@ $movie-sel: get-module("movie", "selector");
         margin-right: 1px;
         display: inline-block;
       }
-      .shaft1 { animation-delay: 0.05s;}
-      .shaft2 { animation-delay: 0.1s; }
-      .shaft3 { animation-delay: 0.15s; }
-      .shaft4 { animation-delay: 0.2s; }
-      .shaft5 { animation-delay: 0.25s; }
-      .shaft6 { animation-delay: 0.3s; }
-      .shaft7 { animation-delay: 0.35s; }
-      .shaft8 { animation-delay: 0.4s;}
-      .shaft9 { animation-delay: 0.45s; }
-      .shaft10 { animation-delay: 0.5s; }
+      .shaft1 { -webkit-animation-delay: 0.05s; animation-delay: 0.05s;}
+      .shaft2 { -webkit-animation-delay: 0.1s; animation-delay: 0.1s; }
+      .shaft3 { -webkit-animation-delay: 0.15s; animation-delay: 0.15s; }
+      .shaft4 { -webkit-animation-delay: 0.2s; animation-delay: 0.2s; }
+      .shaft5 { -webkit-animation-delay: 0.25s; animation-delay: 0.25s; }
+      .shaft6 { -webkit-animation-delay: 0.3s; animation-delay: 0.3s; }
+      .shaft7 { -webkit-animation-delay: 0.35s; animation-delay: 0.35s; }
+      .shaft8 { -webkit-animation-delay: 0.4s; animation-delay: 0.4s;}
+      .shaft9 { -webkit-animation-delay: 0.45s; animation-delay: 0.45s; }
+      .shaft10 { -webkit-animation-delay: 0.5s; animation-delay: 0.5s; }
     }
 
     [class^="shaft-load"].show {
@@ -84,14 +84,26 @@ $movie-sel: get-module("movie", "selector");
     /* Shaft 1 */
     .shaft-load {
       > div {
-        animation: loading 1.5s infinite ease-in-out;
-        transform: scaleY(0.05) translateX(-10px);
+        -webkit-animation: loading 1.5s infinite ease-in-out;
+                animation: loading 1.5s infinite ease-in-out;
+        -webkit-transform: scaleY(0.05) translateX(-10px);
+            -ms-transform: scaleY(0.05) translateX(-10px);
+                transform: scaleY(0.05) translateX(-10px);
       }
+    }
+
+    @-webkit-keyframes loading {
+      50% { 
+        -webkit-transform: scaleY(1.2) translateX(10px); 
+                transform: scaleY(1.2) translateX(10px);
+        background: $teal;
+      }     
     }
 
     @keyframes loading {
       50% { 
-        transform: scaleY(1.2) translateX(10px);
+        -webkit-transform: scaleY(1.2) translateX(10px); 
+                transform: scaleY(1.2) translateX(10px);
         background: $teal;
       }     
     }    
@@ -349,9 +361,9 @@ $movie-sel: get-module("movie", "selector");
                     -ms-flex-align: center;
                         -webkit-box-align: center;
                         align-items: center;
-				> a {
-					color: #ffffff;
-				}
+                > a {
+                    color: #ffffff;
+                }
                 > .button {
                     color: #ffffff;
                     font-size: res(mobile-to-pc(18px));
@@ -393,7 +405,10 @@ $movie-sel: get-module("movie", "selector");
         .movie-filter {
             padding-left: 10px;
             padding-right: 10px;
-			display: flex;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
             width: 100%;
             background-color: #f3f3f3;
             .list {
@@ -450,13 +465,13 @@ $movie-sel: get-module("movie", "selector");
                             flex: 1;
                 }
 
-				li > .sub-navi > li {
-					&.active {
-						> a {
-							color: #e01818;
-						}
-					}
-				}
+                li > .sub-navi > li {
+                    &.active {
+                        > a {
+                            color: #e01818;
+                        }
+                    }
+                }
 
                 .sub-navi > li > a {
                     float: left;
@@ -468,11 +483,11 @@ $movie-sel: get-module("movie", "selector");
         }        
     }
 
-	@mixin slide() {
-		.slide {
-			display: none;
-		}
-	}
+    @mixin slide() {
+        .slide {
+            display: none;
+        }
+    }
 
     @mixin tab() {
         #{$tab-sel} {
@@ -564,7 +579,7 @@ $movie-sel: get-module("movie", "selector");
         @include actionbar();
         @include movie-filter();
         @include nav();
-		@include slide();
+        @include slide();
         @include tab();
         @include movie();  
         @include videos();

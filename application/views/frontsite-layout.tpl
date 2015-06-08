@@ -25,8 +25,10 @@
 	        <footer>
 	        	<div class="site-share">
 	        		<div class="site-share__link">
-	        			<i class="icon"></i>	
-	        			<a href="">派尔微博</a>
+	        			<a href="">
+		        			<i class="icon"></i>	
+		        			<h3>派尔微博</h3>	        				
+	        			</a>
 	        		</div>
 	        		<div class="site-share__link">
 	        			<i class="icon"></i>	
