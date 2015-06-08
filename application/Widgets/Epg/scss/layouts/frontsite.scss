@@ -423,6 +423,7 @@ $menu-icons-length: length($menu-icons);
             }            
             &__link {
                 margin-left: res(mobile-to-pc(16px));
+				position: relative;
                 > a {
                     position: relative;
                     top: calc-res(20px);
@@ -448,7 +449,13 @@ $menu-icons-length: length($menu-icons);
                         background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));
                     }
                 }
-            }            
+            }
+			.responsive {
+				position: absolute;
+				width: 430px;
+				left: 0;
+				top: 0;
+			}
         }
         .site-map {
             list-style: none;
