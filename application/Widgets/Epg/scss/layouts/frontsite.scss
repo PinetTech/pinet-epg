@@ -36,11 +36,10 @@ $nav-sel: get-module("nav", "selector");
             }
         }
         &__search-form {
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: -webkit-box;
-            display: flex;
+            display: table;
             .form-group {
+                display: table-cell;
+                vertical-align: top;
                 > .form-input input {
                     width: calc-res(700px);
                     height: calc-res(70px);
@@ -51,34 +50,23 @@ $nav-sel: get-module("nav", "selector");
                 }                
             }
             .submit {
+                display: table-cell;
                 position: relative;
-            }
-            .submit .btn {
-                display: block;
-                height: 100%;
+                cursor: pointer;
             }
             .submit:after {
                 content: $fa-var-search;
                 font-family: FontAwesome;
                 font-size: 20px;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: -webkit-box;
-                display: flex;
-                -webkit-justify-content: center;
-                -ms-flex-pack: center;
-            -webkit-box-pack: center;
-                    justify-content: center;
-                -webkit-align-items: center;
-                -ms-flex-align: center;
-            -webkit-box-align: center;
-                    align-items: center;
                 background-color: #e01818;
                 color: #ffffff;
                 margin: 0;            
                 @include position(absolute, 0, 0, 0, 0);
                 cursor: pointer;
-            }                
+                text-align: center;
+                height: calc-res(70px);
+                line-height: calc-res(70px);
+            }                          
         }
     }
 }
