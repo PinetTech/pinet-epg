@@ -262,6 +262,11 @@ class TitleModel extends DBModel {
 		}
 		if($columnID)
 			$where['asset_column_ref.column_id'] = $columnID;
+		$type = $session['order_by'];
+		$orderBy = 'title.create_at';
+		if($type == 'hot'){
+			$orderBy = 'count';
+		}
 		$where['poster.image_aspect_ratio'] = '300x428';
 		$where[] = new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null));
 		$titles = $this->select("count(play_histories.id) as count ,min(title.id) as id, package.program_type_name,
@@ -275,7 +280,7 @@ class TitleModel extends DBModel {
 						->join('play_histories',array('play_histories.package_id'=>'title.package_id'),'left')
 						->where($where)
 						->groupBy('title.package_id')
-						->orderBy('title.create_at desc')
+						->orderBy($orderBy . ' desc')
 						->limit($offset,$limit)
 						->result();
 		return $titles;

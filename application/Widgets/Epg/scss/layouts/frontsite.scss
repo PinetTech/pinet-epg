@@ -411,6 +411,7 @@ $menu-icons-length: length($menu-icons);
             }            
             &__link {
                 margin-left: res(mobile-to-pc(16px));
+				position: relative;
                 a {
                     text-decoration: none;
                 }
@@ -418,6 +419,10 @@ $menu-icons-length: length($menu-icons);
                     position: relative;
                     color: transparent;
                     font-size: 14px;
+					font-weight: normal;
+					padding: 0;
+					transform: none;
+					text-align: center;
                 }
                 &:hover h3 {
                     color: #212121;
@@ -425,7 +430,12 @@ $menu-icons-length: length($menu-icons);
             }
             &__link:first-child {
                 margin-left: 0;
-            }            
+            }
+			&__link:last-of-type:hover {
+				.responsive {
+					display: block;
+				}
+			}
             $icons: "huazhu", "pinet", "weibo", "weixin";
             $iconlength: length($icons);
             @for $i from 1 through $iconlength {
@@ -439,7 +449,18 @@ $menu-icons-length: length($menu-icons);
                         background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));
                     }
                 }
-            }            
+            }
+			.responsive {
+				$width: calc-res(430px);
+				position: absolute;
+				width: $width;
+				left: 0;
+				top: -$width - 10;
+				display: none;
+			}
+			.pinet-qr-link-mobile {
+				display: none;
+			}
         }
         .site-map {
             list-style: none;
@@ -578,7 +599,10 @@ $menu-icons-length: length($menu-icons);
                     background-size: cover;
                     cursor: pointer;                    
                 }
-            }            
+            }
+			.pinet-qr-link {
+				display: none;
+			}
         }
         .site-map {
             list-style: none;

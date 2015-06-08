@@ -73,16 +73,22 @@
             }            
         });
     }
+})();
+
+$(function(){
+    if($('.error-message').length > 0) {
+        $('.error-message').resizeAdpat();
+    }
 
     if($('#field_search').length > 0) {
         $('#field_search').each(function(){
             $(this).hasContentState();
         })
     }
-})();
 
-$(function(){
-    if($('.error-message').length > 0) {
-        $('.error-message').resizeAdpat();
+    if($('.pinet-qr-link').length > 0) {
+        $('.pinet-qr-link').on('click', function(e){
+            e.preventDefault();
+        });
     }
 });
