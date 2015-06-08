@@ -2,6 +2,11 @@ $tab-sel: get-module("tab", "selector");
 $movie-sel: get-module("movie", "selector");
 
 @mixin movie-list-init() {
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
     .videos {
         @extend %hflexbox;
     }
@@ -131,15 +136,14 @@ $movie-sel: get-module("movie", "selector");
             @include content-width();
             margin: 0 auto;
             margin-bottom: calc-res(342px);
-            display: table;
+            // display: table;
             margin-top: calc-res(45.95px);
         }        
     }    
 
     @mixin types() {
         .types {
-            margin-left: calc-res(70px);
-            display: table-cell;
+            width: 26%;
         }
     }
 
@@ -179,7 +183,7 @@ $movie-sel: get-module("movie", "selector");
             border: 1px solid #D4D4D4;       
             padding-bottom: calc-res(704px);                 
             &.movietypes {
-                width: calc-res(674px);
+                width: 90.75%;
                 padding-left: calc-res(54px);
                 padding-right: calc-res(54px);
                 margin-top: 0;
@@ -234,15 +238,11 @@ $movie-sel: get-module("movie", "selector");
 
     @mixin movies() {
         .movies {
-            -webkit-flex: none;
-                -ms-flex: none;
-                    -webkit-box-flex: 0;
-                    flex: none;
-            display: table-cell;
-            padding-left: calc-res(70px);
             padding-top: 0;
             vertical-align: top;
-            width: 100%;
+            width: -webkit-calc(80%);
+            width: calc(74%);
+            // background-color: #213213;
         }    
     }     
 

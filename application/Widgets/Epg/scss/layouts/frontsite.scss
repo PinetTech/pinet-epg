@@ -36,7 +36,7 @@ $nav-sel: get-module("nav", "selector");
             }
         }
         &__search-form {
-            display: table;
+            height: calc-res(70px);
             .form-group {
                 display: table-cell;
                 vertical-align: top;

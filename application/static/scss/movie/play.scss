@@ -64,7 +64,12 @@ $movie-sel: get-module("movie", "selector");
             padding: 20px 0;
             background-color: #333333;
             height: calc-res(1132px);
-            background: #1F1F1F;            
+            background: #1F1F1F;         
+            -webkit-box-orient: horizontal;         
+            -webkit-box-direction: normal;         
+            -webkit-flex-direction: row;         
+                -ms-flex-direction: row;         
+                    flex-direction: row;   
             -webkit-justify-content: center;            
                 -ms-flex-pack: center;            
                     -webkit-box-pack: center;            
@@ -75,8 +80,7 @@ $movie-sel: get-module("movie", "selector");
                 display: -webkit-box;
                 display: flex;
                 height: 100%;
-                background-color: #ffffff;
-                margin: 0 auto;
+                background-color: #ffffff;                         
                 .video-js {
                     width: calc-res(1860px) !important;
                     height: 100% !important;
@@ -116,6 +120,9 @@ $movie-sel: get-module("movie", "selector");
                         margin-right: calc-res(26px);
                     }
                 } 
+                .vjs-fullscreen {
+                    width: 100% !important;
+                }                
                 .vjs-poster {
                     background-size: contain;
                 }  
@@ -384,6 +391,9 @@ $movie-sel: get-module("movie", "selector");
                     margin-right: res(mobile-to-pc(7px));
                 }
             }   
+            .vjs-fullscreen {
+                width: 100% !important;
+            }            
             .vjs-poster {
                 background-size: cover;
             }              

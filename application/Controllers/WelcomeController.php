@@ -3,7 +3,7 @@ script access allowed");
 
 use Pinet\EPG\Core\BaseController;
 
-/**
+/**	
  * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="welcome")
  */
@@ -37,4 +37,15 @@ class WelcomeController extends BaseController
 		$this->title('流媒体系统',true);
 		return $this->render('welcome/qr');
 	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"construction"})
+	 * @Clips\Model({"title","column","movie"})
+	 */
+	public function cr() {
+		$this->title('流媒体系统',true);
+		return $this->render('error/construction');
+	}	
 }
