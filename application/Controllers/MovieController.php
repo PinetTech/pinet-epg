@@ -16,20 +16,19 @@ class MovieController extends BaseController
 	 * @Clips\Scss({"movie/list"})
 	 * @Clips\Js({"application/static/js/movie/list.js"})
 	 */
-	public function index($columnID=1, $type='new') {
-		$this->request->session('type', $type);
-		$this->request->session('column_id', $columnID);
-		$this->request->session('sift',null);
-		$this->request->session('search',null);
-		$this->title('EPG Home Page',true);
+	public function index($columnID=1, $type='') {
+		if(!$type){
+			$type = $this->request->session('order_by') ? $this->request->session('order_by') : 'new';
+			$this->request->session('column_id', $columnID);
+			$this->request->session('sift', array('order_by'=>$type));
+			$this->request->session('search',null);
+		}
+		$this->request->session('order_by', $type);
+		$this->request->session('sift', array_merge($this->request->session('sift'), array('order_by'=>$type)));
+		$this->title('流媒体系统',true);
 		$sift = $this->movie->sift($columnID);
 
-		$movies = array();
-		if($type == 'hot') {
-			$movies = $this->title->getHotsByColumnID($columnID,0,20);
-		}elseif($type == 'new'){
-			$movies = $this->title->getNewsByColumnID($columnID,0,20);
-		}
+		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID,0,20);
 
 		return $this->render('movie/list',array(
 			'nav' => true,
@@ -62,10 +61,8 @@ class MovieController extends BaseController
 	    }
 		$title = $this->title->getMovieInfoByID($titleID);
 		$columnID = $this->request->session('column_id');
-		$column = $this->column->getReturnColumn($columnID);
 		if(!isset($title->id)){
-			echo 'Not Found This Movie!';//todo need redirect 404 page
-			die;
+			return $this->error('', '404');
 		}
 	    \Clips\context('jquery_init', <<<VIDEOJS_SWF
 

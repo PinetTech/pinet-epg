@@ -43,11 +43,15 @@
 				        </a>
 	        		</div>
 	        		<div class="site-share__link">
-				        <a>
+				        <a class="pinet-qr-link">
 					        <i class="icon"></i>
-					        <a href="">派尔公众号</a>
+					        <h3>派尔公众号</h3>
 					        {resimg data-image="pinet-qr.png"}
 				        </a>
+				        {a class="pinet-qr-link-mobile" uri="welcome/qr"}
+					        <i class="icon"></i>
+					        <h3>派尔公众号</h3>
+				        {/a}
 	        		</div>
 	        	</div>
 	            <ul class="site-map">

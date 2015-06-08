@@ -1,0 +1,36 @@
+@mixin welcome-qr-init() {
+	body {
+		background: #FEFEFE;
+	}
+}
+
+@include welcome-qr-init();
+
+@mixin welcome-qr-desktop() {
+	@mixin all() {
+	}
+
+	@mixin constructor(){
+		@include all();
+	}
+	@include constructor();
+}
+
+@mixin welcome-qr-mobile() {
+	@mixin all() {
+	}
+	
+	@mixin constructor(){
+		@include all();
+	}
+	@include constructor();
+}
+
+@mixin section_welcome_qr($args...) {
+	@include device-desktop() {
+		@include welcome-qr-desktop();
+	}
+	@include device-mobile() {
+		@include welcome-qr-mobile();
+	}
+}
