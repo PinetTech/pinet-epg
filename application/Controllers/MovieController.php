@@ -62,7 +62,7 @@ class MovieController extends BaseController
 		$title = $this->title->getMovieInfoByID($titleID);
 		$columnID = $this->request->session('column_id');
 		if(!isset($title->id)){
-			return $this->error('', '404');
+			return $this->forward('error404');
 		}
 	    \Clips\context('jquery_init', <<<VIDEOJS_SWF
 

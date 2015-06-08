@@ -57,4 +57,11 @@ class BaseController extends Controller implements Initializable {
 		}
 		return parent::render($template, $args, $engine, $headers);
 	}
+
+	/**
+	 * @Clips\Scss({"error404"})
+	 */
+	protected function error404(){
+		return $this->not_found();
+	}
 }
