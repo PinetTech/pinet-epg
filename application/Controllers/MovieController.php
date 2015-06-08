@@ -62,7 +62,7 @@ class MovieController extends BaseController
 		$title = $this->title->getMovieInfoByID($titleID);
 		$columnID = $this->request->session('column_id');
 		if(!isset($title->id)){
-			return $this->error('', '404');
+			return $this->forward('error404');
 		}
 	    \Clips\context('jquery_init', <<<VIDEOJS_SWF
 
@@ -194,17 +194,10 @@ VIDEOJS_SWF
 	/**
 	 * @Clips\Model({"title"})
 	 */
-	public function getMore($page,$type='new'){
-		$columnID = $this->request->session('column_id');
+	public function getMore($page){
 		$offset = $page * 20;
 
-		if($type == 'new') {
-			$titles = $this->title->getNewsByColumnID($columnID,$offset,20);
-		}elseif($type == 'hot'){
-			$titles = $this->title->getHotsByColumnID($columnID,$offset,20);
-		}else{
-			$titles = $this->title->siftRecords($this->request->session('sift'),$offset,20);
-		}
+		$titles = $this->title->siftRecords($this->request->session('sift'),$offset,20);
 		return $this->json(array(
 			'page'=>$page + 1,
 			'movies'=>$titles
