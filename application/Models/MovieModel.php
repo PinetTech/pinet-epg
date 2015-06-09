@@ -34,7 +34,7 @@ class MovieModel extends DBModel {
 
 	public function getProgramTypes(){
 		return array(
-			'all'=>'全部','剧情'=>'剧情', '动作'=>'动作', '犯罪'=>'犯罪', '喜剧'=>'喜剧', '喜剧'=>'科幻', '西部'=>'西部', '传记'=>'传记', '爱情'=>'爱情', '歌舞'=>'歌舞'
+			'all'=>'全部','剧情'=>'剧情', '动作'=>'动作', '犯罪'=>'犯罪', '喜剧'=>'喜剧', '科幻'=>'科幻', '西部'=>'西部', '传记'=>'传记', '爱情'=>'爱情', '歌舞'=>'歌舞'
 		, '惊悚'=>'惊悚', '冒险'=>'冒险', '悬疑'=>'悬疑', '奇幻'=>'奇幻', '历史'=>'历史', '恐怖'=>'恐怖', '战争'=>'战争', '运动'=>'运动', '音乐'=>'音乐', '家庭'=>'家庭'
 		);
 	}
@@ -86,21 +86,21 @@ class MovieModel extends DBModel {
 		$types = $this->getProgramTypes();
 		$areas = $this->getAreas();
 		$years = $this->getYears();
-		$type = new SiftAction(array('content' => '/nav', 'label' => '按类型', 'type' => 'server'));
+		$type = new SiftAction(array('content' => '', 'label' => '按类型', 'type' => 'client'));
 		$typeChildren = array();
 		foreach ($types as $k=>$v) {
 			$typeChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?type='.$k, 'label' => $v, 'type' => 'server'));
 		}
 		$type->children = $typeChildren;
 
-		$area = new SiftAction(array('content' => '/nav', 'label' => '按地区', 'type' => 'server'));
+		$area = new SiftAction(array('content' => '', 'label' => '按地区', 'type' => 'client'));
 		$areaChildren = array();
 		foreach ($areas as $k=>$v) {
 			$areaChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?area='.$k, 'label' => $v, 'type' => 'server'));
 		}
 		$area->children = $areaChildren;
 
-		$year = new SiftAction(array('content' => '/nav', 'label' => '按年份', 'type' => 'server'));
+		$year = new SiftAction(array('content' => '', 'label' => '按年份', 'type' => 'client'));
 		$yearChildren = array();
 		foreach ($years as $k=>$v) {
 			$yearChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?year='.$k, 'label' => $v, 'type' => 'server'));
