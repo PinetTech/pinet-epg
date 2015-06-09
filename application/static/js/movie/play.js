@@ -10,10 +10,16 @@
     }
 
     function setPoster(player, mobileposter, desktopposter) {
-        checkPoster(player, mobileposter, desktopposter);
-        $(window).resize(function(){
+        var isSafari = /constructor/i.test(window.HTMLElement);
+        if(isSafari && window.navigator.userAgent.match(/Version\/([\d.]+)/)[1] < 8) {
+            $('body').addClass('safari7');
+        }
+        else {
             checkPoster(player, mobileposter, desktopposter);
-        });
+            $(window).resize(function(){
+                checkPoster(player, mobileposter, desktopposter);
+            });            
+        }
     }   
 
     window.checkPoster = checkPoster;
@@ -22,7 +28,7 @@
 })()
 
 function initialize() {
-    if(tab) {
+    if($('.tab').length > 0) {
         var tab = initTab(function(swiper){
             swiper.wrapper.on('click', '.' + swiper.params.slideClass + ' a', function(e){
                 e.preventDefault();
