@@ -89,21 +89,21 @@ class MovieModel extends DBModel {
 		$type = new SiftAction(array('content' => '', 'label' => '按类型', 'type' => 'client'));
 		$typeChildren = array();
 		foreach ($types as $k=>$v) {
-			$typeChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?type='.$k, 'label' => $v, 'type' => 'server'));
+			$typeChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?type='.urlencode($k), 'label' => $v, 'type' => 'server'));
 		}
 		$type->children = $typeChildren;
 
 		$area = new SiftAction(array('content' => '', 'label' => '按地区', 'type' => 'client'));
 		$areaChildren = array();
 		foreach ($areas as $k=>$v) {
-			$areaChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?area='.$k, 'label' => $v, 'type' => 'server'));
+			$areaChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?area='.urlencode($k), 'label' => $v, 'type' => 'server'));
 		}
 		$area->children = $areaChildren;
 
 		$year = new SiftAction(array('content' => '', 'label' => '按年份', 'type' => 'client'));
 		$yearChildren = array();
 		foreach ($years as $k=>$v) {
-			$yearChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?year='.$k, 'label' => $v, 'type' => 'server'));
+			$yearChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?year='.urlencode($k), 'label' => $v, 'type' => 'server'));
 		}
 		$year->children = $yearChildren;
 		return array($type,$area,$year);

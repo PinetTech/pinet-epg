@@ -119,7 +119,6 @@ VIDEOJS_SWF
 			    $seriesList[$k]['active'] = ($v->id == $titleID ? 'active' : '');
 		    }
 	    }
-//	    var_dump($seriesList);die;
 	    return $this->render("movie/play", array(
 			'nav' => true,
 		    'actions'=>$actions,
@@ -152,6 +151,11 @@ VIDEOJS_SWF
 			$this->request->session('order_by', 'new');
 		}
 		$gets = $this->get();
+		foreach($gets as $key=>$value){
+			if(in_array($key, array('type', 'area', 'year'))){
+				$gets[$key] = urldecode($value);
+			}
+		}
 		$this->request->session('sift', array_merge($sift , $gets ? $gets : array()));
 		$siftTypes = $this->movie->sift($columnID);
 
