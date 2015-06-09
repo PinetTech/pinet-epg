@@ -25,10 +25,13 @@ class MovieController extends BaseController
 		}
 		$this->request->session('order_by', $type);
 		$this->request->session('sift', array_merge($this->request->session('sift'), array('order_by'=>$type)));
-		$this->title('流媒体系统',true);
-		$sift = $this->movie->sift($columnID);
 
 		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID,0,20);
+		if(!count($movies)){
+			return $this->forward('construction');
+		}
+		$this->title('流媒体系统',true);
+		$sift = $this->movie->sift($columnID);
 
 		return $this->render('movie/list',array(
 			'nav' => true,
@@ -42,6 +45,21 @@ class MovieController extends BaseController
 				array('name'=>'最新', 'active' => $type == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
 				array('name'=>'最热', 'active' => $type == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 			)
+		));
+	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"construction"})
+	 */
+	public function construction(){
+		$columnID = $this->request->session('column_id');
+		return $this->render('error/construction', array(
+			'nav' => true,
+			'slider' => true,
+			'column_id' => $columnID,
+			"column_name"=>$this->column->load($columnID)->column_name
 		));
 	}
 
@@ -130,7 +148,11 @@ VIDEOJS_SWF
 		if($this->request->session('search')){
 			$sift['search'] = $this->request->session('search');
 		}
-		$this->request->session('sift', array_merge($sift ,$this->get()));
+		if(!$this->request->session('order_by')){
+			$this->request->session('order_by', 'new');
+		}
+		$gets = $this->get();
+		$this->request->session('sift', array_merge($sift , $gets ? $gets : array()));
 		$siftTypes = $this->movie->sift($columnID);
 
 		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID,0,20);
@@ -142,8 +164,8 @@ VIDEOJS_SWF
 			"sifts"=>$siftTypes,
 			'more'=>count($movies)<20 ? false : true,
 			'tab'=>array(
-				array('name'=>'最新', 'active' => $this->request->session('type') == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-				array('name'=>'最热', 'active' => $this->request->session('type') == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
+				array('name'=>'最新', 'active' => $this->request->session('order_by') == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+				array('name'=>'最热', 'active' => $this->request->session('order_by') == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 			)
 		));
 	}
@@ -160,7 +182,8 @@ VIDEOJS_SWF
 		if($this->request->session('search')){
 			$sift['search'] = $this->request->session('search');
 		}
-		$this->request->session('sift', array_merge($sift ,$this->get()));
+		$gets = $this->get();
+		$this->request->session('sift', array_merge($sift , $gets ? $gets : array('order_by'=>'new')));
 		$siftTypes = $this->movie->sift($columnID);
 
 		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID,0,20);
@@ -168,12 +191,13 @@ VIDEOJS_SWF
 			'nav' => true,
 			'slider' => true,
 			'column_id' => $columnID,
+			"column_name"=>$this->column->load($columnID)->column_name,
 			'movies'=>$movies,
 			"sifts"=>$siftTypes,
 			'more'=>count($movies)<20 ? false : true,
 			'tab'=>array(
-				array('name'=>'最新', 'active' => $this->request->session('type') == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
-				array('name'=>'最热', 'active' => $this->request->session('type') == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
+				array('name'=>'最新', 'active' => $this->request->session('order_by') == 'new' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),
+				array('name'=>'最热', 'active' => $this->request->session('order_by') == 'hot' ? 'active' : '','url'=>\Clips\static_url('movie/index/'.$columnID.'/hot'))
 			)
 		));
 	}	

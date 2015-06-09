@@ -36,7 +36,7 @@
 					<h3 class="message__title">正在建设中</h3>
 					<p class="message__content">UNDER CONSTRUCTION</p>
 				</div>			
-				{a href="" class="button"}返回首页{/a}
+				{a uri="/" class="button"}返回首页{/a}
 			</div>
 		</main>
 	{/block}

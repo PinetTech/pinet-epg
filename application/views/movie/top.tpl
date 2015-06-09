@@ -13,12 +13,12 @@
                     {/label}
                 {/form}
                 <div class="actionbar__back">
-                	<i class="fa fa-chevron-left"></i>
-                    <a href="" class="button">{lang}电影{/lang}</a>
+	                {a uri="/"}<i class="fa fa-chevron-left"></i>{/a}
+                    <a class="button">{$column_name}</a>
                 </div>
                 <div class="actionbar__switch">
-                	{a uri="movie/top/1" class="switch__recommendation active"}{lang}推荐{/lang}{/a}
-                	{a uri="movie/sift/1" class="switch__filter"}{lang}筛选{/lang}{/a}
+                	{a uri="movie/top/{$column_id}" class="switch__recommendation active"}{lang}推荐{/lang}{/a}
+                	{a uri="movie/sift/{$column_id}" class="switch__filter"}{lang}筛选{/lang}{/a}
                 </div>
                 <div class="actionbar__search">
 	                {a uri="movie/hot" class="button"}<i class="fa fa-search"></i>{/a}
