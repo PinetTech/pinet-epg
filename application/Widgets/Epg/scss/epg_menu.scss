@@ -26,6 +26,9 @@
 			}
 			> .sub-navi {
 				@extend %hflexbox;
+				-webkit-flex-wrap: wrap;
+				    -ms-flex-wrap: wrap;
+				        flex-wrap: wrap;
 				width: 100%;
 				left: 0;
 				top: 100%;

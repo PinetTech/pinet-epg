@@ -31,6 +31,9 @@
         var triggerEle = $(self.data('trigger'));
         triggerEle.toggleClass('open');
         triggerEle.parent().toggleClass('full-screen');
+        if($('.menu li').length > 0) {
+            $('.menu').resizeMenu();
+        }        
     });
 
     $.fn.hasContentState = function() {        
@@ -71,6 +74,21 @@
             else {
                 self.removeAttr("style");
             }            
+        });
+    }
+
+    $.fn.resizeMenu = function() {
+        var menuWidth = $('.menu').width();
+        var menuliWidth = $('.menu li').width();
+        var menuHeight = $('.menu').height();
+        var menuliHeight = $('.menu li').height();
+        var mal = parseInt((menuWidth - menuliWidth * 2) / 3);
+        var mat = parseInt((menuHeight - menuliHeight * 4) / 5);        
+        $('.menu li').each(function(i){             
+            $(this).css({
+                'margin-left': mal,
+                'margin-top': mat
+            });
         });
     }
 })();

@@ -18,6 +18,17 @@ $nav-sel: get-module("nav", "selector");
     line-height: 20px;
 }
 
+@mixin fix-desktop() {
+}
+
+@mixin fix-mobile() {
+    html, body {
+        // width: 100%;
+        // height: 100%;
+        // overflow-x: hidden;
+    }
+}
+
 @mixin frontsite-actionbar-desktop() {
     .actionbar {
         height: calc-res(116px);
@@ -77,6 +88,7 @@ $nav-sel: get-module("nav", "selector");
         -ms-flex-pack: justify;
     -webkit-box-pack: justify;
             justify-content: space-between;
+        background-color: #ffffff;            
         &__brand {
             width: res(mobile-to-pc(127px));
             max-width: 127px;
@@ -101,9 +113,6 @@ $nav-sel: get-module("nav", "selector");
             }
             .submit {
                 position: relative;
-                -webkit-transform: translateX(-24px);
-                        -ms-transform: translateX(-24px);
-                    transform: translateX(-24px);
             }
             .submit .btn {
                 display: block;
@@ -120,28 +129,10 @@ $nav-sel: get-module("nav", "selector");
                 content: $fa-var-search;
                 font-family: FontAwesome;
                 font-size: 20px;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: -webkit-box;
-                display: flex;
-                -webkit-justify-content: center;
-                -ms-flex-pack: center;
-            -webkit-box-pack: center;
-                    justify-content: center;
-                -webkit-align-items: center;
-                -ms-flex-align: center;
-            -webkit-box-align: center;
-                    align-items: center;
-                background-color: transparent;
-                color: #ffffff;
-                margin: 0;            
                 position: absolute;
-                left: 0;
+                right: 20px;
                 top: 0;
-                right: 0;
-                bottom: 0;
-                cursor: pointer;
-                color: #737383;   
+                color: #737383; 
             }                
         }
         &__trigger {
@@ -240,33 +231,36 @@ $menu-icons-length: length($menu-icons);
 
 @mixin frontsite-menu-mobile() {
     #{$menu-sel} {
-        height: res(90px);
         width: 100%;
-        padding-left: 15px;
-        padding-right: 15px;
-        -webkit-align-items: center;
-            -ms-flex-align: center;
-                -webkit-box-align: center;
-                align-items: center;
-        -webkit-justify-content: center;
-            -ms-flex-pack: center;
-                -webkit-box-pack: center;
-                justify-content: center;                
-
+        padding-left: 0;
+        padding-right: 0;
+        display: block;
+        overflow: hidden;
+        height: 0;
+        position: relative;
         > li {
-            position: relative;
             width: res(mobile-to-pc(160px));
-            height: res(mobile-to-pc(120px));            
-            display: -webkit-flex;            
-            display: -ms-flexbox;            
-            display: -webkit-box;            
+            height: res(mobile-to-pc(120px));
+            float: left;   
+            display: -webkit-box;   
+            display: -webkit-flex;   
+            display: -ms-flexbox;   
             display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: row;
+                -ms-flex-direction: row;
+                    flex-direction: row;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
             -webkit-align-items: center;
                 -ms-flex-align: center;
                     -webkit-box-align: center;
                     align-items: center;
             background-color: #fbfbfb;
-            font-size: res(mobile-to-pc(17.5px));  
+            font-size: res(mobile-to-pc(14.5px));  
             border: 1px solid #dcdcdc;
             border-radius: 4px;
         }
@@ -411,7 +405,7 @@ $menu-icons-length: length($menu-icons);
             }            
             &__link {
                 margin-left: res(mobile-to-pc(16px));
-				position: relative;
+                position: relative;
                 a {
                     text-decoration: none;
                 }
@@ -419,10 +413,12 @@ $menu-icons-length: length($menu-icons);
                     position: relative;
                     color: transparent;
                     font-size: 14px;
-					font-weight: normal;
-					padding: 0;
-					transform: none;
-					text-align: center;
+                    font-weight: normal;
+                    padding: 0;
+                    -webkit-transform: none;
+                        -ms-transform: none;
+                            transform: none;
+                    text-align: center;
                 }
                 &:hover h3 {
                     color: #212121;
@@ -431,11 +427,11 @@ $menu-icons-length: length($menu-icons);
             &__link:first-child {
                 margin-left: 0;
             }
-			&__link:last-of-type:hover {
-				.responsive {
-					display: block;
-				}
-			}
+            &__link:last-of-type:hover {
+                .responsive {
+                    display: block;
+                }
+            }
             $icons: "huazhu", "pinet", "weibo", "weixin";
             $iconlength: length($icons);
             @for $i from 1 through $iconlength {
@@ -450,17 +446,17 @@ $menu-icons-length: length($menu-icons);
                     }
                 }
             }
-			.responsive {
-				$width: calc-res(430px);
-				position: absolute;
-				width: $width;
-				left: 0;
-				top: -$width - 10;
-				display: none;
-			}
-			.pinet-qr-link-mobile {
-				display: none;
-			}
+            .responsive {
+                $width: calc-res(430px);
+                position: absolute;
+                width: $width;
+                left: 0;
+                top: -$width - 10;
+                display: none;
+            }
+            .pinet-qr-link-mobile {
+                display: none;
+            }
         }
         .site-map {
             list-style: none;
@@ -600,9 +596,9 @@ $menu-icons-length: length($menu-icons);
                     cursor: pointer;                    
                 }
             }
-			.pinet-qr-link {
-				display: none;
-			}
+            .pinet-qr-link {
+                display: none;
+            }
         }
         .site-map {
             list-style: none;
@@ -648,12 +644,14 @@ $menu-icons-length: length($menu-icons);
 
 @mixin section_layouts_frontsite($args...) {    
     @include device-desktop() {      
+        @include fix-desktop();
         @include frontsite-actionbar-desktop();
         @include frontsite-menu-desktop();
         @include frontsite-slide-desktop();
         @include frontsite-footer-desktop();
     }
     @include device-mobile() {
+        @include fix-mobile();
         @include frontsite-actionbar-mobile();
         @include frontsite-menu-mobile();
         @include frontsite-slide-mobile();
