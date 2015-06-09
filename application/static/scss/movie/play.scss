@@ -598,8 +598,8 @@ $movie-sel: get-module("movie", "selector");
     }    
 
     @mixin fix-safari7() {
-        body .vjs-big-play-button {
-            display: none;
+        body.safari7 .vjs-big-play-button {
+            display: none !important;
         } 
     }
     

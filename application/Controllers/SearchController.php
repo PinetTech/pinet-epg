@@ -26,13 +26,16 @@ class SearchController extends BaseController
 	 */
 	public function movie() {
 		$this->request->session('sift',null);
-		$search = $this->request->post('search') ? $this->request->post('search') : $this->request->get('search');
+		$search = $this->request->post('search') ? trim($this->request->post('search')) : trim($this->request->get('search'));
 		$columnID = $this->request->post('column_id');
 		$filterID = $this->request->get('column_id');
 		if($filterID){//if contains value, then is is used for filtering value in mobile device
 			$titles = $this->title->getTitlesByHotKey($search, $filterID);
 		}else{
 			$titles = $this->title->getTitlesByHotKey($search, $columnID);
+		}
+		if(!count($titles)){
+			return $this->forward('emptyResult');
 		}
 		$this->request->session('column_id', $columnID);
 		$this->request->session('search', $search);
@@ -62,6 +65,17 @@ class SearchController extends BaseController
 			'movies'=>$titles,
 			'more'=>count($titles)<20 ? false : true,
 			"tab"=>$tabs
+		));
+	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"search/empty_result"})
+	 */
+	public function emptyResult(){
+		return $this->render('search/empty_result', array(
+			'nav' => true
 		));
 	}
 
