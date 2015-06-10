@@ -13,10 +13,6 @@ use Pinet\EPG\Core\ColumnAction;
  */
 class TitleModel extends DBModel {
 
-	public function getTitleByName($name){
-		return $this->one('asset_name',$name);
-	}
-
 	public function getTitlesByColumn($column_id, $limit=0){
 		$titles = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
 			->from('title')
@@ -155,6 +151,28 @@ class TitleModel extends DBModel {
 		return $titles;
 	}
 
+	public function getSameColumnMovies($columnID, $limit=10) {
+		$titles = array();
+		if($columnID){
+			$titles = $this->getTitlesByColumn($columnID, $limit);
+			$titleIDs = array_map(function($title){return $title->id;}, $titles);
+			$count = count($titles);
+			if($count != $limit){
+				$titles = array_merge($titles, $this->getTitles($limit - $count, $titleIDs));
+			}
+		}else{
+			$titles = $this->getTitles();
+		}
+		$titleIDs = array_map(function($title){return $title->id;}, $titles);
+		$plays = $this->playhistorie->getMovieHistories($titleIDs);
+		foreach($titles as $key=>$title){
+			$titles[$key]->count = 0;
+			if(isset($plays[$title->id]))
+				$titles[$key]->count = $plays[$title->id];
+		}
+		return $titles;
+	}
+
 	function array_unique_fb($array2D) {     //二维数组去重
 		foreach ($array2D as $k=>$v)
 		{
@@ -262,7 +280,7 @@ class TitleModel extends DBModel {
 		}
 		if($columnID)
 			$where['asset_column_ref.column_id'] = $columnID;
-		$type = $session['order_by'];
+		$type = isset($session['order_by']) ? $session['order_by'] : 'new';
 		$orderBy = 'title.create_at';
 		if($type == 'hot'){
 			$orderBy = 'count';
@@ -349,25 +367,6 @@ class TitleModel extends DBModel {
 				->result();
 	}
 
-	public function getNewsByColumnID($columnID,$offset=0,$limit=20){
-		$news = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
-			->from('title')
-			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
-			->join('poster',array('poster.title_id'=>'title.id'))
-			->where(array('asset_column_ref.column_id'=>$columnID,
-				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
-				'poster.image_aspect_ratio'=>(PosterModel::SMALL_SIZE)
-			))
-			->groupBy('title.package_id')
-			->orderBy('title.create_at desc')
-			->limit($offset, $limit)
-			->result();
-		foreach ($news as $k=>$v) {
-			$news[$k]->count = $this->playhistorie->getPlayTimesByPackageID($v->package_id);
-		}
-		return $news;
-	}
-
 	public function getSeries($packageID){
 		return $this->select('title.id, title_application.episode_id')
 			->from('title')
@@ -376,7 +375,7 @@ class TitleModel extends DBModel {
 				new \Clips\Libraries\NotOperator(array('title.application_id' => null)),
 				new \Clips\Libraries\NotOperator(array('title_application.episode_id' => ''))
 			))
-			->orderBy('title_application.episode_id')
+			->orderBy('cast(title_application.episode_id as unsigned)')
 			->result();
 	}
 }

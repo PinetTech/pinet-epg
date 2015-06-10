@@ -34,17 +34,16 @@ class SearchController extends BaseController
 		}else{
 			$titles = $this->title->getTitlesByHotKey($search, $columnID);
 		}
+		$this->request->session('column_id', $columnID);
+		$this->request->session('search', $search);
 		if(!count($titles)){
 			return $this->forward('emptyResult');
 		}
-		$this->request->session('column_id', $columnID);
-		$this->request->session('search', $search);
 		foreach ($titles as $k=>$v) {
 			$titles[$k]->url = \Clips\static_url('movie/play/'.$v->id);
 		}
 
 		$sift = $this->movie->sift($columnID);
-		$this->formData('search', (object)(array('search'=>$search)));
 		$movieTab = $this->title->getColumnMovieCount($search, $columnID);
 		$tabs = array();
 		$total = 0;
@@ -75,7 +74,9 @@ class SearchController extends BaseController
 	 */
 	public function emptyResult(){
 		return $this->render('search/empty_result', array(
-			'nav' => true
+			'nav' => true,
+			'search' => $this->request->session('search'),
+			'sames' => $this->title->getSameColumnMovies($this->request->session('column_id'))
 		));
 	}
 

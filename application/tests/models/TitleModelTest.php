@@ -5,15 +5,52 @@
  */
 class TitleModelTest extends Clips\TestCase {
 
-	public function testGetTitlesByColumn(){
-		$titles = $this->title->getTitlesByColumn(11,6);
-		foreach ($titles as $item) {
-			if($item->id == 14) {
-				$title = $item;
-			}
-		}
+	/**
+	 * @test
+	 * @Clips\FakeModel("logFakeDataSourceHandler")
+	 */
+	public function getTitlesByColumn(){
+		$this->title->getTitlesByColumn(1);
+	}
 
-		$this->assertEquals('纵横四海', $title->asset_name);
+	/**
+	 * @test
+	 * @Clips\FakeModel("logFakeDataSourceHandler")
+	 */
+	public function getTitlesByHotKey(){
+		$this->title->getTitlesByHotKey('test', 1);
+	}
+
+	/**
+	 * @test
+	 * @Clips\FakeModel("logFakeDataSourceHandler")
+	 */
+	public function getColumnMovieCount(){
+		$this->title->getColumnMovieCount('test', 1);
+	}
+
+	/**
+	 * @test
+	 * @Clips\FakeModel("logFakeDataSourceHandler")
+	 */
+	public function siftRecords(){
+		$this->title->siftRecords(array(), 1);
+	}
+
+	/**
+	 * @test
+	 * @Clips\FakeModel("logFakeDataSourceHandler")
+	 */
+	public function getHotsByColumnID(){
+		$this->title->getHotsByColumnID(1);
+	}
+
+	/**
+	 * @test
+	 * @Clips\FakeModel("logFakeDataSourceHandler")
+	 */
+	public function getSeries(){
+		$this->title->getSeries(1);
 	}
 
 }

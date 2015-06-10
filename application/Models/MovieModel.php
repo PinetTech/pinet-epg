@@ -15,10 +15,6 @@ class MovieModel extends DBModel {
 		return $this->one('asset_name',$name);
 	}
 
-	public function getMoviesByColumn(){
-
-	}
-
 	public function getPlayUrlByTitleID($titleID, $serverUrl){
 		$movie = $this->one('title_id', $titleID);
 		if(isset($movie->id)){
