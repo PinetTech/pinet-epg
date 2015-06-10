@@ -115,7 +115,7 @@ VIDEOJS_SWF
 			$series = $this->title->getSeries($title->package_id);
 		    foreach ($series as $k=>$v) {
 			    $seriesList[$k]['titleID'] = $v->id;
-			    $seriesList[$k]['episode'] = $v->episode_name;
+			    $seriesList[$k]['episode'] = $v->episode_id;
 			    $seriesList[$k]['active'] = ($v->id == $titleID ? 'active' : '');
 		    }
 	    }
