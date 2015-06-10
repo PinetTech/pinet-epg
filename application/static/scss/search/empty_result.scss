@@ -153,6 +153,7 @@
 		main {
 			$height: res(mobile-to-pc(225px)) + 50;
 			display: block;
+			height: 350px;
 			height: -webkit-calc(100% - #{$height});
 			height: calc(100% - #{$height});
 			.search-result {

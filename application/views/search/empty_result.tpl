@@ -20,7 +20,7 @@
         {/nav}      
     {/block}
     {block name="content"}	
-        <main>
+        <main class="empty-result">
             <div class="movie-infos">
                 <div class="movie-info summary">
                     <div class="movie-info__header">

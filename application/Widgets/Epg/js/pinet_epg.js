@@ -91,6 +91,17 @@
             });
         });
     }
+
+    $.fn.fixCalc = function() {
+        var isWebkit = 'WebkitAppearance' in document.documentElement.style;     
+        if (isWebkit && parseInt(window.navigator.userAgent.match(/Chrome\/([\d.]+)/)[1]) < 19) {
+            var self = $(this);
+            var prevHeight = self.prev().height();
+            var nextHeight = self.next().height();
+            self.height($(window).height() - prevHeight - nextHeight);
+        }
+    }      
+
 })();
 
 $(function(){

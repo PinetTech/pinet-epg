@@ -81,4 +81,8 @@ function initialize() {
     if($("#movie-template").length > 0) {
         handletemplate();
     }
+
+    if($('.empty-result').length > 0) {
+        $('.empty-result').fixCalc();
+    }      
 }

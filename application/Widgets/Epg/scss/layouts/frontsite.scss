@@ -522,11 +522,13 @@ $menu-icons-length: length($menu-icons);
             height: res(mobile-to-pc(90.5px));
             overflow: hidden;
             .icon {
-                display: block;
-                float: left;
                 width: res(mobile-to-pc(30.5px));
                 height: res(mobile-to-pc(30.5px));
                 margin: 0;
+                display: inline-block;
+                vertical-align: middle;
+                margin-top: res(mobile-to-pc(3px));
+                padding: 0;
             }            
             &__link {
                 width: res(mobile-to-pc(135.5px));
@@ -535,45 +537,21 @@ $menu-icons-length: length($menu-icons);
                 float: left;
                 border: 1px solid #C6C6C6;
                 border-radius: 4px;        
-                display: -webkit-box;        
-                display: -webkit-flex;        
-                display: -ms-flexbox;        
-                display: flex;
-                -webkit-box-align: center;
-                -webkit-align-items: center;
-                    -ms-flex-align: center;
-                        align-items: center;
                 font-size: res(mobile-to-pc(10px));
                 text-align: center;
                 a {
-                    display: -webkit-box;
-                    display: -webkit-flex;
-                    display: -ms-flexbox;
-                    display: flex;
-                    width: 100%;
-                    -webkit-box-pack: center;
-                    -webkit-justify-content: center;
-                        -ms-flex-pack: center;
-                            justify-content: center;
-                    -webkit-box-align: center;
-                    -webkit-align-items: center;
-                        -ms-flex-align: center;
-                            align-items: center    
+                    display: inline;
+                    text-align: center;                    
                 }                
                 h3 {
                     position: relative;
                     line-height: normal;
                     color: #212121;
                     padding-left: res(mobile-to-pc(6.5px));
-                    display: -webkit-box;
-                    display: -webkit-flex;
-                    display: -ms-flexbox;
-                    display: flex;
-                    height: 100%;
-                    -webkit-box-align: center;
-                    -webkit-align-items: center;
-                        -ms-flex-align: center;
-                            align-items: center;
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: 0;
+                    margin-top: res(mobile-to-pc(3px));
                 }                        
             }
             &__link:nth-child(2n+1) {
