@@ -375,7 +375,7 @@ class TitleModel extends DBModel {
 				new \Clips\Libraries\NotOperator(array('title.application_id' => null)),
 				new \Clips\Libraries\NotOperator(array('title_application.episode_id' => ''))
 			))
-			->orderBy('title_application.episode_id')
+			->orderBy('cast(title_application.episode_id as unsigned)')
 			->result();
 	}
 }
