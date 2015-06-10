@@ -369,13 +369,14 @@ class TitleModel extends DBModel {
 	}
 
 	public function getSeries($packageID){
-		return $this->select('title.id, title_application.episode_name')
+		return $this->select('title.id, title_application.episode_id')
 			->from('title')
 			->join('title_application',array('title_application.id'=>'title.application_id'))
 			->where(array('title.package_id'=>$packageID,
-				new \Clips\Libraries\NotOperator(array('title.application_id' => null))
+				new \Clips\Libraries\NotOperator(array('title.application_id' => null)),
+				new \Clips\Libraries\NotOperator(array('title_application.episode_id' => ''))
 			))
-			->orderBy('title_application.episode_name')
+			->orderBy('title_application.episode_id')
 			->result();
 	}
 }
