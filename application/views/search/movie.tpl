@@ -20,7 +20,7 @@
         {/nav}      
     {/block}
     {block name="content"}	
-        <main class="result">
+        <main class="result search-movie">
             <section class="search-result">
                 <div class="search-result__header">
                     <h3>搜索结果</h3>

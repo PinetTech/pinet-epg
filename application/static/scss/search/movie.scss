@@ -2,99 +2,101 @@ $movie-sel: get-module("movie", "selector");
 $table-sel: get-module("tab", "select");
 
 @mixin search-movie-init() {
-	.movie__title:nth-letter(1) {
-		color: #ff0000;
-	}
-	.movie__title:nth-letter(2) {
-		color: #ff0000;
-	}		
+	main.search-movie {
+		.movie__title:nth-letter(1) {
+			color: #ff0000;
+		}
+		.movie__title:nth-letter(2) {
+			color: #ff0000;
+		}		
 
-	#{$tab-sel} {
-	    &__nav {
-	        margin: 0;
-	        .swiper-slide {
-	            width: 50%;
-	        }       
-	        .swiper-slide-active {
-	            color: #ef1717;
-	        }
-	    }
-	    &__thumbs {
-	        border-bottom: 1px solid #dedede;
-	        margin: 0;        
-	        .swiper-slide {
-	            height: 3px;
-	        }
-	        .swiper-slide-active {
-	            background-color: #e01818;
-	        }
-	    }
-	    &__content {
-	        .swiper-slide {
-	        	width: 100%;
-	        }
-	    }
-	}
-	$teal:     #56D7C6 !default;
-	$purple:   #B96CFF !default;
-	$blue:     #222232 !default;
+		#{$tab-sel} {
+		    &__nav {
+		        margin: 0;
+		        .swiper-slide {
+		            width: 50%;
+		        }       
+		        .swiper-slide-active {
+		            color: #ef1717;
+		        }
+		    }
+		    &__thumbs {
+		        border-bottom: 1px solid #dedede;
+		        margin: 0;        
+		        .swiper-slide {
+		            height: 3px;
+		        }
+		        .swiper-slide-active {
+		            background-color: #e01818;
+		        }
+		    }
+		    &__content {
+		        .swiper-slide {
+		        	width: 100%;
+		        }
+		    }
+		}
+		$teal:     #56D7C6 !default;
+		$purple:   #B96CFF !default;
+		$blue:     #222232 !default;
 
-	/* Universal styling */
-	[class^="shaft-load"] {
-	  margin: 10px auto;
-	  width: 60px;
-	  height: 30px;
-	  opacity: 0;
-	  position: relative;
-	  > div {
-	    float: left;
-	    background: $purple;
-	    height: 100%;
-	    width: 5px;
-	    margin-right: 1px;
-	    display: inline-block;
-	  }
-	  .shaft1 { -webkit-animation-delay: 0.05s; animation-delay: 0.05s;}
-	  .shaft2 { -webkit-animation-delay: 0.1s; animation-delay: 0.1s; }
-	  .shaft3 { -webkit-animation-delay: 0.15s; animation-delay: 0.15s; }
-	  .shaft4 { -webkit-animation-delay: 0.2s; animation-delay: 0.2s; }
-	  .shaft5 { -webkit-animation-delay: 0.25s; animation-delay: 0.25s; }
-	  .shaft6 { -webkit-animation-delay: 0.3s; animation-delay: 0.3s; }
-	  .shaft7 { -webkit-animation-delay: 0.35s; animation-delay: 0.35s; }
-	  .shaft8 { -webkit-animation-delay: 0.4s; animation-delay: 0.4s;}
-	  .shaft9 { -webkit-animation-delay: 0.45s; animation-delay: 0.45s; }
-	  .shaft10 { -webkit-animation-delay: 0.5s; animation-delay: 0.5s; }
-	}
+		/* Universal styling */
+		[class^="shaft-load"] {
+		  margin: 10px auto;
+		  width: 60px;
+		  height: 30px;
+		  opacity: 0;
+		  position: relative;
+		  > div {
+		    float: left;
+		    background: $purple;
+		    height: 100%;
+		    width: 5px;
+		    margin-right: 1px;
+		    display: inline-block;
+		  }
+		  .shaft1 { -webkit-animation-delay: 0.05s; animation-delay: 0.05s;}
+		  .shaft2 { -webkit-animation-delay: 0.1s; animation-delay: 0.1s; }
+		  .shaft3 { -webkit-animation-delay: 0.15s; animation-delay: 0.15s; }
+		  .shaft4 { -webkit-animation-delay: 0.2s; animation-delay: 0.2s; }
+		  .shaft5 { -webkit-animation-delay: 0.25s; animation-delay: 0.25s; }
+		  .shaft6 { -webkit-animation-delay: 0.3s; animation-delay: 0.3s; }
+		  .shaft7 { -webkit-animation-delay: 0.35s; animation-delay: 0.35s; }
+		  .shaft8 { -webkit-animation-delay: 0.4s; animation-delay: 0.4s;}
+		  .shaft9 { -webkit-animation-delay: 0.45s; animation-delay: 0.45s; }
+		  .shaft10 { -webkit-animation-delay: 0.5s; animation-delay: 0.5s; }
+		}
 
-	[class^="shaft-load"].show {
-		opacity: 1;
-	}
+		[class^="shaft-load"].show {
+			opacity: 1;
+		}
 
-	/* Shaft 1 */
-	.shaft-load {
-	  > div {
-	    -webkit-animation: loading 1.5s infinite ease-in-out;
-	            animation: loading 1.5s infinite ease-in-out;
-	    -webkit-transform: scaleY(0.05) translateX(-10px);
-	        -ms-transform: scaleY(0.05) translateX(-10px);
-	            transform: scaleY(0.05) translateX(-10px);
-	  }
-	}
+		/* Shaft 1 */
+		.shaft-load {
+		  > div {
+		    -webkit-animation: loading 1.5s infinite ease-in-out;
+		            animation: loading 1.5s infinite ease-in-out;
+		    -webkit-transform: scaleY(0.05) translateX(-10px);
+		        -ms-transform: scaleY(0.05) translateX(-10px);
+		            transform: scaleY(0.05) translateX(-10px);
+		  }
+		}
 
-	@-webkit-keyframes loading {
-	  50% { 
-	    -webkit-transform: scaleY(1.2) translateX(10px); 
-	            transform: scaleY(1.2) translateX(10px);
-	    background: $teal;
-	  }		
-	}
+		@-webkit-keyframes loading {
+		  50% { 
+		    -webkit-transform: scaleY(1.2) translateX(10px); 
+		            transform: scaleY(1.2) translateX(10px);
+		    background: $teal;
+		  }		
+		}
 
-	@keyframes loading {
-	  50% { 
-	    -webkit-transform: scaleY(1.2) translateX(10px); 
-	            transform: scaleY(1.2) translateX(10px);
-	    background: $teal;
-	  }		
+		@keyframes loading {
+		  50% { 
+		    -webkit-transform: scaleY(1.2) translateX(10px); 
+		            transform: scaleY(1.2) translateX(10px);
+		    background: $teal;
+		  }		
+		}
 	}
 }
 
@@ -374,15 +376,17 @@ $table-sel: get-module("tab", "select");
 
 	@mixin constructor(){
 		@include main();
-		@include search-result();
-		@include movie();
-		@include search-classfication();
+		main.search-movie {
+			@include search-result();
+			@include movie();
+			@include search-classfication();
 
-		@include movies();
-		@include types();
-		@include areas();
-		@include movietypes();
-		@include tab();
+			@include movies();
+			@include types();
+			@include areas();
+			@include movietypes();
+			@include tab();
+		}
 		@include actionbar();
 		@include menu();
 	}
@@ -759,11 +763,13 @@ $table-sel: get-module("tab", "select");
 		@include all();
 		@include main();		
 		@include actionbar();
-		@include search-classfication();
-		@include types();
-		@include areas();
-		@include movietypes();
-		@include movie();
+		main.search-movie {
+			@include search-classfication();
+			@include types();			
+			@include areas();
+			@include movietypes();
+			@include movie();
+		}
 	}
 	@include constructor();
 }
