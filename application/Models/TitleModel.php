@@ -155,6 +155,28 @@ class TitleModel extends DBModel {
 		return $titles;
 	}
 
+	public function getSameColumnMovies($columnID, $limit=10) {
+		$titles = array();
+		if($columnID){
+			$titles = $this->getTitlesByColumn($columnID, $limit);
+			$titleIDs = array_map(function($title){return $title->id;}, $titles);
+			$count = count($titles);
+			if($count != $limit){
+				$titles = array_merge($titles, $this->getTitles($limit - $count, $titleIDs));
+			}
+		}else{
+			$titles = $this->getTitles();
+		}
+		$titleIDs = array_map(function($title){return $title->id;}, $titles);
+		$plays = $this->playhistorie->getMovieHistories($titleIDs);
+		foreach($titles as $key=>$title){
+			$titles[$key]->count = 0;
+			if(isset($plays[$title->id]))
+				$titles[$key]->count = $plays[$title->id];
+		}
+		return $titles;
+	}
+
 	function array_unique_fb($array2D) {     //二维数组去重
 		foreach ($array2D as $k=>$v)
 		{

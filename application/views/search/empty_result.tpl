@@ -31,7 +31,7 @@
                             <i class="message__icon">
                                 {resimg  data-image="icons/not_found.png"}
                             </i>
-                            <p class="message__content"><i>抱歉，</i>没有找到与 “<i class="highlight">您好</i>” 相关的视频结果！</p>
+                            <p class="message__content"><i>抱歉，</i>没有找到与 “<i class="highlight">{$search}</i>” 相关的视频结果！</p>
                         </div>
                     </div>
                 </div>
