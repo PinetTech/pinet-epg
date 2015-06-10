@@ -24,7 +24,7 @@
             <div class="movie-infos">
                 <div class="movie-info summary">
                     <div class="movie-info__header">
-                        <h3>{lang}简介{/lang}</h3>
+                        <h3>{lang}搜索结果{/lang}</h3>
                     </div>
                     <div class="movie-info__body">
                         <div class="message">
