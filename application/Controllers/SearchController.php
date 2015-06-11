@@ -36,7 +36,7 @@ class SearchController extends BaseController
 		}
 		$this->request->session('column_id', $columnID);
 		$this->request->session('search', $search);
-		// \Clips\context('highlight-text', $search);
+		 \Clips\context('highlight-text', $search);
 		if(!count($titles)){
 			return $this->forward('emptyResult');
 		}
