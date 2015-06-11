@@ -327,7 +327,7 @@ class TitleModel extends DBModel {
 			$records = $this->playhistorie->getRecordsByColumnID($nav->id);
 			$count = count($records);
 			if($count != $limit){
-				$packageIDs = array_map(function($record){ return $record->id;}, $records);
+				$packageIDs = array_map(function($record){ return $record->package_id;}, $records);
 				$records = array_merge($records, $this->getNewTitlesByColumnID($nav->id, $packageIDs, $limit-$count));
 			}
 			$children = array();
