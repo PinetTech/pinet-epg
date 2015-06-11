@@ -13,14 +13,22 @@ use Pinet\EPG\Core\ColumnAction;
  */
 class TitleModel extends DBModel {
 
-	public function getTitlesByColumn($column_id, $limit=0){
-		$titles = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
+	public function getTitlesByColumn($column_id, $limit){
+		$titles = $this->select('title.id,title.asset_name,poster.sourceurl,title.package_id')
 			->from('title')
+			->join('title_application',array('title_application.id'=>'title.application_id'))
 			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))
 			->where(array('asset_column_ref.column_id'=>$column_id,
 				'poster.image_aspect_ratio'=>(PosterModel::SMALL_SIZE),
-				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
+				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
+					new \Clips\Libraries\OrOperator(
+						array(array('title_application.episode_id' => ''),
+							array('title_application.episode_id' => 1)
+						)
+					)
+				)
+			)
 			->groupBy('title.package_id')
 			->limit(0, $limit)
 			->result();
@@ -44,10 +52,15 @@ class TitleModel extends DBModel {
 						new \Pinet\EPG\Core\FindInSet('title_application.actors', $key))
 				);
 		}
+		$where[] = new \Clips\Libraries\OrOperator(
+						array(array('title_application.episode_id' => ''),
+							array('title_application.episode_id' => 1)
+						)
+					);
 		if($columnID){
 			$where['asset_column_ref.column_id'] = $columnID;
 		}
-		return $this->select('min(title.id) as id,asset_column_ref.column_id,title.asset_name,title_application.area,title_application.summary_short,
+		return $this->select('title.id,asset_column_ref.column_id,title.asset_name,title_application.area,title_application.summary_short,
 								title_application.actors,title_application.director,package.program_type_name,poster.sourceurl')
 			->from('title')
 			->join('title_application',array('title.application_id'=>'title_application.id'))
@@ -103,7 +116,7 @@ class TitleModel extends DBModel {
 				'poster.image_aspect_ratio'=>(PosterModel::SMALL_SIZE)
 		);
 		if($notIn){
-			$where[] = new \Pinet\EPG\Core\NotIn('title.id', $notIn);
+			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', $notIn);
 		}
 		$select->where($where);
 		$titles = $select->limit(0,$limit)
@@ -128,15 +141,20 @@ class TitleModel extends DBModel {
 		return $titles;
 	}
 
-	public function getSameTypeMovies($titleID, $limit=10) {
+	public function getSameTypeMovies($titleID, $limit=7) {
 		$ref = $this->assetcolumnref->getColumnByID($titleID);
 		$titles = array();
 		if(isset($ref->id)){
 			$titles = $this->getTitlesByColumn($ref->column_id, $limit);
-			$titleIDs = array_map(function($title){return $title->id;}, $titles);
-			$count = count($titles);
+			$packageIDs = array();
+			foreach($titles as $title){
+				if($title->id != $titleID){
+					$packageIDs[] = $title->package_id;
+				}
+			}
+			$count = count($packageIDs);
 			if($count != $limit){
-				$titles = array_merge($titles, $this->getTitles($limit - $count, $titleIDs));
+				$titles = array_merge($titles, $this->getTitles($limit - $count, $packageIDs));
 			}
 		}else{
 			$titles = $this->getTitles();
@@ -151,14 +169,14 @@ class TitleModel extends DBModel {
 		return $titles;
 	}
 
-	public function getSameColumnMovies($columnID, $limit=10) {
+	public function getSameColumnMovies($columnID, $limit=7) {
 		$titles = array();
 		if($columnID){
 			$titles = $this->getTitlesByColumn($columnID, $limit);
-			$titleIDs = array_map(function($title){return $title->id;}, $titles);
+			$packageIDs = array_map(function($title){return $title->package_id;}, $titles);
 			$count = count($titles);
 			if($count != $limit){
-				$titles = array_merge($titles, $this->getTitles($limit - $count, $titleIDs));
+				$titles = array_merge($titles, $this->getTitles($limit - $count, $packageIDs));
 			}
 		}else{
 			$titles = $this->getTitles();
@@ -262,6 +280,11 @@ class TitleModel extends DBModel {
 							new \Pinet\EPG\Core\FindInSet('title_application.actors', $search))
 			);
 		}
+		$where[] = new \Clips\Libraries\OrOperator(
+						array(array('title_application.episode_id' => ''),
+							array('title_application.episode_id' => 1)
+						)
+					);
 		if(isset($session['type']) && $session['type'] && $session['type'] != 'all') {
 			$type = $session['type'];
 			$where[] = new \Clips\Libraries\LikeOperator('package.program_type_name', '%'.$type.'%');
@@ -287,7 +310,7 @@ class TitleModel extends DBModel {
 		}
 		$where['poster.image_aspect_ratio'] = '300x428';
 		$where[] = new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null));
-		$titles = $this->select("count(distinct play_histories.id) as count ,min(title.id) as id, package.program_type_name,
+		$titles = $this->select("count(distinct play_histories.id) as count , title.id, package.program_type_name,
 								title_application.director,title_application.actors,title_application.area,
 								title.asset_name,poster.sourceurl,title.package_id,date_format(title.create_at, '%Y') as year")
 						->from('title')
@@ -310,8 +333,14 @@ class TitleModel extends DBModel {
 		if($notIn){
 			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', $notIn);
 		}
-		$titles = $this->select('min(title.id) as id,title.asset_name,title.create_at')
+		$where[] = new \Clips\Libraries\OrOperator(
+						array(array('title_application.episode_id' => ''),
+							array('title_application.episode_id' => 1)
+						)
+					);
+		$titles = $this->select('title.id,title.asset_name,title.create_at')
 			->from('title')
+			->join('title_application',array('title_application.id'=>'title.application_id'))
 			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 			->where($where)
 			->groupBy('title.package_id')
@@ -353,14 +382,20 @@ class TitleModel extends DBModel {
 	}
 
 	public function getHotsByColumnID($columnID,$offset=0,$limit=20){
-		return $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,count(1) as count')
+		return $this->select('title.id,title.asset_name,poster.sourceurl,count(1) as count')
 				->from('title')
+				->join('title_application',array('title_application.id'=>'title.application_id'))
 				->join('play_histories',array('play_histories.title_id'=>'title.id'))
 				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 				->join('poster',array('poster.title_id'=>'title.id'))
 				->where(array('asset_column_ref.column_id'=>$columnID,
 						new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
-						'poster.image_aspect_ratio'=>(PosterModel::SMALL_SIZE)
+						'poster.image_aspect_ratio'=>(PosterModel::SMALL_SIZE),
+						new \Clips\Libraries\OrOperator(
+							array(array('title_application.episode_id' => ''),
+								array('title_application.episode_id' => 1)
+							)
+						)
 				))
 				->groupBy('play_histories.package_id')
 				->orderBy("count desc")
