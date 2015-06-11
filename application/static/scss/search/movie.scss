@@ -3,13 +3,6 @@ $table-sel: get-module("tab", "select");
 
 @mixin search-movie-init() {
 	main.search-movie {
-		.movie__title:nth-letter(1) {
-			color: #ff0000;
-		}
-		.movie__title:nth-letter(2) {
-			color: #ff0000;
-		}		
-
 		#{$tab-sel} {
 		    &__nav {
 		        margin: 0;
@@ -97,6 +90,9 @@ $table-sel: get-module("tab", "select");
 		    background: $teal;
 		  }		
 		}
+	}
+	.highlight__content {
+		color: #ff0000;
 	}
 }
 

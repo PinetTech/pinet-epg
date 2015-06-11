@@ -62,7 +62,7 @@
                                                    <figure class="movie">
                                                     {resimg data-image=$v->sourceurl class="mobile__thumb"}
                                                     <div class="movie__info">
-                                                        <figcaption class="movie__title title">{$v->asset_name}</figcaption>
+                                                        <figcaption class="movie__title title">{highlight}{$v->asset_name}{/highlight}</figcaption>
                                                         <div class="movie__des">
                                                             <dl>
                                                                 <dt>别名</dt>
