@@ -287,7 +287,7 @@ class TitleModel extends DBModel {
 		}
 		$where['poster.image_aspect_ratio'] = '300x428';
 		$where[] = new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null));
-		$titles = $this->select("count(play_histories.id) as count ,min(title.id) as id, package.program_type_name,
+		$titles = $this->select("count(distinct play_histories.id) as count ,min(title.id) as id, package.program_type_name,
 								title_application.director,title_application.actors,title_application.area,
 								title.asset_name,poster.sourceurl,title.package_id,date_format(title.create_at, '%Y') as year")
 						->from('title')
@@ -310,13 +310,14 @@ class TitleModel extends DBModel {
 		if($notIn){
 			$where[] = new \Pinet\EPG\Core\NotIn('title.package_id', $notIn);
 		}
-		$titles = $this->select('title.id,title.asset_name,title.create_at')
-				->from('title')
-				->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
-				->where($where)
-				->orderBy('title.create_at desc')
-				->limit(0,$limit)
-				->result();
+		$titles = $this->select('min(title.id) as id,title.asset_name,title.create_at')
+			->from('title')
+			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
+			->where($where)
+			->groupBy('title.package_id')
+			->orderBy('title.create_at desc')
+			->limit(0,$limit)
+			->result();
 		return $titles;
 	}
 
