@@ -22,7 +22,7 @@ class ColumnModel extends DBModel {
 		$columns = array();
 		foreach ($navs as $k=>$nav) {
 			$videos = array();
-			$movies = $this->title->getTitlesByColumn($nav->id,6);
+			$movies = $this->title->getTitlesByColumn($nav->id, 7);
 			foreach ($movies as $movie) {
 				$videos[]=(object)array('id'=>$movie->id, 'title'=>$movie->asset_name, 'count'=>$movie->record, 'imageSrc'=>$movie->sourceurl);
 			}
