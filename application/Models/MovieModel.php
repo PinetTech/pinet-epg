@@ -68,9 +68,15 @@ class MovieModel extends DBModel {
 
 	//now instead of getPushRecords for banner
 	public function getRecommendTitles(){
-		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE));
+		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE),
+			new \Clips\Libraries\OrOperator(
+				array(array('title_application.episode_id' => ''),
+					array('title_application.episode_id' => 1)
+				)
+			));
 		return $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
 			->from('title')
+			->join('title_application',array('title_application.id'=>'title.application_id'))
 			->join('recommend_titles',array('recommend_titles.title_id'=>'title.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))
 			->where($where)

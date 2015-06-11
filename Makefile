@@ -13,6 +13,9 @@ epg:
 clean: epg migrate
 	@echo Clean epg tables and rebuild;
 
+actors:
+	@mysql -u root -e "use ${DB};UPDATE title_application SET actors = TRIM(REPLACE(actors, ' , ', ','));"
+
 test:
 	@phpunit
 
