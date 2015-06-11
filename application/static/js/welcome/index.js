@@ -12,7 +12,7 @@ function initialize() {
 
     if($(window).width() > 1280 && !window.mobileAndTabletcheck() && $('.responsive img').length > 0) {
 	    var interval = setInterval(function(){
-	    	$('.responsive').each(function(){
+	    	$('main .responsive').each(function(){
 	    		var self = $(this);
 	    		self.height(self.width() * 1.38);
 	    	});

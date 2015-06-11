@@ -455,15 +455,6 @@ $menu-icons-length: length($menu-icons);
                         }
                     }
                 }              
-                &__link:nth-child(#{$i}) .icon {
-                    background-image: url(php_img_url("107.5/icons/footer-#{$icon}.png"));
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    cursor: pointer;
-                }
-                &__link:nth-child(#{$i}):hover .icon {
-                    background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));
-                }
             }
             .responsive {
                 $width: calc-res(430px);
