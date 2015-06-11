@@ -93,6 +93,8 @@ $table-sel: get-module("tab", "select");
 	}
 	.highlight__content {
 		color: #ff0000;
+		display: inline-block;
+		position: relative;
 	}
 }
 
