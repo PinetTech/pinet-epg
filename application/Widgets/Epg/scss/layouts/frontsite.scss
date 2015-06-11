@@ -441,15 +441,28 @@ $menu-icons-length: length($menu-icons);
             $icons: "huazhu", "pinet", "weibo", "weixin";
             $iconlength: length($icons);
             @for $i from 1 through $iconlength {
+                $icon: nth($icons, $i);  
+                &__link:nth-child(#{$i}) {
+                    cursor: pointer;
+                    .icon {
+                        background-image: url(php_img_url("107.5/icons/footer-#{$icon}.png"));
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+                    &:hover {
+                        .icon {
+                            background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));        
+                        }
+                    }
+                }              
                 &__link:nth-child(#{$i}) .icon {
-                    $icon: nth($icons, $i);
                     background-image: url(php_img_url("107.5/icons/footer-#{$icon}.png"));
                     background-repeat: no-repeat;
                     background-size: cover;
                     cursor: pointer;
-                    &:hover {
-                        background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));
-                    }
+                }
+                &__link:nth-child(#{$i}):hover .icon {
+                    background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));
                 }
             }
             .responsive {
