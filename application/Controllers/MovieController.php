@@ -108,8 +108,6 @@ VIDEOJS_SWF
 		$sames = $this->title->getSameTypeMovies($titleID);
         $this->title($title->asset_name,true);
 
-	    $navs = $this->column->getAllColumns();
-	    $actions = $this->title->getHomeNavigations($navs);
 	    $seriesList = array();
 	    if($title->show_type == 'Series') {
 			$series = $this->title->getSeries($title->package_id);
@@ -121,7 +119,6 @@ VIDEOJS_SWF
 	    }
 	    return $this->render("movie/play", array(
 			'nav' => true,
-		    'actions'=>$actions,
 	        'movie'=>$title,
 	        'returnColumn'=>$this->column->getReturnColumn($columnID),
 	        'sames'=>$sames,

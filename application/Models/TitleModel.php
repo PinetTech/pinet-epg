@@ -147,12 +147,13 @@ class TitleModel extends DBModel {
 		if(isset($ref->id)){
 			$titles = $this->getTitlesByColumn($ref->column_id, $limit);
 			$packageIDs = array();
-			foreach($titles as $title){
-				if($title->id != $titleID){
-					$packageIDs[] = $title->package_id;
+			foreach($titles as $key=>$title){
+				$packageIDs[] = $title->package_id;
+				if($title->id == $titleID){
+					unset($titles[$key]);
 				}
 			}
-			$count = count($packageIDs);
+			$count = count($titles);
 			if($count != $limit){
 				$titles = array_merge($titles, $this->getTitles($limit - $count, $packageIDs));
 			}
@@ -162,9 +163,9 @@ class TitleModel extends DBModel {
 		$titleIDs = array_map(function($title){return $title->id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($titleIDs);
 		foreach($titles as $key=>$title){
-			$titles[$key]->count = 0;
+			$titles[$key]->record = 0;
 			if(isset($plays[$title->id]))
-				$titles[$key]->count = $plays[$title->id];
+				$titles[$key]->record = $plays[$title->id];
 		}
 		return $titles;
 	}
@@ -184,9 +185,9 @@ class TitleModel extends DBModel {
 		$titleIDs = array_map(function($title){return $title->id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($titleIDs);
 		foreach($titles as $key=>$title){
-			$titles[$key]->count = 0;
+			$titles[$key]->record = 0;
 			if(isset($plays[$title->id]))
-				$titles[$key]->count = $plays[$title->id];
+				$titles[$key]->record = $plays[$title->id];
 		}
 		return $titles;
 	}

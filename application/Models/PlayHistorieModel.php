@@ -79,17 +79,11 @@ class PlayHistorieModel extends DBModel {
 	public function getRecordsByColumnID($columnID, $limit=10){
 		return $this->select('title.id,play_histories.package_id,title.asset_name,count(1) as count, title.application_id')
 			->from('title')
-			->join('title_application',array('title_application.id'=>'title.application_id'))
 			->join('play_histories',array('play_histories.title_id'=>'title.id'))
 			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 			->where(array(
 				'asset_column_ref.column_id'=>$columnID,
-					new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null)),
-					new \Clips\Libraries\OrOperator(
-						array(array('title_application.episode_id' => ''),
-							array('title_application.episode_id' => 1)
-						)
-					)
+					new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))
 				)
 			)
 			->groupBy('play_histories.package_id')
