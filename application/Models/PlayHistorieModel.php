@@ -36,15 +36,16 @@ class PlayHistorieModel extends DBModel {
 		return true;
 	}
 
-	public function getMovieHistories($titleIDs){
+	public function getMovieHistories($packageIDs){
 		$result = array();
-		$plays = $this->select('title_id, count(title_id) as count')->from('play_histories')
-			->where(new \Pinet\EPG\Core\In('title_id', $titleIDs))
-			->groupBy('title_id')
+		$plays = $this->select('package_id, count(1) as count')->from('play_histories')
+			->where(new \Pinet\EPG\Core\In('package_id', $packageIDs))
+			->groupBy('package_id')
 			->result();
 		foreach($plays as $play){
-			$result[$play->title_id] = $play->count;
+			$result[$play->package_id] = $play->count;
 		}
+		return $result;
 	}
 
 	public function getHotRecord($columnID , $limit=9){

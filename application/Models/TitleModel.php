@@ -108,7 +108,7 @@ class TitleModel extends DBModel {
 	}
 
 	public function getTitles($limit=10, $notIn=array()){
-		$select = $this->select('title.id,title.asset_name,poster.sourceurl')
+		$select = $this->select('title.id,title.package_id,title.asset_name,poster.sourceurl')
 				->from('title')
 				->join('poster',array('poster.title_id'=>'title.id'));
 		$where = array(
@@ -160,12 +160,12 @@ class TitleModel extends DBModel {
 		}else{
 			$titles = $this->getTitles();
 		}
-		$titleIDs = array_map(function($title){return $title->id;}, $titles);
-		$plays = $this->playhistorie->getMovieHistories($titleIDs);
+		$packageIDs = array_map(function($title){return $title->package_id;}, $titles);
+		$plays = $this->playhistorie->getMovieHistories($packageIDs);
 		foreach($titles as $key=>$title){
 			$titles[$key]->record = 0;
-			if(isset($plays[$title->id]))
-				$titles[$key]->record = $plays[$title->id];
+			if(isset($plays[$title->package_id]))
+				$titles[$key]->record = $plays[$title->package_id];
 		}
 		return $titles;
 	}
@@ -182,12 +182,12 @@ class TitleModel extends DBModel {
 		}else{
 			$titles = $this->getTitles();
 		}
-		$titleIDs = array_map(function($title){return $title->id;}, $titles);
-		$plays = $this->playhistorie->getMovieHistories($titleIDs);
+		$packageIDs = array_map(function($title){return $title->package_id;}, $titles);
+		$plays = $this->playhistorie->getMovieHistories($packageIDs);
 		foreach($titles as $key=>$title){
 			$titles[$key]->record = 0;
-			if(isset($plays[$title->id]))
-				$titles[$key]->record = $plays[$title->id];
+			if(isset($plays[$title->package_id]))
+				$titles[$key]->record = $plays[$title->package_id];
 		}
 		return $titles;
 	}
