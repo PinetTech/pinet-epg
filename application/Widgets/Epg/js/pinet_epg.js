@@ -31,10 +31,13 @@
         var triggerEle = $(self.data('trigger'));
         triggerEle.toggleClass('open');
         triggerEle.parent().toggleClass('full-screen');
-        if($('.menu li').length > 0) {
-            $('.menu').resizeMenu();
-        }        
     });
+
+    setInterval(function(){
+        if($(window).width() < 1280 && $('.menu').length > 0 && $('.menu li').length > 0) {
+            $('.menu').resizeMenu();
+        }
+    }, 30);
 
     $.fn.hasContentState = function() {        
         var self = $(this);
@@ -78,12 +81,17 @@
     }
 
     $.fn.resizeMenu = function() {
+        var self = $(this);
         var menuWidth = $('.menu').width();
         var menuliWidth = $('.menu li').width();
         var menuHeight = $('.menu').height();
         var menuliHeight = $('.menu li').height();
         var mal = parseInt((menuWidth - menuliWidth * 2) / 3);
         var mat = parseInt((menuHeight - menuliHeight * 4) / 5);        
+        var isWebkit = 'WebkitAppearance' in document.documentElement.style;     
+        if (isWebkit && window.navigator.userAgent.match(/Chrome\/([\d.]+)/) && parseInt(window.navigator.userAgent.match(/Chrome\/([\d.]+)/)[1]) < 19) {
+            self.height($(window).height() - self.prev().height());
+        }        
         $('.menu li').each(function(i){             
             $(this).css({
                 'margin-left': mal,
@@ -94,7 +102,7 @@
 
     $.fn.fixCalc = function() {
         var isWebkit = 'WebkitAppearance' in document.documentElement.style;     
-        if (isWebkit && parseInt(window.navigator.userAgent.match(/Chrome\/([\d.]+)/)[1]) < 19) {
+        if (isWebkit && window.navigator.userAgent.match(/Chrome\/([\d.]+)/) && parseInt(window.navigator.userAgent.match(/Chrome\/([\d.]+)/)[1]) < 19) {
             var self = $(this);
             var prevHeight = self.prev().height();
             var nextHeight = self.next().height();

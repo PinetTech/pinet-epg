@@ -238,6 +238,7 @@ $menu-icons-length: length($menu-icons);
         overflow: hidden;
         height: 0;
         position: relative;
+        display: none;
         > li {
             width: res(mobile-to-pc(160px));
             height: res(mobile-to-pc(120px));
@@ -309,6 +310,11 @@ $menu-icons-length: length($menu-icons);
             height: -webkit-calc(100% - 50px);
             height: calc(100% - 50px);
             background: #F3F3F3;
+            display: block;
+            font-style: normal;
+            line-height: normal;
+            -webkit-transition: none;
+                    transition: none;
         }
     }    
 }
@@ -435,16 +441,20 @@ $menu-icons-length: length($menu-icons);
             $icons: "huazhu", "pinet", "weibo", "weixin";
             $iconlength: length($icons);
             @for $i from 1 through $iconlength {
-                &__link:nth-child(#{$i}) .icon {
-                    $icon: nth($icons, $i);
-                    background-image: url(php_img_url("107.5/icons/footer-#{$icon}.png"));
-                    background-repeat: no-repeat;
-                    background-size: cover;
+                $icon: nth($icons, $i);  
+                &__link:nth-child(#{$i}) {
                     cursor: pointer;
-                    &:hover {
-                        background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));
+                    .icon {
+                        background-image: url(php_img_url("107.5/icons/footer-#{$icon}.png"));
+                        background-repeat: no-repeat;
+                        background-size: cover;
                     }
-                }
+                    &:hover {
+                        .icon {
+                            background-image: url(php_img_url("107.5/icons/footer-#{$icon}-hover.png"));        
+                        }
+                    }
+                }              
             }
             .responsive {
                 $width: calc-res(430px);
