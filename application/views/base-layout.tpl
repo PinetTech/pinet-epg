@@ -2,7 +2,9 @@
 	{head}
 		{context key='css'}
 		<!-- End Of CSS -->
-		{block name="header"}{/block}
+		{block name="header"}
+			<link type="image/x-icon" href="application/static/img/favicon.ico" rel="shortcut icon">
+		{/block}
 		<!-- End of Header -->
 	{/head}
 	{body}
