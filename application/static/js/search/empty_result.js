@@ -9,5 +9,13 @@ $(function(){
     }
     if($('.actionbar .fa-times').length > 0) {
         $('.actionbar .fa-times').removeInputVal();
-    }
+    }    
+
+    $.stylesheet('html, body').css({
+        height: $(window).height() + 'px'
+    });
+
+    if($('.empty-result').length > 0) {
+        $('.empty-result').fixCalc();
+    }      
 });

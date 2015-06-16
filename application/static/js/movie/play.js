@@ -27,7 +27,7 @@
 
 })()
 
-function initialize() {
+$(function(){
     if($('.tab').length > 0) {
         var tab = initTab(function(swiper){
             swiper.wrapper.on('click', '.' + swiper.params.slideClass + ' a', function(e){
@@ -48,4 +48,4 @@ function initialize() {
             }
         });
     }
-}
+});

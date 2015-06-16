@@ -72,6 +72,7 @@ class SearchController extends BaseController
 	 * @Clips\Form({"search"})
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"search/empty_result"})
+	 * @Clips\Js({"application/static/js/search/empty_result.js"})
 	 */
 	public function emptyResult(){
 		return $this->render('search/empty_result', array(

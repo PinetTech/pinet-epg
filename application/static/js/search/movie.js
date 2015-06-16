@@ -8,7 +8,7 @@ function updateLabel(sel, text) {
     $(sel).append(label);
 }
 
-function initialize() {
+$(function(){
     if($('.tab').length > 0) {
         var tab = initTab(function(swiper){
             // swiper.wrapper.on('click', '.' + swiper.params.slideClass + ' a', function(e){
@@ -80,9 +80,5 @@ function initialize() {
 
     if($("#movie-template").length > 0) {
         handletemplate();
-    }
-
-    if($('.empty-result').length > 0) {
-        $('.empty-result').fixCalc();
-    }      
-}
+    }       
+});

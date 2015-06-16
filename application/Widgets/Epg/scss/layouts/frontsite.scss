@@ -307,14 +307,13 @@ $menu-icons-length: length($menu-icons);
         }
 
         &.open {
+            height: 100%;
             height: -webkit-calc(100% - 50px);
             height: calc(100% - 50px);
             background: #F3F3F3;
             display: block;
             font-style: normal;
             line-height: normal;
-            -webkit-transition: none;
-                    transition: none;
         }
     }    
 }

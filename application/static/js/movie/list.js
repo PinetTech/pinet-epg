@@ -8,13 +8,13 @@ function updateLabel(sel, text) {
     $(sel).append(label);
 }
 
-function initialize() {
+$(function(){
     var slide = '';
     setTimeout(function(){
         slide = new Slide('.slide');
     }, 0);
     if($('.tab').length > 0) {
-    	var tab = initTab(function(){}, {
+        var tab = initTab(function(){}, {
             slidesPerView: 'auto'
         });
 
@@ -23,7 +23,6 @@ function initialize() {
     }
 
     function updateActiveContent(tab) {
-        // var index = tab.nav;
         var slides = tab.nav.slides;
         var index = -1;
 
@@ -93,7 +92,5 @@ function initialize() {
 
     if($("#movie-template").length > 0) {
         handletemplate();
-    }   
-}
-
-// updateLabel(".select__choose", "sdsd1");
+    } 
+});

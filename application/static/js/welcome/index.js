@@ -1,4 +1,4 @@
-function initialize() {
+$(function(){
     var slide = '';
     setTimeout(function(){
         slide = new Slide('.slide');
@@ -10,6 +10,10 @@ function initialize() {
 		return check;
 	}
 
+	$.stylesheet('.nav.menu.open').css({
+		height: ($(window).height() - 50) + 'px'
+	});
+
     if($(window).width() > 1280 && !window.mobileAndTabletcheck() && $('.responsive img').length > 0) {
 	    var interval = setInterval(function(){
 	    	$('main .responsive').each(function(){
@@ -18,4 +22,5 @@ function initialize() {
 	    	});
 	    }, 30);
     }
-}
+});
+
