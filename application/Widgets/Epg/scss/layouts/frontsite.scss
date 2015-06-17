@@ -47,6 +47,7 @@ $nav-sel: get-module("nav", "selector");
             }
         }
         &__search-form {
+            width: calc-res(822px);
             height: calc-res(70px);
             .form-group {
                 display: table-cell;
@@ -57,11 +58,13 @@ $nav-sel: get-module("nav", "selector");
                     font-size: 14px;
                     color: #A4A4A4;
                     line-height: 19px;       
-                    padding-left: calc-res(40px);
+                    padding-left: calc-res(40px);                       
                 }                
             }
             .submit {
+                width: 100%;
                 display: table-cell;
+                vertical-align: top;
                 position: relative;
                 cursor: pointer;
             }
