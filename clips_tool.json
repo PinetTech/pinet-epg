@@ -5,7 +5,6 @@
 	"filters": ["Widget", "Rules", "Form", "Scss", "Css", "SmartyView", "MustacheView", "JsonView", "DirectView"],
 	"helpers":["web", "html"],
 	"default_view": "Smarty",
-	"debug_sass": true,
 	"resolutions": ["320", "360", "375", "414", "480", "640", {"mobile":"769"}, {"pc":"1280"}, "1440", "1920", "2880"],
     "sass_preload": ["variables"],
     "use_rewrite": true,
