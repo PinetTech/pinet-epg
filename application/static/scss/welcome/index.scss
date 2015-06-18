@@ -78,6 +78,21 @@ $nav-sel: get-module("nav", "selector");
                 margin-right: 0;
             }             
         } 
+
+        html.ie9 {
+            .movielist__head {
+                position: relative;
+            }
+            .movielist__viewall {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                -webkit-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
+                        transform: translateY(-50%);               
+            }        
+        }
+        
     }
 
     @mixin constructor(){

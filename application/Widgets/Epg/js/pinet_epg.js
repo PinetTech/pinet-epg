@@ -1,5 +1,10 @@
 (function(){
 
+    var isIE = document.all && !window.atob;
+    if(isIE) {
+        $('html').addClass('ie9');
+    }
+
     var customStyles = {};
 
     customStyles.parse = function(customStyleSheet) {

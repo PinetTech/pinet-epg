@@ -83,6 +83,26 @@ $nav-sel: get-module("nav", "selector");
             }                          
         }
     }
+    html.ie9 {
+        .actionbar {
+            display: table;
+            width: 100%;
+            position: relative;
+            &__brand {
+              position: absolute;
+              left: calc-res(40px);
+              top: 50%;
+              transform: translateY(-50%);            
+            }
+            &__search-form {
+                float: right;
+                position: absolute;
+                right: calc-res(40px);
+                top: 50%;
+                transform: translateY(-50%);            
+            }
+        }
+    }
 }
 
 @mixin frontsite-actionbar-mobile() {
@@ -227,6 +247,23 @@ $nav-sel: get-module("nav", "selector");
             }
         }        
     }
+    html.ie9 {
+        .nav {
+            &.menu {
+                display: block;
+                background-color: #363636;
+                > li {
+                    display: inline-block;
+                }
+                > li > a {
+                    display: inline-block !important;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    line-height: res(90px, 40px);
+                }
+            }
+        }
+    }    
 }
 
 $menu-icons: "movie", "tvseries", "variety", "animation", "education", "sports", "documentary", "micro-film";
@@ -504,6 +541,25 @@ $menu-icons-length: length($menu-icons);
         padding-top: calc-res(99.5px);
         padding-bottom: calc-res(140px);
     }      
+    html.ie9 {      
+        .site-share {  
+            text-align: center;
+            &__link {
+                display: inline-block;       
+            }
+        }
+        .site-map {
+            text-align: center;
+            > li {
+                display: inline-block;
+            }
+        }
+        .copyright {
+            line-height: normal;
+            position: relative;
+            top: 3.5px;
+        }
+    }
 }
 
 @mixin frontsite-footer-mobile() {
