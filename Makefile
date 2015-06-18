@@ -16,6 +16,9 @@ clean: epg migrate
 actors:
 	@mysql -u root -e "use ${DB};UPDATE title_application SET actors = TRIM(REPLACE(actors, ' , ', ','));"
 
+trim:
+	@mysql -u root -e "use ${DB};UPDATE title_application SET actors = TRIM(REPLACE(actors, ' , ', ','));UPDATE package SET program_type = TRIM(REPLACE(program_type, ' , ', ',')), program_type_name = TRIM(REPLACE(program_type_name, ' , ', ','));"
+
 test:
 	@phpunit
 
