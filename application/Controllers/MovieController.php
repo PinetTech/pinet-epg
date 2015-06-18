@@ -222,7 +222,7 @@ VIDEOJS_SWF
 	public function getMore($page){
 		$offset = $page * 20;
 
-		$titles = $this->title->siftRecords($this->request->session('sift'),$offset,20);
+		$titles = $this->title->siftRecords($this->request->session('sift'), $this->request->session('column_id'),$offset,20);
 		return $this->json(array(
 			'page'=>$page + 1,
 			'movies'=>$titles
