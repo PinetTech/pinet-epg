@@ -150,14 +150,16 @@ $movie-sel: get-module("movie", "selector");
                 }
                 > ul {
                     list-style: none;
-                    padding-left: calc-res(72px);
-                    padding-right: calc-res(72px);                    
+                    margin-left: calc-res(72px);
+                    margin-right: calc-res(72px);          
                     margin: 0 {
                         top: 10px;
                     };                    
+                    height: calc-res(910px);
+                    overflow: auto;
                     > li {
                         display: block;
-                        width: calc-res(90px);
+                        width: calc-res(85.5px);
                         height: calc-res(90px);
                         float: left;
                         margin-right: 10px;
