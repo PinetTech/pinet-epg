@@ -46,15 +46,21 @@
 
     $.fn.hasContentState = function() {        
         var self = $(this);
-        setInterval(function(){
+        var dirtyCheckHandle = function(){
             if(self.val().length > 0) {
                 self.addClass('has-content');
             }
             else {
                 self.removeClass('has-content');
             }
-
-        }, 30);
+        };
+        var interval = 0;
+        self.on('focus', function() {
+            interval = setInterval(dirtyCheckHandle, 30);
+        });
+        self.on('blur', function(){
+            clearInterval(interval);
+        });
     }
 
     $.fn.removeInputVal = function() {
