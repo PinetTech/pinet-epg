@@ -23,6 +23,14 @@ class MovieModel extends DBModel {
 		return '';
 	}
 
+	public function getRealPlayUrl($serverUrl){
+		if(\Clips\config('set_play_url')){
+			return \Clips\config('set_play_url');
+		}
+		var_dump(\Clips\config('set_play_url'));die;
+		return $serverUrl;
+	}
+
 	public function getMovieByTitleID($titleID){
 		return $this->one('title_id', $titleID);
 	}

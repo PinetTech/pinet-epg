@@ -92,7 +92,7 @@ class MovieController extends BaseController
 VIDEOJS_SWF
 	    ,true);
 
-		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('SERVER_ADDR'));
+		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->movie->getRealPlayUrl($this->request->server('SERVER_ADDR')));
 		$this->playhistorie->saveHistory(array(
 			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
 			'title_id' => $titleID
