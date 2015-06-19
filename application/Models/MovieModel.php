@@ -27,7 +27,6 @@ class MovieModel extends DBModel {
 		if(\Clips\config('set_play_url')){
 			return \Clips\config('set_play_url');
 		}
-		var_dump(\Clips\config('set_play_url'));die;
 		return $serverUrl;
 	}
 
