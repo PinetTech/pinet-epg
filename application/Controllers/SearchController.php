@@ -38,7 +38,7 @@ class SearchController extends BaseController
 		$this->request->session('search', $search);
 		 \Clips\context('highlight-text', $search);
 		if(!count($titles)){
-			return $this->forward('emptyResult');
+			return $this->forward('empty_result');
 		}
 		foreach ($titles as $k=>$v) {
 			$titles[$k]->url = \Clips\static_url('movie/play/'.$v->id);
@@ -74,7 +74,7 @@ class SearchController extends BaseController
 	 * @Clips\Scss({"search/empty_result"})
 	 * @Clips\Js({"application/static/js/search/empty_result.js"})
 	 */
-	public function emptyResult(){
+	public function empty_result(){
 		return $this->render('search/empty_result', array(
 			'nav' => true,
 			'search' => $this->request->session('search'),
