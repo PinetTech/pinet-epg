@@ -19,13 +19,15 @@ $nav-sel: get-module("nav", "selector");
 }
 
 @mixin fix-desktop() {
+    html, body {
+        background-color: #fff;
+        overflow-x: hidden;
+    }
 }
 
 @mixin fix-mobile() {
     html, body {
-        // width: 100%;
-        // height: 100%;
-        // overflow-x: hidden;
+        background-color: #fff;
     }
 }
 

@@ -189,12 +189,13 @@ $movie-sel: get-module("movie", "selector");
                 margin-top: 0;
 
                 > li {
-                    -webkit-flex-wrap: wrap;
-                        -ms-flex-wrap: wrap;
-                            flex-wrap: wrap;
+                    // -webkit-flex-wrap: wrap;
+                    //     -ms-flex-wrap: wrap;
+                    //         flex-wrap: wrap;
                     padding-top: calc-res(50px);
                     padding-bottom: calc-res(50px);
                     border-bottom: 1px solid #e5e5e5;
+                    display: block;
                 }
 
                 > li > a {
