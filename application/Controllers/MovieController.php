@@ -67,9 +67,10 @@ class MovieController extends BaseController
 	 * @Clips\Library({"curl"})
 	 */
 	public function stream($assetID){
-		$this->curl->get('http://'.$this->movie->getRealPlayUrl($this->request->server('SERVER_ADDR')).':8080/'.$assetID.'/transcodedmedia/video/Stream_v.m3u8');
+		$url = $this->movie->getRealPlayUrl($this->request->server('SERVER_ADDR'));
+		$this->curl->get('http://'.$url.':8080/'.$assetID.'/transcodedmedia/video/Stream_v.m3u8');
 		if($this->curl->http_status_code == 200) {
-			echo $this->curl->response;
+			echo str_replace('localhost', $url, $this->curl->response);
 		}
 	}
 
