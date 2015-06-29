@@ -101,7 +101,7 @@ class MovieController extends BaseController
 	$(player.el()).find('.vjs-big-play-button span').text($('.video-button-text').text());
 VIDEOJS_SWF
 	    ,true);
-		$title->playUrl = \Clips\site_url('movie/stream/'.$this->movie->getSourceURLByTitleID($titleID), true);
+		$title->playUrl = \Clips\site_url('movie/stream/'.$this->movie->getSourceURLByTitleID($titleID));
 		$this->playhistorie->saveHistory(array(
 			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
 			'title_id' => $titleID
