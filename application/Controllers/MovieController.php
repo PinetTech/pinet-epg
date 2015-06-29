@@ -63,6 +63,16 @@ class MovieController extends BaseController
 		));
 	}
 
+	/**
+	 * @Clips\Library({"curl"})
+	 */
+	public function stream($assetID){
+		$this->curl->get('http://'.$this->movie->getRealPlayUrl($this->request->server('SERVER_ADDR')).':8080/'.$assetID.'/transcodedmedia/video/Stream_v.m3u8');
+		if($this->curl->http_status_code == 200) {
+			echo $this->curl->response;
+		}
+	}
+
     /**
      *
      * @Clips\Form({"search"})
@@ -91,8 +101,7 @@ class MovieController extends BaseController
 	$(player.el()).find('.vjs-big-play-button span').text($('.video-button-text').text());
 VIDEOJS_SWF
 	    ,true);
-
-		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->movie->getRealPlayUrl($this->request->server('SERVER_ADDR')));
+		$title->playUrl = \Clips\site_url('movie/stream/'.$this->movie->getSourceURLByTitleID($titleID), true);
 		$this->playhistorie->saveHistory(array(
 			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
 			'title_id' => $titleID

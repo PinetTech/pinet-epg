@@ -34,6 +34,10 @@ class MovieModel extends DBModel {
 		return $this->one('title_id', $titleID);
 	}
 
+	public function getSourceURLByTitleID($titleID){
+		return trim(str_replace('/','',$this->one('title_id', $titleID)->sourceurl));
+	}
+
 
 	public function getProgramTypes(){
 		return array(
