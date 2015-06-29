@@ -180,7 +180,7 @@ class TitleModel extends DBModel {
 				$titles = array_merge($titles, $this->getTitles($limit - $count, $packageIDs));
 			}
 		}else{
-			$titles = $this->getTitles();
+			$titles = $this->getTitles(7);
 		}
 		$packageIDs = array_map(function($title){return $title->package_id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($packageIDs);
