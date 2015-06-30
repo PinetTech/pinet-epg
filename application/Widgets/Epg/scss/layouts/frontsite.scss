@@ -20,14 +20,13 @@ $nav-sel: get-module("nav", "selector");
 
 @mixin fix-desktop() {
     html, body {
-        background-color: #fff;
         overflow-x: hidden;
     }
 }
 
 @mixin fix-mobile() {
     html, body {
-        background-color: #fff;
+        overflow-x: hidden;
     }
 }
 
