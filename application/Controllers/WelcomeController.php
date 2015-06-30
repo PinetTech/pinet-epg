@@ -17,7 +17,7 @@ class WelcomeController extends BaseController
 	 * @Clips\Model({"title","column","movie"})
 	 */
 	public function index() {
-		$this->title('流媒体系统',true);
+		$this->title('Pinet iMedia',true);
 		$this->request->session('column_id', null);
 		$this->request->session('search', null);
 		return $this->render('welcome/index', array(
@@ -34,7 +34,7 @@ class WelcomeController extends BaseController
 	 * @Clips\Model({"title","column","movie"})
 	 */
 	public function qr() {
-		$this->title('流媒体系统',true);
+		$this->title('Pinet iMedia',true);
 		return $this->render('welcome/qr');
 	}
 }

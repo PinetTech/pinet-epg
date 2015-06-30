@@ -30,7 +30,7 @@ class MovieController extends BaseController
 		if(!count($movies)){
 			return $this->forward('construction');
 		}
-		$this->title('流媒体系统',true);
+		$this->title('Pinet iMedia',true);
 		$sift = $this->movie->sift($columnID);
 
 		return $this->render('movie/list',array(
