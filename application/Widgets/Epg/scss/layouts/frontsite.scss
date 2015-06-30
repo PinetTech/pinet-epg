@@ -50,6 +50,9 @@ $nav-sel: get-module("nav", "selector");
         &__search-form {
             width: calc-res(822px);
             height: calc-res(70px);
+            position: absolute;
+            right: calc-res(40px);
+            top: 10px;                           
             .form-group {
                 display: table-cell;
                 vertical-align: top;
@@ -105,6 +108,13 @@ $nav-sel: get-module("nav", "selector");
             }
         }
     }
+    @supports (-webkit-appearance:none) {
+        .actionbar {
+            &__search-form {
+                position: static;
+            }            
+        }
+    }     
 }
 
 @mixin frontsite-actionbar-mobile() {

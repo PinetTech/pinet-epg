@@ -39,7 +39,7 @@
     });
 
     setInterval(function(){
-        if($(window).width() < 1280 && $('.menu').length > 0 && $('.menu li').length > 0) {
+        if($(window).width() < 768 && $('.menu').length > 0 && $('.menu li').length > 0) {
             $('.menu').resizeMenu();
         }
     }, 30);
