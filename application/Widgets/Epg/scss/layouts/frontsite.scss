@@ -72,6 +72,11 @@ $nav-sel: get-module("nav", "selector");
                 position: relative;
                 cursor: pointer;
                 outline: none;
+                .btn {
+                    background-color: transparent;
+                    border: none;
+                    color: transparent;
+                }
             }
             .submit:after {
                 content: $fa-var-search;
