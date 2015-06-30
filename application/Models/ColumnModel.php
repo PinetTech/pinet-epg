@@ -11,7 +11,7 @@ use Clips\Libraries\DBModel;
 class ColumnModel extends DBModel {
 
 	public function getAllColumns(){
-		return $this->orderBy("rank")->get();
+		return $this->orderBy("rank")->limit(0,7)->get();
 	}
 
 	public function getColumnByName($name){

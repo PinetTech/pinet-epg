@@ -55,11 +55,8 @@
 	        		</div>
 	        	</div>
 	            <ul class="site-map">
-	                <li><a href="http://www.pinet.co/">关于我们</a></li>
-	                <li><a href="http://www.pinet.co/">网站地图</a></li>
-	                <li><a href="http://www.pinet.co/">合作伙伴</a></li>
-	                <li><a href="http://www.pinet.co/">联系我们</a></li>
-	                <li><div class="copyright">2015<i class="record">备案号</i></div></li>
+	                <li><a href="http://www.pinet.co/">About US</a></li>
+	                <li><div class="copyright">2015<i class="record">©Copyright Pinet Technology Solutions</i></div></li>
 	            </ul>
 	        </footer>		
 		{/block}
