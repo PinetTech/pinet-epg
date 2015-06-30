@@ -20,7 +20,7 @@ $(function(){
 	    		var self = $(this);
 	    		self.height(self.width() * 1.38);
 	    	});
-	    }, 30);
+	    }, 550);
     }
 });
 
