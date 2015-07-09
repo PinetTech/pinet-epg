@@ -160,6 +160,9 @@ class TitleModel extends DBModel {
 		}else{
 			$titles = $this->getTitles();
 		}
+		if(!count($titles)){
+			return $titles;
+		}
 		$packageIDs = array_map(function($title){return $title->package_id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($packageIDs);
 		foreach($titles as $key=>$title){
@@ -181,6 +184,9 @@ class TitleModel extends DBModel {
 			}
 		}else{
 			$titles = $this->getTitles(7);
+		}
+		if(!count($titles)){
+			return $titles;
 		}
 		$packageIDs = array_map(function($title){return $title->package_id;}, $titles);
 		$plays = $this->playhistorie->getMovieHistories($packageIDs);
