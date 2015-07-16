@@ -25,8 +25,10 @@ $(function(){
 
 	$('.alert-wrap').fadeIn();
 
+
 	setTimeout(function(){
 		$('.alert-wrap').fadeOut();
+		$('.backgroup-wrap').removeClass();
 	},5000)
 });
 

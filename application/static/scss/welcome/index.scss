@@ -98,6 +98,14 @@ $nav-sel: get-module("nav", "selector");
 
 	@mixin alert() {
 
+		.backgroup-wrap{
+			position: fixed;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(168, 90, 90, 0.66);
+			z-index: 1;
+		}
 		.alert-wrap {
 			display: BLOCK;
 			position: absolute;
@@ -118,16 +126,14 @@ $nav-sel: get-module("nav", "selector");
 				margin-bottom: 0;
 				color: #ffffff;
 				margin-left: 68px;
-				margin-top: 25px;
+				margin-top: 10px;
 			}
-			.responsive {
-				width: 115px;
-				height: 38px !important;
-				img {
-					width: 115px;
-					margin-left: 68px;
-					margin-top: 25px;
-				}
+			.hzlogo{
+				$size: calc-res(250);
+				height: 60px;
+				background-image: url(php_img_url("#{$size}/icons/hz_logo.png"));
+				background-repeat: no-repeat;
+				background-position: 68px 25px;
 			}
 		}
 	}
@@ -220,8 +226,17 @@ $nav-sel: get-module("nav", "selector");
         }
     }
 	@mixin alert() {
+
+		.backgroup-wrap{
+			position: fixed;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(168, 90, 90, 0.66);
+			z-index: 1;
+		}
 		.alert-wrap {
-			display: none;
+			display: block;
 			position: absolute;
 			left: 0;
 			top: 0;
@@ -243,15 +258,15 @@ $nav-sel: get-module("nav", "selector");
 				font-size: 20px;
 				margin-bottom: 0;
 				color: #ffffff;
-				margin-top: 25px;
+				margin-top: 5px;
 			}
-			.responsive {
-				width: 115px;
-				height: 38px !important;
-				img {
-					width: 115px;
-					margin-top: 25px;
-				}
+
+			.hzlogo{
+				$size: calc-res(250);
+				height: 60px;
+				background-image: url(php_img_url("#{$size}/icons/hz_logo.png"));
+				background-repeat: no-repeat;
+				background-position: 0 25px;
 			}
 		}
 	}

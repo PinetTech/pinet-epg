@@ -37,14 +37,16 @@
                 </section>
                 {* section.movielist *}
             {/foreach}
-				<div class="alert-wrap">
-					<div class="content">
-						{resimg data-image="hz_logo.png"}
-						<p>
-							福朋喜来登酒店欢迎访问！
-						</p>
-					</div>
+	        <div class="backgroup-wrap">
+		        <div class="alert-wrap">
+			        <div class="content">
+				        <div class="hzlogo"></div>
+				        <p>
+					        福朋喜来登酒店欢迎访问！
+				        </p>
+			        </div>
 
-				</div>
+		        </div>
+	        </div>
         </main>
     {/block}
