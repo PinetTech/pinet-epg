@@ -36,6 +36,15 @@
                     </div>
                 </section>
                 {* section.movielist *}
-            {/foreach}     
-        </main>    
+            {/foreach}
+				<div class="alert-wrap">
+					<div class="content">
+						{resimg data-image="hz_logo.png"}
+						<p>
+							福朋喜来登酒店欢迎访问！
+						</p>
+					</div>
+
+				</div>
+        </main>
     {/block}

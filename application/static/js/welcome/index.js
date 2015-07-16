@@ -22,5 +22,11 @@ $(function(){
 	    	});
 	    }, 550);
     }
+
+	$('.alert-wrap').fadeIn();
+
+	setTimeout(function(){
+		$('.alert-wrap').fadeOut();
+	},5000)
 });
 

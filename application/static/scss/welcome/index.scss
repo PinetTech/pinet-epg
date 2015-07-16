@@ -16,8 +16,8 @@ $nav-sel: get-module("nav", "selector");
                     content: "\f16a";
                     font-family: FontAwesome;
                     margin-right: 5px;
-                }          
-            }           
+                }
+            }
         }
     }
 }
@@ -25,10 +25,11 @@ $nav-sel: get-module("nav", "selector");
 @include welcome-index-init();
 
 @mixin welcome-index-desktop() {
+
     @mixin movielist() {
         #{$movielist-sel} {
             @include content-width();
-            margin: 0 auto;        
+            margin: 0 auto;
             padding-top: calc-res(104px);
             @include movielist__head() {
                 padding-bottom: calc-res(24px);
@@ -50,18 +51,18 @@ $nav-sel: get-module("nav", "selector");
             #{$movie-sel} {
                 padding-bottom: calc-res(14px);
                 float: left;
-                width: 12.3%;      
-                margin-right: 2.3%;                  
+                width: 12.3%;
+                margin-right: 2.3%;
                 .movie__title {
-                    padding-left: calc-res(36px);                    
+                    padding-left: calc-res(36px);
                     padding-right: calc-res(36px);
                     line-height: 23px;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    white-space: nowrap;                                    
+                    white-space: nowrap;
                 }
                 .movie__views {
-                    padding-left: calc-res(36px);                    
+                    padding-left: calc-res(36px);
                     padding-right: calc-res(36px);
                     line-height: 23px;
                 }
@@ -72,12 +73,12 @@ $nav-sel: get-module("nav", "selector");
                     > img {
                         height: 100%;
                     }
-                }                 
+                }
             }
             #{$movie-sel}:nth-of-type(7n+7) {
                 margin-right: 0;
-            }             
-        } 
+            }
+        }
 
         html.ie9 {
             .movielist__head {
@@ -89,14 +90,50 @@ $nav-sel: get-module("nav", "selector");
                 bottom: 0;
                 -webkit-transform: translateY(-50%);
                     -ms-transform: translateY(-50%);
-                        transform: translateY(-50%);               
-            }        
+                        transform: translateY(-50%);
+            }
         }
-        
+
     }
 
+	@mixin alert() {
+
+		.alert-wrap {
+			display: BLOCK;
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			z-index: 1000;
+			border-radius: 4px;
+			background: #ce272f;
+			width: 680px;
+			overflow: auto;
+			height: 171px;
+			box-shadow: 3px 3px 5px #444444;
+			p{
+				font-size: 48px;
+				margin-bottom: 0;
+				color: #ffffff;
+				margin-left: 68px;
+				margin-top: 25px;
+			}
+			.responsive {
+				width: 115px;
+				height: 38px !important;
+				img {
+					width: 115px;
+					margin-left: 68px;
+					margin-top: 25px;
+				}
+			}
+		}
+	}
     @mixin constructor(){
         @include movielist();
+	    @include alert();
     }
     @include constructor();
 }
@@ -111,7 +148,7 @@ $nav-sel: get-module("nav", "selector");
                     }
                 }
             }
-        } 
+        }
     }
 
     @mixin movielist() {
@@ -126,9 +163,9 @@ $nav-sel: get-module("nav", "selector");
                 .movielist__title {
                     font-size: res(mobile-to-pc(24px));
                     color: #FF0C0C;
-                    line-height: 28px;                    
+                    line-height: 28px;
                 }
-            }  
+            }
             @include movielist__body() {
                 display: inline-block;
                 width: 100%;
@@ -157,46 +194,84 @@ $nav-sel: get-module("nav", "selector");
                         > img {
                             height: 100%;
                         }
-                    }                                 
+                    }
                     .movie__title {
                         text-align: center;
                         background-color: #ffffff;
                         top: auto;
                         font-size: 11.5px;
-                        line-height: 19px;                        
+                        line-height: 19px;
                         padding-top: 3px;
                         padding-bottom: 3px;
                         overflow: hidden;
                         text-overflow: ellipsis;
-                        white-space: nowrap;                         
-                    }                    
+                        white-space: nowrap;
+                    }
                     .count-number {
                         &__text {
                             display: none;
                         }
                     }
                 }
-            }          
+            }
             .movielist__title {
                 padding-left: 10px;
-            }            
-        }     
+            }
+        }
     }
+	@mixin alert() {
+		.alert-wrap {
+			display: none;
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			z-index: 1000;
+			border-radius: 4px;
+			background: #ce272f;
+			overflow: auto;
+			height: 120px;
+			width: 85%;
+			box-shadow: 3px 3px 5px #444444;
+			.content {
+
+				padding-left: 8%;
+			}
+			p{
+				font-size: 20px;
+				margin-bottom: 0;
+				color: #ffffff;
+				margin-top: 25px;
+			}
+			.responsive {
+				width: 115px;
+				height: 38px !important;
+				img {
+					width: 115px;
+					margin-top: 25px;
+				}
+			}
+		}
+	}
 
     @mixin constructor(){
         @include nav();
         @include movielist();
+	    @include alert();
     }
     @include constructor();
+
 }
 
-@mixin section_welcome_index($args...) {   
-    @include device-desktop() {  
+@mixin section_welcome_index($args...) {
+    @include device-desktop() {
         @include welcome-index-desktop();
     }
-    @include device-mobile() {              
+    @include device-mobile() {
         @include welcome-index-mobile();
-    }    
+   }
 }
 
 
