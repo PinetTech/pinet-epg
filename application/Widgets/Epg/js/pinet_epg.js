@@ -119,8 +119,15 @@
             var nextHeight = self.next().height();
             self.height($(window).height() - prevHeight - nextHeight);
         }
-    }      
+    }
 
+	$('.pinet-qr-lnk').hover(function(){
+				$(this).children('.responsive').show();
+			},
+			function(){
+				$(this).children('.responsive').hide();
+			}
+	)
 })();
 
 $(function(){
