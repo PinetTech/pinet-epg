@@ -25,10 +25,15 @@
 	        <footer>
 	        	<div class="site-share">
 	        		<div class="site-share__link">
-	        			<a href="http://www.niuhuhu.com/gh/1960/">
+	        			<a class="pinet-qr-lnk pinet-qr-link">
 					        <i class="icon"></i>
 					        <h3>澳瑞特酒店</h3>
+					        {resimg data-image="qrcode_art.jpg"}
 				        </a>
+				        {a class="pinet-qr-link-mobile" uri="welcome/art"}
+					        <i class="icon"></i>
+					        <h3>澳瑞特酒店</h3>
+				        {/a}
 	        		</div>
 	        		<div class="site-share__link">
 	        			<a href="http://www.pinet.co/">

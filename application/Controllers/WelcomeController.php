@@ -37,4 +37,15 @@ class WelcomeController extends BaseController
 		$this->title('Pinet iMedia',true);
 		return $this->render('welcome/qr');
 	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"welcome/qr"})
+	 * @Clips\Model({"title","column","movie"})
+	 */
+	public function art() {
+		$this->title('Pinet iMedia',true);
+		return $this->render('welcome/art');
+	}
 }
