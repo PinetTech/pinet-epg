@@ -25,9 +25,9 @@
 	        <footer>
 	        	<div class="site-share">
 	        		<div class="site-share__link">
-	        			<a href="http://www.huazhu.com/">
+	        			<a href="http://www.niuhuhu.com/gh/1960/">
 					        <i class="icon"></i>
-					        <h3>华住集团</h3>
+					        <h3>澳瑞特酒店</h3>
 				        </a>
 	        		</div>
 	        		<div class="site-share__link">
