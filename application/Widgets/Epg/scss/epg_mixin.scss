@@ -114,7 +114,7 @@
         width: 1265px !important;
     }
     @include min-screen(1295px) {
-        width: res(2560px) !important;   
+        width: 88.785% !important;   
     }
 }
 
@@ -124,4 +124,9 @@
 }
 
 @mixin pinet-epg-init() {   
+	* {
+	  -webkit-box-sizing: border-box;
+	     -moz-box-sizing: border-box;
+	          box-sizing: border-box;
+	}	
 }

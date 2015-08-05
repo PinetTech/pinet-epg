@@ -9,8 +9,8 @@ use Clips\Libraries\DBModel;
  */
 class SearchKeyModel extends DBModel {
 
-	public function getKeys($offset){
-		return $this->orderBy('times desc')->get(0, $offset);
+	public function getKeys($limit){
+		return $this->orderBy('times desc')->get(0, $limit);
 	}
 
 	public function recordHotKey($key){

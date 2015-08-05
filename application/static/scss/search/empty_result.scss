@@ -1,0 +1,363 @@
+@mixin search-empty-result-init() {
+}
+
+@include search-empty-result-init();
+
+@mixin search-empty-result-desktop() {
+	@mixin all() {
+		body {
+			background-color: #FAFAFA;			
+		}
+	}
+
+	@mixin actionbar() {
+		.actionbar {
+			&__search-form {
+				.fa-times {
+					display: none;
+				}
+			}
+		}		
+	}
+
+	@mixin menu() {
+		#menu {
+			padding: 0;
+		}
+	}
+
+    @mixin movie-infos() {
+        .movie-infos {
+            display: block;
+            @include content-width();
+            margin: 0 auto;
+            margin-top: calc-res(80px);
+        }
+    }
+
+    @mixin movie-info() {
+        .movie-info {
+            margin-bottom: calc-res(98px);
+            &__header {
+                border-bottom: 1px solid #e5e5e5;
+                margin-bottom: calc-res(92px);
+                h3 {
+                    font-size: 22px;
+                    color: #202020;
+                    line-height: 23px;                
+                    border-bottom: 3px solid #a1a1a1;                    
+                    width: calc-res(313px);
+                    text-align: center;
+                    margin: 0;
+                    padding-bottom: 10px;
+                }
+            }
+            &.summary {
+            	height: calc-res(972px);
+            	margin: 0;
+            	padding: 0;
+            }
+            &.guess {
+                margin-bottom: calc-res(574px);
+                .movie-info__body {
+                    display: inline-block;
+                    width: 100%;
+                }
+                #{$movie-sel} {
+                    padding-bottom: res(14px, 6.2px);
+                    float: left;
+                    margin-bottom: calc-res(60px);
+                    width: 12.3%;      
+                    margin-right: 2.3%;              
+                    .movie__title {
+                        padding-left: calc-res(36px);                    
+                        padding-right: calc-res(36px);
+                        line-height: 23px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .movie__views {
+                        padding-left: calc-res(36px);                    
+                        padding-right: calc-res(36px);
+                        line-height: 23px;
+                    }
+                    .responsive {
+                        height: calc-res(430px);
+                        position: relative;
+                        overflow: hidden;
+                        > img {
+                            height: 100%;
+                        }
+                    }  
+                }
+                #{$movie-sel}:nth-of-type(7n+7) {
+                    margin-right: 0;
+                }                
+            }
+        }
+    }
+
+    @mixin message() {
+    	.message {
+    		margin: 0;
+	        padding-top: calc-res(190px);
+	        text-align: center;
+    		&__icon {
+    			display: inline-block;
+    			.responsive {
+    				width: calc-res(256px);
+    			} 
+    		}
+    		&__content {
+    			display: inline-block;
+				font-size: 27px;
+				color: #1C1C1C;
+				margin: 0;
+				position: relative;
+				right: 0;
+				top: calc-res(60px);
+				text-align: left;
+				i:first-child {
+					display: block;
+					font-style: normal;
+					position: relative;
+				}    			
+				.highlight {
+					color: #e01818;
+					font-style: normal;
+					position: relative;
+				}
+    		}
+    	}
+    }
+
+	@mixin constructor(){
+		@include all();
+		@include actionbar();
+		@include menu();
+		@include movie-infos();
+		@include movie-info();
+		@include message();
+	}
+	@include constructor();}
+
+@mixin search-empty-result-mobile() {
+	@mixin all() {
+		html, body {
+			height: 100%;
+		}		
+	}
+
+	@mixin main() {
+		main {
+			$height: res(mobile-to-pc(225px)) + 50;
+			display: block;
+			height: 350px;
+			height: -webkit-calc(100% - #{$height});
+			height: calc(100% - #{$height});
+			.search-result {
+				display: none;
+			}
+			.search-classfication {
+				display: block;
+			}
+		}
+		main.result {
+			height: auto;
+			.search-result {
+				display: block;
+				.search-result__header {
+					display: none;
+				}
+			}			
+			.search-classfication {
+				display: none;
+			}
+		}		
+	}
+
+	@mixin actionbar() {
+		.actionbar {
+			&__brand {
+				display: none;
+			}
+			&__search-form {
+				width: 100%;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				display: table;
+				.form-group {
+			        font-size: 0;
+			        display: table-cell;
+			        vertical-align: middle;
+					position: relative;
+					width: 100%;			        
+					> .form-input {
+						width: 100%;
+						position: relative;
+						font-size: 14px;
+						display: block;
+					}
+					> .form-input input {
+						width: 100%;
+						text-indent: 20px;
+					}
+					> .form-input:before {
+						content: $fa-var-search;
+						font-family: FontAwesome;
+						height: 10px;
+						border-bottom: 1px solid #ff0000;
+						position: absolute;
+						padding-top: 5px;
+						padding-left: 5px;
+						padding-right: 5px;
+						color: #A4A4A4;						
+						height: 100%;
+					}
+					> .form-input:after {
+						content: "";
+						width: 0;
+						height: 5px;
+						border-right: 1px solid #ff0000;
+						position: absolute;
+						right: 0;
+						bottom: 0;
+					}					
+					> .form-label {
+						display: block;
+						width: 1px;
+						height: 3px;
+						color: transparent;
+						position: absolute;
+						left: 0;
+						bottom: 0;
+						z-index: 1200;
+						background-color: #ff0000;
+					}
+				}
+				.form-input {
+					width: 100%;
+				}
+				.form-label:before {
+					content: "";
+					height: 5px;
+					border: 1px solid #ff0000;					
+				}					
+		        .form-input > input {
+		            width: 100%;
+		            height: 30px;
+		            padding-left: 10px;
+		            border: none;
+		            border-bottom: 1px solid #ff0000;
+		        }
+		        .submit {
+		            position: relative;
+		            display: table-cell;
+		            vertical-align: middle;
+		        }
+		        .submit .btn {
+		            display: block;
+		            height: 100%;
+		            width: auto;
+		            color: #000000;
+		            padding: 0;
+		            margin: 0;
+
+					padding-left: 10px;
+					padding-right: 10px;
+		        }
+		        .submit:after {
+					display: none;                  
+		        } 			
+		        .form-input.has-content + .fa-times {
+		        	display: block;
+		        }		
+		        .fa-times {
+		        	height: 15px;
+		        	@include position(absolute, 0, 0, 0, 0);
+		        	margin: auto;
+		        	left: auto;
+		        	right: 10px;
+		        	color: #a4a4a4;
+		        	display: none;
+		        }			        	
+			}
+		}
+	}
+
+    @mixin movie-infos() {
+        .movie-infos {
+        }
+    }
+
+    @mixin movie-info() {
+        .movie-info {
+            &__header {
+            	display: none;
+            }
+            &.summary {
+            	height: auto;
+            	margin: 0;
+            	padding: 0;
+            }
+            &.guess {
+            	display: none;             
+            }
+        }
+    }
+
+    @mixin message() {
+    	.message {
+    		margin: 0;
+	        text-align: center;
+	        padding-top: res(mobile-to-pc(104px));
+    		&__icon {
+    			display: inline-block;
+    			.responsive {
+    				width: res(mobile-to-pc(94px));
+    			} 
+    		}
+    		&__content {
+    			display: inline-block;
+				font-size: 14px;
+				color: #1C1C1C;
+				margin: 0;
+				position: relative;
+				right: 0;
+				top: res(mobile-to-pc(16.7px));
+				text-align: left;
+				i:first-child {
+					display: block;
+					font-style: normal;
+					position: relative;
+				}    			
+				.highlight {
+					color: #e01818;
+					font-style: normal;
+					position: relative;
+				}
+    		}
+    	}
+    }	
+
+	@mixin constructor(){
+		@include all();
+		@include main();		
+		@include actionbar();
+		@include movie-infos();
+		@include movie-info();
+		@include message();
+	}
+	@include constructor();}
+
+@mixin section_search_empty_result($args...) {
+	@include device-desktop() {
+		@include search-empty-result-desktop();
+	}
+	@include device-mobile() {
+		@include search-empty-result-mobile();
+	}
+}

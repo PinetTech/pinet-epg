@@ -15,10 +15,6 @@ class MovieModel extends DBModel {
 		return $this->one('asset_name',$name);
 	}
 
-	public function getMoviesByColumn(){
-
-	}
-
 	public function getPlayUrlByTitleID($titleID, $serverUrl){
 		$movie = $this->one('title_id', $titleID);
 		if(isset($movie->id)){
@@ -27,22 +23,36 @@ class MovieModel extends DBModel {
 		return '';
 	}
 
+	public function getRealPlayUrl($serverUrl){
+		if(\Clips\config('set_play_url')){
+			return \Clips\config('set_play_url')[0];
+		}
+		return $serverUrl;
+	}
+
 	public function getMovieByTitleID($titleID){
 		return $this->one('title_id', $titleID);
+	}
+
+	public function getSourceURLByTitleID($titleID){
+		return trim(str_replace('/','',$this->one('title_id', $titleID)->sourceurl));
 	}
 
 
 	public function getProgramTypes(){
 		return array(
-			'all'=>'全部','剧情'=>'剧情', '动作'=>'动作', '犯罪'=>'犯罪', ''=>'喜剧', '喜剧'=>'科幻', '西部'=>'西部', '传记'=>'传记', '爱情'=>'爱情', '歌舞'=>'歌舞'
-		, '惊悚'=>'惊悚', '冒险'=>'冒险', '悬疑'=>'悬疑', '奇幻'=>'奇幻', '历史'=>'历史', '恐怖'=>'恐怖', '战争'=>'战争', '运动'=>'运动', '音乐'=>'音乐', '家庭'=>'家庭'
+			'all'=>'全部' ,'剧情'=>'剧情' ,'喜剧'=>'喜剧' ,'犯罪'=>'犯罪' ,'传记'=>'传记' ,'动作'=>'动作' ,'科幻'=>'科幻' ,'西部'=>'西部' ,'爱情'=>'爱情' ,'歌舞'=>'歌舞' ,'惊悚'=>'惊悚'
+		,'冒险'=>'冒险' ,'悬疑'=>'悬疑' ,'奇幻'=>'奇幻' ,'历史'=>'历史' ,'战争'=>'战争' ,'运动'=>'运动' ,'古装'=>'古装' ,'恐怖'=>'恐怖' ,'动画'=>'动画' ,'家庭'=>'家庭' ,'武侠'=>'武侠'
+		,'儿童'=>'儿童' ,'教育'=>'教育' ,'科普'=>'科普' ,'纪录'=>'纪录' ,'自然'=>'自然' ,'社会'=>'社会' ,'当代军旅'=>'当代军旅' ,'穿越'=>'穿越' ,'音乐'=>'音乐' ,'舞台艺术'=>'舞台艺术'
+		,'传奇'=>'传奇' ,'短片'=>'短片' ,'纪录片'=>'纪录片' ,'灾难'=>'灾难' ,'动物'=>'动物' ,'汽车'=>'汽车' ,'船舶'=>'船舶' ,'建筑'=>'建筑' ,'人物'=>'人物' ,'美食'=>'美食' ,'军事'=>'军事'
+		,'旅游'=>'旅游' ,'人文'=>'人文' ,'拳击'=>'拳击' ,'围棋'=>'围棋' ,'橄榄球'=>'橄榄球' ,'冲浪'=>'冲浪' ,'滑雪'=>'滑雪'
 		);
 	}
 
 	public function getAreas(){
 		return array(
-			'all'=>'全部','中国大陆'=>'中国大陆', '香港'=>'香港', '英国'=>'英国', '美国'=>'美国', '德国'=>'德国', '法国'=>'法国', '澳大利亚'=>'澳大利亚', '台湾'=>'台湾', '丹麦'=>'丹麦', '日本'=>'日本'
-		, '新西兰'=>'新西兰', '意大利'=>'意大利', '加拿大'=>'加拿大', '巴西'=>'巴西', '秘鲁'=>'秘鲁', '韩国'=>'韩国', '西班牙'=>'西班牙', '瑞士'=>'瑞士', '尼泊尔'=>'尼泊尔'
+			'all'=>'全部', '中国'=>'中国', '香港'=>'香港' ,'台湾'=>'台湾', '美国'=>'美国' ,'英国'=>'英国' ,'韩国'=>'韩国' ,'法国'=>'法国' ,'瑞士'=>'瑞士' ,'尼泊尔'=>'尼泊尔' ,'日本'=>'日本' ,'加拿大'=>'加拿大','泰国'=>'泰国'
+		,'印度'=>'印度' ,'伊朗'=>'伊朗' ,'新西兰'=>'新西兰' ,'意大利'=>'意大利' ,'土耳其'=>'土耳其' ,'葡萄牙'=>'葡萄牙', '澳大利亚'=>'澳大利亚' ,'丹麦'=>'丹麦' ,'德国'=>'德国' ,'卢森堡'=>'卢森堡' ,'荷兰'=>'荷兰'
 		);
 	}
 
@@ -72,9 +82,15 @@ class MovieModel extends DBModel {
 
 	//now instead of getPushRecords for banner
 	public function getRecommendTitles(){
-		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE));
+		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE),
+			new \Clips\Libraries\OrOperator(
+				array(array('title_application.episode_id' => ''),
+					array('title_application.episode_id' => 1)
+				)
+			));
 		return $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
 			->from('title')
+			->join('title_application',array('title_application.id'=>'title.application_id'))
 			->join('recommend_titles',array('recommend_titles.title_id'=>'title.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))
 			->where($where)
@@ -86,24 +102,24 @@ class MovieModel extends DBModel {
 		$types = $this->getProgramTypes();
 		$areas = $this->getAreas();
 		$years = $this->getYears();
-		$type = new SiftAction(array('content' => '/nav', 'label' => '按类型', 'type' => 'server'));
+		$type = new SiftAction(array('content' => '', 'label' => '按类型', 'type' => 'client'));
 		$typeChildren = array();
 		foreach ($types as $k=>$v) {
-			$typeChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?type='.$k, 'label' => $v, 'type' => 'server'));
+			$typeChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?type='.urlencode($k), 'label' => $v, 'type' => 'server'));
 		}
 		$type->children = $typeChildren;
 
-		$area = new SiftAction(array('content' => '/nav', 'label' => '按地区', 'type' => 'server'));
+		$area = new SiftAction(array('content' => '', 'label' => '按地区', 'type' => 'client'));
 		$areaChildren = array();
 		foreach ($areas as $k=>$v) {
-			$areaChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?area='.$k, 'label' => $v, 'type' => 'server'));
+			$areaChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?area='.urlencode($k), 'label' => $v, 'type' => 'server'));
 		}
 		$area->children = $areaChildren;
 
-		$year = new SiftAction(array('content' => '/nav', 'label' => '按年份', 'type' => 'server'));
+		$year = new SiftAction(array('content' => '', 'label' => '按年份', 'type' => 'client'));
 		$yearChildren = array();
 		foreach ($years as $k=>$v) {
-			$yearChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?year='.$k, 'label' => $v, 'type' => 'server'));
+			$yearChildren[] = new SiftAction(array('content' => '/movie/sift/'.$columnID.'?year='.urlencode($k), 'label' => $v, 'type' => 'server'));
 		}
 		$year->children = $yearChildren;
 		return array($type,$area,$year);

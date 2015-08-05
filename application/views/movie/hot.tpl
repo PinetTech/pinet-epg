@@ -23,11 +23,15 @@
                 <div class="search-classfication__header">
                     <h3>热门搜索</h3>
                 </div>
+	            {if $hots}
 	            {ul items=$hots class="search-classfication__hotvideos"}
+	                {if $items}
 		            {literal}
 			            <li>{a uri="search/movie/?search={$item->keyword}"}{$item->keyword}{/a}</li>
 		            {/literal}
+	                {/if}
 	            {/ul}
+	            {/if}
             </section>
         </main>       
 	{/block}

@@ -3,7 +3,7 @@ script access allowed");
 
 use Pinet\EPG\Core\BaseController;
 
-/**
+/**	
  * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="welcome")
  */
@@ -17,7 +17,7 @@ class WelcomeController extends BaseController
 	 * @Clips\Model({"title","column","movie"})
 	 */
 	public function index() {
-		$this->title('Pinet Home Page',true);
+		$this->title('Pinet iMedia',true);
 		$this->request->session('column_id', null);
 		$this->request->session('search', null);
 		return $this->render('welcome/index', array(
@@ -25,5 +25,27 @@ class WelcomeController extends BaseController
 			'slider' => true,
 			'column' => true
 		));
+	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"welcome/qr"})
+	 * @Clips\Model({"title","column","movie"})
+	 */
+	public function qr() {
+		$this->title('Pinet iMedia',true);
+		return $this->render('welcome/qr');
+	}
+
+	/**
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss({"welcome/qr"})
+	 * @Clips\Model({"title","column","movie"})
+	 */
+	public function art() {
+		$this->title('Pinet iMedia',true);
+		return $this->render('welcome/art');
 	}
 }

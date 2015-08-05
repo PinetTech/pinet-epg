@@ -12,17 +12,4 @@ use Clips\Object;
  */
 class PackageModel extends DBModel {
 
-	public function getPackagesByType($type_name){
-		$all = $this->get();
-		$result = array();
-		foreach ($all as $item) {
-			$arr = explode(',',$item->program_type_name);
-			if(in_array($type_name,$arr)) {
-				$result[] = $item;
-			}
-		}
-
-		return $result;
-	}
-
 }

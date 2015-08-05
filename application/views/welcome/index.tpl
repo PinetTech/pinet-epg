@@ -3,12 +3,14 @@
         <main class="welcome/index">
             {swiper class="slide"}
                 {swiper__wrapper items=$items}
-                    {literal}
-                        {swiper__slide}
-                        {a uri="movie/play/{$item->id}"}{resimg data-image=$item->sourceurl}{/a}
-                            <h3 class="slide__title">{$item->asset_name}</h3>
-                        {/swiper__slide}
-                    {/literal}
+                    {if $items}
+	                    {literal}
+		                    {swiper__slide}
+		                    {a uri="movie/play/{$item->id}"}{resimg data-image=$item->sourceurl}{/a}
+		                    <h3 class="slide__title">{$item->asset_name}</h3>
+		                    {/swiper__slide}
+	                    {/literal}
+                    {/if}
                 {/swiper__wrapper}
                 {swiper__pagination}{/swiper__pagination}
             {/swiper}
@@ -34,6 +36,17 @@
                     </div>
                 </section>
                 {* section.movielist *}
-            {/foreach}     
-        </main>    
+            {/foreach}
+	        <div class="backgroup-wrap">
+		        <div class="alert-wrap">
+			        <div class="content">
+				        <div class="hzlogo"></div>
+				        <p>
+					        福朋喜来登酒店欢迎访问！
+				        </p>
+			        </div>
+
+		        </div>
+	        </div>
+        </main>
     {/block}

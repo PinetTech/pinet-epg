@@ -40,7 +40,7 @@ class SiftAction extends SimpleTreeNode implements Action {
 		$url = explode("&", $url['query']);
 		foreach($url as $k=>$v){
 			$param = explode('=', $v);
-			$query[$param[0]] = $param[1];
+			$query[$param[0]] = urldecode($param[1]);
 		}
 		if(array_intersect_assoc($query, $sift)){
 			$this->_active = true;

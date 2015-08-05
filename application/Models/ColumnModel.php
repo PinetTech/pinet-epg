@@ -11,7 +11,7 @@ use Clips\Libraries\DBModel;
 class ColumnModel extends DBModel {
 
 	public function getAllColumns(){
-		return $this->orderBy("rank")->get();
+		return $this->orderBy("rank")->limit(0,7)->get();
 	}
 
 	public function getColumnByName($name){
@@ -22,7 +22,7 @@ class ColumnModel extends DBModel {
 		$columns = array();
 		foreach ($navs as $k=>$nav) {
 			$videos = array();
-			$movies = $this->title->getTitlesByColumn($nav->id,6);
+			$movies = $this->title->getTitlesByColumn($nav->id, 7);
 			foreach ($movies as $movie) {
 				$videos[]=(object)array('id'=>$movie->id, 'title'=>$movie->asset_name, 'count'=>$movie->record, 'imageSrc'=>$movie->sourceurl);
 			}
@@ -34,23 +34,13 @@ class ColumnModel extends DBModel {
 		return $columns;
 	}
 
-	public function getColumnMovieCount($movies){
-		$columns = $this->getAllColumns();
-		$counts = array();
-		$movies = array_reduce($movies, function($carry, $movie){
-			if(!isset($carry[$movie->column_id])) {
-				$carry[$movie->column_id] = 0;
-			}
-			$carry[$movie->column_id]++;
-			return $carry;
-		}, $counts);
-		foreach($columns as $column){
-			if(isset($movies[$column->id])){
-				$movies[$column->id] = array('id'=>$column->id, 'name'=> $column->column_name, 'count'=> $movies[$column->id]);
+	public function getReturnColumn($columnID){
+		if($columnID){
+			$column = $this->load($columnID);
+			if(isset($column->id)){
+				return (object)array('url'=>'movie/index/'.$column->id, 'column_name' => $column->column_name);
 			}
 		}
-		ksort($movies);
-		return $movies;
+		return (object)array('url'=> '/', 'column_name'=> '首页');
 	}
-
 }

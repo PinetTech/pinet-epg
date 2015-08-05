@@ -1,0 +1,215 @@
+@mixin construction-init() {
+}
+
+@include construction-init();
+
+@mixin construction-desktop() {
+    @mixin actionbar() {
+        .actionbar {
+            &__back {
+                display: none;
+            }
+            &__switch {
+                display: none;
+            }
+            &__search {
+                display: none;
+            }
+        }        
+    }
+
+	@mixin error-bgc() {
+		.error-bgc {
+			$size: calc-res(2880);
+			border-top: 1px solid #d2d2d2;
+			background-image: url(php_img_url("#{$size}/icons/construction.png"));
+			background-repeat: no-repeat;
+			background-size: contain;			
+		}
+	}
+
+	@mixin error-section() {
+		.error-section {
+			height: calc-res(592px);
+			position: relative;
+			padding-top: calc-res(124px);
+			background: #FAFAFA;			
+			.message {
+				text-align: center;
+				&__title {
+					margin: 0;
+					font-size: 27px;
+					color: #2D2D2D;
+				}
+				&__content {
+					font-size: 27px;
+					color: #1C1C1C;
+					margin: 0;
+				}
+			}			
+			.button {
+				display: block;
+				width: calc-res(350px);
+				height: calc-res(110px);
+				text-align: center;
+				margin: 0 auto;
+				background-image: -webkit-linear-gradient(90deg, #D02525 0%, #E01818 100%);
+				background-image: linear-gradient(0deg, #D02525 0%, #E01818 100%);
+				border-radius: 5px;
+				font-size: 18px;
+				color: #FFFFFF;
+				line-height: calc-res(110px);				
+				margin-top: calc-res(84px);
+			}
+		}
+	}
+
+	@mixin constructor(){
+		@include actionbar();
+		@include error-bgc();
+		@include error-section();
+	}
+	@include constructor();}
+
+@mixin construction-mobile() {
+    @mixin actionbar() {
+        .actionbar {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #e01818;
+            &__brand {
+                display: none;
+            }
+            &__search-form {
+                display: none;
+            }
+            &__back {
+                color: #ffffff;
+                padding-left: res(mobile-to-pc(20px));
+                font-size: res(mobile-to-pc(24px));
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: -webkit-box;
+                display: flex;
+                -webkit-align-items: center;
+                    -ms-flex-align: center;
+                        -webkit-box-align: center;
+                        align-items: center;
+                > a {
+                    color: #ffffff;
+                }
+                > .button {
+                    color: #ffffff;
+                    font-size: res(mobile-to-pc(18px));
+                    color: #F6F6F6;
+                    line-height: 25px;                    
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+            &__switch {
+                @extend %hflexbox;
+                border: 1px solid #ffffff;
+                > a {
+                    display: block;
+                    color: #ffffff;
+                    padding-left: res(mobile-to-pc(26px));
+                    padding-right: res(mobile-to-pc(26px));
+                    padding-top: res(mobile-to-pc(3px));
+                    padding-bottom: res(mobile-to-pc(3px));
+                }
+
+                *.active {
+                    background-color: #ffffff;
+                    color: #e01818;
+                }   
+            }
+            &__search {
+                padding-right: res(mobile-to-pc(20px));
+                padding-left: res(mobile-to-pc(45px));
+                > a {
+                    color: #ffffff;
+                    font-size: res(mobile-to-pc(24px));
+                }
+            }
+        }        
+    }
+
+	@mixin error-bgc() {
+		.error-bgc {
+			height: res(mobile-to-pc(276px));
+			$size: res(mobile-to-pc(414));
+			background-image: url(php_img_url("#{$size}/icons/construction-mobile.png"));
+			background-repeat: no-repeat;
+			background-size: 100% 100%;			
+		}
+	}	
+
+	@mixin error-section() {
+		.error-section {
+			padding-top: res(mobile-to-pc(50px));
+			padding-bottom: res(mobile-to-pc(36px));
+			background: #FAFAFA;	
+			.message {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				-webkit-flex-direction: column;
+				    -ms-flex-direction: column;
+				        flex-direction: column;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				    -ms-flex-pack: center;
+				        justify-content: center;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				    -ms-flex-align: center;
+				        align-items: center;
+				font-size: res(mobile-to-pc(24px));
+				color: #1C1C1C;
+				line-height: 30px;	
+				&__title {
+					margin: 0 {
+						bottom: 10px;
+					}
+				}				
+				&__content {
+					margin: 0;
+				}
+			}			
+			.button {
+				display: block;
+				width: res(mobile-to-pc(175px));
+				height: res(mobile-to-pc(55px));
+				text-align: center;
+				margin: 0 auto;
+				background-image: -webkit-linear-gradient(90deg, #D02525 0%, #E01818 100%);
+				background-image: linear-gradient(0deg, #D02525 0%, #E01818 100%);
+				border-radius: 5px;
+				font-size: 18px;
+				color: #FFFFFF;
+				line-height: res(mobile-to-pc(55px));				
+				margin-top: res(mobile-to-pc(26px));
+			}			
+		}
+	}	
+
+	@mixin constructor(){
+		@include actionbar();
+		@include error-bgc();
+		@include error-section();
+	}
+	@include constructor();
+}
+
+@mixin section_construction($args...) {
+	@include device-desktop() {
+		@include construction-desktop();
+	}
+	@include device-mobile() {
+		@include construction-mobile();
+	}
+}
