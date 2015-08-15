@@ -7,15 +7,28 @@ use Clips\Libraries\DBModel;
  * Class ColumnModel
  * @package Pinet\EPG\Models
  * @Clips\Model({"title"})
+ * @Clips\Library("sling")
  */
 class ColumnModel extends DBModel {
 
 	public function getAllColumns(){
-		return $this->orderBy("rank")->get();
+		$data = $this->sling->data('/epg/columns.2');
+		$result = array();
+		foreach($data as $k => $v) {
+			if(is_object($v) && isset($v->type) && $v->type == 'column') {
+				$result []= $v;
+			}
+		}
+		return $result;
 	}
 
 	public function getColumnByName($name){
-		return $this->one('column_name',$name);
+		$cols = $this->getAllColumns();
+		foreach($cols as $col) {
+			if($col->label == $name)
+				return $col;
+		}
+		return null;
 	}
 
 	public function getColumns($navs){

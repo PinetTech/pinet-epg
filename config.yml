@@ -47,6 +47,15 @@ datasources:
         table_prefix: ''
         type: MySQLi
         database: mam
+columns:
+    movie: 电影
+    drama: 电视剧
+    show: 综艺
+    anime: 动漫
+    education: 教育
+    sports: 体育
+    newsreel: 纪录片
+    macrofilm: 微电影
 logger:
     handlers:
         Stream:

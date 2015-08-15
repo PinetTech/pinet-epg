@@ -18,3 +18,7 @@ test:
 
 c:
 	@mysql -u root "${DB}"
+init:
+	./vendor/bin/clips init
+
+.PHONY: init c test clean epg migrate fake
