@@ -12,7 +12,7 @@ use Clips\Libraries\DBModel;
 class ColumnModel extends DBModel {
 
 	public function getAllColumns(){
-		$data = $this->sling->data('/epg/columns.2');
+		$data = $this->sling->data('/epg/columns.1');
 		$result = array();
 		foreach($data as $k => $v) {
 			if(is_object($v) && isset($v->type) && $v->type == 'column') {
