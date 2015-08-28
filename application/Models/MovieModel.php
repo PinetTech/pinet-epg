@@ -7,29 +7,28 @@ use Pinet\EPG\Core\SiftAction;
 /**
  * Class MovieModel
  * @package Pinet\EPG\Models
- * @Clips\Model(table="movie", value={"title", "playHistorie"})
+ * @Clips\Model(table="movie", value={"video", "playHistorie"})
+ * @Clips\Library("sling")
  */
 class MovieModel extends DBModel {
 
-	public function getMovieByName($name){
+/*	public function getMovieByName($name){
 		return $this->one('asset_name',$name);
-	}
-
-	public function getMoviesByColumn(){
-
-	}
+	}*/
 
 	public function getPlayUrlByTitleID($titleID, $serverUrl){
-		$movie = $this->one('title_id', $titleID);
+//		$movie = $this->one('title_id', $titleID);
+
+		$movie = $this->sling->data('/media/video/'.$titleID);
 		if(isset($movie->id)){
 			return str_replace('localhost', $serverUrl, $movie->play_url);
 		}
 		return '';
 	}
 
-	public function getMovieByTitleID($titleID){
+/*	public function getMovieByTitleID($titleID){
 		return $this->one('title_id', $titleID);
-	}
+	}*/
 
 
 	public function getProgramTypes(){
@@ -65,21 +64,36 @@ class MovieModel extends DBModel {
 		$count = count($records);
 		if($count != $limit){
 			$packageIDs = array_map(function($record){ return $record->package_id;}, $records);
-			$record = array_merge($records, $this->title->getNewTitles($limit-$count, $packageIDs));
+			$record = array_merge($records, $this->video->getNewTitles($limit-$count, $packageIDs));
 		}
 		return $record;
 	}
 
 	//now instead of getPushRecords for banner
 	public function getRecommendTitles(){
-		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE));
+/*		$where = array('poster.image_aspect_ratio'=>(PosterModel::BIG_SIZE));
 		return $this->select('title.id,title.asset_name,title.create_at,poster.sourceurl')
 			->from('title')
 			->join('recommend_titles',array('recommend_titles.title_id'=>'title.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))
 			->where($where)
 			->limit(0, 9)
-			->result();
+			->result();*/
+
+		$titles = array();
+		$data = $this->sling->data('/epg/columns.2');
+		foreach($data as $k => $v) {
+			if(is_object($v) && $v->type == 'column') {
+				foreach ($v as $k2=>$v2) {
+					if(is_object($v2) && $v2->type == 'epg/link') {
+						$title = $this->sling->data($v2->reference);
+						$titles[] = $title;
+					}
+				}
+			}
+		}
+		$titles = array_slice($titles,0,9);
+		return $titles;
 	}
 
 	public function sift($columnID=1){

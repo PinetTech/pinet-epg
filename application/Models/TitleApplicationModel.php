@@ -8,21 +8,22 @@ use Clips\Libraries\DBModel;
  * @package Pinet\EPG\Models
  * @Clips\Model(table="title_application")
  * @Clips\Model({ "column","AssetColumnRef" })
+ * @Clips\Library("sling")
  */
 class TitleApplicationModel extends DBModel {
 
-	public function getTitleappsByArea($area){
+/*	public function getTitleappsByArea($area){
 		$all = $this->get('area',$area);
 
 		return $all;
-	}
+	}*/
 
-	public function getTitleappsByDirector($name){
+/*	public function getTitleappsByDirector($name){
 		$all = $this->get('director',$name);
 		return $all;
-	}
+	}*/
 
-	public function getTitleappsByActors($name){
+/*	public function getTitleappsByActors($name){
 		$all = $this->get();
 		$result = array();
 		foreach ($all as $item) {
@@ -33,9 +34,9 @@ class TitleApplicationModel extends DBModel {
 		}
 
 		return $result;
-	}
+	}*/
 
-	public function getTitleappsByYear($year){
+/*	public function getTitleappsByYear($year){
 		$all = $this->get();
 		$result = array();
 		foreach ($all as $item) {
@@ -46,7 +47,7 @@ class TitleApplicationModel extends DBModel {
 		}
 
 		return $result;
-	}
+	}*/
 
 	public function getEpisodeNameByID($ID){
 		return $this->one(array('id'=>$ID));

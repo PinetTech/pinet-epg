@@ -9,10 +9,11 @@ use Clips\Object;
  * @package Pinet\EPG\Models
  * @Clips\Model(table="package")
  * @Clips\Model({ "column","assetColumnRef" })
+ * @Clips\Library("sling")
  */
 class PackageModel extends DBModel {
 
-	public function getPackagesByType($type_name){
+/*	public function getPackagesByType($type_name){
 		$all = $this->get();
 		$result = array();
 		foreach ($all as $item) {
@@ -23,6 +24,6 @@ class PackageModel extends DBModel {
 		}
 
 		return $result;
-	}
+	}*/
 
 }

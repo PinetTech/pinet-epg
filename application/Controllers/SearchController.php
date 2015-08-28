@@ -5,7 +5,7 @@ use Pinet\EPG\Core\BaseController;
 /**
  * @Clips\Widget({"html", "lang", "grid"})
  * @Clips\MessageBundle(name="index")
- * @Clips\Model({"searchKey","title"})
+ * @Clips\Model({"searchKey","title","video"})
  */
 class SearchController extends BaseController
 {

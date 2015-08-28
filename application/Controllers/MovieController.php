@@ -14,7 +14,7 @@ class MovieController extends BaseController
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
-	 * @Clips\Model({"column", "movie", "title"})
+	 * @Clips\Model({"column", "movie", "title","video"})
 	 */
 	public function index($columnID=1, $type='new') {
 		$this->request->session('column_id', $columnID);
@@ -24,9 +24,9 @@ class MovieController extends BaseController
 
 		$movies = array();
 		if($type == 'hot') {
-			$movies = $this->title->getHotsByColumnID($columnID,$offset=0,$limit=10);
+			$movies = $this->video->getHotsByColumnID($columnID,$offset=0,$limit=10);
 		}elseif($type == 'new'){
-			$movies = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
+			$movies = $this->video->getNewsByColumnID($columnID,$offset=0,$limit=10);
 		}
 
 		return $this->render('movie/list',array(
@@ -63,7 +63,7 @@ class MovieController extends BaseController
 	    if(isset($columnRef->column_id)){
 	        $this->request->session('column_id', $columnRef->column_id);
 	    }
-		$title = $this->title->getMovieInfoByID($titleID);
+		$title = $this->video->getMovieInfoByID($titleID);
 		if(!isset($title->id)){
 			echo 'Not Found This Movie!';//todo need redirect 404 page
 			die;
@@ -91,14 +91,14 @@ VIDEOJS_SWF
 			    'play_uri' => \Clips\context('uri')
         ));
 
-		$sames = $this->title->getSameTypeMovies($titleID);
+		$sames = $this->video->getSameTypeMovies($titleID);
         $this->title($title->asset_name,true);
 
 	    $navs = $this->column->getAllColumns();
-	    $actions = $this->title->getHomeNavigations($navs);
+	    $actions = $this->video->getHomeNavigations($navs);
 	    $seriesList = array();
 	    if($title->show_type == 'Serise') {
-			$series = $this->title->getSeries($title->package_id);
+			$series = $this->video->getSeries($title->package_id);
 		    foreach ($series as $k=>$v) {
 			    $seriesList[$k]['titleID'] = $v->id;
 			    $seriesList[$k]['episode'] = $v->episode_name;
@@ -106,6 +106,7 @@ VIDEOJS_SWF
 		    }
 	    }
 
+//		var_dump($title);die;
 	    return $this->render("movie/play", array(
 			'nav' => true,
 		    'actions'=>$actions,
@@ -140,9 +141,9 @@ VIDEOJS_SWF
 		$this->request->session('sift', array_merge($sift ,$this->get()));
 		$siftTypes = $this->movie->sift($columnID);
 
-		$movies = $this->title->getNewsByColumnID($columnID,$offset=0,$limit=10);
+		$movies = $this->video->getNewsByColumnID($columnID,$offset=0,$limit=10);
 //		$movies = $this->title->siftRecords($movies, $this->request->session('sift'));
-		$movies = $this->title->siftRecords($this->request->session('sift'),$columnID);
+		$movies = $this->video->siftRecords($this->request->session('sift'),$columnID);
 
 		return $this->render('movie/list',array(
 			'nav' => true,

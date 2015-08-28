@@ -6,13 +6,15 @@ use Clips\Libraries\DBModel;
 /**
  * Class ColumnModel
  * @package Pinet\EPG\Models
- * @Clips\Model({"title"})
+ * @Clips\Model({"video"})
  * @Clips\Library("sling")
  */
 class ColumnModel extends DBModel {
 
 	public function getAllColumns(){
 		$data = $this->sling->data('/epg/columns.1');
+//		echo '<pre>';
+//		var_dump($data);die;
 		$result = array();
 		foreach($data as $k => $v) {
 			if(is_object($v) && isset($v->type) && $v->type == 'column') {
@@ -35,7 +37,7 @@ class ColumnModel extends DBModel {
 		$columns = array();
 		foreach ($navs as $k=>$nav) {
 			$videos = array();
-			$movies = $this->title->getTitlesByColumn($nav->id,6);
+			$movies = $this->video->getTitlesByColumn($nav->column_id,6);
 			foreach ($movies as $movie) {
 				$videos[]=(object)array('id'=>$movie->id, 'title'=>$movie->asset_name, 'count'=>$movie->record, 'imageSrc'=>$movie->sourceurl);
 			}

@@ -14,7 +14,7 @@ class WelcomeController extends BaseController
 	 * @Clips\Widget({"epg", "navigation", "image"})
 	 * @Clips\Scss({"welcome/index"})
 	 * @Clips\Js({"application/static/js/welcome/index.js"})
-	 * @Clips\Model({"title","column","movie"})
+	 * @Clips\Model({"title","column","movie","video"})
 	 */
 	public function index() {
 		$this->title('Pinet Home Page',true);

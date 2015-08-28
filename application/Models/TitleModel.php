@@ -10,15 +10,16 @@ use Pinet\EPG\Core\ColumnAction;
  * @package Pinet\EPG\Models
  * @Clips\Model(table="title")
  * @Clips\Model({ "column","assetColumnRef", "playHistorie", "searchKey","poster","package","titleApplication" })
+ * @Clips\Library("sling")
  */
 class TitleModel extends DBModel {
 
-	public function getTitleByName($name){
+/*	public function getTitleByName($name){
 		return $this->one('asset_name',$name);
-	}
+	}*/
 
 	public function getTitlesByColumn($column_id, $limit=0){
-		$titles = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
+/*		$titles = $this->select('min(title.id) as id,title.asset_name,poster.sourceurl,title.package_id')
 			->from('title')
 			->join('asset_column_ref',array('asset_column_ref.title_asset_id'=>'title.id'))
 			->join('poster',array('poster.title_id'=>'title.id'))
@@ -27,7 +28,24 @@ class TitleModel extends DBModel {
 				new \Clips\Libraries\NotOperator(array('asset_column_ref.status' => null))))
 			->groupBy('title.package_id')
 			->limit(0, $limit)
-			->result();
+			->result();*/
+
+		$data = $this->sling->data('/epg/columns.2');
+		foreach($data as $k => $v) {
+			if(is_object($v) && $v->type == 'column' && $v->column_id == $column_id) {
+				$column = $v;
+			}
+		}
+//		var_dump($column_id);die;
+		$titles = array();
+		foreach ($column as $k=>$v) {
+			if(is_object($v) && $v->type == 'epg/link') {
+				$title = $this->sling->data($v->reference);
+				$titles[] = $title;
+			}
+		}
+		$titles = array_slice($titles,0,$limit);
+
 		foreach ($titles as $k=>$v) {
 			$titles[$k]->record = $this->playhistorie->getPlayTimesByPackageID($v->package_id);
 		}
@@ -65,18 +83,22 @@ class TitleModel extends DBModel {
 	}
 
 	public function getMovieInfoByID($titleID){
-		$titles = $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director,title.show_type,title.package_id')
+/*		$titles = $this->select('title.id,title.asset_name,title_application.actors,title_application.summary_short,title_application.director,title.show_type,title.package_id')
 			->from('title')
 			->join('title_application',array('title.application_id'=>'title_application.id'))
 			->where(array('title.id' => $titleID))
 			->result();
 		if(count($titles))
 			return $titles[0];
-		return null;
+		return null;*/
+
+		$title = $this->sling->data('/media/video/'.$titleID);
+		return $title;
+
 	}
 
 	public function getTitles($limit=10, $notIn=array()){
-		$select = $this->select('title.id,title.asset_name,poster.sourceurl')
+/*		$select = $this->select('title.id,title.asset_name,poster.sourceurl')
 				->from('title')
 				->join('poster',array('poster.title_id'=>'title.id'));
 		$where = array(
@@ -91,7 +113,22 @@ class TitleModel extends DBModel {
 			->result();
 		if($titles)
 			return $titles;
-		return array();
+		return array();*/
+
+		$titles = array();
+		$data = $this->sling->data('/epg/columns.2');
+		foreach($data as $k => $v) {
+			if(is_object($v) && $v->type == 'column') {
+				foreach ($v as $k2=>$v2) {
+					if(is_object($v2) && $v2->type == 'epg/link') {
+						$title = $this->sling->data($v2->reference);
+						$titles[] = $title;
+					}
+				}
+			}
+		}
+		$titles = array_slice($titles,0,$limit);
+		return $titles;
 	}
 
 	public function getNewTitles($limit, $notIn=array()){
@@ -132,23 +169,7 @@ class TitleModel extends DBModel {
 		return $titles;
 	}
 
-	function array_unique_fb($array2D) {     //二维数组去重
-		foreach ($array2D as $k=>$v)
-		{
-			$v = join(",",$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
-			$temp[$k] = $v;
-		}
-		$temp = array_unique($temp); //去掉重复的字符串,也就是重复的一维数组
-		foreach ($temp as $k => $v)
-		{
-			$array=explode(",",$v); //再将拆开的数组重新组装
-			$temp2[$k]["id"] =$array[0];
-			$temp2[$k]["asset_name"] =$array[1];
-		}
-		return $temp2;
-	}
-
-	public function siftTitles($session){
+/*	public function siftTitles($session){
 		$type = $session['type'];
 		$area = $session['area'];
 		$year = $session['year'];
@@ -210,7 +231,7 @@ class TitleModel extends DBModel {
 		var_dump($typeAll);die;
 		return $typeAll;
 
-	}
+	}*/
 
 	public function siftRecords($session,$columnID){
 		$where = array();
@@ -317,12 +338,13 @@ class TitleModel extends DBModel {
 	public function getHomeNavigations($navs, $limit=10){
 		$actions = array();
 		foreach ($navs as $k=>$nav) {
-			$action = new ColumnAction(array('content' => 'movie/index/'.$nav->id, 'label' => $nav->column_name, 'type' => 'server'));
-			$records = $this->playhistorie->getRecordsByColumnID($nav->id);
+//			var_dump($nav);die;
+			$action = new ColumnAction(array('content' => 'movie/index/'.$nav->column_id, 'label' => $nav->column_name, 'type' => 'server'));
+			$records = $this->playhistorie->getRecordsByColumnID($nav->column_id);
 			$count = count($records);
 			if($count != $limit){
 				$packageIDs = array_map(function($record){ return $record->id;}, $records);
-				$records = array_merge($records, $this->getNewTitlesByColumnID($nav->id, $packageIDs, $limit-$count));
+				$records = array_merge($records, $this->getNewTitlesByColumnID($nav->column_id, $packageIDs, $limit-$count));
 			}
 			$children = array();
 			foreach ($records as $record) {
@@ -382,6 +404,7 @@ class TitleModel extends DBModel {
 
 	public function getSeries($packageID){
 		$series = $this->get(array('package_id'=>$packageID));
+
 		foreach ($series as $k=>$v) {
 			$app = $this->titleapplication->getEpisodeNameByID($v->application_id);
 			$series[$k]->episode_name = $app->episode_name;

@@ -7,18 +7,19 @@ use Clips\Libraries\DBModel;
  * Class ColumnModel
  * @package Pinet\EPG\Models
  * @Clips\Model({"title"})
+ * @Clips\Library("sling")
  */
 class DeviceModel extends DBModel {
 
-	public function getAllColumns(){
+/*	public function getAllColumns(){
 		return $this->orderBy("rank")->get();
-	}
+	}*/
 
-	public function getColumnByName($name){
+/*	public function getColumnByName($name){
 		return $this->one('column_name',$name);
-	}
+	}*/
 
-	public function getColumns($navs){
+/*	public function getColumns($navs){
 		$columns = array();
 		foreach ($navs as $k=>$nav) {
 			$videos = array();
@@ -32,7 +33,7 @@ class DeviceModel extends DBModel {
 			$columns[$k]['url'] = 'movie/index/'.$nav->id;
 		}
 		return $columns;
-	}
+	}*/
 
 	public function saveDevices($history){
 		return $this->insert($history);

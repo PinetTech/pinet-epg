@@ -39,15 +39,17 @@ class BaseController extends Controller implements Initializable {
 	}
 
 	protected function render($template, $args = array(), $engine = null, $headers = array()) {
+//		echo '<pre>';
 		$searches = array('search'=> $this->request->session('search'), 'column_id'=> $this->request->session('column_id'));
 		$this->formData('search', (object)$searches);
 		if(\Clips\get_default($args, 'nav', false)){
 			$navs = $this->column->getAllColumns();
-			$actions = $this->title->getHomeNavigations($navs);
+			$actions = $this->video->getHomeNavigations($navs);
+//			var_dump($actions);die;
 			$args['actions'] = $actions;
 			if(\Clips\get_default($args, 'slider', false)){
 //				$items = $this->movie->getPushRecords(\Clips\get_default($args, 'column_id', ''));
-				$items = $this->movie->getRecommendTitles();
+				$items = $this->video->getRecommendTitles();
 				$args['items'] = $items;
 			}
 			if(\Clips\get_default($args, 'column', false)){

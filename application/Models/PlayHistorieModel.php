@@ -7,12 +7,13 @@ use Clips\Libraries\DBModel;
  * Class ColumnModel
  * @package Pinet\EPG\Models
  * @Clips\Model({"title"})
+ * @Clips\Library("sling")
  */
 class PlayHistorieModel extends DBModel {
 
 	public function saveHistory($history){
-		if($this->checkFlushData($history['mac'], $history['title_id'])){
-			$title = $this->title->one('id',$history['title_id']);
+		if($this->checkFlushData($history['mac'], $history['video_id'])){
+			$title = $this->title->one('id',$history['video_id']);
 			if($title){
 				$history['title_asset_id'] = $title->asset_id;
 				$history['package_id'] = $title->package_id;

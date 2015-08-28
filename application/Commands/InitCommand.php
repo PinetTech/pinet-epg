@@ -19,7 +19,8 @@ class InitCommand extends Command {
 		$i = 0;
 		foreach($columns as $key => $col) {
 			$this->sling->update('/epg/columns/'.$key, array(
-				'label' => $col,
+				'column_id'=>$i,
+				'column_name' => $col,
 				'name' => $key,
 				'type' => 'column',
 				'time' => \Clips\timestamp(),
