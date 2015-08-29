@@ -7,7 +7,6 @@ use Pinet\EPG\Core\ColumnAction;
 
 /**
  * Class VideoModel
- * @package Pinet\EPG\Models
  * @Clips\Model({"title","playhistorie"})
  * @Clips\Library("sling")
  */

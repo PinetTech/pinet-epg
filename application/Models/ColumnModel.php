@@ -13,8 +13,6 @@ class ColumnModel extends DBModel {
 
 	public function getAllColumns(){
 		$data = $this->sling->data('/epg/columns.1');
-//		echo '<pre>';
-//		var_dump($data);die;
 		$result = array();
 		foreach($data as $k => $v) {
 			if(is_object($v) && isset($v->type) && $v->type == 'column') {
