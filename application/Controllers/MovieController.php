@@ -57,16 +57,10 @@ class MovieController extends BaseController
 	 * @Clips\Scss({"movie/play"})
 	 * @Clips\Model({"playHistorie", "title", "movie","column","assetColumnRef","device"})
      */
-    public function play($titleID) {
-	    $this->request->session('column_id', null);
-	    $columnRef = $this->assetcolumnref->getColumnByID($titleID);
-	    if(isset($columnRef->column_id)){
-	        $this->request->session('column_id', $columnRef->column_id);
-	    }
-		$title = $this->video->getMovieInfoByID($titleID);
-		if(!isset($title->id)){
-			echo 'Not Found This Movie!';//todo need redirect 404 page
-			die;
+    public function play($id) {
+		$movie = $this->movie->getMovie($id);
+		if(!$movie){
+			return $this->not_found('No Movie Found');
 		}
 	    \Clips\context('jquery_init', <<<VIDEOJS_SWF
 
@@ -78,10 +72,11 @@ class MovieController extends BaseController
 VIDEOJS_SWF
 	    ,true);
 
-		$title->playUrl = $this->movie->getPlayUrlByTitleID($titleID, $this->request->server('REMOTE_ADDR'));
+		$movie->playUrl = $this->movie->getPlayUrl($movie);
+		/*
 		$this->playhistorie->saveHistory(array(
 			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
-			'title_id' => $titleID
+			'title_id' => $id
 		));
 
 	    $this->device->saveDevices(array(
@@ -90,14 +85,18 @@ VIDEOJS_SWF
 			    'uagent' => $_SERVER['HTTP_USER_AGENT'],
 			    'play_uri' => \Clips\context('uri')
         ));
+		*/
 
-		$sames = $this->video->getSameTypeMovies($titleID);
-        $this->title($title->asset_name,true);
+		$sames = $this->movie->getSameMovies($movie);
+        $this->title($movie->title,true);
 
 	    $navs = $this->column->getAllColumns();
-	    $actions = $this->video->getHomeNavigations($navs);
+	    //$actions = $this->video->getHomeNavigations($navs);
+		$actions = array();
 	    $seriesList = array();
-	    if($title->show_type == 'Serise') {
+
+		/*
+	    if($movie->show_type == 'Serise') {
 			$series = $this->video->getSeries($title->package_id);
 		    foreach ($series as $k=>$v) {
 			    $seriesList[$k]['titleID'] = $v->id;
@@ -105,23 +104,14 @@ VIDEOJS_SWF
 			    $seriesList[$k]['active'] = ($v->id == $titleID ? 'active' : '');
 		    }
 	    }
+		 */
 
-//		var_dump($title);die;
 	    return $this->render("movie/play", array(
 			'nav' => true,
-		    'actions'=>$actions,
-	        'movie'=>$title,
+		    'actions'=>$this->column->getNav(),
+	        'movie'=>$movie,
 	        'sames'=>$sames,
-		    'seriesList'=>$seriesList,
-			"tab"=>array(
-					"navs"=>array(
-							'nav1',
-							'nav2',
-							'nav3'
-					),
-					"contents"=>array(
-					)
-			)
+		    'seriesList'=>$seriesList
 	    ));
     }
 
@@ -150,7 +140,7 @@ VIDEOJS_SWF
 			'slider' => true,
 			'column_id' => $columnID,
 			'movies'=>$movies,
-			"sifts"=>$siftTypes,
+			"sifts"=>$this->column->getTypeNav(),
 			"tab"=>array(
 					"navs"=>array(
 							array('name'=>'最新','url'=>\Clips\static_url('movie/index/'.$columnID.'/new')),

@@ -21,9 +21,12 @@ class WelcomeController extends BaseController
 		$this->request->session('column_id', null);
 		$this->request->session('search', null);
 		return $this->render('welcome/index', array(
+            'columns' => $this->column->getFrontPageColumns(),
 			'nav' => true,
+            'actions' => $this->column->getNav(),
 			'slider' => true,
-			'column' => true
+			'column' => true,
+            'items' =>  $this->column->getMovies('movie')
 		));
 	}
 }

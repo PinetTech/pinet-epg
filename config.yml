@@ -32,8 +32,7 @@ resolutions:
     - 1440
     - 1920
     - 2880
-image_url_base: 
-    http://192.168.22.233:8099/mamPoster/
+mss_url: http://localhost/~jack/huazhu/mss/index.php
 file_dist: /tmp/dist # The distination for all the local file storage
 sling: # The configuration for accessing mms server
     host: localhost
