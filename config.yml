@@ -55,6 +55,8 @@ columns:
     sports: 体育
     newsreel: 纪录片
     macrofilm: 微电影
+image_url_base:
+    - http://localhost/~jack/huazhu/mss/index.php/api/show/
 logger:
     handlers:
         Stream:

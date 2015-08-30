@@ -115,8 +115,8 @@ class ColumnModel extends DBModel {
 
                 $mss = \Clips\config('mss_url');
                 $mss = $mss[0];
-                $video->poster_normal = $mss.'/api/show/'.$v->id.'/'.$video->poster_normal;
-                $video->poster_small = $mss.'/api/show/'.$v->id.'/'.$video->poster_small;
+                $video->poster_normal = $v->id.'/'.$video->poster_normal;
+                $video->poster_small = $v->id.'/'.$video->poster_small;
 				$result []= $video;
                 $i++;
 			}

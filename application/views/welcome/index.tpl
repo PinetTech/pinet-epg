@@ -21,7 +21,7 @@
                     <div class="movielist__body">
                         {foreach $v->videos as $key => $value}
                             <figure class="movie">
-                                {a uri="movie/play/{$value->id}"}{img src=$value->poster_normal class="movie__thumb"}{/a}
+                                {a uri="movie/play/{$value->id}"}{resimg data-image=$value->poster_normal class="movie__thumb"}{/a}
                                 <figcaption class="movie__title">{$value->title}</figcaption>
                                 <div class="movie__views">
                                     <div class="count-number">
