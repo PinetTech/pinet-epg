@@ -3,6 +3,7 @@ namespace Pinet\EPG\Models;in_array(__FILE__, get_included_files()) or exit("No 
 
 use Clips\Libraries\DBModel;
 use Clips\SimpleAction;
+use Pinet\EPG\Core\FilterAction;
 
 /**
  * The model for connecting to the column data in mms
@@ -15,7 +16,7 @@ use Clips\SimpleAction;
  */
 class ColumnModel extends DBModel {
 
-	public function getProgram(){
+	public function getCategory(){
 		return array(
 			'all'=>'全部','剧情'=>'剧情', '动作'=>'动作', '犯罪'=>'犯罪', ''=>'喜剧', '喜剧'=>'科幻', '西部'=>'西部', '传记'=>'传记', '爱情'=>'爱情', '歌舞'=>'歌舞'
 		, '惊悚'=>'惊悚', '冒险'=>'冒险', '悬疑'=>'悬疑', '奇幻'=>'奇幻', '历史'=>'历史', '恐怖'=>'恐怖', '战争'=>'战争', '运动'=>'运动', '音乐'=>'音乐', '家庭'=>'家庭'
@@ -38,19 +39,21 @@ class ColumnModel extends DBModel {
         return $ret;
     }
 
-    public function getTypeNav() {
+    public function getTypeNav($col = 'movie') {
 
         $ret = array();
 
-        foreach(array('program' => '类别', 'area' => '区域', 'time' => '时间') as $a => $label) {
+        foreach(array('category' => '类别', 'area' => '区域', 'time' => '时间') as $a => $label) {
             $children = array();
 
             foreach($this->{'get'.ucfirst($a)}() as $k => $v) {
-                $a = new SimpleAction();
-                $a->type = 'server';
-                $a->label = $v;
-                $a->content = '/movie/'.$a.'/'.$k;
-                $children []= $a;
+                $action = new FilterAction();
+                $action->type = 'server';
+                $action->label = $v;
+				$action->mode = $a;
+				$action->mode_value = $k;
+                $action->content = '/column/show/movie/'.$a.'/'.$k;
+                $children []= $action;
             }
 
             $col = new SimpleAction(array(
@@ -88,10 +91,15 @@ class ColumnModel extends DBModel {
 	}
 
     public function getNav() {
-        $col = new \Clips\SimpleAction(array(
-            'children' => array_map(function($item){ $item->type = 'server'; $item->content = '/column/show/'.$item->name; return $item; }, $this->getAllColumns())
-        ));
-        return $col->children();
+		$actions = array();
+
+		foreach($this->getAllColumns() as $item) {
+			$item->type = 'server'; 
+			$item->content = '/column/show/'.$item->name; 
+			$action = new \Pinet\EPG\Core\ColumnAction($item);
+			$actions []= $action;
+		}
+		return $actions;
     }
 
     /**

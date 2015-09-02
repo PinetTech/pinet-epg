@@ -19,7 +19,7 @@ helpers:
 babel: /opt/local/bin/node /opt/local/bin/babel
 default_view: Smarty
 widget_cache: true
-debug_sass: true
+#debug_sass: true
 resolutions:
     - 320
     - 360

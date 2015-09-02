@@ -12,6 +12,33 @@ use Clips\Model;
  */
 class MovieModel extends Model {
 
+	/**
+	 * Query the movies based on:
+	 *
+	 * 1. Column (Required)
+	 * 2. Categories *
+	 * 3. Area *
+	 * 4. Time *
+	 * 5. Keyword *
+	 */
+	public function queryMovies($query, $offset = 0, $limit = 10) {
+		$query = (array) $query;
+		$query['offset'] = $offset;
+		$query['limit'] = $limit;
+
+		$mss = \Clips\config('mss_url');
+		$mss = $mss[0];
+		return array_map(function($item){
+			$item->poster_normal = $item->id.'/'.$item->poster_normal;
+			$item->poster_small = $item->id.'/'.$item->poster_small;
+			$item->poster = $item->id.'/'.$item->poster;
+			return $item;
+		}, $this->sling->data("/mms.json", array(
+			'type' => 'movie',
+			'query' => json_encode($query)
+		)));
+	}
+
     public function getMovie($id) {
         return $this->sling->data('/media/video/'.$id);
     }

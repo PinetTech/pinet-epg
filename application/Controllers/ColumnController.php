@@ -10,10 +10,17 @@ use Clips\Controller;
  * @version 1.0
  * @date Sat Aug 29 16:03:48 2015
  *
- * @Clips\Model("column")
+ * @Clips\Model({"column", "movie"})
  * @Clips\Widget({"html", "lang", "grid"})
  */
 class ColumnController extends BaseController {
+
+	/**
+	 * @Clips\Model("movie")
+	 */
+	public function test() {
+		var_dump($this->movie->queryMovies($this->getMovieQuery()));
+	}
 
     /**
 	 * @Clips\Form({"search"})
@@ -21,17 +28,36 @@ class ColumnController extends BaseController {
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
      */
-    public function show($name = '') {
+    public function show($name = '', $filter = 'new', $filter_value = 'all') {
         if($name) {
             $this->title('Pinet Home Page',true);
             $col = $this->column->getColumnByName($name);
 
+			$this->updateQuery('column', $name);
+
+			switch($filter) {
+			case 'new':
+				$query = $this->updateQuery('order', 'year desc');
+				break;
+			case 'hot':
+				$query = $this->updateQuery('order', 'year asc');
+				break;
+			default:
+				$query = $this->updateQuery($filter, $filter_value);
+			}
+
             if($col) {
-                $movies = $this->column->getMovies($col->name);
+                $movies = $this->movie->queryMovies($query);
                 return $this->render('movie/list', array(
-                    'sifts' => $this->column->getTypeNav(),
+                    'sifts' => $this->column->getTypeNav($col->name),
                     'movies' => $movies,
                     'items' => $movies,
+					'tab' => array(
+						'navs' => array(
+							array('url'=>\Clips\site_url("/column/show/$name/new"), 'name' => '最新'),
+							array('url'=>\Clips\site_url("/column/show/$name/hot"), 'name' => '最热')
+						)
+					),
                     'actions' => $this->column->getNav()
                 ));
             }

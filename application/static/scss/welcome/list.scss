@@ -26,6 +26,10 @@ $movie-sel: get-module("movie", "selector");
                 width: 50%;
                 height: 3px;
             }
+
+	        .swiper-slide-active {
+	            background-color: #e01818;
+	        }
         }
         &__content {
             .swiper-slide {
