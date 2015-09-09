@@ -38,23 +38,73 @@ class BaseController extends Controller implements Initializable {
 			'content' => 'Pinet EPG'), true);
 	}
 
-	protected function render($template, $args = array(), $engine = null, $headers = array()) {
-		$searches = array('search'=> $this->request->session('search'), 'column_id'=> $this->request->session('column_id'));
-		$this->formData('search', (object)$searches);
-		if(\Clips\get_default($args, 'nav', false)){
-			$navs = $this->column->getAllColumns();
-			$actions = $this->video->getHomeNavigations($navs);
-			$args['actions'] = $actions;
-			if(\Clips\get_default($args, 'slider', false)){
-//				$items = $this->movie->getPushRecords(\Clips\get_default($args, 'column_id', ''));
-				$items = $this->video->getRecommendTitles();
-				$args['items'] = $items;
+	public function getMovieQuery() {
+		$data = $this->request->session('movie_query');
+		if($data) {
+			return json_decode($data);
+		}
+
+		$data = array(
+			'column' => 'movie',
+			'category' => array('all'),
+			'area' => array('all'),
+			'time' => array('all'),
+			'keywords' => array(),
+			'order' => 'year desc'
+		);
+		$this->request->session('movie_query', json_encode($data));
+		return $data;
+	}
+
+    public function getSearchMovieQuery($search) {
+        $search = $search ? $search : array();
+        $data = array(
+            'column' => 'movie',
+            'category' => array('all'),
+            'area' => array('all'),
+            'time' => array('all'),
+            'keywords' => $search,
+            'order' => 'year desc'
+        );
+        $this->request->session('movie_query', json_encode($data));
+        return $data;
+    }
+
+    public function getAllMovies() {
+        $data = array(
+            'column' => 'movie',
+            'category' => array('all'),
+            'area' => array('all'),
+            'time' => array('all'),
+            'keywords' => array(),
+            'order' => 'year desc'
+        );
+        $this->request->session('movie_query', json_encode($data));
+        return $data;
+    }
+
+	protected function updateQuery($type = 'column', $data = 'movie') {
+		$query = $this->getMovieQuery();
+
+		if($type == 'column') {
+			$query->column = $data;
+		}
+		else if($type == 'order') {
+			$query->order = $data;
+		}
+		else {
+			if($data == 'all') {
+				$query->$type = array('all');
 			}
-			if(\Clips\get_default($args, 'column', false)){
-				$columns = $this->column->getColumns($navs);
-				$args['columns'] = $columns;
+			else {
+				if($query->{$type}[0] == 'all') {
+					$query->$type = array($data);
+				}
+				else
+					array_push($query->$type, $data);
 			}
 		}
-		return parent::render($template, $args, $engine, $headers);
+		$this->request->session('movie_query', json_encode($query));
+		return $query;
 	}
 }

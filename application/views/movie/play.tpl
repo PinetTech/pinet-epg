@@ -24,7 +24,7 @@
         <main>
         	<div class="videoplayer">
         		<div class="videoplayer__body">
-			        {video src="{$movie->playUrl}"}
+			        {video src={$movie->playUrl}}
 			        <div class="video-button-text">现在播放</div>
 			        {if ($movie->show_type == 'Serise' ) }
         			<div class="videoplayer__list" >
@@ -133,7 +133,7 @@
 				        {foreach $sames as $v}
 	                    <figure class="movie">
 		                    {a uri="movie/play/{$v->id}"}
-	                        {resimg data-image=$v->sourceurl class="movie__thumb"}
+	                        {resimg data-image=$v->poster_normal class="movie__thumb"}
 		                    {/a}
 	                        <figcaption class="movie__title">{$v->asset_name}</figcaption>
 	                        <div class="movie__views">

@@ -1,8 +1,8 @@
 <?php
 namespace Pinet\EPG\Models;in_array(__FILE__, get_included_files()) or exit("No direct script access allowed");
 
-use Clips\Libraries\DBModel;
 use Pinet\EPG\Core\SiftAction;
+use Clips\Model;
 
 /**
  * Class MovieModel
@@ -10,40 +10,55 @@ use Pinet\EPG\Core\SiftAction;
  * @Clips\Model(table="movie", value={"video", "playHistorie"})
  * @Clips\Library("sling")
  */
-class MovieModel extends DBModel {
+class MovieModel extends Model {
+
+	/**
+	 * Query the movies based on:
+	 *
+	 * 1. Column (Required)
+	 * 2. Categories *
+	 * 3. Area *
+	 * 4. Time *
+	 * 5. Keyword *
+	 */
+	public function queryMovies($query, $offset = 0, $limit = 10) {
+		$query = (array) $query;
+		$query['offset'] = $offset;
+		$query['limit'] = $limit;
+
+		$mss = \Clips\config('mss_url');
+		$mss = $mss[0];
+		return array_map(function($item){
+			$item->poster_normal = $item->id.'/'.$item->poster_normal;
+			$item->poster_small = $item->id.'/'.$item->poster_small;
+			$item->poster = $item->id.'/'.$item->poster;
+			return $item;
+		}, $this->sling->data("/mms.json", array(
+			'type' => 'movie',
+			'query' => json_encode($query)
+		)));
+	}
+
+    public function getMovie($id) {
+        return $this->sling->data('/media/video/'.$id);
+    }
 
 /*	public function getMovieByName($name){
 		return $this->one('asset_name',$name);
 	}*/
 
-	public function getPlayUrlByTitleID($titleID, $serverUrl){
-//		$movie = $this->one('title_id', $titleID);
-
-		$movie = $this->sling->data('/media/video/'.$titleID);
-		if(isset($movie->id)){
-			return str_replace('localhost', $serverUrl, $movie->play_url);
-		}
-		return '';
+	public function getPlayUrl($movie){
+        $mss = \Clips\config('mss_url');
+        if($mss) {
+            $mss = $mss[0];
+            return $mss.'/api/retrieve/'.$movie->id.'/'.$movie->playlist_name;
+        }
+        return null;
 	}
 
-/*	public function getMovieByTitleID($titleID){
-		return $this->one('title_id', $titleID);
-	}*/
-
-
-	public function getProgramTypes(){
-		return array(
-			'all'=>'全部','剧情'=>'剧情', '动作'=>'动作', '犯罪'=>'犯罪', ''=>'喜剧', '喜剧'=>'科幻', '西部'=>'西部', '传记'=>'传记', '爱情'=>'爱情', '歌舞'=>'歌舞'
-		, '惊悚'=>'惊悚', '冒险'=>'冒险', '悬疑'=>'悬疑', '奇幻'=>'奇幻', '历史'=>'历史', '恐怖'=>'恐怖', '战争'=>'战争', '运动'=>'运动', '音乐'=>'音乐', '家庭'=>'家庭'
-		);
-	}
-
-	public function getAreas(){
-		return array(
-			'all'=>'全部','中国大陆'=>'中国大陆', '香港'=>'香港', '英国'=>'英国', '美国'=>'美国', '德国'=>'德国', '法国'=>'法国', '澳大利亚'=>'澳大利亚', '台湾'=>'台湾', '丹麦'=>'丹麦', '日本'=>'日本'
-		, '新西兰'=>'新西兰', '意大利'=>'意大利', '加拿大'=>'加拿大', '巴西'=>'巴西', '秘鲁'=>'秘鲁', '韩国'=>'韩国', '西班牙'=>'西班牙', '瑞士'=>'瑞士', '尼泊尔'=>'尼泊尔'
-		);
-	}
+    public function getSameMovies($movie) {
+        return array(); // Return empty list
+    }
 
 	public function getYears(){
 		$now = new \DateTime();

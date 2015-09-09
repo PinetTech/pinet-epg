@@ -4,7 +4,7 @@
             <div class="actionbar">
                 <div class="actionbar__brand">
 	                {a uri="/"}{resimg data-image="logo.png"}{/a}
-                </div>            
+                </div>
                 {form class="actionbar__search-form" name="search" action='search/movie/'}
                     {field field="search"}
                         {input}
@@ -17,9 +17,9 @@
                 {/form}
             </div>
             {navigation id="menu" class="menu" actions=$actions}{/navigation}
-        {/nav}      
+        {/nav}
     {/block}
-    {block name="content"}	
+    {block name="content"}
         <main class="result">
             <section class="search-result">
                 <div class="search-result__header">
@@ -31,12 +31,12 @@
                             <div class="list">
                                 <a href="" class="title">排序</a>
                                 <a href="" class="hot active">最热</a>
-                                <a href="" class="new">最新</a>           
+                                <a href="" class="new">最新</a>
                             </div>
                         </div>
                         <div class="movie-classfication"></div>
                         {navigation id="movietypes" class="movietypes" actions=$sifts}{/navigation}
-                    {/sect}                 
+                    {/sect}
                     <div class="areas">
                         {div class="tab"}
                             {swiper class="tab__nav"}
@@ -58,7 +58,7 @@
                                     {swiper__slide}
 	                                    {foreach $movies as $v}
                                            <figure class="movie">
-                                            {resimg data-image=$v->sourceurl class="mobile__thumb"}
+                                            {resimg data-image=$v->poster_normal class="mobile__thumb"}
                                             <div class="movie__info">
                                                 <figcaption class="movie__title title">{$v->asset_name}</figcaption>
                                                 <div class="movie__des">
@@ -74,16 +74,16 @@
                                                     </dl>
                                                 </div>
                                                 <div class="movie__control">
-                                                    <a href={$v->url} class="button">播放</a>
-                                                </div>                            
+                                                    {a uri="/movie/play/{$v->id}" class="button"}播放{/a}
+                                                </div>
                                             </div>
                                         </figure>
 	                                    {/foreach}
                                     {/swiper__slide}
-                                {/swiper__wrapper}                        
+                                {/swiper__wrapper}
                             {/swiper}
-                        {/div}                        
-                    </div>                    
+                        {/div}
+                    </div>
                 </div>
             </section>
             <section class="search-classfication">
@@ -97,5 +97,5 @@
                     <li>sadsads</li>
                 </ul>
             </section>
-        </main>       
+        </main>
 	{/block}

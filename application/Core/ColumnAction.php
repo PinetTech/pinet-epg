@@ -26,21 +26,16 @@ class ColumnAction extends SimpleTreeNode implements Action {
 	}
 
 	protected function nodeClass() {
-		return "\\Clips\\SiftAction";
+		return "\\Pinet\\EPG\\Core\\ColumnAction";
 	}
 
 	public function active() {
-		if(isset($this->_active))
-			return $this->_active;
 		$controller = \Clips\context('controller');
-		$columnID = $controller->request->session('column_id');
-		$url = parse_url($this->content());
-		$url = explode('/', $url['path']);
-		if($columnID == array_pop($url)){
-			$this->_active = true;
-			return true;
+		if($controller) {
+			$query = $controller->getMovieQuery();
+			if(isset($this->name))
+				return $query->column == $this->name;
 		}
-		$this->_active = false;
 		return false;
 	}
 

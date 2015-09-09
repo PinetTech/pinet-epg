@@ -19,7 +19,7 @@ helpers:
 babel: /opt/local/bin/node /opt/local/bin/babel
 default_view: Smarty
 widget_cache: true
-debug_sass: true
+#debug_sass: true
 resolutions:
     - 320
     - 360
@@ -32,8 +32,7 @@ resolutions:
     - 1440
     - 1920
     - 2880
-image_url_base: 
-    http://192.168.22.233:8099/mamPoster/
+mss_url: http://localhost/~jack/huazhu/mss/index.php
 file_dist: /tmp/dist # The distination for all the local file storage
 sling: # The configuration for accessing mms server
     host: localhost
@@ -56,6 +55,8 @@ columns:
     sports: 体育
     newsreel: 纪录片
     macrofilm: 微电影
+image_url_base:
+    - http://localhost/~jack/huazhu/mss/index.php/api/show/
 logger:
     handlers:
         Stream:
