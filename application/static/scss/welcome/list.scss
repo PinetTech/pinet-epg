@@ -14,11 +14,11 @@ $movie-sel: get-module("movie", "selector");
             }
             .swiper-slide {
                 width: 50%;
-            }       
+            }
         }
         &__thumbs {
             border-bottom: 1px solid #dedede;
-            margin: 0;        
+            margin: 0;
             .swiper-wrapper {
                 width: 240px;
             }
@@ -28,7 +28,7 @@ $movie-sel: get-module("movie", "selector");
             }
 
 	        .swiper-slide-active {
-	            background-color: #e01818;
+//	            background-color: #e01818;
 	        }
         }
         &__content {
@@ -38,19 +38,81 @@ $movie-sel: get-module("movie", "selector");
         }
     }
 
-    #{$movie-sel} {
-        .count-number {
-            font-size: 10px;
-            color: #6E6E6E;
-            line-height: 12px;
-            .count-number__text:before {
-                content: "\f16a";
-                font-family: FontAwesome;
-                margin-right: 5px;
-            }          
-        }           
+  #{$movie-sel} {
+    .count-number {
+      font-size: 10px;
+      color: #6E6E6E;
+      line-height: 12px;
+      .count-number__text:before {
+        content: "\f16a";
+        font-family: FontAwesome;
+        margin-right: 5px;
+      }
     }
+  }
+  $teal:     #56D7C6 !default;
+  $purple:   #B96CFF !default;
+  $blue:     #222232 !default;
+
+  /* Universal styling */
+  [class^="shaft-load"] {
+    margin: 10px auto;
+    width: 60px;
+    height: 30px;
+    opacity: 0;
+    position: relative;
+    > div {
+      float: left;
+      background: $purple;
+      height: 100%;
+      width: 5px;
+      margin-right: 1px;
+      display: inline-block;
+    }
+    .shaft1 { -webkit-animation-delay: 0.05s; animation-delay: 0.05s;}
+    .shaft2 { -webkit-animation-delay: 0.1s; animation-delay: 0.1s; }
+    .shaft3 { -webkit-animation-delay: 0.15s; animation-delay: 0.15s; }
+    .shaft4 { -webkit-animation-delay: 0.2s; animation-delay: 0.2s; }
+    .shaft5 { -webkit-animation-delay: 0.25s; animation-delay: 0.25s; }
+    .shaft6 { -webkit-animation-delay: 0.3s; animation-delay: 0.3s; }
+    .shaft7 { -webkit-animation-delay: 0.35s; animation-delay: 0.35s; }
+    .shaft8 { -webkit-animation-delay: 0.4s; animation-delay: 0.4s;}
+    .shaft9 { -webkit-animation-delay: 0.45s; animation-delay: 0.45s; }
+    .shaft10 { -webkit-animation-delay: 0.5s; animation-delay: 0.5s; }
+  }
+
+  [class^="shaft-load"].show {
+    opacity: 1;
+  }
+
+  /* Shaft 1 */
+  .shaft-load {
+    > div {
+      -webkit-animation: loading 1.5s infinite ease-in-out;
+      animation: loading 1.5s infinite ease-in-out;
+      -webkit-transform: scaleY(0.05) translateX(-10px);
+      -ms-transform: scaleY(0.05) translateX(-10px);
+      transform: scaleY(0.05) translateX(-10px);
+    }
+  }
+
+  @-webkit-keyframes loading {
+    50% {
+      -webkit-transform: scaleY(1.2) translateX(10px);
+      transform: scaleY(1.2) translateX(10px);
+      background: $teal;
+    }
+  }
+
+  @keyframes loading {
+    50% {
+      -webkit-transform: scaleY(1.2) translateX(10px);
+      transform: scaleY(1.2) translateX(10px);
+      background: $teal;
+    }
+  }
 }
+
 
 @include welcome-list-init();
 
@@ -66,7 +128,7 @@ $movie-sel: get-module("movie", "selector");
             &__search {
                 display: none;
             }
-        }        
+        }
     }
 
     @mixin videos() {
@@ -76,8 +138,8 @@ $movie-sel: get-module("movie", "selector");
             margin-bottom: calc-res(342px);
             display: table;
             margin-top: calc-res(45.95px);
-        }        
-    }    
+        }
+    }
 
     @mixin types() {
         .types {
@@ -93,20 +155,20 @@ $movie-sel: get-module("movie", "selector");
             padding-top: calc-res(40px);
             padding-bottom: calc-res(76px);
             background: #F2F2F2;
-            border: 1px solid #D4D4D4;            
+            border: 1px solid #D4D4D4;
             border-bottom: none;
             h3 {
                 margin: 0;
                 font-size: 18px;
                 color: #DE1C1C;
-                line-height: 25px;                
+                line-height: 25px;
                 padding-bottom: calc-res(53.99px);
-            }            
+            }
             .select__label {
                 display: inline-block;
                 padding: 5px;
                 background: #FFFFFF;
-                border: 1px solid #CECECE;                
+                border: 1px solid #CECECE;
                 margin-right: calc-res(20px);
                 margin-bottom: calc-res(15px);
                 .fa {
@@ -115,12 +177,12 @@ $movie-sel: get-module("movie", "selector");
                 }
             }
         }
-    }   
+    }
 
     @mixin nav() {
         .nav {
-            border: 1px solid #D4D4D4;       
-            padding-bottom: calc-res(704px);                 
+            border: 1px solid #D4D4D4;
+            padding-bottom: calc-res(704px);
             &.movietypes {
                 width: calc-res(674px);
                 padding-left: calc-res(54px);
@@ -141,7 +203,7 @@ $movie-sel: get-module("movie", "selector");
                     padding: 0;
                     font-size: calc-res(32.28px);
                     color: #202020;
-                    line-height: 37px;                    
+                    line-height: 37px;
                 }
 
                 > li > a:hover {
@@ -157,9 +219,9 @@ $movie-sel: get-module("movie", "selector");
                         float: left;
                         &.active {
                             > a {
-                                color: #ff8f00;    
+                                color: #ff8f00;
                             }
-                        }                        
+                        }
                     }
                     > li > a {
                         padding: 0;
@@ -172,7 +234,7 @@ $movie-sel: get-module("movie", "selector");
                     }
                 }
             }
-        }      
+        }
     }
 
     @mixin movies() {
@@ -186,8 +248,8 @@ $movie-sel: get-module("movie", "selector");
             padding-top: 0;
             vertical-align: top;
             width: 100%;
-        }    
-    }     
+        }
+    }
 
     @mixin tab() {
         #{$tab-sel} {
@@ -196,28 +258,28 @@ $movie-sel: get-module("movie", "selector");
                 .swiper-slide {
                     font-size: 22px;
                     color: #202020;
-                    line-height: 31px;                    
+                    line-height: 31px;
                     > a {
                         font-size: 22px;
                         color: #202020;
-                        line-height: 31px;                    
+                        line-height: 31px;
                     }
                 }
                 .swiper-slide.active {
-                    // color: #ef1717;                    
+                    // color: #ef1717;
                 }
             }
             &__thumbs {
                 // display: none;
                 .swiper-slide.active {
-                    background-color: #e01818;                    
+                    background-color: #e01818;
                 }
             }
             &__content {
                 margin-top: calc-res(68px);
             }
-        }           
-    }    
+        }
+    }
 
     @mixin movie() {
         #{$movie-sel} {
@@ -225,17 +287,17 @@ $movie-sel: get-module("movie", "selector");
             float: left;
             margin-bottom: calc-res(60px);
             width: 17.5%;
-            margin-right: 3.125%;        
+            margin-right: 3.125%;
             .movie__title {
-                padding-left: calc-res(36px);                    
+                padding-left: calc-res(36px);
                 padding-right: calc-res(36px);
                 line-height: 23px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: nowrap;                
+                white-space: nowrap;
             }
             .movie__views {
-                padding-left: calc-res(36px);                    
+                padding-left: calc-res(36px);
                 padding-right: calc-res(36px);
                 line-height: 23px;
             }
@@ -246,17 +308,17 @@ $movie-sel: get-module("movie", "selector");
                 > img {
                     height: 100%;
                 }
-            }             
-        }           
+            }
+        }
         #{$movie-sel}:nth-of-type(5n+5) {
             margin-right: 0;
-        }        
+        }
     }
 
     @mixin movie-filter() {
         .movie-filter {
             display: none;
-        }          
+        }
     }
 
     @mixin menu() {
@@ -272,12 +334,12 @@ $movie-sel: get-module("movie", "selector");
         @include select();
         @include nav();
         @include movies();
-        @include tab();    
-        @include movie();    
-        @include movie-filter();       
+        @include tab();
+        @include movie();
+        @include movie-filter();
         @include menu();
-    } 
-    @include constructor();    
+    }
+    @include constructor();
 }
 
 @mixin welcome-list-mobile() {
@@ -308,7 +370,7 @@ $movie-sel: get-module("movie", "selector");
                     color: #ffffff;
                     font-size: res(mobile-to-pc(18px));
                     color: #F6F6F6;
-                    line-height: 25px;                    
+                    line-height: 25px;
                     padding-left: 10px;
                     padding-right: 10px;
                 }
@@ -328,7 +390,7 @@ $movie-sel: get-module("movie", "selector");
                 *.active {
                     background-color: #ffffff;
                     color: #e01818;
-                }   
+                }
             }
             &__search {
                 padding-right: res(mobile-to-pc(20px));
@@ -338,7 +400,7 @@ $movie-sel: get-module("movie", "selector");
                     font-size: res(mobile-to-pc(24px));
                 }
             }
-        }        
+        }
     }
 
     @mixin movie-filter() {
@@ -367,7 +429,7 @@ $movie-sel: get-module("movie", "selector");
             .list > a.active {
                 color: #f01111;
             }
-        }        
+        }
     }
 
     @mixin nav() {
@@ -412,8 +474,8 @@ $movie-sel: get-module("movie", "selector");
                     color: #272727;
                 }
             }
-        }        
-    }    
+        }
+    }
 
     @mixin tab() {
         #{$tab-sel} {
@@ -436,7 +498,7 @@ $movie-sel: get-module("movie", "selector");
                     width: 100% !important;
                 }
             }
-        }        
+        }
     }
 
     @mixin movie() {
@@ -464,26 +526,26 @@ $movie-sel: get-module("movie", "selector");
                 > img {
                     height: 100%;
                 }
-            }                                 
+            }
             .movie__title {
                 text-align: center;
                 background-color: #ffffff;
                 top: auto;
                 font-size: 11.5px;
-                line-height: 19px;                        
+                line-height: 19px;
                 padding-top: 3px;
                 padding-bottom: 3px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: nowrap;                         
-            }                              
+                white-space: nowrap;
+            }
             .count-number {
                 &__text {
                     display: none;
                 }
             }
-        }         
-    }    
+        }
+    }
 
     @mixin videos() {
         .videos {
@@ -509,10 +571,10 @@ $movie-sel: get-module("movie", "selector");
         @include movie-filter();
         @include nav();
         @include tab();
-        @include movie();  
+        @include movie();
         @include videos();
         @include select();
-        @include movies();          
+        @include movies();
     }
     @include constructor();
 }

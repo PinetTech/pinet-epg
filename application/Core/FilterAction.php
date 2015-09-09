@@ -18,8 +18,7 @@ class FilterAction extends SimpleAction {
 			$values = $query->{$this->mode};
 
 			\Clips\log('The values is ', array($values, $this->mode_value));
-
-			return array_search($this->mode_value, $values) !== false;
+			return array_search(urlencode($this->mode_value), $values) !== false;
 		}
 		return false;
 	}

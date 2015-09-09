@@ -30,10 +30,15 @@ class ColumnController extends BaseController {
      */
     public function show($name = '', $filter = 'new', $filter_value = 'all') {
         if($name) {
+            $all_movies = $this->movie->queryMovies($this->getAllMovies());
+            $this->request->session('all_movies',$all_movies);
+            $this->request->session('sift_name',$name);
             $this->title('Pinet Home Page',true);
             $col = $this->column->getColumnByName($name);
-
 			$this->updateQuery('column', $name);
+            if($filter=='new' || $filter=='hot'){
+               $this->request->session('new_type',$filter);
+            }
 
 			switch($filter) {
 			case 'new':
@@ -51,11 +56,11 @@ class ColumnController extends BaseController {
                 return $this->render('movie/list', array(
                     'sifts' => $this->column->getTypeNav($col->name),
                     'movies' => $movies,
-                    'items' => $movies,
+                    'items' => $all_movies,
 					'tab' => array(
 						'navs' => array(
-							array('url'=>\Clips\site_url("/column/show/$name/new"), 'name' => '最新'),
-							array('url'=>\Clips\site_url("/column/show/$name/hot"), 'name' => '最热')
+							array('url'=>\Clips\site_url("/column/show/$name/new"), 'name' => '最新', 'active' => $this->request->session('new_type') == 'new' ? 'active' : ''),
+							array('url'=>\Clips\site_url("/column/show/$name/hot"), 'name' => '最热', 'active' => $this->request->session('new_type') == 'hot' ? 'active' : '')
 						)
 					),
                     'actions' => $this->column->getNav()
