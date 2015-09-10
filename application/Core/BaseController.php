@@ -83,6 +83,20 @@ class BaseController extends Controller implements Initializable {
         return $data;
     }
 
+    public function getSerials($serial) {
+        $data = array(
+            'column' => 'movie',
+            'type'=>$serial,
+            'category' => array('all'),
+            'area' => array('all'),
+            'time' => array('all'),
+            'keywords' => array(),
+            'order' => 'year desc'
+        );
+        $this->request->session('movie_query', json_encode($data));
+        return $data;
+    }
+
 	protected function updateQuery($type = 'column', $data = 'movie') {
 		$query = $this->getMovieQuery();
 

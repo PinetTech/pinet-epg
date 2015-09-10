@@ -87,7 +87,7 @@ VIDEOJS_SWF
         ));
 		*/
 
-		$sames = $this->movie->queryMovies($this->getAllMovies());
+		$sames = $this->movie->queryMovies($this->getSerials('movie'));
         $this->title($movie->title,true);
 
 	    $navs = $this->column->getAllColumns();
