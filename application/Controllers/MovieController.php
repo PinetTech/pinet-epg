@@ -105,7 +105,6 @@ VIDEOJS_SWF
 		    }
 	    }
 		 */
-
 	    return $this->render("movie/play", array(
 			'nav' => true,
 		    'actions'=>$this->column->getNav(),

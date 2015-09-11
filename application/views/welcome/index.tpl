@@ -33,7 +33,7 @@
                         {/foreach}
                     </div>
                 </section>
-                {* section.movielist *}
-            {/foreach}     
-        </main>    
+                 {*section.movielist*}
+            {/foreach}
+        </main>
     {/block}

@@ -46,6 +46,7 @@ class BaseController extends Controller implements Initializable {
 
 		$data = array(
 			'column' => 'movie',
+            'type'=>'movie',
 			'category' => array('all'),
 			'area' => array('all'),
 			'time' => array('all'),
@@ -60,6 +61,7 @@ class BaseController extends Controller implements Initializable {
         $search = $search ? $search : array();
         $data = array(
             'column' => 'movie',
+            'type'=>'movie',
             'category' => array('all'),
             'area' => array('all'),
             'time' => array('all'),
@@ -73,6 +75,7 @@ class BaseController extends Controller implements Initializable {
     public function getAllMovies() {
         $data = array(
             'column' => 'movie',
+            'type'=>'movie',
             'category' => array('all'),
             'area' => array('all'),
             'time' => array('all'),
@@ -93,7 +96,7 @@ class BaseController extends Controller implements Initializable {
             'keywords' => array(),
             'order' => 'year desc'
         );
-        $this->request->session('movie_query', json_encode($data));
+//        $this->request->session('movie_query', json_encode($data));
         return $data;
     }
 
