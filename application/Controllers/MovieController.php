@@ -72,6 +72,10 @@ class MovieController extends BaseController
 VIDEOJS_SWF
 	    ,true);
 
+
+		if($movie->video_type == 'serials')
+			$episode = 1;
+
 		$movie->playUrl = $this->movie->getPlayUrl($movie, $episode);
 		/*
 		$this->playhistorie->saveHistory(array(

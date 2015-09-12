@@ -30,7 +30,7 @@ class ColumnController extends BaseController {
      */
     public function show($name = '', $filter = 'new', $filter_value = 'all') {
         if($name) {
-            $all_movies = $this->movie->queryMovies($this->getSerials('movie'));
+            $all_movies = $this->movie->queryMovies($this->getSerials($name));
             $this->request->session('all_movies',$all_movies);
             $this->request->session('sift_name',$name);
             $this->title('Pinet Home Page',true);
@@ -49,6 +49,7 @@ class ColumnController extends BaseController {
 			default:
 				$query = $this->updateQuery($filter, $filter_value);
 			}
+			$query->type = $name;
             $serial = $this->movie->queryMovies($this->getSerials('serials'));
             $this->request->session('serial_movies',$serial);
             if($col) {

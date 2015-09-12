@@ -22,4 +22,9 @@ c:
 init:
 	./vendor/bin/clips init
 
+all:
+	./vendor/bin/clips PHP columns.php
+	./vendor/bin/clips PHP mms.php
+	./vendor/bin/clips PHP serials.php
+
 .PHONY: init c test clean epg migrate fake

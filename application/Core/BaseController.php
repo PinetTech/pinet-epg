@@ -88,7 +88,7 @@ class BaseController extends Controller implements Initializable {
 
     public function getSerials($serial) {
         $data = array(
-            'column' => 'movie',
+            'column' => $serial,
             'type'=>$serial,
             'category' => array('all'),
             'area' => array('all'),
