@@ -32,11 +32,11 @@ resolutions:
     - 1440
     - 1920
     - 2880
-mss_url: http://localhost/~jack/huazhu/mss/index.php
-file_dist: /tmp/dist # The distination for all the local file storage
+mss_url: http://mss.pinet.co/index.php
 sling: # The configuration for accessing mms server
     host: localhost
     port: 8080
+    base: /sling
     username: admin
     password: admin
 sass_preload:
@@ -56,7 +56,7 @@ columns:
     newsreel: 纪录片
     macrofilm: 微电影
 image_url_base:
-    - http://localhost/~jack/huazhu/mss/index.php/api/show/
+    - http://mss.pinet.co/index.php/api/show/
 logger:
     handlers:
         Stream:

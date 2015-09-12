@@ -26,7 +26,7 @@
             <div class="videoplayer__body">
                 {video src="{$movie->playUrl}"}
                 <div class="video-button-text">现在播放</div>
-                {if ($movie->show_type == 'Series' ) }
+                {if ($movie->video_type == 'series' ) }
                     <div class="videoplayer__list" >
                         <h3>{lang}剧集{/lang}</h3>
                         <ul>

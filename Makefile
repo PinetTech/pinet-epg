@@ -4,7 +4,8 @@ fake: migrate
 	./vendor/bin/clips fake
 
 migrate:
-	@mysql -u root -e "use ${DB}"
+	@mysql -u root -e "drop database if exists ${DB}"
+	@mysql -u root -e "create database ${DB}"
 	@./vendor/bin/clips phinx migrate
 
 epg:
