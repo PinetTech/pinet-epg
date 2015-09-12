@@ -47,10 +47,13 @@ class MovieModel extends Model {
 		return $this->one('asset_name',$name);
 	}*/
 
-	public function getPlayUrl($movie){
+	public function getPlayUrl($movie, $episode = null){
         $mss = \Clips\config('mss_url');
         if($mss) {
             $mss = $mss[0];
+			if($episode) {
+				return $mss.'/api/show/'.$movie->id.'/'.$episode.'/'.$movie->playlist_name;
+			}
             return $mss.'/api/retrieve/'.$movie->id.'/'.$movie->playlist_name;
         }
         return null;

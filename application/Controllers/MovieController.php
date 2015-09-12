@@ -57,7 +57,7 @@ class MovieController extends BaseController
 	 * @Clips\Scss({"movie/play"})
 	 * @Clips\Model({"playHistorie", "title", "movie","column","assetColumnRef","device"})
      */
-    public function play($id) {
+    public function play($id, $episode = null) {
 		$movie = $this->movie->getMovie($id);
 		if(!$movie){
 			return $this->not_found('No Movie Found');
@@ -72,7 +72,7 @@ class MovieController extends BaseController
 VIDEOJS_SWF
 	    ,true);
 
-		$movie->playUrl = $this->movie->getPlayUrl($movie);
+		$movie->playUrl = $this->movie->getPlayUrl($movie, $episode);
 		/*
 		$this->playhistorie->saveHistory(array(
 			'mac' => (string)\Clips\ip2mac($this->request->getIP()),
