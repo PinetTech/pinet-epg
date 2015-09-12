@@ -73,8 +73,21 @@ VIDEOJS_SWF
 	    ,true);
 
 
-		if($movie->video_type == 'serials')
-			$episode = 1;
+		$seriesList = array();
+		if($movie->video_type == 'serials') {
+			if(!$episode)
+				$episode = 1;
+			for($i = 1; $i <= $movie->serial_count; $i++) {
+				$e = array(
+					'url' =>  \Clips\site_url('movie/play/'.$id.'/'.$i),
+					'episode' => $i
+				);
+
+				if($i == $episode)
+					$e['active'] = true;
+				$seriesList []= $e;
+			}
+		}
 
 		$movie->playUrl = $this->movie->getPlayUrl($movie, $episode);
 		/*
@@ -97,7 +110,6 @@ VIDEOJS_SWF
 	    $navs = $this->column->getAllColumns();
 	    //$actions = $this->video->getHomeNavigations($navs);
 		$actions = array();
-	    $seriesList = array();
 
 		/*
 	    if($movie->show_type == 'Serise') {

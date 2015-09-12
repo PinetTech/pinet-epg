@@ -26,12 +26,12 @@
             <div class="videoplayer__body">
                 {video src="{$movie->playUrl}"}
                 <div class="video-button-text">现在播放</div>
-                {if ($movie->video_type == 'series' ) }
+                {if ($movie->video_type == 'serials' ) }
                     <div class="videoplayer__list" >
                         <h3>{lang}剧集{/lang}</h3>
                         <ul>
                             {foreach $seriesList as $v}
-                                <li class="{$v['active']}">{a uri="/movie/play/{$v['titleID']}"}{$v['episode']}{/a}</li>
+                                <li class="{$v['active']}">{a href="{$v['url']}"}{$v['episode']}{/a}</li>
                             {/foreach}
                         </ul>
                     </div>
