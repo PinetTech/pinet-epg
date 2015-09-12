@@ -43,8 +43,10 @@ class BaseController extends Controller implements Initializable {
 		if($data) {
 			return json_decode($data);
 		}
+
 		$data = array(
 			'column' => 'movie',
+            'type'=>'movie',
 			'category' => array('all'),
 			'area' => array('all'),
 			'time' => array('all'),
@@ -54,6 +56,49 @@ class BaseController extends Controller implements Initializable {
 		$this->request->session('movie_query', json_encode($data));
 		return $data;
 	}
+
+    public function getSearchMovieQuery($search) {
+        $search = $search ? $search : array();
+        $data = array(
+            'column' => 'movie',
+            'type'=>'movie',
+            'category' => array('all'),
+            'area' => array('all'),
+            'time' => array('all'),
+            'keywords' => $search,
+            'order' => 'year desc'
+        );
+        $this->request->session('movie_query', json_encode($data));
+        return $data;
+    }
+
+    public function getAllMovies() {
+        $data = array(
+            'column' => 'movie',
+            'type'=>'movie',
+            'category' => array('all'),
+            'area' => array('all'),
+            'time' => array('all'),
+            'keywords' => array(),
+            'order' => 'year desc'
+        );
+        $this->request->session('movie_query', json_encode($data));
+        return $data;
+    }
+
+    public function getSerials($serial) {
+        $data = array(
+            'column' => 'movie',
+            'type'=>$serial,
+            'category' => array('all'),
+            'area' => array('all'),
+            'time' => array('all'),
+            'keywords' => array(),
+            'order' => 'year desc'
+        );
+//        $this->request->session('movie_query', json_encode($data));
+        return $data;
+    }
 
 	protected function updateQuery($type = 'column', $data = 'movie') {
 		$query = $this->getMovieQuery();

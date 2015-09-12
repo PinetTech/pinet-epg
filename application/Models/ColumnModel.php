@@ -13,6 +13,7 @@ use Pinet\EPG\Core\FilterAction;
  * @date Sat Aug 29 15:57:57 2015
  *
  * @Clips\Library("sling")
+ * @Clips\Model({"movie"})
  */
 class ColumnModel extends DBModel {
 
@@ -91,16 +92,34 @@ class ColumnModel extends DBModel {
 	}
 
     public function getNav() {
-		$actions = array();
-
-		foreach($this->getAllColumns() as $item) {
-			$item->type = 'server'; 
-			$item->content = '/column/show/'.$item->name; 
-			$action = new \Pinet\EPG\Core\ColumnAction($item);
-			$actions []= $action;
-		}
-		return $actions;
+        $request = \Clips\context('request');
+        if($request)
+            $all_movies=$request->session('all_movies');
+        $arr=array();
+        foreach($all_movies as $k=>$v){
+            $arr[$k]['name']=$all_movies[$k]->title;
+            $arr[$k]['label']=$all_movies[$k]->title;
+            $arr[$k]['content']='/movie/play/'.$all_movies[$k]->id;
+        }
+        $args=array();
+        $serial_movies=$request->session('serial_movies');
+        foreach($serial_movies as $k=>$v){
+            $args[$k]['name']=$serial_movies[$k]->title;
+            $args[$k]['label']=$serial_movies[$k]->title;
+            $args[$k]['content']='/movie/play/'.$serial_movies[$k]->id;
+        }
+        $ser=array($arr,$args);
+        $actions = array();
+        foreach($this->getAllColumns() as $k=> $item) {
+            $item->type = 'server';
+            $item->content = '/column/show/'.$item->name;
+            $item->children = $ser[$k];
+            $action = new \Pinet\EPG\Core\ColumnAction($item);
+            $actions []= $action;
+        }
+        return $actions;
     }
+
 
     /**
      * Get all the movies of this column

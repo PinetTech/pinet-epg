@@ -26,7 +26,7 @@ class ColumnAction extends SimpleTreeNode implements Action {
 	}
 
 	protected function nodeClass() {
-		return "\\Clips\\SiftAction";
+		return "\\Pinet\\EPG\\Core\\ColumnAction";
 	}
 
 	public function active() {
