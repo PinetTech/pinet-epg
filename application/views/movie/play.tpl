@@ -42,7 +42,7 @@
         {swiper class="tab__nav"}
         {swiper__wrapper items=$tab}
         {literal}
-            {swiper__slide}{a href="http://www.pinet.co"}{$item}{/a}{/swiper__slide}
+            {swiper__slide}{a href="javascript:void(0)"}{$item}{/a}{/swiper__slide}
         {/literal}
         {/swiper__wrapper}
         {/swiper}

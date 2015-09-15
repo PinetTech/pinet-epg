@@ -44,7 +44,7 @@ class ColumnModel extends DBModel {
 
         $ret = array();
 
-        foreach(array('category' => '类别', 'area' => '区域', 'time' => '时间') as $a => $label) {
+        foreach(array('area' => '区域', 'time' => '时间') as $a => $label) {
             $children = array();
 
             foreach($this->{'get'.ucfirst($a)}() as $k => $v) {
@@ -73,9 +73,11 @@ class ColumnModel extends DBModel {
         $result = array();
 
         foreach($cols as $col) {
-            $col->url = \Clips\site_url('/column/show/'.$col->name);
-            $col->videos = $this->getMovies($col->name);
-            $result []= $col;
+			if($col->name == 'movie' || $col->name == 'serials') {
+				$col->url = \Clips\site_url('/column/show/'.$col->name);
+				$col->videos = $this->getMovies($col->name);
+				$result []= $col;
+			}
         }
 		return $result;
     }
@@ -111,11 +113,13 @@ class ColumnModel extends DBModel {
         $ser=array($arr,$args);
         $actions = array();
         foreach($this->getAllColumns() as $k=> $item) {
-            $item->type = 'server';
-            $item->content = '/column/show/'.$item->name;
-            $item->children = $ser[$k];
-            $action = new \Pinet\EPG\Core\ColumnAction($item);
-            $actions []= $action;
+			if($item->name == 'movie' || $item->name =='serials') {
+				$item->type = 'server';
+				$item->content = '/column/show/'.$item->name;
+				$item->children = $ser[$k];
+				$action = new \Pinet\EPG\Core\ColumnAction($item);
+				$actions []= $action;
+			}
         }
         return $actions;
     }
@@ -172,6 +176,8 @@ class ColumnModel extends DBModel {
 	public function getColumns($navs){
 		$columns = array();
 		foreach ($navs as $k=>$nav) {
+			if($k != 'movie' || $k != 'serials')
+				continue;
 			$videos = array();
 			$movies = $this->video->getTitlesByColumn($nav->column_id,6);
 			foreach ($movies as $movie) {

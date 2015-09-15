@@ -48,9 +48,7 @@ class SearchController extends BaseController
 			'movies'=>$movies,
 			"tab"=>array(
 				"navs"=>array(
-					'全部',
-					'电影',
-					'电视剧'
+					'首页'
 				),
 				"contents"=>array(
 					(object)array('title'=>'movie1','info'=>'sdsdsdsdsds'),

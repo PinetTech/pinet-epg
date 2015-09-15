@@ -42,7 +42,7 @@
                             {swiper class="tab__nav"}
                                 {swiper__wrapper items=$tab['navs']}
                                     {literal}
-                                        {swiper__slide}{a href="http://www.baidu.com"}{$item}{/a}{/swiper__slide}
+                                        {swiper__slide}{a uri="/"}{$item}{/a}{/swiper__slide}
                                     {/literal}
                                 {/swiper__wrapper}
                             {/swiper}
@@ -60,15 +60,17 @@
                                            <figure class="movie">
                                             {resimg data-image=$v->poster_normal class="mobile__thumb"}
                                             <div class="movie__info">
-                                                <figcaption class="movie__title title">{$v->asset_name}</figcaption>
+                                                <figcaption class="movie__title title">{$v->title}</figcaption>
                                                 <div class="movie__des">
                                                     <dl>
                                                         <dt>别名</dt>
-                                                        <dd>{$v->asset_name}</dd>
+                                                        <dd>{$v->title}</dd>
                                                         <dt>地区</dt>
                                                         <dd>{$v->area}</dd>
+														<!--
                                                         <dt>类型</dt>
                                                         <dd>{$v->program_type_name}</dd>
+														-->
                                                         <dt>简介</dt>
                                                         <dd>{$v->summary_short}</dd>
                                                     </dl>
