@@ -53,16 +53,16 @@ class ColumnModel extends DBModel {
                 $action->label = $v;
 				$action->mode = $a;
 				$action->mode_value = $k;
-                $action->content = '/column/show/movie/'.$a.'/'.$k;
+                $action->content = '/column/show/'.$col.'/'.$a.'/'.$k;
                 $children []= $action;
             }
 
-            $col = new SimpleAction(array(
+            $c = new SimpleAction(array(
                 'label' => $label,
                 'children' => $children
             ));
 
-            $ret []= $col;
+            $ret []= $c;
         }
 
         return $ret;

@@ -465,6 +465,14 @@ $movie-sel: get-module("movie", "selector");
                         -ms-flex: 1;
                             -webkit-box-flex: 1;
                             flex: 1;
+
+                    > li {
+                        &.active {
+                            > a {
+                                color: #ff8f00;
+                            }
+                        }
+                    }
                 }
 
                 .sub-navi > li > a {
