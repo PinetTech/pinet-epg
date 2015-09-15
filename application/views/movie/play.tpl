@@ -91,7 +91,7 @@
                 {foreach $sames as $v}
                     <figure class="movie">
                         {a uri="movie/play/{$v->id}"}
-                        {resimg data-image=$v->sourceurl class="movie__thumb"}
+                        {resimg data-image=$v->poster_small class="movie__thumb"}
                         {/a}
                         <figcaption class="movie__title">{$v->asset_name}</figcaption>
                         <div class="movie__views">

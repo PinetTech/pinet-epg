@@ -16,7 +16,7 @@ filters:
 helpers:
     - web
     - html
-babel: /opt/local/bin/node /opt/local/bin/babel
+#babel: /opt/local/bin/node /opt/local/bin/babel
 default_view: Smarty
 widget_cache: true
 #debug_sass: true

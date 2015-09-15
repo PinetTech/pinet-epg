@@ -12,6 +12,18 @@ use Clips\Model;
  */
 class MovieModel extends Model {
 
+	public function queryFront($column = 'movie') {
+		return array_map(function($item){
+			$item->poster_normal = $item->id.'/'.$item->poster_normal;
+			$item->poster_small = $item->id.'/'.$item->poster_small;
+			$item->poster = $item->id.'/'.$item->poster;
+			return $item;
+		}, $this->sling->data("/mms.json", array(
+			"type" => "front",
+			"column" => $column
+		)));
+	}
+
 	/**
 	 * Query the movies based on:
 	 *

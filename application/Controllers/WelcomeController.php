@@ -20,13 +20,14 @@ class WelcomeController extends BaseController
 		$this->title('Pinet Home Page',true);
 		$this->request->session('column_id', null);
 		$this->request->session('search', null);
+		$this->updateQuery('column', 'movie');
 		return $this->render('welcome/index', array(
             'columns' => $this->column->getFrontPageColumns(),
 			'nav' => true,
             'actions' => $this->column->getNav(),
 			'slider' => true,
 			'column' => true,
-            'items' =>  $this->column->getMovies('movie')
+            'items' =>  $this->movie->queryFront('movie')
 		));
 	}
 }

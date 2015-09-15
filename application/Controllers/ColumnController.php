@@ -11,15 +11,19 @@ use Clips\Controller;
  * @date Sat Aug 29 16:03:48 2015
  *
  * @Clips\Model({"column", "movie"})
- * @Clips\Widget({"html", "lang", "grid"})
+ * @Clips\Widget({"html", "lang", "grid", "image"})
  */
 class ColumnController extends BaseController {
 
 	/**
-	 * @Clips\Model("movie")
+	 * @Clips\Form({"search"})
+	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Scss("construction")
 	 */
 	public function test() {
-		var_dump($this->movie->queryMovies($this->getMovieQuery()));
+		return $this->render('construction', array(
+        	'actions' => $this->column->getNav()
+		));
 	}
 
     /**
@@ -30,9 +34,9 @@ class ColumnController extends BaseController {
      */
     public function show($name = '', $filter = 'new', $filter_value = 'all') {
         if($name) {
-            $all_movies = $this->movie->queryMovies($this->getSerials($name));
-            $this->request->session('all_movies',$all_movies);
-            $this->request->session('sift_name',$name);
+            $all_movies = $this->movie->queryFront($name);
+//          $this->request->session('all_movies',$all_movies);
+//          $this->request->session('sift_name',$name);
             $this->title('Pinet Home Page',true);
             $col = $this->column->getColumnByName($name);
 			$this->updateQuery('column', $name);
@@ -57,6 +61,7 @@ class ColumnController extends BaseController {
                 return $this->render('movie/list', array(
                     'sifts' => $this->column->getTypeNav($col->name),
                     'movies' => $movies,
+					'column_name' => $col->label,
                     'items' => $all_movies,
 					'tab' => array(
 						'navs' => array(

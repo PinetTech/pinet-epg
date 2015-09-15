@@ -14,11 +14,11 @@
                 {/form}
                 <div class="actionbar__back">
                 	<i class="fa fa-chevron-left"></i>
-                    <a href="" class="button">{lang}电影{/lang}</a>
+                    {a uri="/" class="button"}{lang}{$column_name}{/lang}{/a}
                 </div>
                 <div class="actionbar__switch">
-                	<a href="" class="switch__recommendation">{lang}Recommend{/lang}</a>
-                	<a href="" class="switch__filter active">{lang}Sift{/lang}</a>
+                	<a href="" class="switch__recommendation">{lang}推荐{/lang}</a>
+                	<a href="" class="switch__filter active">{lang}过滤{/lang}</a>
                 </div>
                 <div class="actionbar__search">
 	                {a uri="movie/hot" class="button"}<i class="fa fa-search"></i>{/a}
@@ -44,9 +44,9 @@
 				{sect class="types"}
 					<div class="movie-filter">
 						<div class="list">
-							<a href="" class="title">{lang}Sort{/lang}</a>
-							<a href="" class="hot active">{lang}Hottest{/lang}</a>
-							<a href="" class="new">{lang}Latest{/lang}</a>
+							<a href="" class="title">{lang}排序{/lang}</a>
+							<a href="" class="hot active">{lang}最热{/lang}</a>
+							<a href="" class="new">{lang}最新{/lang}</a>
 						</div>
 					</div>
 					{navigation id="movietypes" class="movietypes" actions=$sifts}

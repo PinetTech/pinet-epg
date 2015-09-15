@@ -4,7 +4,7 @@ use Pinet\EPG\Core\BaseController;
 use Clips\Controller;
 
 /**
- * @Clips\Widget({"html", "lang", "grid"})
+ * @Clips\Widget({"html", "lang", "grid", "image"})
  * @Clips\MessageBundle(name="movie")
  */
 class MovieController extends BaseController
@@ -104,6 +104,7 @@ VIDEOJS_SWF
         ));
 		*/
 
+		$col = $this->getMovieQuery()->column;
 		$sames = $this->movie->queryMovies($this->getSerials('movie'));
         $this->title($movie->title,true);
 
@@ -126,6 +127,14 @@ VIDEOJS_SWF
 		    'actions'=>$this->column->getNav(),
 	        'movie'=>$movie,
 	        'sames'=>$sames,
+			'returnColumn' => (object) array(
+				'url' => ('column/show/'.$col)
+			),
+			"tab"=>array(
+                '简介',
+                '剧集',
+                '相关'
+            ),
 		    'seriesList'=>$seriesList
 	    ));
     }
