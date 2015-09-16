@@ -442,13 +442,7 @@ $movie-sel: get-module("movie", "selector");
                             > dt:after {
                                 content: ": ";
                             }
-                           // > dt:nth-of-type(3) {
-                               // float: none;
-                              //  margin-top: calc-res(74px);
-                           // }
-
                             > dd:nth-of-type(3) {
-                               // margin-left: 0;
                             }
                         }                
                     }

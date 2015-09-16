@@ -28,10 +28,8 @@ class SearchController extends BaseController
 	public function movie() {
         $ks = $this->movie->queryMovies($this->getMovieQuery());
 		$this->request->session('sift',null);
-		$search = $this->request->post('search') ? $this->request->post('search') : $this->request->get('search');
-		$columnID = $this->request->post('column_id');
-		$this->request->session('column_id', $columnID);
-		$this->request->session('search', $search);
+		$search = explode(' ', $this->request->param('search'));
+
 //		$titles = $this->title->getTitlesByHotKey($search, $columnID);
 //		foreach ($titles as $k=>$v) {
 //			$titles[$k]->url = \Clips\static_url('movie/play/'.$v->id);

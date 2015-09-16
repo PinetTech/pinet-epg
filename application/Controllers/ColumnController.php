@@ -44,6 +44,7 @@ class ColumnController extends BaseController {
             if($filter=='new' || $filter=='hot'){
                $this->request->session('new_type',$filter);
             }
+			$filter_value = urldecode($filter_value);
 			switch($filter) {
 			case 'new':
 				$query = $this->updateQuery('order', 'year desc');

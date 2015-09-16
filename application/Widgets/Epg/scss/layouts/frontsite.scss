@@ -409,9 +409,9 @@ $menu-icons-length: length($menu-icons);
             padding-bottom: calc-res(84px);
             .icon {
                 display: block;
-                width: calc-res(107.5px);
-                height: calc-res(107.5px);
-                line-height: calc-res(107.5px);
+                width: calc-res(109.5px);
+                height: calc-res(109.5px);
+                line-height: calc-res(109.5px);
                 border-radius: 50%;      
                 margin: 0 auto;
             }            
@@ -420,6 +420,7 @@ $menu-icons-length: length($menu-icons);
                 > a {
                     position: relative;
                     top: calc-res(20px);
+					left:10%;
                     color: transparent;
                 }
                 &:hover > a {

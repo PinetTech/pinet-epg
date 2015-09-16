@@ -60,12 +60,11 @@ class BaseController extends Controller implements Initializable {
     public function getSearchMovieQuery($search) {
         $search = $search ? $search : array();
         $data = array(
-            'column' => 'movie',
-            'type'=>'movie',
+            'type'=>'all',
             'category' => array('all'),
             'area' => array('all'),
             'time' => array('all'),
-            'keywords' => $search,
+            'keywords' => ($search),
             'order' => 'year desc'
         );
         $this->request->session('movie_query', json_encode($data));
