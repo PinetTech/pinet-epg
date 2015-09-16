@@ -63,6 +63,8 @@
                 <div class="movie-infomation__body">
                     <h3 class="movie-info__title">{$movie->asset_name}</h3>
                     <dl class="movie-info__des">
+                        <dt>{lang}名称{/lang}</dt>
+                        <dd>{$movie->title}</dd>
                         <dt>{lang}主演{/lang}</dt>
                         <dd>{$movie->actors}</dd>
                         <dt>{lang}导演{/lang}</dt>
@@ -80,7 +82,7 @@
                         <li class="active">{a uri="/movie/play/{$column_id}"}1{/a}</li>
                     {else}
                         {foreach $seriesList as $v}
-                            <li class="{$v['active']}">{a uri="/movie/play/{$v['titleID']}"}{$v['episode']}{/a}</li>
+                            <li class="{$v['active']}">{a href="{$v['url']}"}{$v['episode']}{/a}</li>
                         {/foreach}
                     {/if}
                 </ul>

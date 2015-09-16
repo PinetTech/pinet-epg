@@ -87,6 +87,7 @@ $movie-sel: get-module("movie", "selector");
                     @include position-center-center(absolute);
                     width: calc-res(340px);
                     height: calc-res(106px);
+					line-height: calc-res(106px);
                     border-radius: 0;
                     display: flex;
                     justify-content: center;
@@ -340,6 +341,7 @@ $movie-sel: get-module("movie", "selector");
                 @include position-center-center(absolute);
                 width: res(mobile-to-pc(124px));
                 height: res(mobile-to-pc(38px));
+				line-height: res(mobile-to-pc(38px));
                 border-radius: 0;
                 display: flex;
                 justify-content: center;
@@ -431,19 +433,22 @@ $movie-sel: get-module("movie", "selector");
                             margin: 0; 
                             padding-top: res(mobile-to-pc(29px));                  
                         }
-                        .movie-infomation__des {
+                        .movie-info__des {
                             > dt {
-                                float: left;
+								font-weight:bold;
+                               // float: left;
+								display: block;
                             }
                             > dt:after {
                                 content: ": ";
                             }
-                            > dt:nth-of-type(3) {
-                                float: none;
-                                margin-top: calc-res(74px);
-                            }
+                           // > dt:nth-of-type(3) {
+                               // float: none;
+                              //  margin-top: calc-res(74px);
+                           // }
+
                             > dd:nth-of-type(3) {
-                                margin-left: 0;
+                               // margin-left: 0;
                             }
                         }                
                     }

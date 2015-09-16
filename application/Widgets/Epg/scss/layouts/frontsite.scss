@@ -429,7 +429,7 @@ $menu-icons-length: length($menu-icons);
             &__link:first-child {
                 margin-left: 0;
             }            
-            $icons: "huazhu", "pinet", "weibo", "weixin";
+            $icons: "meiling", "pinet", "weibo", "weixin";
             $iconlength: length($icons);
             @for $i from 1 through $iconlength {
                 &__link:nth-child(#{$i}) .icon {

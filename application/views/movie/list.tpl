@@ -71,6 +71,7 @@
 			            {swiper class="tab__content"}
 			                {swiper__wrapper}
 			                    {swiper__slide}
+									 <div class="movie-content" more="1">
 				                    {foreach $movies as $v}
 					                    <figure class="movie">
 						                    {a uri="movie/play/{$v->id}"}
@@ -85,6 +86,7 @@
 					                        </div>
 					                    </figure>
 			                    	{/foreach}
+									</div>
 			                    {/swiper__slide}
 			                {/swiper__wrapper}
                             <div class="shaft-load">
@@ -104,15 +106,15 @@
 				{/sect}
 			</div>
 		</main>
-        {template id="movie-template"}
+        {template id="movie-template" more="1"}
         {literal}
             <figure class="movie" page="{{page}}">
                 <a href="{{url}}">
-                    <div data-image="{{sourceurl}}" class="responsive mobile__thumb">
+                    <div data-image="{{poster_normal}}" class="responsive mobile__thumb">
                         <img class="mobile__thumb" src="">
                     </div>
                 </a>
-                <figcaption class="movie__title">{{asset_name}}</figcaption>
+                <figcaption class="movie__title">{{title}}</figcaption>
                 <div class="movie__views">
                     <div class="count-number">
                         <div class="count-number__icon"></div>

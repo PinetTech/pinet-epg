@@ -109,6 +109,12 @@ class BaseController extends Controller implements Initializable {
 		else if($type == 'order') {
 			$query->order = $data;
 		}
+		else if($type == 'type') {
+			$query->type = $data;
+		}
+		else if($type == 'limit') {
+			$query->limit = $data;
+		}
 		else {
 			if($data == 'all') {
 				$query->$type = array('all');

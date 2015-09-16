@@ -43,7 +43,7 @@ $(function(){
 
         var source   = $("#movie-template").html();
 
-        //var template = Handlebars.compile(source);
+        var template = Handlebars.compile(source);
 
         var page = 0;
 
@@ -59,9 +59,9 @@ $(function(){
                 showShaftLoad = false;
                 $('.tab .shaft-load').addClass('show');
 
-                $.post(Clips.siteUrl('movie/getMore/'+(++page)), {
-
+                $.get(Clips.siteUrl('column/more/'+(++page)), {
                 }, function(data){
+					data.movies = data;
                     if(data && data.movies && data.movies.length > 0) {
                         var pagesection = $('.tab .tab__content .movie-content');
                         $(data.movies).each(function(k, v){
@@ -79,6 +79,8 @@ $(function(){
 
         function render(context, content) {
             var html = template(content);
+			console.info(html);
+			console.info(context);
             $('.tab').find(context).append(html);
         }
 

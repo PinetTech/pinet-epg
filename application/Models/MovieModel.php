@@ -33,7 +33,7 @@ class MovieModel extends Model {
 	 * 4. Time *
 	 * 5. Keyword *
 	 */
-	public function queryMovies($query, $offset = 0, $limit = 10) {
+	public function queryMovies($query, $offset = 0, $limit = 9) {
 		$query = (array) $query;
 		$query['offset'] = $offset;
 		$query['limit'] = $limit;
@@ -43,7 +43,8 @@ class MovieModel extends Model {
 		return array_map(function($item){
 			$item->poster_normal = $item->id.'/'.$item->poster_normal;
 			$item->poster_small = $item->id.'/'.$item->poster_small;
-			$item->poster = $item->id.'/'.$item->poster;
+			if($item->poster)
+				$item->poster = $item->id.'/'.$item->poster;
 			return $item;
 		}, $this->sling->data("/mms.json", array(
 			'type' => 'movie',

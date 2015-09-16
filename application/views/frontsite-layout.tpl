@@ -26,11 +26,7 @@
 	        	<div class="site-share">
 	        		<div class="site-share__link">
 	        			<i class="icon"></i>
-	        			<a href="">派尔微博</a>
-	        		</div>
-	        		<div class="site-share__link">
-	        			<i class="icon"></i>
-	        			<a href="">派尔公众号</a>
+	        			<a href="">美菱集团</a>
 	        		</div>
 	        		<div class="site-share__link">
 	        			<i class="icon"></i>
@@ -38,7 +34,11 @@
 	        		</div>
 	        		<div class="site-share__link">
 	        			<i class="icon"></i>
-	        			<a href="">华住集团</a>
+	        			<a href="">派尔微博</a>
+	        		</div>
+	        		<div class="site-share__link">
+	        			<i class="icon"></i>
+	        			<a href="">派尔公众号</a>
 	        		</div>
 	        	</div>
 	            <ul class="site-map">

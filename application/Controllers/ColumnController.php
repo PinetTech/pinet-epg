@@ -28,7 +28,7 @@ class ColumnController extends BaseController {
 
     /**
 	 * @Clips\Form({"search"})
-	 * @Clips\Widget({"epg", "navigation", "image"})
+	 * @Clips\Widget({"epg", "navigation", "image", "handlebars"})
 	 * @Clips\Scss({"welcome/list"})
 	 * @Clips\Js({"application/static/js/welcome/list.js"})
      */
@@ -40,6 +40,7 @@ class ColumnController extends BaseController {
             $this->title('Pinet Home Page',true);
             $col = $this->column->getColumnByName($name);
 			$this->updateQuery('column', $name);
+			$this->updateQuery('type', $name);
             if($filter=='new' || $filter=='hot'){
                $this->request->session('new_type',$filter);
             }
@@ -75,5 +76,9 @@ class ColumnController extends BaseController {
         }
 
         return $this->redirect(\Clips\site_url(''));
+    }
+
+    public function more($page){
+		return $this->json($this->movie->queryMovies($this->getMovieQuery(), $page * 9, 9));
     }
 }
