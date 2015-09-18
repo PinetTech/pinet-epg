@@ -558,7 +558,7 @@ $menu-icons-length: length($menu-icons);
             &__link:nth-child(2) {
                 margin-bottom: res(mobile-to-pc(16.3px));
             }
-            $icons: "huazhu", "pinet", "weibo", "weixin";
+            $icons: "meiling", "pinet", "weibo", "weixin";
             $iconlength: length($icons);
             @for $i from 1 through $iconlength {
                 &__link:nth-child(#{$i}) .icon {
